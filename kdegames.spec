@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	0.3
+Release:	0.4
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -23,7 +23,9 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 # generated from kde-i18n - need update!
 Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	510dc744a3918fc932d9f7497638eeba
-#Patch0:		%{name}-kpatcards.patch
+Source2:	%{name}-extra_icons.tar.bz2
+# Source2-md5:	26cab4490d7800c69a6a224b949a8369
+#Patch0:	%{name}-kpatcards.patch
 BuildRequires:	arts-devel
 BuildRequires:	arts-kde-devel >= 8:%{version}
 BuildRequires:	ed
@@ -703,6 +705,13 @@ cd $RPM_BUILD_ROOT%{_pixmapsdir}
 mv {locolor,crystalsvg}/16x16/apps/lskat.png
 cd -
 
+bzip2 -dc %{SOURCE2} | tar xf - -C $RPM_BUILD_ROOT%{_pixmapsdir}
+for i in {atlantik,kasteroids,kbackgammon,kblackbox,kenolaba,kmines}.png \
+	 {kolf,konquest,kpoker,kreversi,ksame,kshisen,ksirtet}.png \
+	 {ksmiletris,ksnake,ksokoban,kwin4,lskat}.png; do
+	ln -s crystalsvg/48x48/apps/$i $RPM_BUILD_ROOT%{_pixmapsdir}/$i
+done
+
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang	atlantik		--with-kde
@@ -807,6 +816,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/atlantik.protocol
 %{_applnkdir}/Games/Board/atlantik.desktop
 %{_pixmapsdir}/*/*/apps/atlantik.png
+%{_pixmapsdir}/atlantik.png
 %{_mandir}/man6/atlantik.*
 
 #################################################
@@ -819,6 +829,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kasteroids
 %{_applnkdir}/Games/Arcade/kasteroids.desktop
 %{_pixmapsdir}/*/*/apps/kasteroids.png
+%{_pixmapsdir}/kasteroids.png
 %{_mandir}/man6/kasteroids.*
 
 #################################################
@@ -831,6 +842,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/katomic
 %{_applnkdir}/Games/Strategy/katomic.desktop
 %{_pixmapsdir}/*/*/apps/katomic.png
+%{_pixmapsdir}/katomic.png
 %{_mandir}/man6/katomic.*
 
 #################################################
@@ -843,6 +855,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbackgammon
 %{_applnkdir}/Games/Board/kbackgammon.desktop
 %{_pixmapsdir}/*/*/apps/kbackgammon*.png
+%{_pixmapsdir}/kbackgammon.png
 %{_mandir}/man6/kbackgammon.*
 
 #################################################
@@ -855,6 +868,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbattleship
 %{_applnkdir}/Games/Board/kbattleship.desktop
 %{_pixmapsdir}/*/*/apps/kbattleship.png
+%{_pixmapsdir}/kbattleship.png
 %{_mandir}/man6/kbattleship.*
 
 #################################################
@@ -867,6 +881,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kblackbox
 %{_applnkdir}/Games/Board/kblackbox.desktop
 %{_pixmapsdir}/*/*/apps/kblackbox.png
+%{_pixmapsdir}/kblackbox.png
 %{_mandir}/man6/kblackbox.*
 
 #################################################
@@ -879,6 +894,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbounce
 %{_applnkdir}/Games/Arcade/kbounce.desktop
 %{_pixmapsdir}/[!l]*/*/*/kbounce*
+%{_pixmapsdir}/kbounce.png
 %{_mandir}/man6/kbounce.*
 
 #################################################
@@ -891,6 +907,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kenolaba
 %{_applnkdir}/Games/Board/kenolaba.desktop
 %{_pixmapsdir}/*/*/*/kenolaba*
+%{_pixmapsdir}/kenolaba.png
 %{_mandir}/man6/kenolaba.*
 
 #################################################
@@ -914,6 +931,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kjumpingcube
 %{_applnkdir}/Games/Strategy/kjumpingcube.desktop
 %{_pixmapsdir}/*/*/apps/kjumpingcube.png
+%{_pixmapsdir}/kjumpingcube.png
 %{_mandir}/man6/kjumpingcube.*
 
 #################################################
@@ -937,6 +955,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/klines
 %{_applnkdir}/Games/Strategy/klines.desktop
 %{_pixmapsdir}/*/*/apps/klines.png
+%{_pixmapsdir}/klines.png
 %{_mandir}/man6/klines.*
 
 #################################################
@@ -949,6 +968,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kmahjongg
 %{_applnkdir}/Games/Board/kmahjongg.desktop
 %{_pixmapsdir}/*/*/apps/kmahjongg.png
+%{_pixmapsdir}/kmahjongg.png
 %{_mandir}/man6/kmahjongg.*
 
 #################################################
@@ -961,6 +981,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kmines
 %{_applnkdir}/Games/Strategy/kmines.desktop
 %{_pixmapsdir}/*/*/apps/kmines.png
+%{_pixmapsdir}/kmines.png
 %{_mandir}/man6/kmines.*
 
 #################################################
@@ -979,6 +1000,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/*
 %{_applnkdir}/Games/Arcade/kolf.desktop
 %{_pixmapsdir}/*/*/apps/kolf.png
+%{_pixmapsdir}/kolf.png
 %{_mandir}/man6/kolf.*
 
 #################################################
@@ -991,6 +1013,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konquest
 %{_applnkdir}/Games/Strategy/konquest.desktop
 %{_pixmapsdir}/*/*/apps/konquest.png
+%{_pixmapsdir}/konquest.png
 %{_mandir}/man6/konquest.*
 
 #################################################
@@ -1003,6 +1026,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kpat
 %{_applnkdir}/Games/Card/kpat.desktop
 %{_pixmapsdir}/*/*/apps/kpat.png
+%{_pixmapsdir}/apps/kpat.png
 %{_mandir}/man6/kpat.*
 
 #################################################
@@ -1015,6 +1039,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kpoker
 %{_applnkdir}/Games/Card/kpoker.desktop
 %{_pixmapsdir}/*/*/apps/kpoker.png
+%{_pixmapsdir}/kpoker.png
 %{_mandir}/man6/kpoker.*
 
 #################################################
@@ -1027,6 +1052,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kreversi
 %{_applnkdir}/Games/Board/kreversi.desktop
 %{_pixmapsdir}/*/*/apps/kreversi.png
+%{_pixmapsdir}/kreversi.png
 %{_mandir}/man6/kreversi.*
 
 #################################################
@@ -1039,6 +1065,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksame
 %{_applnkdir}/Games/Strategy/ksame.desktop
 %{_pixmapsdir}/*/*/apps/ksame.png
+%{_pixmapsdir}/ksame.png
 %{_mandir}/man6/ksame.*
 
 #################################################
@@ -1051,6 +1078,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kshisen
 %{_applnkdir}/Games/Board/kshisen.desktop
 %{_pixmapsdir}/*/*/apps/kshisen.png
+%{_pixmapsdir}/kshisen.png
 %{_mandir}/man6/kshisen.*
 
 #################################################
@@ -1063,6 +1091,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksirtet
 %{_applnkdir}/Games/Arcade/ksirtet.desktop
 %{_pixmapsdir}/*/*/apps/ksirtet.png
+%{_pixmapsdir}/ksirtet.png
 %{_mandir}/man6/ksirtet.*
 
 #################################################
@@ -1075,6 +1104,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksmiletris
 %{_applnkdir}/Games/Arcade/ksmiletris.desktop
 %{_pixmapsdir}/*/*/apps/ksmiletris.png
+%{_pixmapsdir}/ksmiletris.png
 %{_mandir}/man6/ksmiletris.*
 
 #################################################
@@ -1087,6 +1117,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksnake
 %{_applnkdir}/Games/Arcade/ksnake.desktop
 %{_pixmapsdir}/*/*/apps/ksnake.png
+%{_pixmapsdir}/ksnake.png
 %{_mandir}/man6/ksnake.*
 
 #################################################
@@ -1098,6 +1129,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_applnkdir}/Games/Strategy/ksokoban.desktop
 %{_pixmapsdir}/*/*/apps/ksokoban.png
+%{_pixmapsdir}/ksokoban.png
 %{_mandir}/man6/ksokoban.*
 
 #################################################
@@ -1110,6 +1142,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kspaceduel
 %{_applnkdir}/Games/Arcade/kspaceduel.desktop
 %{_pixmapsdir}/[!l]*/*/apps/kspaceduel.png
+%{_pixmapsdir}/kspaceduel.png
 %{_mandir}/man6/kspaceduel.*
 
 #################################################
@@ -1122,6 +1155,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ktron
 %{_applnkdir}/Games/Arcade/ktron.desktop
 %{_pixmapsdir}/*/*/apps/ktron.png
+%{_pixmapsdir}/ktron.png
 %{_mandir}/man6/ktron.*
 
 #################################################
@@ -1134,6 +1168,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ktuberling
 %{_applnkdir}/Amusements/ktuberling.desktop
 %{_pixmapsdir}/*/*/apps/ktuberling.png
+%{_pixmapsdir}/ktuberling.png
 %{_mandir}/man6/ktuberling.*
 
 #################################################
@@ -1146,6 +1181,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kwin4
 %{_applnkdir}/Games/Board/kwin4.desktop
 %{_pixmapsdir}/*/*/apps/kwin4.png
+%{_pixmapsdir}/kwin4.png
 %{_mandir}/man6/kwin4.*
 
 
@@ -1160,6 +1196,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/lskat
 %{_applnkdir}/Games/Card/lskat.desktop
 %{_pixmapsdir}/[!l]*/*/apps/lskat.png
+%{_pixmapsdir}/lskat.png
 %{_mandir}/man6/lskat*
 
 #################################################
@@ -1172,4 +1209,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/megami
 %{_applnkdir}/Games/Card/megami.desktop
 %{_pixmapsdir}/*/*/apps/megami.png
+%{_pixmapsdir}/megami.png
 %{_mandir}/man6/megami.*
