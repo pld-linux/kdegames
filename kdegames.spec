@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc2
+%define		_kdever		kde-3.1-rc3
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -12,7 +12,7 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
-Version:	3.0.98
+Version:	3.0.99
 Release:	1
 Epoch:		7
 License:	GPL
