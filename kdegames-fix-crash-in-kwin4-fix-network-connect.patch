@@ -1,0 +1,13 @@
+--- kdegames-3.0.3/libkdegames/kgame/dialogs/kgamedialogconfig.cpp--	2002-08-27 10:34:46.000000000 +0200
++++ kdegames-3.0.3/libkdegames/kgame/dialogs/kgamedialogconfig.cpp	2002-08-27 10:35:09.000000000 +0200
+@@ -164,8 +164,8 @@ void KGameDialogNetworkConfig::slotInitC
+  kdDebug(11001) << k_funcinfo << endl;
+  bool connected = false;
+  bool master = true;
+- unsigned short int port = port = d->mConnect->port();
+- QString host = host = d->mConnect->host();
++ unsigned short int port = d->mConnect->port();
++ QString host = d->mConnect->host();
+  
+  if (host.isNull()) {
+ 	master = true;

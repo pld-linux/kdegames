@@ -1,0 +1,24 @@
+--- kdegames-3.0.3/kpat/kings.cpp--	2002-08-23 09:30:00.000000000 +0200
++++ kdegames-3.0.3/kpat/kings.cpp	2002-08-23 09:30:34.000000000 +0200
+@@ -16,6 +16,11 @@ Kings::Kings( KMainWindow* parent, const
+     }
+ }
+ 
++void Kings::demo()
++{
++    Dealer::demo();
++}
++
+ void Kings::deal() {
+     CardList cards = deck->cards();
+     CardList::Iterator it = cards.begin();
+--- kdegames-3.0.3/kpat/kings.h--	2002-08-23 09:30:03.000000000 +0200
++++ kdegames-3.0.3/kpat/kings.h	2002-08-23 09:31:17.000000000 +0200
+@@ -17,6 +17,7 @@ public:
+ 
+ public slots:
+     virtual void deal();
++    virtual void demo();
+ };
+ 
+ #endif

@@ -1,0 +1,244 @@
+--- kdegames-3.0.4/kbackgammon/kbackgammon.desktop~	Mon Nov 11 20:02:25 2002
++++ kdegames-3.0.4/kbackgammon/kbackgammon.desktop	Mon Nov 11 20:02:25 2002
+@@ -64,6 +64,6 @@
+ GenericName[zh_TW]=棋類遊戲
+ GenericName[zu]=Umdlalo webhodi
+ Terminal=0
+-Icon=kbackgammon
++Icon=kbackgammon.icon
+ X-KDE-StartupNotify=true
+ X-DCOP-ServiceType=Multi
+--- kdegames-3.0.4/katomic/katomic.desktop~	Mon Nov 11 19:52:44 2002
++++ kdegames-3.0.4/katomic/katomic.desktop	Mon Nov 11 19:52:44 2002
+@@ -9,7 +9,7 @@
+ Name[ven]=Athomu ya K
+ Name[xx]=xx
+ Name[zh_TW]=KAtomic 原子
+-Icon=katomic
++Icon=katomic.png
+ Type=Application
+ Exec=katomic %i %m -caption "%c"
+ DocPath=katomic/index.html
+--- kdegames-3.0.4/kasteroids/kasteroids.desktop~	Mon Nov 11 19:50:06 2002
++++ kdegames-3.0.4/kasteroids/kasteroids.desktop	Mon Nov 11 19:50:06 2002
+@@ -61,7 +61,7 @@
+ GenericName[zh_CN]=街机游戏
+ GenericName[zh_TW]=電子遊戲
+ GenericName[zu]=Arcade Umdlalo
+-Icon=kasteroids
++Icon=kasteroids.png
+ TerminalOptions=
+ Path=
+ DocPath=kasteroids/index.html
+--- kdegames-3.0.4/kbounce/kbounce.desktop~	Tue Nov 12 23:22:59 2002
++++ kdegames-3.0.4/kbounce/kbounce.desktop	Tue Nov 12 23:22:59 2002
+@@ -9,7 +9,7 @@
+ Type=Application
+ Exec=kbounce %i %m -caption "%c"
+ DocPath=kbounce/index.html
+-Icon=kbounce
++Icon=kbounce.png
+ 
+ GenericName=Arcade Game
+ GenericName[af]=Arkade Speletjie
+--- kdegames-3.0.4/kenolaba/kenolaba.desktop~	Tue Nov 12 23:28:13 2002
++++ kdegames-3.0.4/kenolaba/kenolaba.desktop	Tue Nov 12 23:28:13 2002
+@@ -4,7 +4,7 @@
+ Name[ar]=كينولابا
+ Name[eo]=Kenolabo
+ Name[xx]=xx
+-Icon=kenolaba
++Icon=kenolaba.png
+ Type=Application
+ Exec=kenolaba %i %m -caption "%c"
+ DocPath=kenolaba/index.html
+--- kdegames-3.0.4/kjumpingcube/kjumpingcube.desktop~	Tue Nov 12 23:29:49 2002
++++ kdegames-3.0.4/kjumpingcube/kjumpingcube.desktop	Tue Nov 12 23:29:49 2002
+@@ -25,7 +25,7 @@
+ Name[xx]=xx
+ Name[zh_TW]=KJumpingCube 跳躍立方體
+ Exec=kjumpingcube -caption "%c" %i %m
+-Icon=kjumpingcube
++Icon=kjumpingcube.png
+ Type=Application
+ BinaryPattern=kjumpingcube;
+ DocPath=kjumpingcube/index.html
+--- kdegames-3.0.4/kmahjongg/kmahjongg.desktop~	Tue Nov 12 23:37:21 2002
++++ kdegames-3.0.4/kmahjongg/kmahjongg.desktop	Tue Nov 12 23:37:21 2002
+@@ -55,6 +55,6 @@
+ GenericName[zh_TW]=麻將遊戲
+ GenericName[zu]=Umdlalo Wamathayizi
+ Terminal=0
+-Icon=kmahjongg
+--- kdegames-3.0.4/kmines/data/kmines.desktop~	Wed Nov 13 01:52:54 2002
++++ kdegames-3.0.4/kmines/data/kmines.desktop	Wed Nov 13 01:52:54 2002
+@@ -16,7 +16,7 @@
+ Name[xx]=xx
+ Name[zh_TW]=KMines 踩地雷
+ Name[zu]=KIzimayini
+-Icon=kmines
++Icon=kmines.png
+ Exec=kmines -caption "%c" %i %m
+ Type=Application
+ DocPath=kmines/index.html
+--- kdegames-3.0.4/konquest/konquest.desktop~	Wed Nov 13 01:53:44 2002
++++ kdegames-3.0.4/konquest/konquest.desktop	Wed Nov 13 01:53:44 2002
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Encoding=UTF-8
+-Icon=konquest
++Icon=konquest.png
+ Name=Konquest
+ Name[ar]=حرب المجرات
+ Name[bg]=Завоевание
+--- kdegames-3.0.4/kpat/kpat.desktop~	Wed Nov 13 01:54:36 2002
++++ kdegames-3.0.4/kpat/kpat.desktop	Wed Nov 13 01:54:36 2002
+@@ -44,7 +44,7 @@
+ Name[zu]=Ukubekezela
+ Exec=kpat %i %m -caption "%c"
+ Type=Application
+-Icon=kpat
++Icon=kpat.png
+ DocPath=kpat/index.html
+ GenericName=Card Games
+ GenericName[af]=Kaart Speletjies
+--- kdegames-3.0.4/kpoker/kpoker.desktop~	Wed Nov 13 01:55:13 2002
++++ kdegames-3.0.4/kpoker/kpoker.desktop	Wed Nov 13 01:55:13 2002
+@@ -16,7 +16,7 @@
+ Name[xx]=xx
+ Name[zh_TW]=KPoker 撲克牌
+ Exec=kpoker %i %m -caption "%c"
+-Icon=kpoker
++Icon=kpoker.png
+ Miniicon=kpoker.png
+ DocPath=kpoker/index.html
+ GenericName=Card Game
+--- kdegames-3.0.4/kreversi/kreversi.desktop~	Wed Nov 13 01:55:50 2002
++++ kdegames-3.0.4/kreversi/kreversi.desktop	Wed Nov 13 01:55:50 2002
+@@ -60,6 +60,6 @@
+ GenericName[zh_TW]=棋類遊戲
+ GenericName[zu]=Umdlalo webhodi
+ Terminal=0
+-Icon=kreversi
++Icon=kreversi.png
+ X-KDE-StartupNotify=true
+ X-DCOP-ServiceType=Multi
+--- kdegames-3.0.4/ksame/ksame.desktop~	Wed Nov 13 01:57:36 2002
++++ kdegames-3.0.4/ksame/ksame.desktop	Wed Nov 13 01:57:36 2002
+@@ -81,6 +81,6 @@
+ GenericName[zh_CN]=棋类游戏
+ GenericName[zh_TW]=棋類遊戲
+ GenericName[zu]=Umdlalo webhodi
+-Icon=ksame
++Icon=ksame.png
+ X-KDE-StartupNotify=true
+ X-DCOP-ServiceType=Multi
+--- kdegames-3.0.4/kshisen/kshisen.desktop~	Wed Nov 13 02:11:09 2002
++++ kdegames-3.0.4/kshisen/kshisen.desktop	Wed Nov 13 02:11:09 2002
+@@ -60,6 +60,6 @@
+ GenericName[zh_CN]=方块游戏
+ GenericName[zh_TW]=麻將遊戲
+ GenericName[zu]=Umdlalo Wamathayizi
+-Icon=kshisen
++Icon=kshisen.png
+ X-KDE-StartupNotify=true
+ X-DCOP-ServiceType=Multi
+--- kdegames-3.0.4/ksirtet/ksirtet/ksirtet.desktop~	Wed Nov 13 02:13:54 2002
++++ kdegames-3.0.4/ksirtet/ksirtet/ksirtet.desktop	Wed Nov 13 02:13:54 2002
+@@ -8,7 +8,7 @@
+ Name[ru]=Сиртетрис
+ Name[sv]=Ksirtet
+ Name[xx]=xx
+-Icon=ksirtet
++Icon=ksirtet.png
+ Exec=ksirtet -caption "%c" %i %m
+ Type=Application
+ DocPath=ksirtet/index.html
+--- kdegames-3.0.4/ksmiletris/ksmiletris.desktop~	Wed Nov 13 02:15:19 2002
++++ kdegames-3.0.4/ksmiletris/ksmiletris.desktop	Wed Nov 13 02:15:19 2002
+@@ -48,7 +48,7 @@
+ GenericName[zh_TW]=電子遊戲
+ GenericName[zu]=Arcade Umdlalo
+ Exec=ksmiletris -caption "%c" %i %m
+-Icon=ksmiletris
++Icon=ksmiletris.png
+ TerminalOptions=
+ Path=
+ DocPath=ksmiletris/index.html
+--- kdegames-3.0.4/ksnake/ksnake.desktop~	Wed Nov 13 02:26:15 2002
++++ kdegames-3.0.4/ksnake/ksnake.desktop	Wed Nov 13 02:26:15 2002
+@@ -21,7 +21,7 @@
+ Name[zh_CN]=贪吃蛇
+ Name[zh_TW]=KSnakeRace 貪食蛇
+ Name[zu]=UmJaho Wenyoka we K
+-Icon=ksnake
++Icon=ksnake.png
+ Exec=ksnake %i %m -caption "%c"
+ DocPath=ksnake/index.html
+ GenericName=Arcade Game
+--- kdegames-3.0.4/ksokoban/data/ksokoban.desktop~	Wed Nov 13 02:27:35 2002
++++ kdegames-3.0.4/ksokoban/data/ksokoban.desktop	Wed Nov 13 02:27:35 2002
+@@ -58,7 +58,7 @@
+ GenericName[zu]=Umdlalo Onengqondo
+ DocPath=ksokoban/index.html
+ Exec=ksokoban %i %m -caption "%c"
+-Icon=ksokoban
++Icon=ksokoban.png
+ Terminal=0
+ Type=Application
+ X-KDE-StartupNotify=true
+--- kdegames-3.0.4/kspaceduel/kspaceduel.desktop~	Wed Nov 13 03:49:21 2002
++++ kdegames-3.0.4/kspaceduel/kspaceduel.desktop	Wed Nov 13 03:49:21 2002
+@@ -67,7 +67,7 @@
+ GenericName[zh_CN]=街机游戏
+ GenericName[zh_TW]=電子遊戲
+ GenericName[zu]=Arcade Umdlalo
+-Icon=kspaceduel
++Icon=kspaceduel.png
+ TerminalOptions=
+ Path=
+ DocPath=kspaceduel/index.html
+--- kdegames-3.0.4/ktron/ktron.desktop~	Wed Nov 13 04:06:42 2002
++++ kdegames-3.0.4/ktron/ktron.desktop	Wed Nov 13 04:06:42 2002
+@@ -2,7 +2,7 @@
+ Encoding=UTF-8
+ Type=Application
+ Exec=ktron -caption "%c" %i %m
+-Icon=ktron
++Icon=ktron.png
+ DocPath=ktron/index.html
+ GenericName=Game
+ GenericName[af]=Speletjie
+--- kdegames-3.0.4/ktuberling/ktuberling.desktop~	Wed Nov 13 04:10:23 2002
++++ kdegames-3.0.4/ktuberling/ktuberling.desktop	Wed Nov 13 04:10:23 2002
+@@ -94,7 +94,7 @@
+ Type=Application
+ DocPath=ktuberling/index.html
+ Terminal=0
+-Icon=ktuberling
++Icon=ktuberling.png
+ MimeType=application/x-tuberling
+ X-KDE-StartupNotify=true
+ X-DCOP-ServiceType=Multi
+--- kdegames-3.0.4/kwin4/kwin4.desktop~	Wed Nov 13 04:33:45 2002
++++ kdegames-3.0.4/kwin4/kwin4.desktop	Wed Nov 13 04:33:45 2002
+@@ -57,7 +57,7 @@
+ GenericName[zh_TW]=策略遊戲
+ GenericName[zu]=Umdlalo Wendlela Yokuphumelela
+ Exec=kwin4
+-Icon=kwin4
++Icon=kwin4.png
+ MimeType=
+ SwallowExec=
+ SwallowTitle=
+--- kdegames-3.0.4/lskat/lskat.desktop~	Wed Nov 13 04:34:42 2002
++++ kdegames-3.0.4/lskat/lskat.desktop	Wed Nov 13 04:34:42 2002
+@@ -44,7 +44,7 @@
+ GenericName[zh_TW]=紙牌遊戲
+ GenericName[zu]=Umdlalo Wekhadi
+ Exec=lskat
+-Icon=lskat
++Icon=lskat.png
+ Name=Lieutnant Skat
+ Name[af]=Luitenant Skat
+ Name[az]=LEytenant Skat
