@@ -700,7 +700,12 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang ktuberling	--with-kde
 %find_lang kwin4	--with-kde
 %find_lang libkdegames	--with-kde 
+%find_lang libkdehighscores	--with-kde
+%find_lang multiplayers	--with-kde
 %find_lang lskat	--with-kde
+
+cat libkdehighscores.lang	>> libkdegames.lang
+cat multiplayers.lang		>> libkdegames.lang	
 
 %clean
 rm -rf $RPM_BUILD_ROOT
