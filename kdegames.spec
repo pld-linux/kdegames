@@ -19,6 +19,7 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	c8174c17dcf66def32653bae63886f22
 # generated from kde-i18n - need update!
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 #Patch0:		%{name}-kpatcards.patch
