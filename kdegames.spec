@@ -1,9 +1,10 @@
 #
 # TODO: Adding new games desc.
+#       Adding suid-info to some pkgs %%post
 
 %define		_state		snapshots
 %define		_ver		3.1.90
-%define		_snap		030623
+%define		_snap		030726
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -21,10 +22,8 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	4c8fc38fbf0f2b226f7bd0fc195238c1
+# Source0-md5:	1899c8073c9240c318d6467526df1c0d
 Patch0:		%{name}-disable_install-exec-hook.patch
-BuildRequires:	arts-devel
-BuildRequires:	arts-kde-devel >= %{version}
 BuildRequires:	kdelibs-devel >= %{version}
 Requires:	kdelibs >= %{version}
 Obsoletes:	kdegames-kabalone
@@ -724,9 +723,6 @@ rm -rf $RPM_BUILD_ROOT
 	kde_appsdir=%{_applnkdir} \
 	kde_htmldir=%{_htmldir}
 
-mv $RPM_BUILD_ROOT%{_applnkdir}/Games/Board/atlantik.desktop \
-    $RPM_BUILD_ROOT%{_desktopdir}
-
 cd $RPM_BUILD_ROOT%{_icondir}
 mv {locolor,crystalsvg}/16x16/apps/lskat.png
 cd -
@@ -764,20 +760,29 @@ cd -
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post			-p /sbin/ldconfig
-%postun			-p /sbin/ldconfig
+%post
+/sbin/ldconfig
 
-%post	atlantik	-p /sbin/ldconfig
-%postun	atlantik	-p /sbin/ldconfig
+%postun
+/sbin/ldconfig
 
-%post	kolf		-p /sbin/ldconfig
-%postun	kolf		-p /sbin/ldconfig
+%post	atlantik
+/sbin/ldconfig
+
+%postun	atlantik
+/sbin/ldconfig
+
+%post	kolf
+/sbin/ldconfig
+
+%postun	kolf
+/sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %{_libdir}/libkdegames.la
-%attr(755,root,root) %{_libdir}/libkdegames.so.*.*
+%attr(755,root,root) %{_libdir}/libkdegames.so.*.*.*
 %{_datadir}/apps/kdegames
 %{_icondir}/*/*/actions/endturn.png
 %{_icondir}/*/*/*/highscore.png
@@ -904,6 +909,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kolf.lang kolf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
+%{_libdir}/libkdeinit_kolf.la
+%attr(755,root,root) %{_libdir}/libkdeinit_kolf.so
 %{_libdir}/libkolf.la
 %attr(755,root,root) %{_libdir}/libkolf.so.*.*.*
 %{_libdir}/kde3/kolf.la
