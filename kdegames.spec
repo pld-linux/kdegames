@@ -27,8 +27,8 @@ Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/kde-i18n-%{name}-%{vers
 BuildRequires:	arts-devel
 BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	perl
-Requires:	qt >= 3.1
 Requires:	kdelibs >= %{version}
+Requires:	qt >= 3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
@@ -662,7 +662,8 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Games/Kidsgames/*,Amusements}
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/Games/{TacticStrategy,Strategy}
