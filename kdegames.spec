@@ -4,7 +4,7 @@
 %bcond_without highscore	# without system-wide score feature
 
 %define		_state		snapshots
-%define		_ver		3.1.94
+%define		_ver		3.1.95
 %define		_snap		040110
 
 Summary:	K Desktop Environment - games
@@ -15,15 +15,16 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-Version:	%{_ver}.%{_snap}
+#Version:	%{_ver}.%{_snap}
+Version:	%{_ver}
 Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	15958834a355d5bd576aab277e43e6df	
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	53410b3feab1c520cbf42a0bb17f5c56
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	ed
 BuildRequires:	kdelibs-devel >= 9:%{version}
@@ -718,11 +719,12 @@ Popular Gambling Game.
 Popularna gra hazardowa.
 
 %prep
-%setup -q -n %{name}-%{_snap}
+#%setup -q -n %{name}-%{_snap}
+%setup -q
 %patch0 -p1
 
 %build
-cp /usr/share/automake/config.sub admin
+cp %{_datadir}/automake/config.sub admin
 for f in `find . -name \*.desktop | xargs grep -l '\[nb\]'` ; do
 	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $f 2>/dev/null
 done
@@ -784,8 +786,8 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 %find_lang lskat	--with-kde
 
 for f in *.lang; do
-	if grep -q %{name}-%{_snap}-apidocs $f; then
-		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
+	if grep -q %{name}-%{version}-apidocs $f; then
+		grep -v %{name}-%{version}-apidocs $f > $f.tmp
 		mv $f.tmp $f
 	fi
 done
@@ -881,7 +883,7 @@ EOF
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-%{version}-apidocs
 %{_includedir}/*
 %{_libdir}/libatlantic.so
 %{_libdir}/libatlantikclient.so
