@@ -21,6 +21,7 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	f0aebdf134ff5d2e4ee4b8d117948c52
 BuildRequires:	arts-devel
 BuildRequires:	arts-kde-devel >= %{version}
 BuildRequires:	kdelibs-devel >= %{version}
