@@ -217,10 +217,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kabalone 
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/kabalone.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekabalone
-%attr(755, root, root) /usr/X11R6/bin/kabalone
+%attr(755,root,root) /usr/X11R6/bin/kabalone
 %lang(de) /usr/X11R6/share/kde/doc/HTML/de/kabalone/
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kabalone/
 /usr/X11R6/share/kde/apps/kabalone/toolbar/
@@ -249,8 +249,8 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kasteroids 
-%defattr(644, root, root, 755)
-%attr(755, root, root) /usr/X11R6/bin/kasteroids
+%defattr(644,root,root,755)
+%attr(755,root,root) /usr/X11R6/bin/kasteroids
 %config(missingok) /etc/X11/kde/applnk/Games/kasteroids.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekasteroids
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kasteroids/
@@ -280,10 +280,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kmahjongg
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/kmahjongg.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekmahjongg
-%attr(755, root, root) /usr/X11R6/bin/kmahjongg
+%attr(755,root,root) /usr/X11R6/bin/kmahjongg
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/
 /usr/X11R6/share/kde/apps/kmahjongg/
 /usr/X11R6/share/kde/icons/kmahjongg.xpm
@@ -305,10 +305,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kmines
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/kmines.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekmines
-%attr(755, root, root) /usr/X11R6/bin/kmines
+%attr(755,root,root) /usr/X11R6/bin/kmines
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kmines/
 /usr/X11R6/share/kde/icons/mini/kmines.xpm
 /usr/X11R6/share/kde/icons/kmines.xpm
@@ -332,10 +332,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kpat
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/kpat.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekpat
-%attr(755, root, root) /usr/X11R6/bin/kpat
+%attr(755,root,root) /usr/X11R6/bin/kpat
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kpat/
 /usr/X11R6/share/kde/apps/kpat/
 /usr/X11R6/share/kde/icons/mini/kpat.xpm
@@ -363,10 +363,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kpoker
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/kpoker.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekpoker
-%attr(755, root, root) /usr/X11R6/bin/kpoker
+%attr(755,root,root) /usr/X11R6/bin/kpoker
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kpoker/
 /usr/X11R6/share/kde/apps/kpoker/
 /usr/X11R6/share/kde/icons/mini/kpoker.xpm
@@ -391,10 +391,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kreversi
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/kreversi.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekreversi
-%attr(755, root, root) /usr/X11R6/bin/kreversi
+%attr(755,root,root) /usr/X11R6/bin/kreversi
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kreversi/
 /usr/X11R6/share/kde/apps/kreversi/
 /usr/X11R6/share/kde/icons/mini/kreversi.xpm
@@ -421,10 +421,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n ksame
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/ksame.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdeksame
-%attr(755, root, root) /usr/X11R6/bin/ksame
+%attr(755,root,root) /usr/X11R6/bin/ksame
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/ksame/
 /usr/X11R6/share/kde/apps/ksame/
 /usr/X11R6/share/kde/icons/mini/ksame.xpm
@@ -442,10 +442,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kshisen
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/kshisen.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekshisen
-%attr(755, root, root) /usr/X11R6/bin/kshisen
+%attr(755,root,root) /usr/X11R6/bin/kshisen
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kshisen/
 /usr/X11R6/share/kde/apps/kshisen/
 /usr/X11R6/share/kde/icons/mini/kshisen.xpm
@@ -470,7 +470,7 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n ksnake
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/ksnake.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdeksnake
 %attr(4755,root,games) /usr/X11R6/bin/ksnake
@@ -491,10 +491,10 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n ktetris
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %config(missingok) /etc/X11/kde/applnk/Games/ktetris.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdektetris
-%attr(755, root, root) /usr/X11R6/bin/ktetris
+%attr(755,root,root) /usr/X11R6/bin/ktetris
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/ktetris/
 /usr/X11R6/share/kde/icons/mini/ktetris.xpm
 /usr/X11R6/share/kde/icons/ktetris.xpm
