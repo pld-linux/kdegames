@@ -1,8 +1,9 @@
 #
 # TODO: Adding new games desc.
 
-%define		_state		stable
-%define		_ver		3.1.1
+%define		_state		snapshots
+%define		_ver		3.2
+%define		_snap		030329
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -13,15 +14,14 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	1
+Release:	0.%{_snap}.1
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# generated from kde-i18n - need update!
-#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-#Patch0:		%{name}-kpatcards.patch
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
+#Patch0:	%{name}-kpatcards.patch
 BuildRequires:	arts-devel
 BuildRequires:	arts-kde-devel = %{version}
 BuildRequires:	kdelibs-devel = %{version}
@@ -32,7 +32,7 @@ Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
 
-%define		_htmldir	/usr/share/doc/kde/HTML
+%define		_htmldir	%{_docdir}/kde/HTML
 
 %define		no_install_post_chrpath		1
 
@@ -634,7 +634,7 @@ Requires:	kdelibs >= %{version}
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{_snap}
 #%patch0 -p1
 
 %build
@@ -651,26 +651,19 @@ for plik in `find ./ -name \*.desktop` ; do
 done
 
 %configure \
-	--with-qt-dir=%{_prefix} \
 	--with-pam="yes" \
-	--disable-rpath \
 	--enable-final
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
-
-mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Games/Kidsgames/*,Amusements}
-mv -f $RPM_BUILD_ROOT%{_applnkdir}/Games/{TacticStrategy,Strategy}
 
 cd $RPM_BUILD_ROOT%{_pixmapsdir}
 mv {locolor,crystalsvg}/16x16/apps/lskat.png
 cd -
-
-#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
@@ -701,23 +694,12 @@ cd -
 %find_lang ktron	--with-kde
 %find_lang ktuberling	--with-kde
 %find_lang kwin4	--with-kde
-#%find_lang libkdegames	--with-kde
-#%find_lang libkdehighscores	--with-kde
-#%find_lang multiplayers	--with-kde
 %find_lang lskat	--with-kde
 %find_lang megami	--with-kde
-
-
-#cat libkdehighscores.lang	>> libkdegames.lang
-#cat multiplayers.lang		>> libkdegames.lang
-
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%files -f libkdegames.lang
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
@@ -758,7 +740,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kio_atlantik.so
 %{_datadir}/apps/atlantik
 %{_datadir}/services/atlantik.protocol
-%{_applnkdir}/Games/Board/atlantik.desktop
+%{_desktopdir}/atlantik.desktop
 %{_pixmapsdir}/*/*/apps/atlantik.png
 
 #################################################
@@ -769,7 +751,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
-%{_applnkdir}/Games/Arcade/kasteroids.desktop
+%{_desktopdir}/kasteroids.desktop
 %{_pixmapsdir}/*/*/apps/kasteroids.png
 
 #################################################
@@ -780,7 +762,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
-%{_applnkdir}/Games/Strategy/katomic.desktop
+%{_desktopdir}/katomic.desktop
 %{_pixmapsdir}/*/*/apps/katomic.png
 
 #################################################
@@ -791,7 +773,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %{_datadir}/apps/kbackgammon
-%{_applnkdir}/Games/Board/kbackgammon.desktop
+%{_desktopdir}/kbackgammon.desktop
 %{_pixmapsdir}/*/*/apps/kbackgammon*.png
 
 #################################################
@@ -802,7 +784,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
-%{_applnkdir}/Games/Board/kbattleship.desktop
+%{_desktopdir}/kbattleship.desktop
 %{_pixmapsdir}/*/*/apps/kbattleship.png
 
 
@@ -814,7 +796,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_datadir}/apps/kblackbox
-%{_applnkdir}/Games/Board/kblackbox.desktop
+%{_desktopdir}/kblackbox.desktop
 %{_pixmapsdir}/*/*/apps/kblackbox.png
 
 #################################################
@@ -825,7 +807,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
-%{_applnkdir}/Games/Arcade/kbounce.desktop
+%{_desktopdir}/kbounce.desktop
 %{_pixmapsdir}/[!l]*/*/*/kbounce*
 
 #################################################
@@ -836,7 +818,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_datadir}/apps/kenolaba
-%{_applnkdir}/Games/Board/kenolaba.desktop
+%{_desktopdir}/kenolaba.desktop
 %{_pixmapsdir}/*/*/*/kenolaba*
 
 #################################################
@@ -847,7 +829,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_datadir}/apps/kfouleggs
-%{_applnkdir}/Games/Arcade/kfouleggs.desktop
+%{_desktopdir}/kfouleggs.desktop
 
 #################################################
 #             KJUMPINGCUBE
@@ -857,7 +839,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
-%{_applnkdir}/Games/Strategy/kjumpingcube.desktop
+%{_desktopdir}/kjumpingcube.desktop
 %{_pixmapsdir}/*/*/apps/kjumpingcube.png
 
 #################################################
@@ -868,7 +850,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
-%{_applnkdir}/Games/Arcade/klickety.desktop
+%{_desktopdir}/klickety.desktop
 
 #################################################
 #             KLINES
@@ -878,8 +860,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
-%{_applnkdir}/Games/Strategy/klines.desktop
-%{_pixmapsdir}/*/*/apps/klines.png
+%{_desktopdir}/klines.desktop
+#%{_pixmapsdir}/*/*/apps/klines.png
 
 #################################################
 #             KMAHJONGG
@@ -890,7 +872,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg
-%{_applnkdir}/Games/Board/kmahjongg.desktop
+%{_desktopdir}/kmahjongg.desktop
 %{_pixmapsdir}/*/*/apps/kmahjongg.png
 
 #################################################
@@ -901,7 +883,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmines
 %{_datadir}/apps/kmines
-%{_applnkdir}/Games/Strategy/kmines.desktop
+%{_desktopdir}/kmines.desktop
 %{_pixmapsdir}/*/*/apps/kmines.png
 
 #################################################
@@ -918,7 +900,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config/magic
 %{_datadir}/apps/kolf
 %{_datadir}/mimelnk/application/*
-%{_applnkdir}/Games/Arcade/kolf.desktop
+%{_desktopdir}/kolf.desktop
 %{_pixmapsdir}/*/*/apps/kolf.png
 
 #################################################
@@ -929,7 +911,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest
-%{_applnkdir}/Games/Strategy/konquest.desktop
+%{_desktopdir}/konquest.desktop
 %{_pixmapsdir}/*/*/apps/konquest.png
 
 #################################################
@@ -940,7 +922,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat
-%{_applnkdir}/Games/Card/kpat.desktop
+%{_desktopdir}/kpat.desktop
 %{_pixmapsdir}/*/*/apps/kpat.png
 
 #################################################
@@ -951,7 +933,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker
-%{_applnkdir}/Games/Card/kpoker.desktop
+%{_desktopdir}/kpoker.desktop
 %{_pixmapsdir}/*/*/apps/kpoker.png
 
 #################################################
@@ -962,7 +944,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
-%{_applnkdir}/Games/Board/kreversi.desktop
+%{_desktopdir}/kreversi.desktop
 %{_pixmapsdir}/*/*/apps/kreversi.png
 
 #################################################
@@ -973,7 +955,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame
-%{_applnkdir}/Games/Strategy/ksame.desktop
+%{_desktopdir}/ksame.desktop
 %{_pixmapsdir}/*/*/apps/ksame.png
 
 #################################################
@@ -984,7 +966,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen
-%{_applnkdir}/Games/Board/kshisen.desktop
+%{_desktopdir}/kshisen.desktop
 %{_pixmapsdir}/*/*/apps/kshisen.png
 
 #################################################
@@ -995,7 +977,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksirtet
 %{_datadir}/apps/ksirtet
-%{_applnkdir}/Games/Arcade/ksirtet.desktop
+%{_desktopdir}/ksirtet.desktop
 %{_pixmapsdir}/*/*/apps/ksirtet.png
 
 #################################################
@@ -1007,7 +989,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_datadir}/apps/ksmiletris
-%{_applnkdir}/Games/Arcade/ksmiletris.desktop
+%{_desktopdir}/ksmiletris.desktop
 %{_pixmapsdir}/*/*/apps/ksmiletris.png
 
 #################################################
@@ -1018,7 +1000,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake
-%{_applnkdir}/Games/Arcade/ksnake.desktop
+%{_desktopdir}/ksnake.desktop
 %{_pixmapsdir}/*/*/apps/ksnake.png
 
 #################################################
@@ -1028,7 +1010,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f ksokoban.lang ksokoban
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
-%{_applnkdir}/Games/Strategy/ksokoban.desktop
+%{_desktopdir}/ksokoban.desktop
 %{_pixmapsdir}/*/*/apps/ksokoban.png
 
 #################################################
@@ -1039,7 +1021,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
-%{_applnkdir}/Games/Arcade/kspaceduel.desktop
+%{_desktopdir}/kspaceduel.desktop
 %{_pixmapsdir}/[!l]*/*/apps/kspaceduel.png
 
 #################################################
@@ -1050,7 +1032,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
-%{_applnkdir}/Games/Arcade/ktron.desktop
+%{_desktopdir}/ktron.desktop
 %{_pixmapsdir}/*/*/apps/ktron.png
 
 #################################################
@@ -1061,7 +1043,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling
-%{_applnkdir}/Amusements/ktuberling.desktop
+%{_desktopdir}/ktuberling.desktop
 %{_pixmapsdir}/*/*/apps/ktuberling.png
 
 #################################################
@@ -1072,7 +1054,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_datadir}/apps/kwin4
-%{_applnkdir}/Games/Board/kwin4.desktop
+%{_desktopdir}/kwin4.desktop
 %{_pixmapsdir}/*/*/apps/kwin4.png
 
 
@@ -1085,7 +1067,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/lskat
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
-%{_applnkdir}/Games/Card/lskat.desktop
+%{_desktopdir}/lskat.desktop
 %{_pixmapsdir}/[!l]*/*/apps/lskat.png
 
 #################################################
@@ -1096,5 +1078,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/megami
 %{_datadir}/apps/megami
-%{_applnkdir}/Games/Card/megami.desktop
+%{_desktopdir}/megami.desktop
 %{_pixmapsdir}/*/*/apps/megami.png
