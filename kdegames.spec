@@ -25,58 +25,70 @@ Group:		X11/Applications/Games
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	22dc4ce056e281dd24436e7c340a96a3
 Patch0:		%{name}-disable_install-exec-hook.patch
+BuildRequires:	ed
 BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	sed >= 4.0
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdegames-kabalone
-Obsoletes:     	kdegames-megami
+Obsoletes:	kdegames-megami
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Libraries for kdegames. Included with this package are: kasteroids,
-kblackbox, kmahjongg, kmines, konquest, kpat, kpoker, kreversi, ksame,
-kshisen, ksokoban, ksmiletris, ksnake, ksirtet, katomic, kjumpingcube,
-ktuberling.
+katomic, kbackgammon, kbattleship, kblackbox, kbounce, kenolaba,
+kfouleggs, kgoldrunner, kjumpingcube, klickety, klines, kmahjongg,
+kmines, kolf, konquest, kpat, kpoker, kreversi, ksame, kshisen,
+ksirtet, ksmiletris, ksnake, ksokoban, kspaceduel, ktron, ktuberling,
+kwin4, lskat.
 
 %description -l es
-Juegos para KDE. Incluidos en este paquete: kasteroids: arcade
-kmahjongg: el popular mahjongg kmines: desarmar las minas kpat: juegos
-de cartas, incluso solitario kpoker: vídeo póquer kreversi: Reversi
-ksame: un juego de tablero kshisen: Shisen-Sho - relacionado con el
-mahjongg ksnake: corrida de las cobras ktetris: el bien conocido
-tetris
+Juegos para KDE. Incluidos en este paquete:
+
+kasteroids: arcade, katomic, kbackgammon, kbattleship, kblackbox,
+kbounce, kenolaba, kfouleggs, kgoldrunner, kjumpingcube, klickety,
+klines, kmahjongg: el popular mahjongg, kmines: desarmar las minas,
+kolf, konquest, kpat: juegos de cartas, incluso solitario, kpoker:
+vídeo póquer, kreversi: Reversi, ksame: un juego de tablero, kshisen:
+Shisen-Sho - relacionado con el mahjongg, ksirtet, ksmiletris, ksnake:
+corrida de las cobras, ksokoban, kspaceduel, ktron, ktetris: el bien
+conocido tetris, kwin4, lskat.
 
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î¥²¡¼¥à °Ê²¼¤Î¤è¤¦¤Ê¥Ñ¥Ã¥±¡¼¥¸¤¬Æþ¤Ã¤Æ¤¤¤Þ¤¹¡£
 
-kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, kblackbox: a strategy game with hidden
-boxes and rays, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kpat:
-°ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame: same
-game, kshisen: »ÍÀî¾Ê, ksnake: ¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ,
-ktetris: ¥Æ¥È¥ê¥¹
+kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, katomic, kbackgammon, kbattleship,
+kblackbox: a strategy game with hidden boxes and rays, kbounce,
+kenolaba, kfouleggs, kenolaba, kgoldrunner, kjumpingcube, klickety,
+klines, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kolf, konquest,
+kpat: °ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame:
+same game, kshisen: »ÍÀî¾Ê, ksirtet, ksmiletris, ksnake:
+¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ, kspaceduel, ktron, ktetris:
+¥Æ¥È¥ê¥¹, kwin4, lskat
 
 %description -l pl
-Biblioteki dla gier KDE: kasteroids, kblackbox, kmahjongg, kmines,
-konquest, kpat, kpoker, kreversi, ksame, kshisen, ksokoban,
-ksmiletris, ksnake, ksirtet, katomic, kjumpingcube, ktuberling.
+Biblioteki dla gier KDE: kasteroids, katomic, kbackgammon,
+kbattleship, kblackbox, kbounce, kenolaba, kfouleggs, kgoldrunner,
+kjumpingcube, klickety, klines, kmahjongg, kmines, kolf, konquest,
+kpat, kpoker, kreversi, ksame, kshisen, ksirtet, ksmiletris, ksnake,
+ksokoban, kspaceduel, ktron, ktuberling, kwin4, lskat.
 
 %description -l pt_BR
-Jogos para o KDE.
+Jogos para o KDE. Incluídos neste pacote:
 
-Incluídos neste pacote:
-
-kasteroids: arcade kmahjongg: o popular mahjongg kmines: desarmar as
-minas kpat: jogos de cartas, inclusive paciência kpoker: vídeo-poker
-kreversi: Reversi ksame: um jogo de tabuleiro kshisen: Shisen-Sho -
-relacionado com o mahjongg ksnake: corrida das cobras ktetris: o bem
-conhecido tetris
+kasteroids: arcade, katomic, kblackbox, kbackgammon, kbattleship,
+kbounce, kenolaba, kfouleggs, kgoldrunner, kjumpingcube, klickety,
+klines, kmahjongg: o popular mahjongg, kmines: desarmar as minas,
+kolf, konquest, kpat: jogos de cartas, inclusive paciência, kpoker:
+vídeo-poker, kreversi: Reversi, ksame: um jogo de tabuleiro, kshisen:
+Shisen-Sho - relacionado com o mahjongg, ksirtet, ksmiletris, ksnake:
+corrida das cobras, ksokoban, kspaceduel, ktron, ktetris: o bem
+conhecido tetris, kwin4, lskat.
 
 %package devel
 Summary:	Development files for KDE games
-Summary(pl):	Pliki dla programistów KDE games
+Summary(pl):	Pliki przydatne twórcom gier KDE
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
 Requires:	kdelibs-devel >= 9:%{version}
@@ -714,8 +726,8 @@ Popularna gra hazardowa.
 
 %build
 
-for f in `find . -name *.desktop` ; do
-	sed -i 's/\[nb\]/[no]/g' $f
+for f in `find . -name *.desktop | grep -l '\[nb\]'` ; do
+	echo -e ',s/\[nb\]/[no]/\n,w' | ed $f
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -882,7 +894,7 @@ EOF
 %defattr(644,root,root,755)
 %{_datadir}/apps/carddecks
 
-%files -f atlantik.lang atlantik
+%files atlantik -f atlantik.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %{_libdir}/libatlantic.la
@@ -898,7 +910,7 @@ EOF
 %{_desktopdir}/kde/atlantik.desktop
 %{_iconsdir}/*/*/apps/atlantik.png
 
-%files -f kasteroids.lang kasteroids
+%files kasteroids -f kasteroids.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
@@ -906,50 +918,49 @@ EOF
 %{_desktopdir}/kde/kasteroids.desktop
 %{_iconsdir}/*/*/apps/kasteroids.png
 
-%files -f katomic.lang katomic
+%files katomic -f katomic.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
 %{_desktopdir}/kde/katomic.desktop
 %{_iconsdir}/*/*/apps/katomic.png
 
-%files -f kbackgammon.lang kbackgammon
+%files kbackgammon -f kbackgammon.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %{_datadir}/apps/kbackgammon
 %{_desktopdir}/kde/kbackgammon.desktop
 %{_iconsdir}/*/*/apps/kbackgammon*.png
 
-%files -f kbattleship.lang kbattleship
+%files kbattleship -f kbattleship.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
 %{_desktopdir}/kde/kbattleship.desktop
 %{_iconsdir}/*/*/apps/kbattleship.png
 
-
-%files -f kblackbox.lang kblackbox
+%files kblackbox -f kblackbox.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_datadir}/apps/kblackbox
 %{_desktopdir}/kde/kblackbox.desktop
 %{_iconsdir}/*/*/apps/kblackbox.png
 
-%files -f kbounce.lang kbounce
+%files kbounce -f kbounce.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
 %{_desktopdir}/kde/kbounce.desktop
 %{_iconsdir}/[!l]*/*/*/kbounce*
 
-%files -f kenolaba.lang kenolaba
+%files kenolaba -f kenolaba.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_datadir}/apps/kenolaba
 %{_desktopdir}/kde/kenolaba.desktop
 %{_iconsdir}/*/*/*/kenolaba*
 
-%files -f kfouleggs.lang kfouleggs
+%files kfouleggs -f kfouleggs.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores}
 %attr(755,root,root) %{_bindir}/kfouleggs
@@ -957,14 +968,14 @@ EOF
 %{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
 
-%files -f kgoldrunner.lang kgoldrunner
+%files kgoldrunner -f kgoldrunner.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kgoldrunner
 %{_datadir}/apps/kgoldrunner
 %{_desktopdir}/kde/KGoldrunner.desktop
 %{_iconsdir}/hicolor/*/apps/kgoldrunner.png
 
-%files -f kjumpingcube.lang kjumpingcube
+%files kjumpingcube -f kjumpingcube.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
@@ -972,14 +983,14 @@ EOF
 %{_desktopdir}/kde/kjumpingcube.desktop
 %{_iconsdir}/*/*/apps/kjumpingcube.png
 
-%files -f klickety.lang klickety
+%files klickety -f klickety.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores}
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
 %{_desktopdir}/kde/klickety.desktop
 
-%files -f klines.lang klines
+%files klines -f klines.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
@@ -993,7 +1004,7 @@ EOF
 %{_desktopdir}/kde/kmahjongg.desktop
 %{_iconsdir}/*/*/apps/kmahjongg.png
 
-%files -f kmines.lang kmines
+%files kmines -f kmines.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores}
 %attr(755,root,root) %{_bindir}/kmines
@@ -1001,7 +1012,7 @@ EOF
 %{_desktopdir}/kde/kmines.desktop
 %{_iconsdir}/*/*/apps/kmines.png
 
-%files -f kolf.lang kolf
+%files kolf -f kolf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
 %{_libdir}/libkdeinit_kolf.la
@@ -1016,28 +1027,28 @@ EOF
 %{_desktopdir}/kde/kolf.desktop
 %{_iconsdir}/*/*/apps/kolf.png
 
-%files -f konquest.lang konquest
+%files konquest -f konquest.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest
 %{_desktopdir}/kde/konquest.desktop
 %{_iconsdir}/*/*/apps/konquest.png
 
-%files -f kpat.lang kpat
+%files kpat -f kpat.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat
 %{_desktopdir}/kde/kpat.desktop
 %{_iconsdir}/*/*/apps/kpat.png
 
-%files -f kpoker.lang kpoker
+%files kpoker -f kpoker.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker
 %{_desktopdir}/kde/kpoker.desktop
 %{_iconsdir}/*/*/apps/kpoker.png
 
-%files -f kreversi.lang kreversi
+%files kreversi -f kreversi.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
@@ -1045,21 +1056,21 @@ EOF
 %{_desktopdir}/kde/kreversi.desktop
 %{_iconsdir}/*/*/apps/kreversi.png
 
-%files -f ksame.lang ksame
+%files ksame -f ksame.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame
 %{_desktopdir}/kde/ksame.desktop
 %{_iconsdir}/*/*/apps/ksame.png
 
-%files -f kshisen.lang kshisen
+%files kshisen -f kshisen.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen
 %{_desktopdir}/kde/kshisen.desktop
 %{_iconsdir}/*/*/apps/kshisen.png
 
-%files -f ksirtet.lang ksirtet
+%files ksirtet -f ksirtet.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores}
 %attr(755,root,root) %{_bindir}/ksirtet
@@ -1075,20 +1086,20 @@ EOF
 %{_desktopdir}/kde/ksmiletris.desktop
 %{_iconsdir}/*/*/apps/ksmiletris.png
 
-%files -f ksnake.lang ksnake
+%files ksnake -f ksnake.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake
 %{_desktopdir}/kde/ksnake.desktop
 %{_iconsdir}/*/*/apps/ksnake.png
 
-%files -f ksokoban.lang ksokoban
+%files ksokoban -f ksokoban.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_desktopdir}/kde/ksokoban.desktop
 %{_iconsdir}/*/*/apps/ksokoban.png
 
-%files -f kspaceduel.lang kspaceduel
+%files kspaceduel -f kspaceduel.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
@@ -1096,7 +1107,7 @@ EOF
 %{_desktopdir}/kde/kspaceduel.desktop
 %{_iconsdir}/[!l]*/*/apps/kspaceduel.png
 
-%files -f ktron.lang ktron
+%files ktron -f ktron.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
@@ -1104,21 +1115,21 @@ EOF
 %{_desktopdir}/kde/ktron.desktop
 %{_iconsdir}/*/*/apps/ktron.png
 
-%files -f ktuberling.lang ktuberling
+%files ktuberling -f ktuberling.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling
 %{_desktopdir}/kde/ktuberling.desktop
 %{_iconsdir}/*/*/apps/ktuberling.png
 
-%files -f kwin4.lang kwin4
+%files kwin4 -f kwin4.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_datadir}/apps/kwin4
 %{_desktopdir}/kde/kwin4.desktop
 %{_iconsdir}/*/*/apps/kwin4.png
 
-%files -f lskat.lang lskat
+%files lskat -f lskat.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/lskat
 %attr(755,root,games) %{_bindir}/lskatproc
@@ -1126,7 +1137,7 @@ EOF
 %{_desktopdir}/kde/lskat.desktop
 %{_iconsdir}/[!l]*/*/apps/lskat.png
 
-#%files -f megami.lang megami
+#%files megami -f megami.lang 
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/megami
 #%{_datadir}/apps/megami
