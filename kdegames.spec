@@ -1,4 +1,4 @@
-Summary:	K Desktop Environment - games 
+Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
 Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
@@ -55,6 +55,7 @@ cobras ktetris: o bem conhecido tetris
 
 %package devel
 Summary:	Development files for KDE games
+Summary(pl):	Pliki developerskie dla KDE games
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
@@ -70,12 +71,16 @@ Requires:	kdelibs >= %{version}
 %description devel
 Development files for KDE games.
 
-%description -l pt_BR devel
+%description devel -l pl
+Pliki developerskie dla KDE games.
+
+%description devel -l pt_BR
 Este pacote detém os arquivos de inclusão necessários para compilar
 aplicativos que usam bibliotecas do kdegames.
 
 %package carddecks
 Summary:	KDE carddecks
+Summary(pl):	Karcianki dla KDE
 Summary(pt_BR):	Biblioteca de baralhos para jogos do KDE que usem cartas
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
@@ -84,7 +89,10 @@ Group(pl):	X11/Aplikacje/Gry
 %description carddecks
 KDE carddecks.
 
-%description -l pt_BR carddecks
+%description carddecks -l pl
+Karcianki dla KDE.
+
+%description carddecks -l pt_BR
 Biblioteca de baralhos para jogos do KDE que usem cartas.
 
 %package kabalone
@@ -103,11 +111,11 @@ board. For rules look at the HTML manual.
 %description kabalone -l pl
 KAbalone to gra podobna do Reversi. Zasady znajdziesz w dokumentacji.
 
-%description -l pt_BR kabalone
+%description kabalone -l pt_BR
 Abalone para KDE (jogo hexagonal de estratégia)
 
 %package kasteroids
-Summary:	KDE Asteroids clone	
+Summary:	KDE Asteroids clone
 Summary(pl):	Klon Asterids dla KDE
 Summary(pt_BR):	Destrua os asteróides para não ser destruído
 Group:		X11/Applications/Games
@@ -122,11 +130,11 @@ Asteroids clone for KDE.
 %description kasteroids -l pl
 Klon znanej gry "Asteroids".
 
-%description -l pt_BR kasteroids
+%description kasteroids -l pt_BR
 Destrua os asteróides para não ser destruído.
 
 %package katomic
-Summary:	KDE Sokoban clone	
+Summary:	KDE Sokoban clone
 Summary(pl):	Klon gry Sokoban dla KDE
 Summary(pt_BR):	Jogo semelhante ao Sokoban mas o objetivo é formar moléculas
 Group:		X11/Applications/Games
@@ -144,7 +152,7 @@ board.
 Atomic to ma³a gra podobna do gry Sokoban. Celem gry jest zbudowanie
 chemicznych moleku³ na planszy podobnej do tej z gry Sokoban.
 
-%description -l pt_BR katomic
+%description katomic -l pt_BR
 Jogo semelhante ao Sokoban mas o objetivo é formar moléculas.
 
 %package kbackgammon
@@ -168,7 +176,7 @@ KBackgammon to graficzna wersja gry backgammon dla KDE. Mo¿esz graæ z
 innymi graczami, przeciwko komputerowi lub nawet rozegraæ partiê przez
 sieæ korzystaj±c z Pierwszego Internetowego Serwera Backgammon.
 
-%description -l pt_BR kbackgammon
+%description kbackgammon -l pt_BR
 Jogo de gamão para KDE.
 
 %package kbattleship
@@ -187,11 +195,11 @@ Battleship for KDE.
 %description kbattleship -l pl
 Statki dla KDE.
 
-%description -l pt_BR kbattleship
+%description kbattleship -l pt_BR
 Jogo de batalha naval com servidor embutido.
 
 %package kblackbox
-Summary:	A little logical game for KDE	
+Summary:	A little logical game for KDE
 Summary(pl):	Prosta gra logiczna
 Summary(pt_BR):	Versão do jogo Blackbox do Emacs para KDE
 Group:		X11/Applications/Games
@@ -206,11 +214,12 @@ A little logical game for KDE.
 %description kblackbox -l pl
 Prosta gra logiczna.
 
-%description -l pt_BR kblackbox
+%description kblackbox -l pt_BR
 Versão do jogo Blackbox do Emacs para KDE.
 
 %package kfouleggs
-Summary:	KDE kfouleggs	
+Summary:	KDE kfouleggs
+Summary(pl):	kfouleggs dla KDE
 Summary(pt_BR):	Mais um jogo que lembra o estilo Tetris
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
@@ -221,11 +230,15 @@ Requires:	kdelibs >= %{version}
 %description kfouleggs
 KDE kfouleggs.
 
-%description -l pt_BR kfouleggs
+%description kfouleggs -l pl
+kfouleggs dla KDE.
+
+%description kfouleggs -l pt_BR
 Mais um jogo que lembra o estilo Tetris.
 
 %package kjezz
 Summary:	KDE jezz
+Summary(pl):	Jezz dla KDE
 Summary(pt_BR):	Diminua a área ocupada pelas bolinhas o mais depressa possível
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
@@ -236,7 +249,10 @@ Requires:	kdelibs >= %{version}
 %description kjezz
 KDE jezz.
 
-%description -l pt_BR kjezz
+%description kjezz -l pl
+Jezz dla KDE.
+
+%description kjezz -l pt_BR
 Diminua a área ocupada pelas bolinhas o mais depressa possível.
 
 %package kjumpingcube
@@ -266,11 +282,12 @@ maksymalna warto¶æ punkty przeskakuj± na s±siednie pola przejmuj±c je
 tym samym na wlasno¶æ. Zwyciesca jest jeden - to ten, kto przejmie
 wszystkie pola na wlasno¶æ.
 
-%description -l pt_BR kjumpingcube
+%description kjumpingcube -l pt_BR
 Jogo de estratégia para 2 contendores.
 
 %package klines
 Summary:	Lines for KDE
+Summary(pl):	Lines dla KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
@@ -280,8 +297,11 @@ Requires:	kdelibs >= %{version}
 %description klines
 Lines for KDE.
 
+%description klines -l pl
+Lines dla KDE.
+
 %package kmahjongg
-Summary:	KDE Mahjongg clone	
+Summary:	KDE Mahjongg clone
 Summary(pl):	Klon gry Mahjongg dla KDE
 Summary(pt_BR):	Versão do jogo Mahjongg para o KDE
 Group:		X11/Applications/Games
@@ -296,10 +316,10 @@ This program is a clone of the well known Mahjongg game.
 %description kmahjongg -l pl
 Wersja KDE znanej gry Mahjongg.
 
-%description -l pt_BR kmahjongg
+%description kmahjongg -l pt_BR
 Versão do jogo Mahjongg para o KDE.
 
-%package kmines 
+%package kmines
 Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
 Summary(pt_BR):	Versão do jogo 'caça-minas' para o KDE
@@ -319,7 +339,7 @@ This is a very classical minesweeper written from scratch.
 %description kmines -l pl
 Wersja znanej gry "saper" dla KDE.
 
-%description -l pt_BR kmines
+%description kmines -l pt_BR
 Versão do jogo 'caça-minas' para o KDE.
 
 %package konquest
@@ -330,7 +350,7 @@ Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description konquest
 KDE version of Gnu-Lactic Konquest.
@@ -338,18 +358,18 @@ KDE version of Gnu-Lactic Konquest.
 %description konquest -l pl
 Podbój galaktyki.
 
-%description -l pt_BR konquest
+%description konquest -l pt_BR
 Jogo espacial de estratégia.
 
 %package kpat
-Summary:	KDE solitaire patience game	
+Summary:	KDE solitaire patience game
 Summary(pl):	Pasjanse KDE
 Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description kpat
 KDE solitaire patience games.
@@ -357,18 +377,18 @@ KDE solitaire patience games.
 %description kpat -l pl
 Program umo¿liwia uk³adanie kilku rodzajów pasjansów.
 
-%description -l pt_BR kpat
+%description kpat -l pt_BR
 Versão do jogo 'Paciência' para o KDE.
 
 %package kpoker
-Summary:	KDE poker	
+Summary:	KDE poker
 Summary(pl):	Poker KDE
 Summary(pt_BR):	Jogo de vídeo-pôquer para o KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description kpoker
 A simple video poker clone for the KDE desktop environment.
@@ -376,18 +396,18 @@ A simple video poker clone for the KDE desktop environment.
 %description kpoker -l pl
 Prosy poker dla KDE.
 
-%description -l pt_BR kpoker
+%description kpoker -l pt_BR
 Jogo de vídeo-pôquer para o KDE.
 
 %package kreversi
-Summary:	KDE Reversi game	
+Summary:	KDE Reversi game
 Summary(pl):	Gra Reversi dla KDE
 Summary(pt_BR):	Jogo no estilo Otelo para KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description kreversi
 Reversi is a simple strategy game that is played by two players. There
@@ -399,18 +419,18 @@ of his own color on the board and if there are no more moves possible.
 %description kreversi -l pl
 Reversi to prosta gra strategiczna dla dwóch graczy.
 
-%description -l pt_BR kreversi
+%description kreversi -l pt_BR
 Jogo no estilo Otelo para KDE.
 
 %package ksame
-Summary:	KDE SameGame	
+Summary:	KDE SameGame
 Summary(pl):	"To Samo" dla KDE
 Summary(pt_BR):	Jogo relaxante onde você deve remover o maior número possível de bolas
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description ksame
 KSame is a simple game. It's played by one player, so there is only
@@ -420,19 +440,19 @@ inspired by SameGame, that is only famous on the Macintosh plattform.
 %description ksame -l pl
 KSame to prosta gra dla jednego gracza.
 
-%description -l pt_BR ksame
+%description ksame -l pt_BR
 Jogo relaxante onde você deve remover o maior número possível de
 bolinhas
 
 %package kshisen
-Summary:	KDE Shisen-Sho	
+Summary:	KDE Shisen-Sho
 Summary(pl):	Shisen-Sho dla KDE
 Summary(pt_BR):	Jogo Shisen para o KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description kshisen
 Shisen-Sho is similiar to Mahjongg and uses the same set of tiles as
@@ -442,18 +462,18 @@ Mahjongg.
 Shisen-Sho to gra podobna do Mahjongg i wykorzystuj±ca ten sam zestaw
 ko¶ci.
 
-%description -l pt_BR kshisen
+%description kshisen -l pt_BR
 Jogo Shisen para o KDE.
 
 %package ksirtet
-Summary:	KDE Tetris	
+Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description ksirtet
 This program is a clone of the well-known game Tetris.
@@ -461,18 +481,18 @@ This program is a clone of the well-known game Tetris.
 %description ksirtet -l pl
 Kolejny klon dobrze znanego Tetrisa.
 
-%description -l pt_BR ksirtet
+%description ksirtet -l pt_BR
 Jogo no estilo Tetris.
 
 %package ksmiletris
-Summary:	KDE Tetris	
+Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris para o KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description ksmiletris
 This program is a clone of the well-known game Tetris.
@@ -480,18 +500,18 @@ This program is a clone of the well-known game Tetris.
 %description ksmiletris -l pl
 Kolejny klon dobrze znanego Tetrisa.
 
-%description -l pt_BR ksmiletris
+%description ksmiletris -l pt_BR
 Jogo no estilo Tetris para o KDE.
 
 %package ksnake
-Summary:	KDE Snake Race	
+Summary:	KDE Snake Race
 Summary(pl):	Wy¶cig Wê¿y dla KDE
 Summary(pt_BR):	Jogo da cobra sempre crescente para o KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description ksnake
 Snake Race is a game of speed and agility. You are a hungry snake and
@@ -501,18 +521,18 @@ are trying to eat all the apples in the room before getting out!
 Snake Race to gra szybko¶ciowo-zrêczno¶ciowa. Wcielasz sie w g³odnego
 wê¿a próbuj±cego zje¶æ wszystkie jab³ka w pomieszczeniu.
 
-%description -l pt_BR ksnake
+%description ksnake -l pt_BR
 Jogo da cobra sempre crescente para o KDE.
 
 %package ksokoban
-Summary:	KDE Sokoban	
+Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Summary(pt_BR):	Jogo Sokoban ou 'Fiscal de Estoque' para o KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description ksokoban
 The japanese warehouse keeper game.
@@ -520,17 +540,18 @@ The japanese warehouse keeper game.
 %description ksokoban -l pl
 Gra japoñskiego magazyniera.
 
-%description -l pt_BR ksokoban
+%description ksokoban -l pt_BR
 Jogo Sokoban ou 'Fiscal de Estoque' para o KDE.
 
 %package kspaceduel
 Summary:	KDE space arcade game for two players
+Summary(pl):	Gra arcade pod KDE dla dwóch graczy
 Summary(pt_BR):	Versão do jogo Duelo Espacial para o KDE
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description kspaceduel
 Each player control a ship that flies around the sun and tries to
@@ -543,7 +564,7 @@ Ka¿dy z graczy kieruje statkiem, który lata dooko³a s³oñca i próbuje
 zestarzeliæ drugi statek. Mo¿esz graæ w KSpaceduel z inn± osob±, z
 komputerem, lub mo¿esz pozwoliæ aby computer kierowa³ oboma statkami.
 
-%description -l pt_BR kspaceduel
+%description kspaceduel -l pt_BR
 Versão do jogo Duelo Espacial para o KDE.
 
 %package ktron
@@ -554,7 +575,7 @@ Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description ktron
 KTron is a simple Trone-Clone for the KDE. You can play KTron against
@@ -570,7 +591,7 @@ komputerowi lub koledze.
 Celem gry jest prze¿yæ d³u¿ej ni¿ przeciwnik. Aby tego dokonaæ unikaj
 uderzenia w ¶cianê, ogon w³asny lub przeciwnika.
 
-%description -l pt_BR ktron
+%description ktron -l pt_BR
 Versão do jogo Tron / Motos de Luz para o KDE.
 
 %package ktuberling
@@ -581,7 +602,7 @@ Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description ktuberling
 It is a potato editor. That means that you can drag and drop eyes,
@@ -598,11 +619,12 @@ usta, w±sy oraz inne czê¶ci twarzy na postaæ podobn± do ziemniaka.
 W grze nie ma zwyciêzcy. Jedynym celem gry jest stworzenie
 najzabawniejszej twarzy, jak± sie da u³o¿yæ.
 
-%description -l pt_BR ktuberling
+%description ktuberling -l pt_BR
 Jogo de desenho do 'Homem-batata' para crianças.
 
 %package kwin4
 Summary:	Four wins for KDE
+Summary(pl):	Gra "cztery wygrywa" dla KDE
 Summary(pt_BR):	Jogo de estratégia que lembra um pouco o Otelo
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
@@ -621,7 +643,15 @@ done it is the turn of the other player. This is repeated until the
 game is over, i.e. one of the players has four pieces in a row, column
 or diagonal or no more moves are possbile because the board is filled.
 
-%description -l pt_BR kwin4
+%description kwin4 -l pl
+Cztery wygrywa jest gr± dla dwóch graczy. Ka¿dy gracz jest
+reprezentowany przez kolor (¿ó³ty b±d¼ czerwony). Celem gry jest
+ustawienie czterech klocków twojego koloru w rz±d, kolumnê lub po
+przek±tnej. Klocki wype³niaj± kolumny od do³u, tj. spadaj± dopóki nie
+dosiêgn± pod³o¿a b±d¼ innego klocka. Gra trwa do momentu uzyskania
+ww. uk³adu b±d¼ do zape³nienia tablicy.
+
+%description kwin4 -l pt_BR
 Jogo de estratégia que lembra um pouco o Otelo.
 
 %package lskat
@@ -632,12 +662,15 @@ Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
 Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version} 
+Requires:	kdelibs >= %{version}
 
 %description lskat
 Lieutnant Skat.
 
-%description -l pt_BR lskat
+%description lskat -l pl
+Lskat dla KDE.
+
+%description lskat -l pt_BR
 Jogo de cartas Lieutenant Skat para KDE
 
 %prep
@@ -651,7 +684,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 export LDFLAGS
 %configure2_13 \
 	--with-qt-dir=%{_prefix} \
- 	--with-pam="yes" \
+	--with-pam="yes" \
 	--enable-final
 %{__make}
 
@@ -713,7 +746,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KABALONE
 #################################################
 
-%files -f kabalone.lang kabalone 
+%files -f kabalone.lang kabalone
 %defattr(644,root,root,755)
 %{_applnkdir}/Games/Board/kabalone.desktop
 %attr(755,root,root) %{_bindir}/kabalone
@@ -721,10 +754,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/hicolor/*x*/apps/kabalone.png
 
 #################################################
-#             KASTEROIDS 
+#             KASTEROIDS
 #################################################
 
-%files -f kasteroids.lang kasteroids 
+%files -f kasteroids.lang kasteroids
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_applnkdir}/Games/Arcade/kasteroids.desktop
@@ -767,7 +800,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 #################################################
-#             KBLACKBOX 
+#             KBLACKBOX
 #################################################
 
 %files -f kblackbox.lang kblackbox
@@ -889,7 +922,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/hicolor/*x*/apps/kreversi.png
 
 #################################################
-#            KSAME 
+#            KSAME
 #################################################
 
 %files -f ksame.lang ksame
