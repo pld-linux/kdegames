@@ -511,18 +511,3 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ro) /usr/X11R6/share/locale/ro/LC_MESSAGES/ktetris.mo
 %lang(sk) /usr/X11R6/share/locale/sk/LC_MESSAGES/ktetris.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/ktetris.mo
-
-%changelog
-* Wed Dec  8 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [1.0-7]
-- recompiled against libstdc++.so.2.9.
-
-* Thu Oct 13 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [1.0-5]
-- added Group(pl) fields,
-- fixes in %files.
-
-* Sun Oct 11 1998 Jacek Konieczny <jajcus@zeus.polsl.gliwice.pl>
-  [1.0-4]
-- hiscore file for ksnake moved to /var/lib/games,
-- created new spec based on kdebase.spec.
