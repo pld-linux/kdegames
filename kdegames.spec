@@ -13,14 +13,14 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	1
+Release:	1.1
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# generated from kde-i18n - need update!
-#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+# generated from kde-i18n 
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 #Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
 BuildRequires:	kdelibs-devel = %{version}
@@ -669,7 +669,7 @@ cd $RPM_BUILD_ROOT%{_pixmapsdir}
 mv {locolor,crystalsvg}/16x16/apps/lskat.png
 cd -
 
-#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
@@ -702,7 +702,7 @@ cd -
 %find_lang kwin4	--with-kde
 #%find_lang libkdegames	--with-kde
 #%find_lang libkdehighscores	--with-kde
-#%find_lang multiplayers	--with-kde
+%find_lang multiplayers	--with-kde
 %find_lang lskat	--with-kde
 %find_lang megami	--with-kde
 
