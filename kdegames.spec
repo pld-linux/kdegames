@@ -660,6 +660,10 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 %find_lang kwin4 --with-kde
 %find_lang lskat --with-kde
 
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 %files
