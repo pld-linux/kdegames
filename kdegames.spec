@@ -1,10 +1,11 @@
 #
 # TODO: Adding new games desc.
-#       Adding suid-info to some pkgs %%post
+
+%bcond_without highscore	# without system-wide score feature
 
 %define		_state		snapshots
 %define		_ver		3.1.92
-%define		_snap		031014
+%define		_snap		031024
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -22,7 +23,7 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	20e586ea9bff652ffcf3d65b46c982d1
+# Source0-md5:	3c47d56c2bf96c9fa09bca1b598ed1a6
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	kdelibs-devel >= 9:%{version}
 Requires:	kdelibs >= 9:%{version}
@@ -719,7 +720,9 @@ done
 
 %{__make} -f admin/Makefile.common cvs
 
-%configure --enable-final
+%configure \
+	--enable-final \
+	%{?with_highscore:--enable-highscore-dir=/var/games}
 
 %{__make}
 
@@ -733,6 +736,12 @@ rm -rf $RPM_BUILD_ROOT
 cd $RPM_BUILD_ROOT%{_iconsdir}
 mv {locolor,crystalsvg}/16x16/apps/lskat.png
 cd -
+
+cp libkdegames/highscore/INSTALL ./README.highscore
+
+%if %{with highscore}
+install -d $RPM_BUILD_ROOT/var/games
+touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
@@ -768,6 +777,7 @@ cd -
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+
 %post			-p /sbin/ldconfig
 %postun			-p /sbin/ldconfig
 
@@ -777,9 +787,75 @@ rm -rf $RPM_BUILD_ROOT
 %post	kolf		-p /sbin/ldconfig
 %postun	kolf		-p /sbin/ldconfig
 
+%if %{with highscore}
+%post 	kfouleggs
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for kfouleggs binary      *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+ 
+%post 	klickety
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for klickety binary       *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+ 
+%post 	kmines
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for kmines binary         *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+ 
+%post 	ksirtet
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for ksirtet binary        *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+%endif
+ 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README README.highscore
 %{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*.*
 %{_datadir}/apps/kdegames
@@ -869,8 +945,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kfouleggs.lang kfouleggs
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores}
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_datadir}/apps/kfouleggs
+%{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
 
 %files -f kgoldrunner.lang kgoldrunner
@@ -890,6 +968,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f klickety.lang klickety
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores}
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
 %{_desktopdir}/kde/klickety.desktop
@@ -910,6 +989,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kmines.lang kmines
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores}
 %attr(755,root,root) %{_bindir}/kmines
 %{_datadir}/apps/kmines
 %{_desktopdir}/kde/kmines.desktop
@@ -975,8 +1055,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksirtet.lang ksirtet
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores}
 %attr(755,root,root) %{_bindir}/ksirtet
 %{_datadir}/apps/ksirtet
+%{_datadir}/config.kcfg/ksirtet.kcfg
 %{_desktopdir}/kde/ksirtet.desktop
 %{_iconsdir}/*/*/apps/ksirtet.png
 
@@ -1004,6 +1086,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
+%{_datadir}/config.kcfg/kspaceduel.kcfg
 %{_desktopdir}/kde/kspaceduel.desktop
 %{_iconsdir}/[!l]*/*/apps/kspaceduel.png
 
