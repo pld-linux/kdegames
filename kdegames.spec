@@ -187,7 +187,7 @@ Kolejny klon dobrze znanego Tetrisa.
 %build
 export KDEDIR=/usr/X11R6
 CXXFLAGS="$RPM_OPT_FLAGS -Wall" CFLAGS="$RPM_OPT_FLAGS -Wall" \
-./configure %{_target} \
+./configure %{_target_platform} \
 	--prefix=$KDEDIR \
  	--with-install-root=$RPM_BUILD_ROOT \
  	--with-pam="yes"
