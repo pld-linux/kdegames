@@ -25,7 +25,7 @@ Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/kde-i18n-%{name}-%{vers
 # Source1-md5:	078dcf30eda78b153186a2e735124318
 #Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
-BuildRequires:	kdelibs-devel = %{version}
+BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	perl
 Requires:	kdelibs >= %{version}
 Requires:	qt >= 3.1
@@ -674,44 +674,43 @@ cd -
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%find_lang atlantik	--with-kde
-%find_lang kasteroids	--with-kde
-%find_lang katomic	--with-kde
-%find_lang kbackgammon	--with-kde
-%find_lang kbattleship	--with-kde
-%find_lang kblackbox	--with-kde
-%find_lang kbounce	--with-kde
-%find_lang kenolaba	--with-kde
-%find_lang kfouleggs	--with-kde
-%find_lang kjumpingcube	--with-kde
-%find_lang klickety	--with-kde
-%find_lang klines	--with-kde
-#%find_lang kmahjongg	--with-kde
-%find_lang kmines	--with-kde
-%find_lang kolf		--with-kde
-%find_lang konquest	--with-kde
-%find_lang kpat		--with-kde
-%find_lang kpoker	--with-kde
-%find_lang kreversi	--with-kde
-%find_lang ksame	--with-kde
-%find_lang kshisen	--with-kde
-%find_lang ksirtet	--with-kde
-#%find_lang ksmiletris	--with-kde
-%find_lang ksnake	--with-kde
-%find_lang ksokoban	--with-kde
-%find_lang kspaceduel	--with-kde
-%find_lang ktron	--with-kde
-%find_lang ktuberling	--with-kde
-%find_lang kwin4	--with-kde
-#%find_lang libkdegames	--with-kde
-#%find_lang libkdehighscores	--with-kde
-%find_lang multiplayers	--with-kde
-%find_lang lskat	--with-kde
-%find_lang megami	--with-kde
+%find_lang atlantik		--with-kde
+%find_lang kasteroids		--with-kde
+%find_lang katomic		--with-kde
+%find_lang kbackgammon		--with-kde
+%find_lang kbattleship		--with-kde
+%find_lang kblackbox		--with-kde
+%find_lang kbounce		--with-kde
+%find_lang kenolaba		--with-kde
+%find_lang kfouleggs		--with-kde
+%find_lang kjumpingcube		--with-kde
+%find_lang klickety		--with-kde
+%find_lang klines		--with-kde
+%find_lang kmahjongg		--with-kde
+%find_lang kmines		--with-kde
+%find_lang kolf			--with-kde
+%find_lang konquest		--with-kde
+%find_lang kpat			--with-kde
+%find_lang kpoker		--with-kde
+%find_lang kreversi		--with-kde
+%find_lang ksame		--with-kde
+%find_lang kshisen		--with-kde
+%find_lang ksirtet		--with-kde
+%find_lang ksmiletris		--with-kde
+%find_lang ksnake		--with-kde
+%find_lang ksokoban		--with-kde
+%find_lang kspaceduel		--with-kde
+%find_lang ktron		--with-kde
+%find_lang ktuberling		--with-kde
+%find_lang kwin4		--with-kde
+%find_lang lskat		--with-kde
+%find_lang megami		--with-kde
 
-
-#cat libkdehighscores.lang	>> libkdegames.lang
-#cat multiplayers.lang		>> libkdegames.lang
+%find_lang desktop_kdegames	--with-kde
+%find_lang libkdegames		--with-kde
+%find_lang libkdehighscores	--with-kde
+%find_lang multiplayers		--with-kde
+cat {desktop_kdegames,multiplayers,libkdehighscores}.lang >> libkdegames.lang
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -719,12 +718,11 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%files -f libkdegames.lang
-%files
+%files -f libkdegames.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
-%{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so.*
+%{_libdir}/libkdegames.la
 %{_datadir}/apps/kdegames
 %{_pixmapsdir}/*/*/actions/endturn.png
 %{_pixmapsdir}/*/*/*/highscore.png
@@ -747,7 +745,7 @@ rm -rf $RPM_BUILD_ROOT
 #             ATLANTIK
 #################################################
 
-%files -f atlantik.lang atlantik
+%files atlantik -f atlantik.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %{_libdir}/libatlantic.la
@@ -767,7 +765,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KASTEROIDS
 #################################################
 
-%files -f kasteroids.lang kasteroids
+%files kasteroids -f kasteroids.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
@@ -778,7 +776,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KATOMIC
 #################################################
 
-%files -f katomic.lang katomic
+%files katomic -f katomic.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
@@ -789,7 +787,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KBACKGAMMON
 #################################################
 
-%files -f kbackgammon.lang kbackgammon
+%files kbackgammon -f kbackgammon.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %{_datadir}/apps/kbackgammon
@@ -800,7 +798,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KBATTLESHIP
 #################################################
 
-%files -f kbattleship.lang kbattleship
+%files kbattleship -f kbattleship.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
@@ -812,7 +810,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KBLACKBOX
 #################################################
 
-%files -f kblackbox.lang kblackbox
+%files kblackbox -f kblackbox.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_datadir}/apps/kblackbox
@@ -823,7 +821,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KBOUNCE
 #################################################
 
-%files -f kbounce.lang kbounce
+%files kbounce -f kbounce.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
@@ -834,7 +832,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KENOLABA
 #################################################
 
-%files -f kenolaba.lang kenolaba
+%files kenolaba -f kenolaba.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_datadir}/apps/kenolaba
@@ -845,7 +843,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KFOULEGGS
 #################################################
 
-%files -f kfouleggs.lang kfouleggs
+%files kfouleggs -f kfouleggs.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_datadir}/apps/kfouleggs
@@ -855,7 +853,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KJUMPINGCUBE
 #################################################
 
-%files -f kjumpingcube.lang kjumpingcube
+%files kjumpingcube -f kjumpingcube.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
@@ -866,7 +864,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KLICKETY
 #################################################
 
-%files -f klickety.lang klickety
+%files klickety -f klickety.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
@@ -876,7 +874,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KLINES
 #################################################
 
-%files -f klines.lang klines
+%files klines -f klines.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
@@ -887,8 +885,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KMAHJONGG
 #################################################
 
-#%files -f kmahjongg.lang kmahjongg
-%files kmahjongg
+%files kmahjongg -f kmahjongg.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg
@@ -899,7 +896,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KMINES
 #################################################
 
-%files -f kmines.lang kmines
+%files kmines -f kmines.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmines
 %{_datadir}/apps/kmines
@@ -910,7 +907,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KOLF
 #################################################
 
-%files -f kolf.lang kolf
+%files kolf -f kolf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
 %{_libdir}/libkolf.la
@@ -927,7 +924,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KONQUEST
 #################################################
 
-%files -f konquest.lang konquest
+%files konquest -f konquest.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest
@@ -938,7 +935,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KPAT
 #################################################
 
-%files -f kpat.lang kpat
+%files kpat -f kpat.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat
@@ -949,7 +946,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KPOKER
 #################################################
 
-%files -f kpoker.lang kpoker
+%files kpoker -f kpoker.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker
@@ -960,7 +957,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KREVERSI
 #################################################
 
-%files -f kreversi.lang kreversi
+%files kreversi -f kreversi.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
@@ -971,7 +968,7 @@ rm -rf $RPM_BUILD_ROOT
 #            KSAME
 #################################################
 
-%files -f ksame.lang ksame
+%files ksame -f ksame.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame
@@ -982,7 +979,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KSHISEN
 #################################################
 
-%files -f kshisen.lang kshisen
+%files kshisen -f kshisen.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen
@@ -993,7 +990,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KSIRTET
 #################################################
 
-%files -f ksirtet.lang ksirtet
+%files ksirtet -f ksirtet.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksirtet
 %{_datadir}/apps/ksirtet
@@ -1004,8 +1001,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KSMILETRIS
 #################################################
 
-#%files -f ksmiletris.lang ksmiletris
-%files ksmiletris
+%files ksmiletris -f ksmiletris.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_datadir}/apps/ksmiletris
@@ -1027,7 +1023,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KSOKOBAN
 #################################################
 
-%files -f ksokoban.lang ksokoban
+%files ksokoban -f ksokoban.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_applnkdir}/Games/Strategy/ksokoban.desktop
@@ -1037,7 +1033,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KSPACEDUEL
 #################################################
 
-%files -f kspaceduel.lang kspaceduel
+%files kspaceduel -f kspaceduel.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
@@ -1048,7 +1044,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KTRON
 #################################################
 
-%files -f ktron.lang ktron
+%files ktron -f ktron.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
@@ -1059,7 +1055,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KTUBERLING
 #################################################
 
-%files -f ktuberling.lang ktuberling
+%files ktuberling -f ktuberling.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling
@@ -1070,7 +1066,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KWIN4
 #################################################
 
-%files -f kwin4.lang kwin4
+%files kwin4 -f kwin4.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_datadir}/apps/kwin4
@@ -1082,7 +1078,7 @@ rm -rf $RPM_BUILD_ROOT
 #             LSKAT
 #################################################
 
-%files -f lskat.lang lskat
+%files lskat -f lskat.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/lskat
 %attr(755,root,games) %{_bindir}/lskatproc
@@ -1094,7 +1090,7 @@ rm -rf $RPM_BUILD_ROOT
 #             MEGAMI
 #################################################
 
-%files -f megami.lang megami
+%files megami -f megami.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/megami
 %{_datadir}/apps/megami
