@@ -33,6 +33,7 @@ Patch0:		%{name}-disable_install-exec-hook.patch
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdegames-kabalone
@@ -764,7 +765,7 @@ for f in `find . -name \*.desktop`; do
 done
 
 %build
-cp %{_datadir}/automake/config.sub admin
+cp /usr/share/automake/config.sub admin
 
 export UNSERMAKE=/usr/share/unsermake/unsermake
 
