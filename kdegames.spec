@@ -3,8 +3,8 @@
 #       Adding suid-info to some pkgs %%post
 
 %define		_state		snapshots
-%define		_ver		3.1.90
-%define		_snap		030726
+%define		_ver		3.1.91
+%define		_snap		030918
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -22,7 +22,7 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	1899c8073c9240c318d6467526df1c0d
+# Source0-md5:	d1c61021627470e39d8b44cdb0355d8d
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	kdelibs-devel >= 9:%{version}
 Requires:	kdelibs >= 9:%{version}
@@ -30,9 +30,6 @@ Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_htmldir	%{_docdir}/kde/HTML
-%define		_icondir	%{_datadir}/icons
 
 %define		no_install_post_chrpath		1
 
@@ -261,6 +258,19 @@ Gra kfouleggs dla KDE.
 
 %description kfouleggs -l pt_BR
 Mais um jogo que lembra o estilo Tetris.
+
+%package kgoldrunner
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications/Games
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= %{version}
+
+%description kgoldrunner
+TODO.
+
+%description kgoldrunner -l pl
+TODO.
 
 %package kjumpingcube
 Summary:	A little tactical game for KDE
@@ -710,8 +720,9 @@ for plik in `find ./ -name \*.desktop` ; do
 	fi
 done
 
-%configure \
-	--enable-final
+%{__make} -f admin/Makefile.common cvs
+
+%configure
 
 %{__make}
 
@@ -720,10 +731,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_appsdir=%{_applnkdir} \
-	kde_htmldir=%{_htmldir}
+	kde_htmldir=%{_docdir}/kde/HTML
 
-cd $RPM_BUILD_ROOT%{_icondir}
+cd $RPM_BUILD_ROOT%{_iconsdir}
 mv {locolor,crystalsvg}/16x16/apps/lskat.png
 cd -
 
@@ -736,6 +746,7 @@ cd -
 %find_lang kbounce	--with-kde
 %find_lang kenolaba	--with-kde
 %find_lang kfouleggs	--with-kde
+%find_lang kgoldrunner	--with-kde
 %find_lang kjumpingcube	--with-kde
 %find_lang klickety	--with-kde
 %find_lang klines	--with-kde
@@ -755,28 +766,19 @@ cd -
 %find_lang ktuberling	--with-kde
 %find_lang kwin4	--with-kde
 %find_lang lskat	--with-kde
-%find_lang megami	--with-kde
+#%find_lang megami	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
+%post			-p /sbin/ldconfig
+%postun			-p /sbin/ldconfig
 
-%postun
-/sbin/ldconfig
+%post	atlantik	-p /sbin/ldconfig
+%postun	atlantik	-p /sbin/ldconfig
 
-%post	atlantik
-/sbin/ldconfig
-
-%postun	atlantik
-/sbin/ldconfig
-
-%post	kolf
-/sbin/ldconfig
-
-%postun	kolf
-/sbin/ldconfig
+%post	kolf		-p /sbin/ldconfig
+%postun	kolf		-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -784,9 +786,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*.*
 %{_datadir}/apps/kdegames
-%{_icondir}/*/*/actions/endturn.png
-%{_icondir}/*/*/*/highscore.png
-%{_icondir}/*/*/*/roll.png
+%{_iconsdir}/*/*/actions/endturn.png
+%{_iconsdir}/*/*/*/highscore.png
+%{_iconsdir}/*/*/*/roll.png
 
 %files devel
 %defattr(644,root,root,755)
@@ -814,97 +816,104 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kio_atlantik.so
 %{_datadir}/apps/atlantik
 %{_datadir}/services/atlantik.protocol
-%{_desktopdir}/atlantik.desktop
-%{_icondir}/*/*/apps/atlantik.png
+%{_desktopdir}/kde/atlantik.desktop
+%{_iconsdir}/*/*/apps/atlantik.png
 
 %files -f kasteroids.lang kasteroids
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
-%{_desktopdir}/kasteroids.desktop
-%{_icondir}/*/*/apps/kasteroids.png
+%{_desktopdir}/kde/kasteroids.desktop
+%{_iconsdir}/*/*/apps/kasteroids.png
 
 %files -f katomic.lang katomic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
-%{_desktopdir}/katomic.desktop
-%{_icondir}/*/*/apps/katomic.png
+%{_desktopdir}/kde/katomic.desktop
+%{_iconsdir}/*/*/apps/katomic.png
 
 %files -f kbackgammon.lang kbackgammon
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %{_datadir}/apps/kbackgammon
-%{_desktopdir}/kbackgammon.desktop
-%{_icondir}/*/*/apps/kbackgammon*.png
+%{_desktopdir}/kde/kbackgammon.desktop
+%{_iconsdir}/*/*/apps/kbackgammon*.png
 
 %files -f kbattleship.lang kbattleship
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
-%{_desktopdir}/kbattleship.desktop
-%{_icondir}/*/*/apps/kbattleship.png
+%{_desktopdir}/kde/kbattleship.desktop
+%{_iconsdir}/*/*/apps/kbattleship.png
 
 
 %files -f kblackbox.lang kblackbox
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_datadir}/apps/kblackbox
-%{_desktopdir}/kblackbox.desktop
-%{_icondir}/*/*/apps/kblackbox.png
+%{_desktopdir}/kde/kblackbox.desktop
+%{_iconsdir}/*/*/apps/kblackbox.png
 
 %files -f kbounce.lang kbounce
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
-%{_desktopdir}/kbounce.desktop
-%{_icondir}/[!l]*/*/*/kbounce*
+%{_desktopdir}/kde/kbounce.desktop
+%{_iconsdir}/[!l]*/*/*/kbounce*
 
 %files -f kenolaba.lang kenolaba
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_datadir}/apps/kenolaba
-%{_desktopdir}/kenolaba.desktop
-%{_icondir}/*/*/*/kenolaba*
+%{_desktopdir}/kde/kenolaba.desktop
+%{_iconsdir}/*/*/*/kenolaba*
 
 %files -f kfouleggs.lang kfouleggs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_datadir}/apps/kfouleggs
-%{_desktopdir}/kfouleggs.desktop
+%{_desktopdir}/kde/kfouleggs.desktop
+
+%files -f kgoldrunner.lang kgoldrunner
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kgoldrunner
+%{_datadir}/apps/kgoldrunner
+%{_desktopdir}/kde/KGoldrunner.desktop
+%{_iconsdir}/hicolor/*/apps/kgoldrunner.png
 
 %files -f kjumpingcube.lang kjumpingcube
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
-%{_desktopdir}/kjumpingcube.desktop
-%{_icondir}/*/*/apps/kjumpingcube.png
+%{_desktopdir}/kde/kjumpingcube.desktop
+%{_iconsdir}/*/*/apps/kjumpingcube.png
 
 %files -f klickety.lang klickety
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
-%{_desktopdir}/klickety.desktop
+%{_desktopdir}/kde/klickety.desktop
 
 %files -f klines.lang klines
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
-%{_desktopdir}/klines.desktop
+%{_desktopdir}/kde/klines.desktop
 
 %files kmahjongg
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg
-%{_desktopdir}/kmahjongg.desktop
-%{_icondir}/*/*/apps/kmahjongg.png
+%{_desktopdir}/kde/kmahjongg.desktop
+%{_iconsdir}/*/*/apps/kmahjongg.png
 
 %files -f kmines.lang kmines
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmines
 %{_datadir}/apps/kmines
-%{_desktopdir}/kmines.desktop
-%{_icondir}/*/*/apps/kmines.png
+%{_desktopdir}/kde/kmines.desktop
+%{_iconsdir}/*/*/apps/kmines.png
 
 %files -f kolf.lang kolf
 %defattr(644,root,root,755)
@@ -918,117 +927,117 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config/magic
 %{_datadir}/apps/kolf
 %{_datadir}/mimelnk/application/*
-%{_desktopdir}/kolf.desktop
-%{_icondir}/*/*/apps/kolf.png
+%{_desktopdir}/kde/kolf.desktop
+%{_iconsdir}/*/*/apps/kolf.png
 
 %files -f konquest.lang konquest
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest
-%{_desktopdir}/konquest.desktop
-%{_icondir}/*/*/apps/konquest.png
+%{_desktopdir}/kde/konquest.desktop
+%{_iconsdir}/*/*/apps/konquest.png
 
 %files -f kpat.lang kpat
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat
-%{_desktopdir}/kpat.desktop
-%{_icondir}/*/*/apps/kpat.png
+%{_desktopdir}/kde/kpat.desktop
+%{_iconsdir}/*/*/apps/kpat.png
 
 %files -f kpoker.lang kpoker
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker
-%{_desktopdir}/kpoker.desktop
-%{_icondir}/*/*/apps/kpoker.png
+%{_desktopdir}/kde/kpoker.desktop
+%{_iconsdir}/*/*/apps/kpoker.png
 
 %files -f kreversi.lang kreversi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
-%{_desktopdir}/kreversi.desktop
-%{_icondir}/*/*/apps/kreversi.png
+%{_desktopdir}/kde/kreversi.desktop
+%{_iconsdir}/*/*/apps/kreversi.png
 
 %files -f ksame.lang ksame
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame
-%{_desktopdir}/ksame.desktop
-%{_icondir}/*/*/apps/ksame.png
+%{_desktopdir}/kde/ksame.desktop
+%{_iconsdir}/*/*/apps/ksame.png
 
 %files -f kshisen.lang kshisen
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen
-%{_desktopdir}/kshisen.desktop
-%{_icondir}/*/*/apps/kshisen.png
+%{_desktopdir}/kde/kshisen.desktop
+%{_iconsdir}/*/*/apps/kshisen.png
 
 %files -f ksirtet.lang ksirtet
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksirtet
 %{_datadir}/apps/ksirtet
-%{_desktopdir}/ksirtet.desktop
-%{_icondir}/*/*/apps/ksirtet.png
+%{_desktopdir}/kde/ksirtet.desktop
+%{_iconsdir}/*/*/apps/ksirtet.png
 
 %files ksmiletris
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_datadir}/apps/ksmiletris
-%{_desktopdir}/ksmiletris.desktop
-%{_icondir}/*/*/apps/ksmiletris.png
+%{_desktopdir}/kde/ksmiletris.desktop
+%{_iconsdir}/*/*/apps/ksmiletris.png
 
 %files -f ksnake.lang ksnake
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake
-%{_desktopdir}/ksnake.desktop
-%{_icondir}/*/*/apps/ksnake.png
+%{_desktopdir}/kde/ksnake.desktop
+%{_iconsdir}/*/*/apps/ksnake.png
 
 %files -f ksokoban.lang ksokoban
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
-%{_desktopdir}/ksokoban.desktop
-%{_icondir}/*/*/apps/ksokoban.png
+%{_desktopdir}/kde/ksokoban.desktop
+%{_iconsdir}/*/*/apps/ksokoban.png
 
 %files -f kspaceduel.lang kspaceduel
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
-%{_desktopdir}/kspaceduel.desktop
-%{_icondir}/[!l]*/*/apps/kspaceduel.png
+%{_desktopdir}/kde/kspaceduel.desktop
+%{_iconsdir}/[!l]*/*/apps/kspaceduel.png
 
 %files -f ktron.lang ktron
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
-%{_desktopdir}/ktron.desktop
-%{_icondir}/*/*/apps/ktron.png
+%{_desktopdir}/kde/ktron.desktop
+%{_iconsdir}/*/*/apps/ktron.png
 
 %files -f ktuberling.lang ktuberling
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling
-%{_desktopdir}/ktuberling.desktop
-%{_icondir}/*/*/apps/ktuberling.png
+%{_desktopdir}/kde/ktuberling.desktop
+%{_iconsdir}/*/*/apps/ktuberling.png
 
 %files -f kwin4.lang kwin4
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_datadir}/apps/kwin4
-%{_desktopdir}/kwin4.desktop
-%{_icondir}/*/*/apps/kwin4.png
+%{_desktopdir}/kde/kwin4.desktop
+%{_iconsdir}/*/*/apps/kwin4.png
 
 %files -f lskat.lang lskat
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/lskat
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
-%{_desktopdir}/lskat.desktop
-%{_icondir}/[!l]*/*/apps/lskat.png
+%{_desktopdir}/kde/lskat.desktop
+%{_iconsdir}/[!l]*/*/apps/lskat.png
 
-%files -f megami.lang megami
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/megami
-%{_datadir}/apps/megami
-%{_desktopdir}/megami.desktop
-%{_icondir}/*/*/apps/megami.png
+#%files -f megami.lang megami
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_bindir}/megami
+#%{_datadir}/apps/megami
+#%{_desktopdir}/kde/megami.desktop
+#%{_iconsdir}/*/*/apps/megami.png
