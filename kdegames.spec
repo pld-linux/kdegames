@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	0.4
+Release:	0.5
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -712,7 +712,16 @@ for i in {atlantik,kasteroids,kbackgammon,kblackbox,kenolaba,kmines}.png \
 	ln -s crystalsvg/48x48/apps/$i $RPM_BUILD_ROOT%{_pixmapsdir}/$i
 done
 
+for i in `find $RPM_BUILD_ROOT%{_applnkdir} -type f`; do
+	if grep '^Icon=.[^.]*$' $i >/dev/null; then
+		echo -e ',s/\(^Icon=.*$\)/\\1.png/\n,w' | ed $i
+	fi
+done
+
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
+	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
+done
 
 %find_lang	atlantik		--with-kde
 %find_lang	kasteroids		--with-kde
@@ -1026,7 +1035,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kpat
 %{_applnkdir}/Games/Card/kpat.desktop
 %{_pixmapsdir}/*/*/apps/kpat.png
-%{_pixmapsdir}/apps/kpat.png
+%{_pixmapsdir}/kpat.png
 %{_mandir}/man6/kpat.*
 
 #################################################
