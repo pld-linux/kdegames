@@ -751,6 +751,7 @@ cp libkdegames/highscore/INSTALL ./README.highscore
 %if %{with highscore}
 install -d $RPM_BUILD_ROOT/var/games
 touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
+%endif
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
