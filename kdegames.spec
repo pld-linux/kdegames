@@ -4,6 +4,7 @@
 %bcond_without	highscore	# without system-wide score feature
 
 %define		_state		stable
+%define		_kdever		3.4
 %define		_ver		3.4.0
 
 %define		_minlibsevr	9:3.4.0
@@ -24,7 +25,7 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Icon:		kde-games.xpm
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	ab144b71caeda34579817b01855ec287
 Patch1:		kde-common-PLD.patch
 Patch0:		%{name}-disable_install-exec-hook.patch
