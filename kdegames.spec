@@ -2,7 +2,7 @@ Summary:     K Desktop Environment - games
 Summary(pl): K Desktop Environment - gry
 Name:        kdegames
 Version:     1.0
-Release:     5
+Release:     7
 Vendor:      The KDE Team
 Copyright:   GPL
 Group:       X11/KDE/Games
@@ -512,6 +512,10 @@ rm -rf $RPM_BUILD_ROOT
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/ktetris.mo
 
 %changelog
+* Wed Dec  8 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.0-7]
+- recompiled against libstdc++.so.2.9.
+
 * Thu Oct 13 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [1.0-5]
 - added Group(pl) fields,
