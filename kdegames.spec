@@ -24,8 +24,8 @@ Group:		X11/Applications/Games
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	1899c8073c9240c318d6467526df1c0d
 Patch0:		%{name}-disable_install-exec-hook.patch
-BuildRequires:	kdelibs-devel >= %{version}
-Requires:	kdelibs >= %{version}
+BuildRequires:	kdelibs-devel >= 9:%{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
