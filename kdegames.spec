@@ -24,7 +24,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	510dc744a3918fc932d9f7497638eeba
 Source2:	%{name}-extra_icons.tar.bz2
-# Source2-md5:	26cab4490d7800c69a6a224b949a8369
+# Source2-md5:	daf7940c0369bfaa7d4216a5fdecb6d7
 #Patch0:	%{name}-kpatcards.patch
 BuildRequires:	arts-devel
 BuildRequires:	arts-kde-devel >= 8:%{version}
