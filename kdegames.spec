@@ -23,6 +23,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 #Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
+BuildRequires:	arts-kde-devel = %{version}
 BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	sed >= 4.0
 Requires:	qt >= 3.0.5
