@@ -1,0 +1,3092 @@
+diff -urN -x CVS kdegames.orig/atlantik/ChangeLog kdegames/atlantik/ChangeLog
+--- kdegames.orig/atlantik/ChangeLog	Tue Nov 25 01:37:01 2003
++++ kdegames/atlantik/ChangeLog	Tue Jan 27 03:57:13 2004
+@@ -1,3 +1,8 @@
++0.6.1
++-----
++
++- hide development servers identifying themselves with "-dev"
++
+ 0.6.0
+ -----
+ 
+diff -urN -x CVS kdegames.orig/atlantik/atlantik.desktop kdegames/atlantik/atlantik.desktop
+--- kdegames.orig/atlantik/atlantik.desktop	Thu Jan 15 08:53:59 2004
++++ kdegames/atlantik/atlantik.desktop	Fri Feb  6 13:06:27 2004
+@@ -28,6 +28,7 @@
+ GenericName[he]=משחקי לוח נוסח Monopoly®
+ GenericName[hr]=Igre poput Monopoly-ja®
+ GenericName[hu]=Monopoly-szerű játék
++GenericName[is]=Monopoly®- Borðleikir
+ GenericName[it]=Gioco da tavolo simile a Monopoly®
+ GenericName[ja]=モノポリ-ライクなボードゲーム
+ GenericName[nb]=Monopol-aktige brettspill
+diff -urN -x CVS kdegames.orig/atlantik/client/main.cpp kdegames/atlantik/client/main.cpp
+--- kdegames.orig/atlantik/client/main.cpp	Sun Nov  9 01:59:38 2003
++++ kdegames/atlantik/client/main.cpp	Tue Jan 27 03:57:31 2004
+@@ -1,4 +1,4 @@
+-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
++// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
+ //
+ // This program is free software; you can redistribute it and/or
+ // modify it under the terms of the GNU General Public License
+@@ -41,7 +41,7 @@
+ 		I18N_NOOP("Atlantik"), ATLANTIK_VERSION_STRING,
+ 		I18N_NOOP("The Atlantic board game"),
+ 		KAboutData::License_GPL,
+-		I18N_NOOP("(c) 1998-2003 Rob Kaper"),
++		I18N_NOOP("(c) 1998-2004 Rob Kaper"),
+ 		I18N_NOOP("KDE client for playing Monopoly-like games on the monopd network."),
+ 		"http://unixcode.org/atlantik/"
+ 		);
+diff -urN -x CVS kdegames.orig/atlantik/client/main.h kdegames/atlantik/client/main.h
+--- kdegames.orig/atlantik/client/main.h	Wed Nov  5 20:36:07 2003
++++ kdegames/atlantik/client/main.h	Tue Jan 27 03:57:32 2004
+@@ -1,4 +1,4 @@
+-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
++// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
+ //
+ // This program is free software; you can redistribute it and/or
+ // modify it under the terms of the GNU General Public License
+@@ -17,11 +17,11 @@
+ #ifndef ATLANTIK_MAIN_H
+ #define ATLANTIK_MAIN_H
+ 
+-#define	ATLANTIK_VERSION 060
+-#define	ATLANTIK_VERSION_STRING "0.6.0"
++#define	ATLANTIK_VERSION 061
++#define	ATLANTIK_VERSION_STRING "0.6.1"
+ #define ATLANTIK_VERSION_MAJOR 0
+ #define ATLANTIK_VERSION_MINOR 6
+-#define ATLANTIK_VERSION_RELEASE 0
++#define ATLANTIK_VERSION_RELEASE 1
+ 
+ int main(int, char *[]);
+ 
+diff -urN -x CVS kdegames.orig/atlantik/client/selectserver_widget.cpp kdegames/atlantik/client/selectserver_widget.cpp
+--- kdegames.orig/atlantik/client/selectserver_widget.cpp	Sun Oct 26 10:57:00 2003
++++ kdegames/atlantik/client/selectserver_widget.cpp	Tue Jan 27 03:57:13 2004
+@@ -1,4 +1,4 @@
+-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
++// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
+ //
+ // This program is free software; you can redistribute it and/or
+ // modify it under the terms of the GNU General Public License
+@@ -16,6 +16,7 @@
+ 
+ #include <qlayout.h>
+ #include <qradiobutton.h>
++#include <qregexp.h>
+ #include <qsizepolicy.h>
+ #include <qvbuttongroup.h>
+ #include <qhgroupbox.h>
+@@ -121,7 +122,7 @@
+ 
+ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
+ {
+-	if (m_hideDevelopmentServers && version.contains("CVS"))
++	if (m_hideDevelopmentServers && version.find( QRegExp("(CVS|-dev)") ) != -1 )
+ 		return;
+ 
+ 	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port);
+diff -urN -x CVS kdegames.orig/atlantik/eventsrc kdegames/atlantik/eventsrc
+--- kdegames.orig/atlantik/eventsrc	Fri Jan 16 08:00:59 2004
++++ kdegames/atlantik/eventsrc	Fri Feb  6 13:06:29 2004
+@@ -21,6 +21,7 @@
+ Name[gl]=Quenda Gañada
+ Name[hi]=लाभ वाली बारी
+ Name[hu]=Nyert forduló
++Name[is]=Græddi leik
+ Name[it]=Turno guadagnato
+ Name[nl]=Gewonnen ronde
+ Name[pl]=Zyskany ruch
+@@ -48,6 +49,7 @@
+ Comment[gl]=É a súa quenda
+ Comment[hi]=यह अब आपकी बारी है
+ Comment[hu]=Most Ön következik
++Comment[is]=Þú átt að gera
+ Comment[it]=Ora tocca a te
+ Comment[nl]=U bent aan beurt
+ Comment[pl]=Twój ruch
+@@ -76,6 +78,7 @@
+ Name[fr]=Discussion
+ Name[hi]=गपशप(चैट)
+ Name[hu]=Csevegés
++Name[is]=Spjall
+ Name[nl]=Gesprek
+ Name[pl]=Rozmowa
+ Name[pt]=Conversar
+@@ -104,6 +107,7 @@
+ Comment[gl]=Un xogador enviou unha mensaxe
+ Comment[hi]=एक खिलाड़ी ने गपशप(चैट) संदेश भेजा
+ Comment[hu]=Egy játékos szöveges üzenetet küld
++Comment[is]=Leikmaður sendir skilaboð
+ Comment[it]=Un giocatore ha inviato un messaggio
+ Comment[nl]=Een speler stuurde u een bericht
+ Comment[pl]=Gracz wysyła wiadomość w oknie rozmowy
+@@ -137,6 +141,7 @@
+ Name[gl]=Novo xogador
+ Name[hi]=नया खिलाड़ी
+ Name[hu]=Új játékos
++Name[is]=Nýr leikmaður
+ Name[it]=Nuovo giocatore
+ Name[nl]=Nieuwe speler
+ Name[pl]=Nowy gracz
+@@ -167,6 +172,7 @@
+ Comment[gl]=Un novo xogador entra na partida
+ Comment[hi]=एक नया खिलाड़ी खेल में शामिल हुआ
+ Comment[hu]=Egy új játékos csatlakozik a játékhoz
++Comment[is]=Nýr leikmaður tengist leiknum
+ Comment[it]=C'è un nuovo giocatore in gara
+ Comment[nl]=Een nieuwe speler neemt deel aan het spel
+ Comment[pl]=Nowy gracz dołączył do gry
+@@ -201,6 +207,7 @@
+ Name[gl]=Novo xogo
+ Name[hi]=नया खेल
+ Name[hu]=Új játék
++Name[is]=Nýr leikur
+ Name[it]=Nuova partita
+ Name[nl]=Nieuw spel
+ Name[pl]=Nowa gra
+@@ -231,6 +238,7 @@
+ Comment[gl]=Creouse unha nova partida
+ Comment[hi]=एक नया खेल बनाया गया
+ Comment[hu]=Új játék jön létre
++Comment[is]=Nýr leikur er búinn til
+ Comment[it]=Viene avviata una nuova partita
+ Comment[nl]=Er is een nieuw spel aangemaakt
+ Comment[pl]=Utworzenie nowej gry
+diff -urN -x CVS kdegames.orig/kasteroids/kasteroids.desktop kdegames/kasteroids/kasteroids.desktop
+--- kdegames.orig/kasteroids/kasteroids.desktop	Thu Jan 15 08:54:03 2004
++++ kdegames/kasteroids/kasteroids.desktop	Fri Feb  6 13:06:31 2004
+@@ -43,12 +43,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -62,6 +64,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+diff -urN -x CVS kdegames.orig/katomic/katomic.desktop kdegames/katomic/katomic.desktop
+--- kdegames.orig/katomic/katomic.desktop	Thu Jan 15 08:54:05 2004
++++ kdegames/katomic/katomic.desktop	Fri Feb  6 13:06:33 2004
+@@ -41,12 +41,14 @@
+ GenericName[hi]=तर्क का खेल
+ GenericName[hr]=Logička igra
+ GenericName[hu]=Logikai
++GenericName[is]=Kænskuleikur
+ GenericName[it]=Gioco di logica
+ GenericName[ja]=論理ゲーム
+ GenericName[lo]=ເກມຕະກະ   
+ GenericName[lv]=Loģiskā Spēle
+ GenericName[mt]=Logħba ta' loġika
+ GenericName[nb]=Logikk-spill
++GenericName[nds]=Logikspeel
+ GenericName[nl]=Logicaspel
+ GenericName[nn]=Logikkspel
+ GenericName[pl]=Gra logiczna
+@@ -60,6 +62,7 @@
+ GenericName[ss]=Umdlalo wengcondvo
+ GenericName[sv]=Logiskt spel
+ GenericName[ta]=தர்கக விளையாட்டு
++GenericName[tg]=Бозии логикӣ
+ GenericName[th]=เกมตรรกะ
+ GenericName[tr]=Mantık Oyunu
+ GenericName[uk]=Гра на логіку
+diff -urN -x CVS kdegames.orig/kbackgammon/eventsrc kdegames/kbackgammon/eventsrc
+--- kdegames.orig/kbackgammon/eventsrc	Thu Jan 15 08:54:07 2004
++++ kdegames/kbackgammon/eventsrc	Fri Feb  6 13:06:35 2004
+@@ -39,7 +39,7 @@
+ Name[hi]=खेल खत्म, आप जीते
+ Name[hr]=Igra je završena, pobijedili ste!
+ Name[hu]=Vége a játéknak, Ön nyert
+-Name[is]=Leik lokiÃ°, Ã¾Ãº vannst
++Name[is]=Leik lokið, þú vannst
+ Name[it]=Partita finita, hai vinto
+ Name[ja]=ゲームオーバー、あなたの勝ち
+ Name[ko]=놀이 끝, 이겼습니다
+@@ -93,7 +93,7 @@
+ Comment[hi]=आप बैकगेमॉन का हालिया खेल जीत गए
+ Comment[hr]=Dobili ste partiju
+ Comment[hu]=Ön megnyerte ezt a backgammon játékot
+-Comment[is]=ÃÃº vannst Ã¾ennan Backgammon leik
++Comment[is]=Þú vannst þennan Backgammon leik
+ Comment[it]=Hai vinto questa partita di backgammon
+ Comment[ja]=現在のbackgammonゲームに勝ちました
+ Comment[ko]=이번 쌍륙 놀이에서 이겼습니다
+@@ -148,7 +148,7 @@
+ Name[hi]=खेल खत्म, आप हारे
+ Name[hr]=Igra je završena, izgubili ste
+ Name[hu]=Vége a játéknak, Ön vesztett
+-Name[is]=Leik lokiÃ°, Ã¾Ãº tapaÃ°ir
++Name[is]=Leik lokið, þú tapaðir
+ Name[it]=Partita finita, hai perso
+ Name[ja]=ゲームオーバー、あなたの負け
+ Name[ko]=놀이 끝, 졌습니다
+@@ -202,7 +202,7 @@
+ Comment[hi]=आप बैकगेमॉन का हालिया खेल हार गए
+ Comment[hr]=Izgubili ste partiju
+ Comment[hu]=Ön elvesztette ezt a backgammon játékot
+-Comment[is]=ÃÃº tapaÃ°ir Ã¾essum Backgammon leik
++Comment[is]=Þú tapaðir þessum Backgammon leik
+ Comment[it]=Hai perso questa partita di backgammon
+ Comment[ja]=現在のbackgammonゲームに負けました
+ Comment[ko]=이번 쌍륙 놀이에서 졌습니다
+@@ -254,7 +254,7 @@
+ Name[hi]=पाँसा फेंकें या दोगुना करें
+ Name[hr]=Bacaj ili duplo
+ Name[hu]=Dobás vagy duplázás
+-Name[is]=KastaÃ°u eÃ°a tvÃ¶faldaÃ°u
++Name[is]=Kastaðu eða tvöfaldaðu
+ Name[it]=Lancia o raddoppia
+ Name[ja]=振るかダブル
+ Name[ko]=주사위를 굴리거나 두배로 늘리기
+@@ -303,7 +303,7 @@
+ Comment[he]=תורך להטיל את הקוביות או להכפיל את הקוביה
+ Comment[hi]=पाँसा फेंकने की या क्यूब को दोगुना करने की यह आपकी बारी है 
+ Comment[hu]=Dobjon a kockával vagy duplázzon
+-Comment[is]=ÃÃº Ã¡tt leik.  KastaÃ°u teningnum eÃ°a tvÃ¶faldaÃ°u
++Comment[is]=Þú átt leik.  Kastaðu teningnum eða tvöfaldaðu
+ Comment[it]=È il tuo turno di lanciare i dadi o di raddoppiare il cubo
+ Comment[ja]=あなたがさいころを振るかダブルする番です
+ Comment[ko]=당신이 주사위를 굴리거나 두배로 늘릴 차례입니다.
+@@ -356,7 +356,7 @@
+ Name[hi]=पाँसा फेंकें
+ Name[hr]=Baci kocke
+ Name[hu]=Dobás a kockával
+-Name[is]=KastaÃ°u teningnum
++Name[is]=Kastaðu teningnum
+ Name[it]=Lancia il dado
+ Name[ja]=サイコロを振って下さい
+ Name[ko]=주사위 굴리기
+@@ -408,7 +408,7 @@
+ Comment[hi]=पाँसा फेंकने की यह आपकी बारी है 
+ Comment[hr]=Red je na vama da bacite kocke
+ Comment[hu]=Dobjon a kockával
+-Comment[is]=ÃÃº Ã¡tt aÃ° kasta
++Comment[is]=Þú átt að kasta
+ Comment[it]=È il tuo turno di lanciare i dadi
+ Comment[ja]=あなたがサイコロを振る番です
+ Comment[ko]=당신이 주사위를 굴릴 차례입니다.
+@@ -460,7 +460,7 @@
+ Name[hi]=चेकर्स खिसकाएँ
+ Name[hr]=Pomakni figuru
+ Name[hu]=Lépés
+-Name[is]=FÃ¦rÃ°u
++Name[is]=Færðu
+ Name[it]=Sposta le pedine
+ Name[ja]=チェッカーの移動
+ Name[ko]=체커 옮기기
+@@ -509,7 +509,7 @@
+ Comment[hi]=पाँसा फेंक दिया गया है और यह चेकर्स को चलने की आपकी बारी है
+ Comment[hr]=Kocke su bačene i na vama je red da pomaknete figure
+ Comment[hu]=A dobás megtörtént, most Ön lép
+-Comment[is]=ÃaÃ° er bÃºiÃ° aÃ° kasta og Ã¾Ãº Ã¡tt aÃ° fÃ¦ra
++Comment[is]=Það er búið að kasta og þú átt að færa
+ Comment[it]=I dadi sono stati lanciati e tocca a te muovere le pedine
+ Comment[ja]=サイは投げられました、チェッカーを動かす番です
+ Comment[lv]=Kauliņi ir mesti un ir jūsu kārta izdarīt gājienu
+@@ -562,7 +562,7 @@
+ Name[hi]=खेल निमंत्रण
+ Name[hr]=Poziv za igru
+ Name[hu]=Játék kezdeményezése (meghívás)
+-Name[is]=BÃ½Ã° Ã¾Ã©r Ã­ nÃ½jan leik
++Name[is]=Býð þér í nýjan leik
+ Name[it]=Invito a giocare
+ Name[ja]=ゲームに招待
+ Name[ko]=놀이에 초대
+@@ -614,7 +614,7 @@
+ Comment[hi]=किसी ने आपको प्रतियोगिता के लिए निमंत्रण दिया है
+ Comment[hr]=Netko vas je pozvao na partiju
+ Comment[hu]=Valaki kihívta Önt egy játszmára
+-Comment[is]=ÃaÃ° bauÃ° Ã¾Ã©r einhver Ã­ leik
++Comment[is]=Það bauð þér einhver í leik
+ Comment[it]=Qualcuno ti ha invitato ad una partita
+ Comment[ja]=誰かがあなたをマッチに招待しました
+ Comment[lv]=Kāds jūs ir uzaicinājis uz spēli
+diff -urN -x CVS kdegames.orig/kbackgammon/kbackgammon.desktop kdegames/kbackgammon/kbackgammon.desktop
+--- kdegames.orig/kbackgammon/kbackgammon.desktop	Thu Jan 15 08:54:09 2004
++++ kdegames/kbackgammon/kbackgammon.desktop	Fri Feb  6 13:06:37 2004
+@@ -42,12 +42,14 @@
+ GenericName[hi]=पट्ट का खेल
+ GenericName[hr]=Igra na ploči
+ GenericName[hu]=Táblajáték
++GenericName[is]=Borðleikur
+ GenericName[it]=Gioco da tavolo
+ GenericName[ja]=ボードゲーム
+ GenericName[lo]=ເກມກະດານ
+ GenericName[lv]=Galda Spēle
+ GenericName[mt]=Logħba tal-bord
+ GenericName[nb]=Brettspill
++GenericName[nds]=Brettspeel
+ GenericName[nl]=Bordspel
+ GenericName[nn]=Brettspel
+ GenericName[pl]=Gra planszowa
+@@ -61,6 +63,7 @@
+ GenericName[ss]=Umdlalo webhodi
+ GenericName[sv]=Brädspel
+ GenericName[ta]=பலகை விளையாட்டு
++GenericName[tg]=Бозии тахтагӣ
+ GenericName[th]=เกมกระดาน
+ GenericName[tr]=Tahta Oyunu
+ GenericName[uk]=Гра на дошці
+diff -urN -x CVS kdegames.orig/kbattleship/kbattleship/eventsrc kdegames/kbattleship/kbattleship/eventsrc
+--- kdegames.orig/kbattleship/kbattleship/eventsrc	Thu Jan 15 08:54:11 2004
++++ kdegames/kbattleship/kbattleship/eventsrc	Fri Feb  6 13:06:39 2004
+@@ -4,6 +4,7 @@
+ Comment[cs]=Souboj lodí
+ Comment[de]=Schiffe versenken (KBattleship)
+ Comment[hi]=के-बैटलशिप
++Comment[is]=KSjóorrusta
+ Comment[sl]=KBojnaLadja
+ Comment[sv]=Sänka fartyg
+ Comment[ta]=Kபோர்க்கப்பல்
+@@ -26,6 +27,7 @@
+ Name[gl]=Disparo á auga
+ Name[hi]=पानी पर गोली चलाएँ
+ Name[hu]=Mellé ment lövés
++Name[is]=Skot í sjóinn
+ Name[it]=Colpo in acqua
+ Name[nl]=Schot in het water
+ Name[pl]=Pudło
+@@ -53,6 +55,7 @@
+ Comment[gl]=Alguén disparou á auga
+ Comment[hi]=किसी ने पानी पर गोली चलाई
+ Comment[hu]=Az egyik játékos lövése nem talált
++Comment[is]=Einhver skaut í vatnið
+ Comment[it]=Qualcuno ha sparato nell'acqua
+ Comment[nl]=Iemand heeft in het water geschoten
+ Comment[pl]=Ktoś spudłował
+@@ -85,6 +88,7 @@
+ Name[gl]=Disparo do xogador 1
+ Name[hi]=खिलाड़ी 1 ने गोली चलाई
+ Name[hu]=Az 1. játékos egyik hajója találatot kapott
++Name[is]=Leikmaður 1 skaut
+ Name[it]=Spara il giocatore n. 1
+ Name[nl]=Schot van speler 1
+ Name[pl]=Strzela Gracz 1
+@@ -113,6 +117,7 @@
+ Comment[gl]=O xogador 1 fai un disparo
+ Comment[hi]=खिलाड़ी 1 ने गोली चलाना लिया
+ Comment[hu]=Az 1. játékos lő
++Comment[is]=Leikmaður 1 skýtur
+ Comment[it]=Il giocatore 1 prende un colpo
+ Comment[nl]=Speler 1 schiet
+ Comment[pl]=Gracz 1 został trafiony
+@@ -145,6 +150,7 @@
+ Name[gl]=Disparo do xogador 2
+ Name[hi]=खिलाड़ी 2 ने गोली चलाई
+ Name[hu]=A 2. játékos egyik hajója találatot kapott
++Name[is]=Leikmaður 2 skaut
+ Name[it]=Spara il giocatore n. 2
+ Name[nl]=Schot van speler 2
+ Name[pl]=Strzela Gracz 2
+@@ -173,6 +179,7 @@
+ Comment[gl]=O xogador 2 fai un disparo
+ Comment[hi]=खिलाड़ी 2 ने गोली चलाना लिया
+ Comment[hu]=A 2. játékos lő
++Comment[is]=Leikmaður 2 skýtur
+ Comment[it]=Il giocatore 2 prende un colpo
+ Comment[nl]=Speler 2 schiet
+ Comment[pl]=Gracz 2 został trafiony
+@@ -203,6 +210,7 @@
+ Name[gl]=Barco afundido
+ Name[hi]=जहाज डुबाएँ
+ Name[hu]=Elsüllyedt egy hajó
++Name[is]=Sökkti skipi
+ Name[it]=Nave affondata
+ Name[nl]=Gezonken schip
+ Name[pl]=Zatopiony okręt
+@@ -230,6 +238,7 @@
+ Comment[gl]=Afundiuse un barco
+ Comment[hi]=एक जहाज डूबा
+ Comment[hu]=Elsüllyedt egy hajó
++Comment[is]=Skipi hefur verið sökkt
+ Comment[it]=Una nave è stata affondata
+ Comment[nl]=Er is een schip gezonken
+ Comment[pl]=Okręt został zatopiony
+diff -urN -x CVS kdegames.orig/kbattleship/kbattleship/kbattleship.desktop kdegames/kbattleship/kbattleship/kbattleship.desktop
+--- kdegames.orig/kbattleship/kbattleship/kbattleship.desktop	Thu Jan 15 08:54:13 2004
++++ kdegames/kbattleship/kbattleship/kbattleship.desktop	Fri Feb  6 13:06:41 2004
+@@ -7,7 +7,7 @@
+ Name[eo]=Batalŝipo
+ Name[hi]=के-बैटलशिप
+ Name[hr]=Potapanje brodova
+-Name[is]=SjÃ³orrusta
++Name[is]=KSjóorrusta
+ Name[ko]=K전함
+ Name[pt_BR]=KBatalha Naval
+ Name[ro]=Bătălie navală
+@@ -45,12 +45,14 @@
+ GenericName[hi]=कौशल का खेल
+ GenericName[hr]=Igra strategije
+ GenericName[hu]=Stratégiai
++GenericName[is]=Herkænskuleikur
+ GenericName[it]=Gioco di strategia
+ GenericName[ja]=戦略ゲーム
+ GenericName[lo]=ເກມກົນລະຍຸດ
+ GenericName[lv]=Stratēģiskā Game
+ GenericName[mt]=Logħba ta' strateġija
+ GenericName[nb]=Taktikkspill
++GenericName[nds]=Strategiespeel
+ GenericName[nl]=Strategisch spel
+ GenericName[nn]=Strategispel
+ GenericName[pl]=Gra strategiczna
+@@ -64,6 +66,7 @@
+ GenericName[ss]=Umdlalo wekusebentisa indlela yekwenta
+ GenericName[sv]=Strategispel
+ GenericName[ta]=தந்திர விளையாட்டு
++GenericName[tg]=Бозии стратегӣ
+ GenericName[th]=เกมกลยุทธ์
+ GenericName[tr]=Strateji Oyunu
+ GenericName[uk]=Гра на стратегію
+diff -urN -x CVS kdegames.orig/kblackbox/kblackbox.desktop kdegames/kblackbox/kblackbox.desktop
+--- kdegames.orig/kblackbox/kblackbox.desktop	Thu Jan 15 08:54:15 2004
++++ kdegames/kblackbox/kblackbox.desktop	Fri Feb  6 13:06:43 2004
+@@ -24,12 +24,14 @@
+ GenericName[hi]=तर्क का खेल
+ GenericName[hr]=Logička igra
+ GenericName[hu]=Logikai
++GenericName[is]=Kænskuleikur
+ GenericName[it]=Gioco di logica
+ GenericName[ja]=論理ゲーム
+ GenericName[lo]=ເກມຕະກະ   
+ GenericName[lv]=Loģiskā Spēle
+ GenericName[mt]=Logħba ta' loġika
+ GenericName[nb]=Logikk-spill
++GenericName[nds]=Logikspeel
+ GenericName[nl]=Logicaspel
+ GenericName[nn]=Logikkspel
+ GenericName[pl]=Gra logiczna
+@@ -43,6 +45,7 @@
+ GenericName[ss]=Umdlalo wengcondvo
+ GenericName[sv]=Logiskt spel
+ GenericName[ta]=தர்கக விளையாட்டு
++GenericName[tg]=Бозии логикӣ
+ GenericName[th]=เกมตรรกะ
+ GenericName[tr]=Mantık Oyunu
+ GenericName[uk]=Гра на логіку
+@@ -60,6 +63,7 @@
+ Name[eo]=Nigra kesto
+ Name[hi]=के-ब्लेकबॉक्स
+ Name[hu]=Fekete doboz
++Name[is]=Svarti kassinn
+ Name[lv]=KMelnāKaste
+ Name[nb]=Hemmelighetens kasse
+ Name[pl]=Czarna skrzynka
+diff -urN -x CVS kdegames.orig/kbounce/kbounce.desktop kdegames/kbounce/kbounce.desktop
+--- kdegames.orig/kbounce/kbounce.desktop	Thu Jan 15 08:54:17 2004
++++ kdegames/kbounce/kbounce.desktop	Fri Feb  6 13:06:45 2004
+@@ -38,12 +38,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -57,6 +59,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+diff -urN -x CVS kdegames.orig/kenolaba/kenolaba.desktop kdegames/kenolaba/kenolaba.desktop
+--- kdegames.orig/kenolaba/kenolaba.desktop	Thu Jan 15 08:54:19 2004
++++ kdegames/kenolaba/kenolaba.desktop	Fri Feb  6 13:06:47 2004
+@@ -34,12 +34,14 @@
+ GenericName[hi]=पट्ट का खेल
+ GenericName[hr]=Igra na ploči
+ GenericName[hu]=Táblajáték
++GenericName[is]=Borðleikur
+ GenericName[it]=Gioco da tavolo
+ GenericName[ja]=ボードゲーム
+ GenericName[lo]=ເກມກະດານ
+ GenericName[lv]=Galda Spēle
+ GenericName[mt]=Logħba tal-bord
+ GenericName[nb]=Brettspill
++GenericName[nds]=Brettspeel
+ GenericName[nl]=Bordspel
+ GenericName[nn]=Brettspel
+ GenericName[pl]=Gra planszowa
+@@ -53,6 +55,7 @@
+ GenericName[ss]=Umdlalo webhodi
+ GenericName[sv]=Brädspel
+ GenericName[ta]=பலகை விளையாட்டு
++GenericName[tg]=Бозии тахтагӣ
+ GenericName[th]=เกมกระดาน
+ GenericName[tr]=Tahta Oyunu
+ GenericName[uk]=Гра на дошці
+diff -urN -x CVS kdegames.orig/kfouleggs/eventsrc kdegames/kfouleggs/eventsrc
+--- kdegames.orig/kfouleggs/eventsrc	Fri Jan 16 08:01:01 2004
++++ kdegames/kfouleggs/eventsrc	Fri Feb  6 13:06:49 2004
+@@ -3,6 +3,7 @@
+ Comment=KFoulEggs
+ Comment[cs]=Zkažená vejce
+ Comment[hi]=के-फाउलएग्स
++Comment[is]=Fúlegg
+ Comment[pt_BR]=KOvos Sujos
+ Comment[sv]=Kfouleggs
+ Comment[ta]=Kகருதப்படாத முட்டைகள்
+@@ -22,6 +23,7 @@
+ Name[gl]=Bloques eliminados
+ Name[hi]=पिण्ड हटाए
+ Name[hu]=Blokk eltávolítva
++Name[is]=Kubbar fjarlægðir
+ Name[it]=Blocchi rimossi
+ Name[nl]=Blokken verwijderd
+ Name[pl]=Usunięcie bloków
+@@ -49,6 +51,7 @@
+ Comment[gl]=Bloques eliminados
+ Comment[hi]=पिण्ड हटाए
+ Comment[hu]=Blokk eltávolítva
++Comment[is]=Kubbar fjarlðir
+ Comment[it]=Blocchi rimossi
+ Comment[nl]=Blokken verwijderd
+ Comment[pl]=Usunięcie bloków
+@@ -87,7 +90,7 @@
+ Name[hr]=Igra je završena
+ Name[hu]=Vége a játéknak
+ Name[id]=permainan berakhir
+-Name[is]=Leik lokiÃ°
++Name[is]=Leik lokið
+ Name[it]=Gioco terminato
+ Name[ja]=ゲームオーバー
+ Name[ko]=게임 끝
+@@ -132,6 +135,7 @@
+ Comment[gl]=Fin do Xogo
+ Comment[hi]=खेल खत्म
+ Comment[hu]=Vége a játéknak
++Comment[is]=Leik lokið
+ Comment[it]=Gioco terminato
+ Comment[nl]=Het spel is afgelopen
+ Comment[pl]=Koniec gry
+@@ -165,6 +169,7 @@
+ Name[gl]=Peza pegada
+ Name[hi]=टुकड़े चिपकाए
+ Name[hu]=Elem lekötve
++Name[is]=Hlutur límdur
+ Name[it]=Pezzo incollato
+ Name[nl]=Samengevoegde stukken
+ Name[pl]=Sklejenie elementów
+@@ -192,6 +197,7 @@
+ Comment[gl]=Peza pegada
+ Comment[hi]=टुकड़े चिपकाए
+ Comment[hu]=Elem lekötve
++Comment[is]=Hlutur límdur
+ Comment[it]=Pezzo incollato
+ Comment[nl]=Samengevoegde stukken
+ Comment[pl]=Sklejenie elementu
+diff -urN -x CVS kdegames.orig/kfouleggs/kfouleggs.desktop kdegames/kfouleggs/kfouleggs.desktop
+--- kdegames.orig/kfouleggs/kfouleggs.desktop	Thu Jan 15 08:54:23 2004
++++ kdegames/kfouleggs/kfouleggs.desktop	Fri Feb  6 13:06:51 2004
+@@ -5,6 +5,7 @@
+ Name[eo]=Putraj ovoj
+ Name[hi]=के-फाउलएग्स
+ Name[hr]=Pokvarena jaja
++Name[is]=Fúlegg
+ Name[lv]=KVecasOlas
+ Name[pl]=Foul Eggs
+ Name[pt_BR]=KOvos Sujos
+@@ -39,12 +40,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -58,6 +61,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+diff -urN -x CVS kdegames.orig/kgoldrunner/src/KGoldrunner.desktop kdegames/kgoldrunner/src/KGoldrunner.desktop
+--- kdegames.orig/kgoldrunner/src/KGoldrunner.desktop	Fri Jan 16 08:01:03 2004
++++ kdegames/kgoldrunner/src/KGoldrunner.desktop	Fri Feb  6 13:06:53 2004
+@@ -32,12 +32,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -51,6 +53,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+@@ -83,6 +86,7 @@
+ Comment[hi]=पहेलियाँ हल करने और क्रियाशीलता का एक खेल
+ Comment[hr]=Igra s akcijom i rješavanjem zagonetaka
+ Comment[hu]=Ügyességi játék rejtvényekkel tarkítva
++Comment[is]=Leikur sem reynir á hraða og kænsku
+ Comment[it]=Un gioco d'azione e un rompicapo
+ Comment[ja]=アクション、パズル解きゲーム
+ Comment[nl]=Een spel met veel actie en raadsels
+diff -urN -x CVS kdegames.orig/kjumpingcube/kjumpingcube.desktop kdegames/kjumpingcube/kjumpingcube.desktop
+--- kdegames.orig/kjumpingcube/kjumpingcube.desktop	Thu Jan 15 08:54:27 2004
++++ kdegames/kjumpingcube/kjumpingcube.desktop	Fri Feb  6 13:06:55 2004
+@@ -56,7 +56,7 @@
+ GenericName[hr]=Taktička igra
+ GenericName[hu]=Logikai
+ GenericName[id]=Permainan Taktik
+-GenericName[is]=kjumpingcube: HerkÃ¦nskuleikur
++GenericName[is]=Herkænskuleikur
+ GenericName[it]=Gioco di tattica
+ GenericName[ja]=戦略的ゲーム
+ GenericName[ko]=전술 놀이
+@@ -65,6 +65,7 @@
+ GenericName[mk]=Тактичка игра
+ GenericName[mt]=Logħba ta' tattika
+ GenericName[nb]=Taktikk-spill
++GenericName[nds]=Taktikspeel
+ GenericName[nl]=Tactisch spel
+ GenericName[nn]=Taktisk spel
+ GenericName[oc]=Jog de tactica
+@@ -79,6 +80,7 @@
+ GenericName[ss]=Umdlalo webuciko 
+ GenericName[sv]=Taktikspel
+ GenericName[ta]=தந்திரமான விளையாட்டு
++GenericName[tg]=Бозии тактикӣ
+ GenericName[th]=เกมวางแผน
+ GenericName[tr]=Taktik oyunu
+ GenericName[uk]=Тактична гра
+diff -urN -x CVS kdegames.orig/klickety/eventsrc kdegames/klickety/eventsrc
+--- kdegames.orig/klickety/eventsrc	Fri Jan 16 08:01:05 2004
++++ kdegames/klickety/eventsrc	Fri Feb  6 13:06:57 2004
+@@ -20,6 +20,7 @@
+ Name[gl]=Liña eliminada
+ Name[hi]=पंक्ति हटाए
+ Name[hu]=Sor eltávolítva
++Name[is]=Lína fjarlægð
+ Name[it]=Riga rimossa
+ Name[nl]=Regel verwijderd
+ Name[pl]=Linia usunięta
+@@ -48,6 +49,7 @@
+ Comment[gl]=Liña eliminada
+ Comment[hi]=पंक्ति हटाए
+ Comment[hu]=Sor eltávolítva
++Comment[is]=Lína fjarlægð
+ Comment[it]=Linea rimossa
+ Comment[nl]=Regel verwijderd
+ Comment[pl]=Linia usunięta
+@@ -86,7 +88,7 @@
+ Name[hr]=Igra je završena
+ Name[hu]=Vége a játéknak
+ Name[id]=permainan berakhir
+-Name[is]=Leik lokiÃ°
++Name[is]=Leik lokið
+ Name[it]=Gioco terminato
+ Name[ja]=ゲームオーバー
+ Name[ko]=게임 끝
+@@ -131,6 +133,7 @@
+ Comment[gl]=Fin do Xogo
+ Comment[hi]=खेल खत्म
+ Comment[hu]=Vége a játéknak
++Comment[is]=Leik lokið
+ Comment[it]=Gioco terminato
+ Comment[nl]=Het spel is afgelopen
+ Comment[pl]=Koniec gry
+diff -urN -x CVS kdegames.orig/klickety/klickety.desktop kdegames/klickety/klickety.desktop
+--- kdegames.orig/klickety/klickety.desktop	Thu Jan 15 08:54:32 2004
++++ kdegames/klickety/klickety.desktop	Fri Feb  6 13:06:59 2004
+@@ -26,12 +26,14 @@
+ GenericName[hi]=पट्ट का खेल
+ GenericName[hr]=Igra na ploči
+ GenericName[hu]=Táblajáték
++GenericName[is]=Borðleikur
+ GenericName[it]=Gioco da tavolo
+ GenericName[ja]=ボードゲーム
+ GenericName[lo]=ເກມກະດານ
+ GenericName[lv]=Galda Spēle
+ GenericName[mt]=Logħba tal-bord
+ GenericName[nb]=Brettspill
++GenericName[nds]=Brettspeel
+ GenericName[nl]=Bordspel
+ GenericName[nn]=Brettspel
+ GenericName[pl]=Gra planszowa
+@@ -45,6 +47,7 @@
+ GenericName[ss]=Umdlalo webhodi
+ GenericName[sv]=Brädspel
+ GenericName[ta]=பலகை விளையாட்டு
++GenericName[tg]=Бозии тахтагӣ
+ GenericName[th]=เกมกระดาน
+ GenericName[tr]=Tahta Oyunu
+ GenericName[uk]=Гра на дошці
+diff -urN -x CVS kdegames.orig/klines/klines.desktop kdegames/klines/klines.desktop
+--- kdegames.orig/klines/klines.desktop	Thu Jan 15 08:54:34 2004
++++ kdegames/klines/klines.desktop	Fri Feb  6 13:07:01 2004
+@@ -33,7 +33,7 @@
+ GenericName[hr]=Taktička igra
+ GenericName[hu]=Logikai
+ GenericName[id]=Permainan Taktik
+-GenericName[is]=kjumpingcube: HerkÃ¦nskuleikur
++GenericName[is]=Herkænskuleikur
+ GenericName[it]=Gioco di tattica
+ GenericName[ja]=戦略的ゲーム
+ GenericName[ko]=전술 놀이
+@@ -42,6 +42,7 @@
+ GenericName[mk]=Тактичка игра
+ GenericName[mt]=Logħba ta' tattika
+ GenericName[nb]=Taktikk-spill
++GenericName[nds]=Taktikspeel
+ GenericName[nl]=Tactisch spel
+ GenericName[nn]=Taktisk spel
+ GenericName[oc]=Jog de tactica
+@@ -56,6 +57,7 @@
+ GenericName[ss]=Umdlalo webuciko 
+ GenericName[sv]=Taktikspel
+ GenericName[ta]=தந்திரமான விளையாட்டு
++GenericName[tg]=Бозии тактикӣ
+ GenericName[th]=เกมวางแผน
+ GenericName[tr]=Taktik oyunu
+ GenericName[uk]=Тактична гра
+diff -urN -x CVS kdegames.orig/kmahjongg/ChangeLog kdegames/kmahjongg/ChangeLog
+--- kdegames.orig/kmahjongg/ChangeLog	Sun Apr 14 14:17:06 2002
++++ kdegames/kmahjongg/ChangeLog	Mon Feb  2 18:40:36 2004
+@@ -2,12 +2,19 @@
+ This is the change log for kmahjongg.
+ 
+ Personel
+-    Michael Haertjens: Solvable game generation
++	Albert Astals Cid: Some bug fixes and wishlists
++	Michael Haertjens: Solvable game generation
+ 	David Black: Fold, spindle and mutilate 0.4.1 to 0.5.0	
+ 	Osvaldo Stark: Tileset creator, doc guinepig and tester 0.5.0
+ 	Robert Williams: Bug fixes 0.4.0 to 0.4.1
+ 	Mathias Muller: Implementor of the original kmahjongg.
+ 
++0.7.4 to 0.7.6
+++ Fix bug #73944
+++ Implement wishlist #63171
+++ Implement wishlist #56607
+++ Fix bug #26595
++
+ 0.7.3 to 0.7.4
+ + Fixed bug #31639 Kmahjongg flashes wrong tiles.
+ + Fixed bug #26872 Kmahjongg timer not reset.
+diff -urN -x CVS kdegames.orig/kmahjongg/boardwidget.cpp kdegames/kmahjongg/boardwidget.cpp
+--- kdegames.orig/kmahjongg/boardwidget.cpp	Sun Dec 21 16:10:42 2003
++++ kdegames/kmahjongg/boardwidget.cpp	Mon Feb  2 18:40:36 2004
+@@ -266,13 +266,13 @@
+     int xheight = pa->rect().height();
+     int xwidth  = pa->rect().width();
+ 
++    back = theBackground.getBackground();
+ 
+     if (gamePaused) {
+         // If the game is paused, then blank out the board.
+         // We tolerate no cheats around here folks..
+         bitBlt( this, xx, pa->rect().top(),
+-                theBackground.getBackground(), xx,
+-                pa->rect().top(), xwidth, xheight, CopyROP );
++                back, xx, pa->rect().top(), xwidth, xheight, CopyROP );
+ 	return;
+     }
+ 
+@@ -286,13 +286,11 @@
+ 
+     // update the complete drawArea
+ 
+-    back = theBackground.getBackground();
+-
+     backBuffer.resize(back->width(), back->height());
+ 
+     // erase out with the background
+     bitBlt( &backBuffer, xx, pa->rect().top(),
+-                theBackground.getBackground(), xx,pa->rect().top(), xwidth, xheight, CopyROP );
++                back, xx,pa->rect().top(), back->width(), back->height(), CopyROP );
+ 
+     // initial offset on the screen of tile 0,0
+     int xOffset = theTiles.width()/2;
+@@ -485,6 +483,21 @@
+ 	gamePaused = !gamePaused;
+ 	drawBoard(true);
+ }
++
++void BoardWidget::gameLoaded()
++{
++	int i;
++	initialiseRemovedTiles();
++	i = Game.TileNum;
++	// use the history of moves to put in the removed tiles area the correct tiles
++	while (i < Game.MaxTileNum )
++	{
++		setRemovedTilePair(Game.MoveList[i], Game.MoveList[i+1]);
++		i +=2;
++	}
++	drawBoard();
++}
++
+ // ---------------------------------------------------------
+ int BoardWidget::undoMove()
+ {
+@@ -1889,13 +1902,6 @@
+ }
+ 
+ // ---------------------------------------------------------
+-void BoardWidget::showMessage( const QString& pszText )
+-{
+-    emit message( pszText );
+-}
+-
+-
+-// ---------------------------------------------------------
+ bool BoardWidget::loadTileset(const QString &path) {
+ 
+   if (theTiles.loadTileset(path)) {
+diff -urN -x CVS kdegames.orig/kmahjongg/boardwidget.h kdegames/kmahjongg/boardwidget.h
+--- kdegames.orig/kmahjongg/boardwidget.h	Mon Oct  6 22:37:16 2003
++++ kdegames/kmahjongg/boardwidget.h	Mon Feb  2 18:40:36 2004
+@@ -108,6 +108,7 @@
+         void stopDemoMode();
+ 
+ 	void pause();
++	void gameLoaded();
+ 
+         void animateMoveList();
+         void setShowMatch( bool );
+@@ -136,7 +137,6 @@
+         bool loadBackground ( const QString&, bool bShowError = true );
+     signals:
+         void statusTextChanged ( const QString&, long );
+-        void message           ( const QString& );
+         void tileNumberChanged ( int iMaximum, int iCurrent, int iLeft );
+         void demoModeChanged   ( bool bActive );
+ 
+@@ -152,7 +152,6 @@
+         void mousePressEvent ( QMouseEvent* );
+ 
+         void setStatusText ( const QString& );
+-        void showMessage   ( const QString& );
+         void cancelUserSelectedTiles();
+         void drawTileNumber();
+ 
+diff -urN -x CVS kdegames.orig/kmahjongg/kmahjongg.cpp kdegames/kmahjongg/kmahjongg.cpp
+--- kdegames.orig/kmahjongg/kmahjongg.cpp	Mon Oct  6 22:37:16 2003
++++ kdegames/kmahjongg/kmahjongg.cpp	Mon Feb  2 18:40:36 2004
+@@ -1,6 +1,6 @@
+ /*
+ 
+-    $Id$
++    $Id$
+ 
+     kmahjongg, the classic mahjongg game for KDE project
+ 
+@@ -87,9 +87,6 @@
+     connect( bw, SIGNAL( statusTextChanged(const QString&, long) ),
+                  SLOT( showStatusText(const QString&, long) ) );
+ 
+-    connect( bw, SIGNAL( message(const QString&) ),
+-                 SLOT( showMessage(const QString&) ) );
+-
+     connect( bw, SIGNAL( tileNumberChanged(int,int,int) ),
+                  SLOT( showTileNumber(int,int,int) ) );
+ 
+@@ -414,12 +411,6 @@
+ }
+ 
+ // ---------------------------------------------------------
+-void KMahjongg::showMessage( const QString &msg )
+-{
+-    KMessageBox::information( this, msg );
+-}
+-
+-// ---------------------------------------------------------
+ void KMahjongg::showTileNumber( int iMaximum, int iCurrent, int iLeft )
+ {
+     // Hmm... seems iCurrent is the number of remaining tiles, not removed ...
+@@ -516,7 +507,7 @@
+     KIO::NetAccess::removeTempFile( fname );
+ 
+     // refresh the board
+-    bw->drawBoard();
++    bw->gameLoaded();
+ }
+ 
+ void KMahjongg::restartGame() {
+diff -urN -x CVS kdegames.orig/kmahjongg/kmahjongg.desktop kdegames/kmahjongg/kmahjongg.desktop
+--- kdegames.orig/kmahjongg/kmahjongg.desktop	Thu Jan 15 08:54:36 2004
++++ kdegames/kmahjongg/kmahjongg.desktop	Fri Feb  6 13:07:03 2004
+@@ -34,11 +34,13 @@
+ GenericName[hi]=टाइल खेल
+ GenericName[hr]=Igra s pločicama
+ GenericName[hu]=Képdominó
++GenericName[is]=Kubbaleikur
+ GenericName[it]=Gioco di tessere
+ GenericName[ja]=マージャン牌ゲーム
+ GenericName[lv]=Tile Spēle
+ GenericName[mt]=Logħoba tal-madum
+ GenericName[nb]=Brikke-spill
++GenericName[nds]=Speel mit Tegels
+ GenericName[nl]=Tegelspel
+ GenericName[nn]=Brikkespel
+ GenericName[pl]=Gra planszowa
+@@ -52,6 +54,7 @@
+ GenericName[ss]=Umdlalo wemathayili
+ GenericName[sv]=Brickspel
+ GenericName[ta]=பின்னணி விளையாட்டு
++GenericName[tg]=Бозӣ бо маджонг
+ GenericName[tr]=Taş oyunu
+ GenericName[uk]=Гра з плитками
+ GenericName[ven]=Mutambo wa Zwileithi
+diff -urN -x CVS kdegames.orig/kmahjongg/kmahjongg.h kdegames/kmahjongg/kmahjongg.h
+--- kdegames.orig/kmahjongg/kmahjongg.h	Thu Sep  4 22:16:04 2003
++++ kdegames/kmahjongg/kmahjongg.h	Mon Feb  2 18:40:36 2004
+@@ -1,6 +1,6 @@
+ /*
+ 
+-    $Id$
++    $Id$
+ 
+     kmahjongg, the classic mahjongg game for KDE project
+ 
+@@ -59,7 +59,6 @@
+     public slots:
+         void startNewGame( int num = -1 );
+         void showStatusText ( const QString& , long);
+-        void showMessage    ( const QString& );
+         void showTileNumber( int iMaximum, int iCurrent, int iLeft );
+         void demoModeChanged( bool bActive );
+         void gameOver( unsigned short removed, unsigned short cheats);
+diff -urN -x CVS kdegames.orig/kmahjongg/main.cpp kdegames/kmahjongg/main.cpp
+--- kdegames.orig/kmahjongg/main.cpp	Sat Nov  8 22:47:58 2003
++++ kdegames/kmahjongg/main.cpp	Mon Feb  2 18:40:36 2004
+@@ -17,6 +17,7 @@
+     aboutData.addAuthor("Michael Haertjens", I18N_NOOP("Solvable game generation\nbased on algorithm by Michael Meeks in GNOME mahjongg"), "mhaertjens@modusoperandi.com");
+     aboutData.addAuthor("Osvaldo Stark", I18N_NOOP("Tile set contributor and web page maintainer"), "starko@dnet.it");
+     aboutData.addCredit("Benjamin Meyer", I18N_NOOP("Code cleanup"), "ben+kmahjongg@meyerhome.net");
++    aboutData.addCredit("Albert Astals Cid", 0, "astals11@terra.es");
+     
+     KCmdLineArgs::init( argc, argv, &aboutData );
+ 
+diff -urN -x CVS kdegames.orig/kmahjongg/version.h kdegames/kmahjongg/version.h
+--- kdegames.orig/kmahjongg/version.h	Sat Mar  1 06:16:30 2003
++++ kdegames/kmahjongg/version.h	Mon Feb  2 18:40:36 2004
+@@ -1 +1 @@
+-#define KMAHJONGG_VERSION	"0.7.5"
++#define KMAHJONGG_VERSION	"0.7.6"
+diff -urN -x CVS kdegames.orig/kmines/data/eventsrc kdegames/kmines/data/eventsrc
+--- kdegames.orig/kmines/data/eventsrc	Fri Jan 16 08:01:07 2004
++++ kdegames/kmines/data/eventsrc	Fri Feb  6 13:07:05 2004
+@@ -24,6 +24,7 @@
+ Name[gl]=Amosar cadrado
+ Name[hi]=केस प्रकट करें
+ Name[hu]=Mező felfedése
++Name[is]=Sýna tösku
+ Name[it]=Rivela casella
+ Name[nl]=Vak openen
+ Name[pl]=Pole odsłonięte
+@@ -51,6 +52,7 @@
+ Comment[gl]=Amosar cadrado
+ Comment[hi]=केस प्रकट करें
+ Comment[hu]=Mező felfedése
++Comment[is]=Sýna tösku
+ Comment[it]=Rivela casella
+ Comment[nl]=Vak openen
+ Comment[pl]=Pole zaznaczone
+@@ -81,6 +83,7 @@
+ Name[gl]=Auto-amosar cadrado
+ Name[hi]=केस स्वयं प्रकट करें
+ Name[hu]=Mező automatikus felfedése
++Name[is]=Sýna tösku sjálfkrafa
+ Name[it]=Rivela automaticamente caselle
+ Name[nl]=Vak automatisch openen
+ Name[pl]=Pole odsłonięte automatycznie
+@@ -108,6 +111,7 @@
+ Comment[gl]=Auto-amosar cadrado
+ Comment[hi]=केस स्वयं प्रकट करें
+ Comment[hu]=Mező automatikus felfedése
++Comment[is]=Sýna tösku skjakrafa
+ Comment[it]=Rivela automaticamente caselle
+ Comment[nl]=Vak automatisch openen
+ Comment[pl]=Pole odsłonięte automatycznie
+@@ -137,6 +141,7 @@
+ Name[gl]=Marcar cadrado
+ Name[hi]=केस चिन्हित करें
+ Name[hu]=Mező megjelölése
++Name[is]=Merkja tösku
+ Name[it]=Segna casella
+ Name[nl]=Vak markeren
+ Name[pl]=Pole zaznaczone
+@@ -164,6 +169,7 @@
+ Comment[gl]=Marcar cadrado
+ Comment[hi]=केस चिन्हित करें
+ Comment[hu]=Mező megjelölése
++Comment[is]=Merkja tösku
+ Comment[it]=Segna casella
+ Comment[nl]=Vak markeren
+ Comment[pl]=Zaznaczenie pola
+@@ -193,6 +199,7 @@
+ Name[gl]=Desmarcar cadrado
+ Name[hi]=केस अचिन्हित करें
+ Name[hu]=Mező kijelölésének megszüntetése
++Name[is]=Afmerkja tösku
+ Name[it]=Togli segno su casella
+ Name[nl]=Vakmarkering verwijderen
+ Name[pl]=Pole odznaczone
+@@ -220,6 +227,7 @@
+ Comment[gl]=Desmarcar cadrado
+ Comment[hi]=केस अचिन्हित करें
+ Comment[hu]=Mező megjelölésének megszüntetése
++Comment[is]=Afmerkja tösku
+ Comment[it]=Togli segno a casella
+ Comment[nl]=Vakmarkering verwijderen
+ Comment[pl]=Odznaczenie pola
+@@ -248,6 +256,7 @@
+ Name[gl]=Estoupido
+ Name[hi]=धमाका
+ Name[hu]=Robbanás
++Name[is]=Sprenging
+ Name[it]=Esplosione
+ Name[nl]=Explosie
+ Name[pl]=Wybuch
+@@ -275,6 +284,7 @@
+ Comment[gl]=Estoupido
+ Comment[hi]=धमाका
+ Comment[hu]=Robbanás
++Comment[is]=Sprenging
+ Comment[it]=Esplosione
+ Comment[nl]=Explosie
+ Comment[pl]=Wybuch
+@@ -307,6 +317,7 @@
+ Name[gl]=Xogo gañado
+ Name[hi]=खेल में जीत हुई
+ Name[hu]=Győzelem
++Name[is]=Leikur unninn
+ Name[it]=Partita vinta
+ Name[nl]=Spel gewonnen
+ Name[pl]=Gra wygrana
+@@ -336,6 +347,7 @@
+ Comment[gl]=Xogo gañado
+ Comment[hi]=खेल में जीत हुई
+ Comment[hu]=Győzelem
++Comment[is]=Leikur unninn
+ Comment[it]=Partita vinta
+ Comment[nl]=Spel gewonnen
+ Comment[pl]=Gra wygrana
+@@ -367,6 +379,7 @@
+ Name[gl]=Xogo perdido
+ Name[hi]=खेल में हार हुई
+ Name[hu]=Vereség
++Name[is]=Leik tapað
+ Name[it]=Partita persa
+ Name[nl]=Spel verloren
+ Name[pl]=Koniec gry, przegrałeś
+@@ -396,6 +409,7 @@
+ Comment[gl]=Xogo perdido
+ Comment[hi]=खेल में हार हुई
+ Comment[hu]=Vereség
++Comment[is]=Leik tapað
+ Comment[it]=Partita persa
+ Comment[nl]=Spel verloren
+ Comment[pl]=Koniec gry, przegrałeś
+diff -urN -x CVS kdegames.orig/kmines/data/kmines.desktop kdegames/kmines/data/kmines.desktop
+--- kdegames.orig/kmines/data/kmines.desktop	Thu Jan 15 08:54:40 2004
++++ kdegames/kmines/data/kmines.desktop	Fri Feb  6 13:07:07 2004
+@@ -43,12 +43,14 @@
+ GenericName[hi]=तर्क का खेल
+ GenericName[hr]=Logička igra
+ GenericName[hu]=Logikai
++GenericName[is]=Kænskuleikur
+ GenericName[it]=Gioco di logica
+ GenericName[ja]=論理ゲーム
+ GenericName[lo]=ເກມຕະກະ   
+ GenericName[lv]=Loģiskā Spēle
+ GenericName[mt]=Logħba ta' loġika
+ GenericName[nb]=Logikk-spill
++GenericName[nds]=Logikspeel
+ GenericName[nl]=Logicaspel
+ GenericName[nn]=Logikkspel
+ GenericName[pl]=Gra logiczna
+@@ -62,6 +64,7 @@
+ GenericName[ss]=Umdlalo wengcondvo
+ GenericName[sv]=Logiskt spel
+ GenericName[ta]=தர்கக விளையாட்டு
++GenericName[tg]=Бозии логикӣ
+ GenericName[th]=เกมตรรกะ
+ GenericName[tr]=Mantık Oyunu
+ GenericName[uk]=Гра на логіку
+diff -urN -x CVS kdegames.orig/kolf/courses/Classic.kolf kdegames/kolf/courses/Classic.kolf
+--- kdegames.orig/kolf/courses/Classic.kolf	Thu Jan 15 08:54:42 2004
++++ kdegames/kolf/courses/Classic.kolf	Fri Feb  6 13:07:09 2004
+@@ -16,6 +16,7 @@
+ Name[he]=קלאסי
+ Name[hi]=क्लासिक
+ Name[hu]=Klasszikus
++Name[is]=Klassísk
+ Name[it]=Classico
+ Name[ja]=クラッシック
+ Name[nb]=Klassisk 
+diff -urN -x CVS kdegames.orig/kolf/courses/Easy.kolf kdegames/kolf/courses/Easy.kolf
+--- kdegames.orig/kolf/courses/Easy.kolf	Thu Jan 15 08:54:44 2004
++++ kdegames/kolf/courses/Easy.kolf	Fri Feb  6 13:07:11 2004
+@@ -16,6 +16,7 @@
+ Name[he]=מסלול קל
+ Name[hi]=आसान कोर्स
+ Name[hu]=Könnyű pálya
++Name[is]=Auðveld leið
+ Name[it]=Percorso facile
+ Name[ja]=簡単なコース
+ Name[nl]=Eenvoudig parcour
+@@ -622,6 +623,7 @@
+ Comment[he]=חבוט לאט...
+ Comment[hi]=धीरे से मारें...
+ Comment[hu]=Lassan megütni...
++Comment[is]=Sláðu varlega...
+ Comment[it]=Colpisci piano...
+ Comment[ja]=ゆっくり打とう...
+ Comment[nb]=Slå sakte ...
+diff -urN -x CVS kdegames.orig/kolf/courses/Hard.kolf kdegames/kolf/courses/Hard.kolf
+--- kdegames.orig/kolf/courses/Hard.kolf	Thu Jan 15 08:54:46 2004
++++ kdegames/kolf/courses/Hard.kolf	Fri Feb  6 13:07:13 2004
+@@ -16,6 +16,7 @@
+ Name[he]=מסלול קשה
+ Name[hi]=कठिन कोर्स
+ Name[hu]=Nehéz pálya
++Name[is]=Erfið braut
+ Name[it]=Percorso difficile
+ Name[ja]=難しいコース
+ Name[nb]=Hard kurs
+@@ -1114,6 +1115,7 @@
+ Comment[he]=תן למשטחים הצפים <strong>לדחוף</strong> אותך!
+ Comment[hi]=तैरने वाले आपको <strong>धकेल</strong> सकते हैं!
+ Comment[hu]=Csak a legjobbaknak!
++Comment[is]=Láttu flotin <strong>ýta</strong> þér!
+ Comment[it]=Lasciati <strong>trasportare</strong> dai floater!
+ Comment[ja]=フローターでボールを<strong>プッシュ</strong>させよう!
+ Comment[nb]=La fløterne <strong>dytte</strong> deg!
+diff -urN -x CVS kdegames.orig/kolf/courses/Impossible kdegames/kolf/courses/Impossible
+--- kdegames.orig/kolf/courses/Impossible	Thu Jan 15 08:54:48 2004
++++ kdegames/kolf/courses/Impossible	Fri Feb  6 13:07:15 2004
+@@ -14,6 +14,7 @@
+ Name[he]=מסלול בלתי אפשרי
+ Name[hi]=असंभव कोर्स
+ Name[hu]=Különlegesen nehéz pálya
++Name[is]=Ómöguleg leið
+ Name[it]=Percorso impossibile
+ Name[ja]=不可能なコース
+ Name[nb]=Umulig kurs
+@@ -830,6 +831,7 @@
+ Comment[he]=הקלה
+ Comment[hi]=विराम
+ Comment[hu]=Mázli
++Comment[is]=Milda
+ Comment[it]=Pausa
+ Comment[ja]=カンタンな一瞬
+ Comment[nl]=Gratie
+@@ -1577,6 +1579,7 @@
+ Comment[he]=מזל
+ Comment[hi]=भाग्य
+ Comment[hu]=Szerencse
++Comment[is]=Lukka
+ Comment[it]=Fortunato
+ Comment[ja]=運
+ Comment[nb]=Lykke
+@@ -3378,6 +3381,7 @@
+ Comment[he]=תוהו ובוהו
+ Comment[hi]=अव्यवस्था
+ Comment[hu]=Káosz
++Comment[is]=Kaos
+ Comment[it]=Caos
+ Comment[ja]=カオス
+ Comment[nb]=Kaos
+diff -urN -x CVS kdegames.orig/kolf/courses/Medium.kolf kdegames/kolf/courses/Medium.kolf
+--- kdegames.orig/kolf/courses/Medium.kolf	Thu Jan 15 08:54:50 2004
++++ kdegames/kolf/courses/Medium.kolf	Fri Feb  6 13:07:17 2004
+@@ -16,6 +16,7 @@
+ Name[he]=מסלול בינוני
+ Name[hi]=साधारण कोर्स
+ Name[hu]=Közepes nehézségű pálya
++Name[is]=Meðal erfið leið
+ Name[it]=Percorso medio
+ Name[ja]=普通のコース
+ Name[nb]=Middels kurs
+diff -urN -x CVS kdegames.orig/kolf/courses/Practice kdegames/kolf/courses/Practice
+--- kdegames.orig/kolf/courses/Practice	Thu Jan 15 08:54:52 2004
++++ kdegames/kolf/courses/Practice	Fri Feb  6 13:07:19 2004
+@@ -12,6 +12,7 @@
+ Name[he]=אימון מדרונים
+ Name[hi]=ढाल अभ्यास
+ Name[hu]=Gyakorlás lejtőn
++Name[is]=Æfing í halla
+ Name[it]=Esercizio su pendio
+ Name[ja]=斜面の練習
+ Name[nb]=Skråningsøvelse
+diff -urN -x CVS kdegames.orig/kolf/courses/ReallyEasy kdegames/kolf/courses/ReallyEasy
+--- kdegames.orig/kolf/courses/ReallyEasy	Thu Jan 15 08:54:54 2004
++++ kdegames/kolf/courses/ReallyEasy	Fri Feb  6 13:07:21 2004
+@@ -16,6 +16,7 @@
+ Name[he]=ממש קל
+ Name[hi]=सचमुच आसान
+ Name[hu]=Nagyon könnyű
++Name[is]=Verulega auðveld
+ Name[it]=Facilissimo
+ Name[ja]=ホントにカンタン
+ Name[nb]=Veldig lett
+diff -urN -x CVS kdegames.orig/kolf/courses/USApro kdegames/kolf/courses/USApro
+--- kdegames.orig/kolf/courses/USApro	Thu Jan 15 08:54:56 2004
++++ kdegames/kolf/courses/USApro	Mon Feb  2 11:16:35 2004
+@@ -3,6 +3,7 @@
+ Name[bg]=Ю Ес Ей Про (USA Pro)
+ Name[hi]=यूएसए प्रो
+ Name[hu]=Amerikai profi
++Name[ja]=USAプロ
+ Name[pt_BR]=Pro EUA
+ Name[sr]=САД про
+ Name[sv]=USA-proffs
+@@ -53,6 +54,7 @@
+ Comment[bg]=Дейтона бийч, Флорида
+ Comment[hi]=डायटोना बीच, फ्लो.
+ Comment[hu]=Daytona Beach, Florida
++Comment[ja]=デイトナビーチ, FL
+ Comment[pt]=Praia de Daytona, FL
+ Comment[pt_BR]=Praia de Daytona, FL
+ Comment[ru]=Дайтон Бич
+@@ -253,6 +255,7 @@
+ Comment[gl]=Washington DC (Pentágono)
+ Comment[hi]=वाशिंगटन डीसी (पेंटागन)
+ Comment[it]=Washington DC (Pentagono)
++Comment[ja]=ワシントンDC (ペンタゴン)
+ Comment[pt]=Washington DC (Pentágono)
+ Comment[pt_BR]=Washington DC (Pentágono)
+ Comment[ru]=Пентагон
+@@ -410,6 +413,7 @@
+ Comment[bg]=Палм Спрингс, Колорадо
+ Comment[hi]=पॉम स्प्रिंग्स, सीओ
+ Comment[hu]=Palm Springs, Connecticut
++Comment[ja]=パームスプリング, CO
+ Comment[ru]=Палм Спрингс
+ Comment[sr]=Палм спрингс, Конектикат
+ Comment[sv]=Palm Springs, Colorado
+@@ -573,6 +577,7 @@
+ Comment[el]=Λας Βέγκας, NV
+ Comment[hi]=लास वेगास, एनवी.
+ Comment[hu]=Las Vegas, Nevada
++Comment[ja]=ラスベガス, NV
+ Comment[ru]=Лас Вегас
+ Comment[sr]=Лас Вегас, Невада
+ Comment[sv]=Las Vegas, Nevada
+@@ -733,6 +738,7 @@
+ Comment[el]=Σαν Φρανσίσκο, CA
+ Comment[hi]=सान फ्रांसिस्को, सीए
+ Comment[hu]=San Francisco, Kalifornia
++Comment[ja]=サンフランシスコ, CA
+ Comment[pt]=São Francisco, CA
+ Comment[pt_BR]=São Francisco, CA
+ Comment[ru]=Сан-Франциско
+@@ -828,6 +834,7 @@
+ Comment[es]=Gran Cañón
+ Comment[gl]=Gran Cañón
+ Comment[hi]=ग्रांड केन्यॉन
++Comment[ja]=グランドキャニオン
+ Comment[ru]=Большой Каньон
+ Comment[sr]=Велики кањон
+ Comment[ta]= கிராண்ட் கேண்யான்
+@@ -950,6 +957,7 @@
+ Comment[hi]=लेक ताहोए, सीए/एनवी
+ Comment[hu]=Lake Tahoe, Kalifornia/Nevada
+ Comment[it]=Lago Tahoe, CA/NV
++Comment[ja]=レイク・タホ, CA/NV
+ Comment[pt]=Lago Tahoe, CA/NV
+ Comment[pt_BR]=Lago Tahoe, CA/NV
+ Comment[ru]=Озеро Тахоэ
+@@ -1101,6 +1109,7 @@
+ Comment[bg]=Флорида Кийс, Флорида
+ Comment[hi]=फ्लोरिडा कीस, एफएल
+ Comment[hu]=Florida Keys, Florida
++Comment[ja]=フロリダキーズ, FL
+ Comment[pt_BR]=Flórida Keys, FL
+ Comment[ru]=Флорида
+ Comment[sr]=Флорида киз, Флорида
+@@ -1256,6 +1265,7 @@
+ Comment[el]=Χρυσή πύλη
+ Comment[gl]=Ponte de Rande
+ Comment[hi]=गोल्डन गेट
++Comment[ja]=ゴールデンゲート
+ Comment[ru]=Золотые Врата
+ Comment[sr]=Голден гејт
+ Comment[ta]=கோல்டன் கேட்
+@@ -1275,6 +1285,7 @@
+ Comment[el]=Σαν Φρανσίσκο, CA
+ Comment[hi]=सान फ्रांसिस्को, सीए
+ Comment[hu]=San Francisco, Kalifornia
++Comment[ja]=サンフランシスコ, CA
+ Comment[pt]=São Francisco, CA
+ Comment[pt_BR]=São Francisco, CA
+ Comment[ru]=Сан-Франциско
+@@ -1298,6 +1309,7 @@
+ Comment[es]=Puente de la Bahía
+ Comment[gl]=Ponte da Ría
+ Comment[hi]=बे-ब्रिज
++Comment[ja]=ベイブリッジ
+ Comment[pt_BR]=Ponte da Baía
+ Comment[ru]=Бэй Бридж
+ Comment[sr]=Беј бриџ
+@@ -1447,6 +1459,7 @@
+ Comment[bg]=Вашингтон, окръг Колумбия
+ Comment[el]=Ουάσινγκτον
+ Comment[hi]=वाशिंगटन डीसी
++Comment[ja]=ワシントンDC
+ Comment[ru]=Вашингтон
+ Comment[sr]=Вашингтон ДЦ
+ Comment[ta]=வாஷிங்டன் DC
+@@ -1674,6 +1687,7 @@
+ Comment[gl]=Fervenzas do Niagara, NY
+ Comment[hi]=नियाग्रा फाल्स, एनवाय
+ Comment[hu]=Niagara Falls, New York
++Comment[ja]=ナイアガラの滝, NY
+ Comment[pt]=Catarata do Niagara, NY
+ Comment[pt_BR]=Cataratas do Niágara, NY
+ Comment[ru]=Ниагарский водопад
+diff -urN -x CVS kdegames.orig/kolf/kolf.desktop kdegames/kolf/kolf.desktop
+--- kdegames.orig/kolf/kolf.desktop	Thu Jan 15 08:54:58 2004
++++ kdegames/kolf/kolf.desktop	Fri Feb  6 13:07:23 2004
+@@ -32,6 +32,7 @@
+ GenericName[hi]=लघु गोल्फ
+ GenericName[hr]=Mini-golf
+ GenericName[hu]=Minigolf
++GenericName[is]=Minigolf
+ GenericName[it]=Minigolf
+ GenericName[ja]=ミニチュアゴルフ
+ GenericName[lv]=Miniatūrs Golfs
+diff -urN -x CVS kdegames.orig/kolf/tutorial.kolf kdegames/kolf/tutorial.kolf
+--- kdegames.orig/kolf/tutorial.kolf	Thu Jan 15 08:55:00 2004
++++ kdegames/kolf/tutorial.kolf	Fri Feb  6 13:07:25 2004
+@@ -16,6 +16,7 @@
+ Name[he]=מסלול לימוד
+ Name[hi]=शिक्षण कोर्स
+ Name[hu]=Gyakorlópálya
++Name[is]=Kennslubraut
+ Name[it]=Percorso scuola
+ Name[ja]=チュートリアルコース
+ Name[nb]=Øvelseskurs
+@@ -68,6 +69,7 @@
+ Comment[he]=<h3>ברוכים הבאים</h3> למסלול הלימוד של Kolf!
+ Comment[hi]=<h3>स्वागत</h3> कोल्फ के शिक्षण कोर्स में!
+ Comment[hu]=<h3>Üdvözöljük</h3> a Kolf gyakorlópályáján!
++Comment[is]=<h3>Velkomin(n)</h3> á kennslubraut Kolf!
+ Comment[it]=<h3>Benvenuto</h3> nel percorso-scuola per Kolf!
+ Comment[ja]=<h3>ようこそ</h3> Kolf チュートリアルコースへ!
+ Comment[nb]=<h3>Velkome</h3> til øvelseskurset for Kolf!
+@@ -113,6 +115,7 @@
+ Comment[he]=כדי לחבוט בכדור, לחץ והחזק את מקש החץ למטה או את הלחצן השמאלי של העכבר. משך הלחיצה על לחצן העכבר או המקש קובע את עוצמת החבטה.
+ Comment[hi]=गेंद पर प्रहार करने हेतु नीचे तीर कुंजी या बायाँ माउस बटन दबाकर रखें. कितनी देर आप बटन या कुंजी दबाकर रखे रहते हैं, यह आपके प्रहार की शक्ति निर्धारित करता है.
+ Comment[hu]=A labda elütéséhez tartsa benyomva a lefelé nyilat vagy a bal egérgombot. Annál erősebb lesz az ütés, minél tovább tartja lenyomva a billentyűt vagy az egérgombot.
++Comment[is]=Tila að slá boltann, ýttu og haltu niðri 'ör-niður' eða vinstri músahnappi.  Hversu lengi þú heldur hnappnum niðri ákvarðar höggkraftinn.
+ Comment[it]=Per colpire la pallina, premi a lungo la "freccia destra" o il bottone sinistro del mouse. Quanto più a lungo li tieni premuti, tanto più forte sarà il colpo.
+ Comment[ja]=ボールを打つには、下キーか左のマウスボタンを押し続けます。押す時間が長いと、ショットが強くなります。
+ Comment[nb]=Trykk og hold nedoverpila eller venstre museknapp for å slå ballen. Styrken på slaget bestemmes av hvor lenge du holder knappen inne.
+@@ -154,6 +157,7 @@
+ Comment[he]=כדי לכוון את המחבט, הקש על מקש החץ הימני (סיבוב עם כיוון השעון) והשמאלי (סיבוב נגד כיוון השעון) או השתמש בעכבר.
+ Comment[hi]=पुटर पर निशाना साधने हेतु बायाँ और दायाँ तीर कुंजी का प्रयोग करें या माउस को घड़ी की दिशा में या उलट दिशा में घुमाएँ
+ Comment[hu]=Célzáshoz a balra (balra forgatás) és jobbra (jobbra forgatás) nyilak ill. az egér használható.
++Comment[is]=Til að breyta stefnu púttersins, ýttu á vinstri (Vinstri snúningur) og Hægri (Hægri snúningur) örvunum eða notaðu músina.
+ Comment[it]=Per dirigere il putter, premi i tasti delle frecce sinistra (rotazione antioraria) e destra (rotazione oraria), oppure usa il mouse.
+ Comment[ja]=左のキーを押すと、パターが左(反時計回り)に回り、右のキーを押すと パターが右(時計回り)に回ります。マウスも使えます。
+ Comment[nb]=Trykk venstrepil (med klokka), høyrepil (mot klokka) eller bruk musa for å treffe hullet.
+@@ -250,6 +254,7 @@
+ Comment[he]=<h3>גשרים</h3>לגשרים יכולים להיות קירות מלמעלה, מלמטה, משמאל או מימין.
+ Comment[hi]=<h3>पुल</h3>पुलों के ऊपर, नीचे, बाएँ और दाएँ दीवार हो सकते हैं.
+ Comment[hu]=<h3>Hidak</h3>A hidakhoz fal tartozhat felül, alul, jobbról vagy balról.
++Comment[is]= <h3>Brýr</h3>Brýr geta haft veggi að ofan,að neðan, til vinstri eða hægri,
+ Comment[it]=<h3>Ponti</h3>. I ponti possono avere muri in alto, in basso. a destra o a sinistra.
+ Comment[ja]=<h3>橋</h3>壁は橋の上と下と左と右端に存在することが出来ます。
+ Comment[nb]=<h3>Broer</h3>Broer kan ha vegger på toppen, bunne, venstre, eller høyre.
+@@ -360,6 +365,7 @@
+ Comment[he]=<h3>הכל</h3>הנה גומה שיש בה הכל. שיהיה לך כיף עם Kolf!<br><center>-- ג'ייסון קאטס-בראון</center>
+ Comment[hi]=<h3>सबकुछ</h3>यहाँ एक होल है जिसमें सब है. कोल्फ के साथ मजा करें!<br><center>-- जेसन कात्ज-ब्राउन</center>
+ Comment[hu]=<h3>Minden</h3>Itt egy mindennel ellátott lyuk. Kellemes szórakozást kívánunk a játékhoz!<br><center>-- Jason Katz-Brown</center>
++Comment[is]= <h3>Allt</h3>Hér er hola sem hefur það allt. Skemmtu þér með Kolf! <br><center>-- Jason Katz-Brown</center>
+ Comment[it]=<h3>Tutto</h3> Ecco una buca che ha tutto. Divertiti con Kolf!<br><center>-- Jason Katz-Brown</center>
+ Comment[ja]=<h3>全部</h3>こちらは全てのオブジェクトがあるホールです。Kolf を楽しんで下さい！<br><center>-- Jason Katz-Brown</center>
+ Comment[nb]=<h3>Alt</h3>Her er et hull som har alt. Kos deg med Kolf!<br><center>-- Jason Katz-Brown</center>
+@@ -460,6 +466,7 @@
+ Comment[he]=<h3>מדרונים</h3>מדרונים הם משטחים משופעים שדוחפים את הכדור לפי כיוון השיפוע שלהם. כיוון זה מוצג כאשר אתה בוחר ב<u>גומה->הצג מידע</u>.
+ Comment[hi]=<h3>ढलान</h3>ढलान भूमि के झुके हुए क्षेत्र होते हैं जो गेंद को ढलान की ओर ढकेलते हैं. यह दिशा दिखाई जाती है जब आप चुनते हैं<u>होल->इन्फो दिखाएँ</u>.
+ Comment[hu]=<h3>Lejtők</h3>A lejtős területeken a golyók a lejtő irányában gurulnak tovább. Az irány megjelenítéséhez válassza a <u>Lyuk->Információk</u> menüpontot.
++Comment[is]= <h3>Hallar</h3>Hallar eru hallandi svæði í brautinni sem ýta boltanum í þá átt sem hún hallar.  Þessi stefna er sýnd þegar þú velur <u>Hola->Sýna upplýsingar</u>
+ Comment[it]=<h3>Pendii</h3>I pendii sono zone di prato in pendenza che fanno scendere la pallina lungo la discesa. La direzione di discesa viene mostrata scegliendo <u>Buca->Mostra informazioni</u>.
+ Comment[ja]=<h3>斜面</h3> 斜面はボールを動かす傾いている地面です。<u>ホール->情報を表示</u> とすると、斜面の勾配の方向が表示されます。
+ Comment[nb]=<h3>Skråninger</h3>Skråninger er områder som får ballen til å rulle i den retningen de skråner. Du kan se retningen ved å velge <u>Hull->Vis info</u>.
+@@ -502,6 +509,7 @@
+ Comment[he]=חבוט בכדור כך שיטפס על המדרון, ותן לו להתגלגל לתוך הגומה.
+ Comment[hi]=गेंद पर प्रहार करें ताकि ढलान पर लुढ़कता हूआ कप में चला जाए.
+ Comment[hu]=Üsse a golyót a lejtő irányában és hagyja lefelé gurulni.
++Comment[is]=Sláðu á boltann í brekkuna og láttu renna í bollann.
+ Comment[it]=Batti la pallina verso il pendio e lasciala rotolare in buca.
+ Comment[ja]=カップに入るように斜面にボールを打って下さい。
+ Comment[nb]=Slå ballen ned skråningen og la den rulle ned i koppen.
+@@ -564,6 +572,7 @@
+ Comment[he]=נסה את סוגי המדרונים השונים.
+ Comment[hi]=ये भिन्न प्रकार के ढलान आजमा देखें.
+ Comment[hu]=Válogatni lehet a különféle lejtők között.
++Comment[is]=Reyndu þig við þessar mismunandi brekkur.
+ Comment[it]= Prova questi diversi tipi di pendio.
+ Comment[ja]=このタイプの違う斜面にボールを打ってみて下さい。
+ Comment[nb]=Prøv disse forskjellige skråningene.
+@@ -690,6 +699,7 @@
+ Comment[he]=השיפוע של המדרון מוצג כאשר אתה בוחר ב<u>גומה->הצג מידע</u>. השיפוע נע בין 8 (התלול ביותר) ל1- (המתון ביותר).
+ Comment[hi]=ढलान की ढाल दिखाई देगी जब आप चुनेंगे<u>होल->इन्फो दिखाएँ</u>. ढाल 8 (सबसे तेज ढाल) से 1 (सबसे कम ढाल) तक है.
+ Comment[hu]=A lejtő meredeksége megtudható a <u>Lyuk->Információ</u> menüponttal. A meredekség értéke 8-tól (legmeredekebb) 1-ig (leglaposabb) terjedhet.
++Comment[is]=Halli brekkunnar er sýndur þegar þú velur <u>Hola->Sýna upplýsingar</u>. Hallinn fer frá 8 (brattast) til 1 (flatast).
+ Comment[it]= Il grado di inclinazione di un pendio viene mostrato quando scegli <u>Buca->Mostra Infornazioni</u> nel menu. La ripidezza va da 8 (il più scosceso) a 1 (il più dolce).
+ Comment[ja]=<u>ホール->情報を表示</u> とすると、 斜面の勾配が表示されます。勾配は 8 (急) から 1 (緩やか) までのスケールがあります。
+ Comment[nb]=Brattheten på en skråning vises hvis du velger <u>Hull->Vis info</u>. Brattheten går fra 8 (brattest) til 1 (slakest).
+@@ -758,6 +768,7 @@
+ Comment[he]=<h3>קירות</h3>גרום לכדור לקפוץ חזרה מהקירות האדומים.
+ Comment[hi]=<h3>दीवारें</h3>गेंद को लाल दीवार पर से उछालें
+ Comment[hu]=<h3>Falak</h3>Pattintsa vissza a golyót a piros falakról.
++Comment[is]=<h3>Veggir</h3>Boltarnir skoppa af rauðu veggjunum.
+ Comment[it]=<h3>Muri</h3> Fai rimbalzare la pallina contro i muri di mattoni.
+ Comment[ja]=<h3>壁</h3>赤い壁にボールをバウンスさせて下さい。
+ Comment[nb]=<h3>Vegger</h3>Sprett ballen vekk fra de røde veggene.
+@@ -855,6 +866,7 @@
+ Comment[he]=<h3>חול</h3>חול, המוצג בצבע צהוב, מאט את הכדור שלך.
+ Comment[hi]=<h3>रेत</h3>रेत पीली है, तथा आपके गेंद को धीमा करती है.
+ Comment[hu]=<h3>Homok</h3>A sárga színű homok lelassítja a golyó mozgását.
++Comment[is]=<h3>Sandur</h3>Sandur er gulur og hægir á boltanum.
+ Comment[it]=<h3>Bunker</h3> il bunker di sabbia è giallo e frena la pallina.
+ Comment[ja]=<h3>砂</h3>砂は黄色で、ボールと接すると速度を落します。
+ Comment[nb]=<h3>Sand</h3>Sand er gul, og sakker farten på ballen.
+@@ -897,6 +909,7 @@
+ Comment[he]=<h3>שלוליות (מים)</h3>כניסה לשלולית (בכחול) מוסיפה חבטת עונשין לניקוד שלך. הכדור שלך יונח מחוץ לשלולית.
+ Comment[hi]=<h3>डबरी (पानी)</h3>डबरी(नीली) में प्रहार करने पर आपके अंक में पेनाल्टी स्ट्रोक जोड़ता है तथा आपकी गेंद डबरी के बाहर रख दी जाती है.
+ Comment[hu]=<h3>Pocsolyák</h3>Ha a golyó pocsolyába esik (a víz kék színű), akkor pontlevonást kap, és a golyót a pocsolya mellé helyezik.
++Comment[is]= <h3>Pollar (vatn)</h3>Ef þú hittir í pollinn (blár) þá færð þú refsistig, og boltinn verðu settur við hlið pollsins.
+ Comment[it]=<h3>Laghetti (acqua)</h3> Se mandi la pallina in un laghetto, ti viene aggiunto un colpo di penalità al punteggio e la tua pallina viene collocata fuori dal laghetto.
+ Comment[ja]=<h3>池 (水)</h3>青い池に入ると、1ショットを罰して、 池の近くにボールが置かれます。
+ Comment[nb]=<h3>Pytter (Vann)</h3>Hvis du treffer en pytt (blå) gir deg et straffeslag, og ballen din plasseres utenfor pytten.
+@@ -954,6 +967,7 @@
+ Comment[he]=<h3>טחנות רוח</h3>לטחנות רוח (בסיס חום עם זרוע נעה) יש קירות (או חצאי קירות) בצבע חום. המהירות של זרוע הטחנה עשויה להיות שונה מגומה לגומה.
+ Comment[hi]=<h3>पवनचक्कियाँ</h3>पवनचक्कियाँ (भूरे आधार युक्त घूमती भुजा लिए हुए) भूरे रंग की दीवार (या आधी दीवार) युक्त हैं. होल के अनुसार पवनचक्कियों के भुजाओं की गतियों में अन्तर होगा.
+ Comment[hu]=<h3>Szélmalmok</h3>A szélmalmok (barna alap, mozgó karok) falai barna színűek (vagy felezve vannak). A szélmalmok lapátjainak sebessége lyukanként változhat.
++Comment[is]= <h3>Vindmyllur</h3>Vindmyllur (Brúnnn flötur með breyfiarmi) hafa brúna veggi (eða hálf-veggi). Hraði arma vindmyllunnar getur verið breytilegur.
+ Comment[it]=<h3>Mulini a vento</h3> I mulini a vento (una base marrone con delle pale mobili) hanno murature marroni (o mezzi muri). La velocità dellepale del mulino può cambiare da una buca all'altra.
+ Comment[ja]=<h3>風車</h3>風車(茶色で、動いているアーム) は、 茶色の壁がボーダーにあります。ホールによってアームは違う速度で 動くかもしれません。
+ Comment[nb]=<h3>Vindmøller</h3>Vindmøller (brun base med bevegelig arm) har brune vegger (eller halv-vegger). Vindmøllas fart kan variere fra hull til hull.
+@@ -1024,6 +1038,7 @@
+ Comment[he]=<h3>חורים שחורים</h3>חורים שחורים מעבירים את הכדור ליציאה שלהם, ופולטים אותם במהירות העומדת ביחס ישר למהירות שבה הכדור שלך נע כאשר הוא נכנס לחור השחור. בחר ב<u>גומה->הצג מידע</u> כדי לראות לאיזו יציאה מוביל כל חור שחור ובאיזה כיוון ייצא הכדור.
+ Comment[hi]=<h3>ब्लेक होल्स</h3>ब्लेक होल्स गेंद को उनके निर्गम पर ले जाती हैं, तथा आपकी गेंद की गति के सीधे अनुपात की गति से निकाल बाहर फेंकती है. चुनें <u>होल->इन्फो दिखाएँ</u> यह देखने के लिए कि कौन सा ब्लेक होल किस निर्गम पर जाता है तथा गेंद किस दिशा से बाहर आएगा.
+ Comment[hu]=<h3>Fekete lyukak</h3>A fekete lyukba esett golyó a lyuk kijáratához kerül, a kilépési sebesség arányos lesz a belépésivel. Válassza a <u>Lyuk->Információ</u> menüpontot, ha tudni szeretné, melyik fekete lyuk hová vezet és milyen a kilépési irány.
++Comment[is]= <h3>Svarthol</h3>Svartar holur flytja boltann um ormagöng að úttaki, og  spýta boltanum út í réttu hlutfalli við hraðann sem þú sendir á inn í svartholið. Veldu <u>Hola->Sýna upplýsingar</u> til að sjá ormagöngin og þá hvar boltinn mun koma út.
+ Comment[it]=<h3>Buchi neri</h3> I buchi neri trasportano la pallina alla loro uscita e la espellono con una velocità proporzionale a quella con cui è entrata. Scegli <u>Buca->Mostra informazioni</u> per vedere la corrispondenza tra buchi neri e uscite e la direzione con cui vengono espulse le palline.
+ Comment[ja]=<h3>ブラックホール</h3>ブラックホールはボールを 入った時の速度と同じ速度で出口に運んで出します。 <u>ホール->情報を表示</u> とすると、ブラックホールと出口の連係と 出口の方向が表示されます。
+ Comment[nb]=<h3>Svarte hull</h3>Svarte hull sender ballen til utgangen, og kaster den ut i samme fart som den kom inn. Velg <u>Hull->Vis info</u> for å se hvilket svart hull som går til hvilken utgang og retningen ballen vil komme ut av hullet.
+@@ -1096,6 +1111,7 @@
+ Comment[he]=<h3>משטחים צפים</h3>אלה משטחים נעים שנושאים איתם כדור שנוחת עליהם. מהירותם עשויה להשתנות ממשטח למשטח.
+ Comment[hi]=<h3>तैराक</h3>तैराक चलते हुए चबूतरे होते हैं जो अपने ऊपर अवतरित गेंद को लिए हुए होते हैं. तैराक की गति में अन्तर होते रहता है.
+ Comment[hu]=<h3>Lebegők</h3>Ezek a vízen úszó platformok elbírják a rájuk eső golyókat. Sebességük különböző lehet.
++Comment[is]= <h3>Prammar</h3>Prammar geta flutt bolta sem lenda á honum. hraði er breytilegur.
+ Comment[it]=<h3>Floater</h3> I floaters sono piattaforme mobili che trasportano la pallina che atterra su di essi. La velocità dei floater è variabile.
+ Comment[ja]=<h3>フローター</h3>フローターはボールを運ぶ、 動くプラットフォームです。ホールによって違う速度で動くかもしれません。
+ Comment[nb]=<h3>Fløterne</h3>Fløterne er bevegelige plattformer som kan bære en ball som lander på den. Farten kan variere.
+diff -urN -x CVS kdegames.orig/kolf/x-kolf.desktop kdegames/kolf/x-kolf.desktop
+--- kdegames.orig/kolf/x-kolf.desktop	Fri Jan 16 08:01:09 2004
++++ kdegames/kolf/x-kolf.desktop	Fri Feb  6 13:07:27 2004
+@@ -17,6 +17,7 @@
+ Comment[gl]=Xogo de Kolf gravado
+ Comment[hi]=सहेजा गया कोल्फ खेल
+ Comment[hu]=Kolf elmentett játék
++Comment[is]=Vistaður Kolf leikur
+ Comment[it]=Partita di Kolf salvata
+ Comment[nl]=Opgeslagen Kolf-spel
+ Comment[pl]=Zapisana gra w Kolfa
+diff -urN -x CVS kdegames.orig/kolf/x-kourse.desktop kdegames/kolf/x-kourse.desktop
+--- kdegames.orig/kolf/x-kourse.desktop	Thu Jan 15 08:55:04 2004
++++ kdegames/kolf/x-kourse.desktop	Fri Feb  6 13:07:29 2004
+@@ -19,6 +19,7 @@
+ Comment[he]=מסלול Kolf
+ Comment[hi]=कोल्फ कोर्स
+ Comment[hu]=Kolf pálya
++Comment[is]=Kolf Braut
+ Comment[it]=Percorso di Kolf
+ Comment[ja]=Kolf コース
+ Comment[nb]=Kolf-kurs
+diff -urN -x CVS kdegames.orig/konquest/konquest.desktop kdegames/konquest/konquest.desktop
+--- kdegames.orig/konquest/konquest.desktop	Thu Jan 15 08:55:06 2004
++++ kdegames/konquest/konquest.desktop	Fri Feb  6 13:07:31 2004
+@@ -8,7 +8,7 @@
+ Name[et]=Vallutus
+ Name[hi]=कॉन्क्वेस्ट
+ Name[hu]=Hódítás
+-Name[is]=GeimstyrjÃ¶ld
++Name[is]=Geimstyrjöld
+ Name[ko]=콘퀘스트
+ Name[lv]=Konkvests
+ Name[mk]=Освојување
+@@ -43,12 +43,14 @@
+ GenericName[hi]=कौशल का खेल
+ GenericName[hr]=Igra strategije
+ GenericName[hu]=Stratégiai
++GenericName[is]=Herkænskuleikur
+ GenericName[it]=Gioco di strategia
+ GenericName[ja]=戦略ゲーム
+ GenericName[lo]=ເກມກົນລະຍຸດ
+ GenericName[lv]=Stratēģiskā Game
+ GenericName[mt]=Logħba ta' strateġija
+ GenericName[nb]=Taktikkspill
++GenericName[nds]=Strategiespeel
+ GenericName[nl]=Strategisch spel
+ GenericName[nn]=Strategispel
+ GenericName[pl]=Gra strategiczna
+@@ -62,6 +64,7 @@
+ GenericName[ss]=Umdlalo wekusebentisa indlela yekwenta
+ GenericName[sv]=Strategispel
+ GenericName[ta]=தந்திர விளையாட்டு
++GenericName[tg]=Бозии стратегӣ
+ GenericName[th]=เกมกลยุทธ์
+ GenericName[tr]=Strateji Oyunu
+ GenericName[uk]=Гра на стратегію
+diff -urN -x CVS kdegames.orig/kpat/kpat.desktop kdegames/kpat/kpat.desktop
+--- kdegames.orig/kpat/kpat.desktop	Thu Jan 15 08:55:08 2004
++++ kdegames/kpat/kpat.desktop	Fri Feb  6 13:07:33 2004
+@@ -65,6 +65,7 @@
+ GenericName[hi]=पेशेंस ताश का खेल
+ GenericName[hr]=Kartaška igra strpljenja
+ GenericName[hu]=Pasziánsz
++GenericName[is]=Kaplar
+ GenericName[it]=Solitari
+ GenericName[ja]=Patience カードゲーム
+ GenericName[nb]=Kortspill for den tålmodige
+diff -urN -x CVS kdegames.orig/kpoker/kpoker.desktop kdegames/kpoker/kpoker.desktop
+--- kdegames.orig/kpoker/kpoker.desktop	Thu Jan 15 08:55:10 2004
++++ kdegames/kpoker/kpoker.desktop	Fri Feb  6 13:07:35 2004
+@@ -5,6 +5,7 @@
+ Name[ca]=Pòquer
+ Name[eo]=Pokero
+ Name[hi]=के-पोकर
++Name[is]=Póker
+ Name[lv]=KPokeris
+ Name[pl]=Poker
+ Name[ru]=Покер
+@@ -42,12 +43,14 @@
+ GenericName[hi]=ताश के खेल
+ GenericName[hr]=Kartaška igra
+ GenericName[hu]=Kártyajáték
++GenericName[is]=Spil
+ GenericName[it]=Gioco di carte
+ GenericName[ja]=カードゲーム
+ GenericName[lo]=ເກມໄພ້
+ GenericName[lv]=Kāršu Spēle
+ GenericName[mt]=Logħba tal-karti
+ GenericName[nb]=Kortspill
++GenericName[nds]=Koortspeel
+ GenericName[nl]=Kaartspel
+ GenericName[nn]=Kortspel
+ GenericName[nso]=Papadi ya Dikarata
+@@ -61,6 +64,7 @@
+ GenericName[sr]=Игра са картама
+ GenericName[ss]=Umdlalo welikhadi
+ GenericName[sv]=Kortspel
++GenericName[tg]=Бозии Корт
+ GenericName[th]=เกมไพ่
+ GenericName[tr]=İskambil Oyunu
+ GenericName[uk]=Карти
+diff -urN -x CVS kdegames.orig/kreversi/kreversi.desktop kdegames/kreversi/kreversi.desktop
+--- kdegames.orig/kreversi/kreversi.desktop	Thu Jan 15 08:55:12 2004
++++ kdegames/kreversi/kreversi.desktop	Fri Feb  6 13:07:37 2004
+@@ -6,6 +6,7 @@
+ Name[ca]=Reversi
+ Name[eo]=Renverso
+ Name[hi]=के-रिवर्सी
++Name[is]=Viðsnúningur
+ Name[pl]=Odwracanka
+ Name[ru]=Реверси
+ Name[sv]=Kreversi
+@@ -37,12 +38,14 @@
+ GenericName[hi]=पट्ट का खेल
+ GenericName[hr]=Igra na ploči
+ GenericName[hu]=Táblajáték
++GenericName[is]=Borðleikur
+ GenericName[it]=Gioco da tavolo
+ GenericName[ja]=ボードゲーム
+ GenericName[lo]=ເກມກະດານ
+ GenericName[lv]=Galda Spēle
+ GenericName[mt]=Logħba tal-bord
+ GenericName[nb]=Brettspill
++GenericName[nds]=Brettspeel
+ GenericName[nl]=Bordspel
+ GenericName[nn]=Brettspel
+ GenericName[pl]=Gra planszowa
+@@ -56,6 +59,7 @@
+ GenericName[ss]=Umdlalo webhodi
+ GenericName[sv]=Brädspel
+ GenericName[ta]=பலகை விளையாட்டு
++GenericName[tg]=Бозии тахтагӣ
+ GenericName[th]=เกมกระดาน
+ GenericName[tr]=Tahta Oyunu
+ GenericName[uk]=Гра на дошці
+diff -urN -x CVS kdegames.orig/ksame/eventsrc kdegames/ksame/eventsrc
+--- kdegames.orig/ksame/eventsrc	Thu Jan 15 08:55:14 2004
++++ kdegames/ksame/eventsrc	Fri Feb  6 13:07:39 2004
+@@ -55,7 +55,7 @@
+ Name[hr]=Neki kamenčići su pomaknuti
+ Name[hu]=Levettem néhány bábut
+ Name[id]=Pindahkan beberapa batu
+-Name[is]=FjarlÃ¦gÃ°i nokkra steina
++Name[is]=Fjarlægði nokkra steina
+ Name[it]=Rimosse alcune bilie
+ Name[ja]=石を取り除く
+ Name[ko]=돌을 없앴습니다
+@@ -106,7 +106,7 @@
+ Comment[hi]=आपने कुछ पत्थरों पर क्लिक कर उन्हें गायब कर दिया.
+ Comment[hr]=Kliknuli ste na kamenčiće i oni su nestali.
+ Comment[hu]=Rákattintott néhány bábura és eltüntette őket.
+-Comment[is]=ÃÃº smelltir Ã¡ nokkra steina og Ã¾eir hurfu.
++Comment[is]=Þú smelltir á nokkra steina og þeir hurfu.
+ Comment[it]=Hai fatto clic su alcune bilie e le hai fatte scomparire.
+ Comment[ja]=石をクリックするとそれらを消せます。
+ Comment[ko]=돌을 이리저리 누르면서 사라지게 만드는 놀이
+@@ -158,7 +158,7 @@
+ Name[hr]=Igra je završena
+ Name[hu]=Vége a játéknak
+ Name[id]=permainan berakhir
+-Name[is]=Leik lokiÃ°
++Name[is]=Leik lokið
+ Name[it]=Gioco terminato
+ Name[ja]=ゲームオーバー
+ Name[ko]=게임 끝
+@@ -210,7 +210,7 @@
+ Comment[hi]=खेल खत्म चूंकि अब और कोई मिटाए जा सकने वाले पत्थर नहीं बचे हैं.
+ Comment[hr]=Igra je završena jer više nema kamenčića koje je moguće pomaknuti.
+ Comment[hu]=Vége a játéknak, mert nincs több eltávolítható bábu.
+-Comment[is]=Leik lokiÃ° Ã¾vÃ­ Ã¾aÃ° eru engir fleiri steinar til aÃ° fjarlÃ¦gja.
++Comment[is]=Leik lokið því það eru engir fleiri steinar til að fjarlægja.
+ Comment[it]=Il gioco è terminato perché non ci sono più bilie da rimuovere.
+ Comment[ja]=ゲーム終了。取り除ける石はがありません。
+ Comment[ko]=없앨 수 있는 돌이 없기 때문에 놀이는 끝났습니다.
+@@ -264,7 +264,7 @@
+ Name[hr]=Odličan završetak
+ Name[hu]=Kitűnő befejezés
+ Name[id]=penyelesaian hebat
+-Name[is]=FrÃ¡bÃ¦r endir
++Name[is]=Frábær endir
+ Name[it]=Ottima conclusione
+ Name[ja]=エクセレントフィニッシュ
+ Name[ko]=훌륭하게 끝냈습니다
+@@ -314,7 +314,7 @@
+ Comment[hi]=खेल खत्म, आपने आखिरी पत्थर भी मिटा दिया.
+ Comment[hr]=Igra je završena, sklonili ste i zadnji kamenčić.
+ Comment[hu]=Vége a játéknak, mert az utolsó bábut is eltávolította.
+-Comment[is]=Leik lokiÃ° Ã¾vÃ­ Ã¾Ãº fjarlÃ¦gÃ°ir jafnvel sÃ­Ã°asta steininn.
++Comment[is]=Leik lokið því þú fjarlægðir meira að segja síðasta steininn.
+ Comment[it]=Gioco terminato, hai rimosso fino all'ultima bilia.
+ Comment[ja]=ゲーム終了。最後の石を取り除きました。
+ Comment[ko]=마지막 돌을 없앴으므로 놀이가 끝났습니다.
+diff -urN -x CVS kdegames.orig/ksame/ksame.desktop kdegames/ksame/ksame.desktop
+--- kdegames.orig/ksame/ksame.desktop	Thu Jan 15 08:55:16 2004
++++ kdegames/ksame/ksame.desktop	Fri Feb  6 13:07:41 2004
+@@ -16,7 +16,7 @@
+ Name[gl]=Iguais
+ Name[hi]=सेमगेम
+ Name[hu]=KSame
+-Name[is]=Samaspil
++Name[is]=Sama spil
+ Name[ja]=さめがめ
+ Name[ko]=새임 놀이
+ Name[mt]=LogħbaStess (SameGame)
+@@ -60,12 +60,14 @@
+ GenericName[hi]=पट्ट का खेल
+ GenericName[hr]=Igra na ploči
+ GenericName[hu]=Táblajáték
++GenericName[is]=Borðleikur
+ GenericName[it]=Gioco da tavolo
+ GenericName[ja]=ボードゲーム
+ GenericName[lo]=ເກມກະດານ
+ GenericName[lv]=Galda Spēle
+ GenericName[mt]=Logħba tal-bord
+ GenericName[nb]=Brettspill
++GenericName[nds]=Brettspeel
+ GenericName[nl]=Bordspel
+ GenericName[nn]=Brettspel
+ GenericName[pl]=Gra planszowa
+@@ -79,6 +81,7 @@
+ GenericName[ss]=Umdlalo webhodi
+ GenericName[sv]=Brädspel
+ GenericName[ta]=பலகை விளையாட்டு
++GenericName[tg]=Бозии тахтагӣ
+ GenericName[th]=เกมกระดาน
+ GenericName[tr]=Tahta Oyunu
+ GenericName[uk]=Гра на дошці
+diff -urN -x CVS kdegames.orig/kshisen/kshisen.desktop kdegames/kshisen/kshisen.desktop
+--- kdegames.orig/kshisen/kshisen.desktop	Thu Jan 15 08:55:18 2004
++++ kdegames/kshisen/kshisen.desktop	Fri Feb  6 13:07:43 2004
+@@ -39,11 +39,13 @@
+ GenericName[hi]=टाइल खेल
+ GenericName[hr]=Igra s pločicama
+ GenericName[hu]=Képdominó
++GenericName[is]=Kubbaleikur
+ GenericName[it]=Gioco di tessere
+ GenericName[ja]=マージャン牌ゲーム
+ GenericName[lv]=Tile Spēle
+ GenericName[mt]=Logħoba tal-madum
+ GenericName[nb]=Brikke-spill
++GenericName[nds]=Speel mit Tegels
+ GenericName[nl]=Tegelspel
+ GenericName[nn]=Brikkespel
+ GenericName[pl]=Gra planszowa
+@@ -57,6 +59,7 @@
+ GenericName[ss]=Umdlalo wemathayili
+ GenericName[sv]=Brickspel
+ GenericName[ta]=பின்னணி விளையாட்டு
++GenericName[tg]=Бозӣ бо маджонг
+ GenericName[tr]=Taş oyunu
+ GenericName[uk]=Гра з плитками
+ GenericName[ven]=Mutambo wa Zwileithi
+diff -urN -x CVS kdegames.orig/ksirtet/ksirtet/eventsrc kdegames/ksirtet/ksirtet/eventsrc
+--- kdegames.orig/ksirtet/ksirtet/eventsrc	Fri Jan 16 08:01:11 2004
++++ kdegames/ksirtet/ksirtet/eventsrc	Fri Feb  6 13:07:45 2004
+@@ -24,6 +24,7 @@
+ Name[gl]=Liña eliminada
+ Name[hi]=पंक्ति हटाए
+ Name[hu]=Sor eltávolítva
++Name[is]=Lína fjarlægð
+ Name[it]=Riga rimossa
+ Name[nl]=Regel verwijderd
+ Name[pl]=Linia usunięta
+@@ -52,6 +53,7 @@
+ Comment[gl]=Liña eliminada
+ Comment[hi]=पंक्ति हटाए
+ Comment[hu]=Sor eltávolítva
++Comment[is]=Lína fjarlægð
+ Comment[it]=Linea rimossa
+ Comment[nl]=Regel verwijderd
+ Comment[pl]=Linia usunięta
+@@ -90,7 +92,7 @@
+ Name[hr]=Igra je završena
+ Name[hu]=Vége a játéknak
+ Name[id]=permainan berakhir
+-Name[is]=Leik lokiÃ°
++Name[is]=Leik lokið
+ Name[it]=Gioco terminato
+ Name[ja]=ゲームオーバー
+ Name[ko]=게임 끝
+@@ -135,6 +137,7 @@
+ Comment[gl]=Fin do Xogo
+ Comment[hi]=खेल खत्म
+ Comment[hu]=Vége a játéknak
++Comment[is]=Leik lokið
+ Comment[it]=Gioco terminato
+ Comment[nl]=Het spel is afgelopen
+ Comment[pl]=Koniec gry
+@@ -168,6 +171,7 @@
+ Name[gl]=Peza pegada
+ Name[hi]=टुकड़े चिपकाए
+ Name[hu]=Elem lekötve
++Name[is]=Hlutur límdur
+ Name[it]=Pezzo incollato
+ Name[nl]=Samengevoegde stukken
+ Name[pl]=Sklejenie elementów
+@@ -195,6 +199,7 @@
+ Comment[gl]=Peza pegada
+ Comment[hi]=टुकड़े चिपकाए
+ Comment[hu]=Elem lekötve
++Comment[is]=Hlutur límdur
+ Comment[it]=Pezzo incollato
+ Comment[nl]=Samengevoegde stukken
+ Comment[pl]=Sklejenie elementu
+diff -urN -x CVS kdegames.orig/ksirtet/ksirtet/ksirtet.desktop kdegames/ksirtet/ksirtet/ksirtet.desktop
+--- kdegames.orig/ksirtet/ksirtet/ksirtet.desktop	Thu Jan 15 08:55:22 2004
++++ kdegames/ksirtet/ksirtet/ksirtet.desktop	Fri Feb  6 13:07:47 2004
+@@ -37,12 +37,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -56,6 +58,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+diff -urN -x CVS kdegames.orig/ksmiletris/ksmiletris.desktop kdegames/ksmiletris/ksmiletris.desktop
+--- kdegames.orig/ksmiletris/ksmiletris.desktop	Thu Jan 15 08:55:24 2004
++++ kdegames/ksmiletris/ksmiletris.desktop	Fri Feb  6 13:07:49 2004
+@@ -24,12 +24,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -43,6 +45,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+@@ -65,6 +68,7 @@
+ Name[af]=K-glimlag-tetris
+ Name[eo]=Ridultetriso
+ Name[hi]=के-स्माईल ट्रिस
++Name[is]=Brostris
+ Name[lv]=KSmiletris
+ Name[pt_BR]=KSorrisoTris
+ Name[ru]=Смайлик-тетрис
+diff -urN -x CVS kdegames.orig/ksnake/ksnake.desktop kdegames/ksnake/ksnake.desktop
+--- kdegames.orig/ksnake/ksnake.desktop	Thu Jan 15 08:55:26 2004
++++ kdegames/ksnake/ksnake.desktop	Fri Feb  6 13:07:51 2004
+@@ -8,6 +8,7 @@
+ Name[hi]=के-स्नेक-रेस
+ Name[hr]=KUtrkazmija
+ Name[hu]=Kígyóverseny
++Name[is]=Slönguleikurinn
+ Name[lv]=KČūskuSkriešanās
+ Name[nb]=Slangeløp
+ Name[nn]=Slangeløp
+@@ -46,12 +47,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -65,6 +68,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+diff -urN -x CVS kdegames.orig/ksokoban/data/ksokoban.desktop kdegames/ksokoban/data/ksokoban.desktop
+--- kdegames.orig/ksokoban/data/ksokoban.desktop	Thu Jan 15 08:55:28 2004
++++ kdegames/ksokoban/data/ksokoban.desktop	Fri Feb  6 13:07:53 2004
+@@ -38,12 +38,14 @@
+ GenericName[hi]=तर्क का खेल
+ GenericName[hr]=Logička igra
+ GenericName[hu]=Logikai
++GenericName[is]=Kænskuleikur
+ GenericName[it]=Gioco di logica
+ GenericName[ja]=論理ゲーム
+ GenericName[lo]=ເກມຕະກະ   
+ GenericName[lv]=Loģiskā Spēle
+ GenericName[mt]=Logħba ta' loġika
+ GenericName[nb]=Logikk-spill
++GenericName[nds]=Logikspeel
+ GenericName[nl]=Logicaspel
+ GenericName[nn]=Logikkspel
+ GenericName[pl]=Gra logiczna
+@@ -57,6 +59,7 @@
+ GenericName[ss]=Umdlalo wengcondvo
+ GenericName[sv]=Logiskt spel
+ GenericName[ta]=தர்கக விளையாட்டு
++GenericName[tg]=Бозии логикӣ
+ GenericName[th]=เกมตรรกะ
+ GenericName[tr]=Mantık Oyunu
+ GenericName[uk]=Гра на логіку
+diff -urN -x CVS kdegames.orig/kspaceduel/kspaceduel.desktop kdegames/kspaceduel/kspaceduel.desktop
+--- kdegames.orig/kspaceduel/kspaceduel.desktop	Thu Jan 15 08:55:30 2004
++++ kdegames/kspaceduel/kspaceduel.desktop	Fri Feb  6 13:07:55 2004
+@@ -9,6 +9,7 @@
+ Name[hi]=के-स्पेसड्यूएल
+ Name[hr]=Svemirski dvoboj
+ Name[hu]=Űrpárbaj
++Name[is]=Geimeinvígi
+ Name[lv]=KKosmiskaisDuelis
+ Name[nb]=Rom-duell
+ Name[nn]=Romduell
+@@ -45,12 +46,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -64,6 +67,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+diff -urN -x CVS kdegames.orig/ktron/ktron.desktop kdegames/ktron/ktron.desktop
+--- kdegames.orig/ktron/ktron.desktop	Thu Jan 15 08:55:32 2004
++++ kdegames/ktron/ktron.desktop	Fri Feb  6 13:07:57 2004
+@@ -26,12 +26,14 @@
+ GenericName[hi]=आर्केड खेल
+ GenericName[hr]=Arkadna igra
+ GenericName[hu]=Ügyességi
++GenericName[is]=Skotleikur - Loftsteinar
+ GenericName[it]=Gioco arcade
+ GenericName[ja]=アーケードゲーム
+ GenericName[lo]=ເກມອາເຄດດ໌
+ GenericName[lv]=Arkādes Spēle
+ GenericName[mt]=Logħba tal-arcades
+ GenericName[nb]=Arkadespill
++GenericName[nds]=Ut de Spellhall
+ GenericName[nl]=Arcadespel
+ GenericName[nn]=Arkadespel
+ GenericName[pl]=Gra zręcznościowa
+@@ -45,6 +47,7 @@
+ GenericName[ss]=Umdlalo we Arcade
+ GenericName[sv]=Arkadspel
+ GenericName[ta]=அர்கேட் விளையட்டு
++GenericName[tg]=Бозии Arcade
+ GenericName[th]=เกมอาเขต
+ GenericName[tr]=Macera oyunu
+ GenericName[uk]=Гра "Arcade"
+diff -urN -x CVS kdegames.orig/ktron/player.cpp kdegames/ktron/player.cpp
+--- kdegames.orig/ktron/player.cpp	Fri Mar  7 23:09:20 2003
++++ kdegames/ktron/player.cpp	Thu Feb  5 12:44:41 2004
+@@ -26,8 +26,8 @@
+   computer=false;
+   score=0;
+   reset();
+-  dir=Up;
+-  last_dir=None;
++  dir=Directions::Up;
++  last_dir=Directions::None;
+ }
+ 
+ 
+diff -urN -x CVS kdegames.orig/ktron/player.h kdegames/ktron/player.h
+--- kdegames.orig/ktron/player.h	Fri Mar  7 23:05:56 2003
++++ kdegames/ktron/player.h	Thu Feb  5 12:44:41 2004
+@@ -26,7 +26,10 @@
+ #include <config.h>
+ #endif
+ 
+-enum Direction{ None, Up, Down, Left, Right};
++namespace Directions
++{
++  enum Direction{ None, Up, Down, Left, Right};
++}
+ 
+ /**
+ * @short This class represents a player with current position and several flags
+@@ -42,8 +45,8 @@
+   int xCoordinate,yCoordinate;
+   int score;
+   bool alive;
+-  Direction dir;
+-  Direction last_dir;
++  Directions::Direction dir;
++  Directions::Direction last_dir;
+   bool accelerated;
+   bool keyPressed;
+   bool computer;
+diff -urN -x CVS kdegames.orig/ktron/tron.cpp kdegames/ktron/tron.cpp
+--- kdegames.orig/ktron/tron.cpp	Sat Nov 15 11:28:07 2003
++++ kdegames/ktron/tron.cpp	Thu Feb  5 12:44:41 2004
+@@ -212,8 +212,8 @@
+ {
+    timer->stop();
+    gameEnded=true;
+-   players[0].last_dir = None;
+-   players[1].last_dir = None;
++   players[0].last_dir = Directions::None;
++   players[1].last_dir = Directions::None;
+ }
+ 
+ void Tron::togglePause() // pause or continue game
+@@ -490,7 +490,7 @@
+   return flag;
+ }
+ 
+-void Tron::switchDir(int playerNr,Direction newDirection)
++void Tron::switchDir(int playerNr,Directions::Direction newDirection)
+ {
+   if(playerNr!=0 && playerNr != 1)
+   {
+@@ -500,13 +500,13 @@
+ 
+   if (Settings::oppositeDirCrashes()==false)
+   {
+-    if (newDirection==::Up && players[playerNr].last_dir==::Down)
++    if (newDirection==Directions::Up && players[playerNr].last_dir==Directions::Down)
+       return;
+-    if (newDirection==::Down && players[playerNr].last_dir==::Up)
++    if (newDirection==Directions::Down && players[playerNr].last_dir==Directions::Up)
+       return;
+-    if (newDirection==::Left && players[playerNr].last_dir==::Right)
++    if (newDirection==Directions::Left && players[playerNr].last_dir==Directions::Right)
+       return;
+-    if (newDirection==::Right && players[playerNr].last_dir==::Left)
++    if (newDirection==Directions::Right && players[playerNr].last_dir==Directions::Left)
+       return;
+   }
+ 
+@@ -524,18 +524,18 @@
+       switch(players[0].dir)
+       {
+          // unset drawing flags in the moving direction
+-         case ::Up:
++         case Directions::Up:
+          {
+             playfield[x][y] &= (~TOP);
+             break;
+          }
+-         case ::Down:
++         case Directions::Down:
+             playfield[x][y] &= (~BOTTOM);
+             break;
+-         case ::Right:
++         case Directions::Right:
+             playfield[x][y] &= (~RIGHT);
+             break;
+-         case ::Left:
++         case Directions::Left:
+             playfield[x][y] &= (~LEFT);
+             break;
+          default:
+@@ -553,18 +553,18 @@
+       switch(players[1].dir)
+       {
+           // unset drawing flags in the moving direction
+-     	  case ::Up:
++     	  case Directions::Up:
+      	  {
+              playfield[x][y] &= (~TOP);
+              break;
+        	  }
+-          case ::Down:
++          case Directions::Down:
+              playfield[x][y] &= (~BOTTOM);
+              break;
+-          case ::Right:
++          case Directions::Right:
+              playfield[x][y] &= (~RIGHT);
+              break;
+-          case ::Left:
++          case Directions::Left:
+              playfield[x][y] &= (~LEFT);
+              break;
+          default:
+@@ -642,22 +642,22 @@
+   {
+       if(actionCollection->action("Pl2Up")->shortcut().contains(key))
+ 		{
+-	  		switchDir(1,::Up);
++	  		switchDir(1,Directions::Up);
+ 	  		players[1].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl2Left")->shortcut().contains(key))
+ 	   {
+-	  		switchDir(1,::Left);
++	  		switchDir(1,Directions::Left);
+ 	  		players[1].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl2Right")->shortcut().contains(key))
+ 		{
+-	  		switchDir(1,::Right);
++	  		switchDir(1,Directions::Right);
+ 	  		players[1].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl2Down")->shortcut().contains(key))
+ 		{
+-	  		switchDir(1,::Down);
++	  		switchDir(1,Directions::Down);
+ 	  		players[1].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl2Ac")->shortcut().contains(key))
+@@ -672,22 +672,22 @@
+   {
+       if(actionCollection->action("Pl1Left")->shortcut().contains(key))
+ 		{
+-	  		switchDir(0,::Left);
++	  		switchDir(0,Directions::Left);
+ 	  		players[0].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl1Right")->shortcut().contains(key))
+ 		{
+-	  		switchDir(0,::Right);
++	  		switchDir(0,Directions::Right);
+ 	  		players[0].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl1Up")->shortcut().contains(key))
+ 		{
+-	  		switchDir(0,::Up);
++	  		switchDir(0,Directions::Up);
+ 	  		players[0].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl1Down")->shortcut().contains(key))
+ 		{
+-	 		switchDir(0,::Down);
++	 		switchDir(0,Directions::Down);
+ 	  		players[0].keyPressed=true;
+ 		}
+       else if(actionCollection->action("Pl1Ac")->shortcut().contains(key))
+@@ -837,7 +837,7 @@
+          }
+          switch(players[i].dir)
+          {
+-            case ::Up:
++            case Directions::Up:
+                if(crashed(i,0,-1))
+                   players[i].alive=false;
+                else
+@@ -846,7 +846,7 @@
+                   newType|=(TOP | LEFT | RIGHT);
+                }
+             break;
+-            case ::Down:
++            case Directions::Down:
+                if(crashed(i,0,1))
+                   players[i].alive=false;
+                else
+@@ -855,7 +855,7 @@
+                   newType |= (BOTTOM | LEFT | RIGHT);
+                }
+             break;
+-            case ::Left:
++            case Directions::Left:
+                if(crashed(i,-1,0))
+                   players[i].alive=false;
+                else
+@@ -864,7 +864,7 @@
+                   newType |= (LEFT | TOP | BOTTOM);
+                }
+             break;
+-            case ::Right:
++            case Directions::Right:
+                if(crashed(i,1,0))
+                   players[i].alive=false;
+                else
+@@ -889,16 +889,16 @@
+          int xInc=0,yInc=0;
+          switch(players[1].dir)
+          {
+-            case ::Left:
++            case Directions::Left:
+               xInc = -1;
+             break;
+-            case ::Right:
++            case Directions::Right:
+                xInc = 1;
+             break;
+-            case ::Up:
++            case Directions::Up:
+                yInc = -1;
+             break;
+-            case ::Down:
++            case Directions::Down:
+                yInc = 1;
+             break;
+             default:
+@@ -963,7 +963,7 @@
+ 
+       switch(players[i].dir)
+       {
+-         case ::Up:
++         case Directions::Up:
+             if(crashed(i,0,-1))
+                players[i].alive=false;
+             else
+@@ -972,7 +972,7 @@
+                newType |= (TOP | RIGHT | LEFT);
+             }
+          break;
+-         case ::Down:
++         case Directions::Down:
+             if(crashed(i,0,1))
+                players[i].alive=false;
+             else
+@@ -981,7 +981,7 @@
+                newType |= (BOTTOM | RIGHT | LEFT);
+             }
+          break;
+-         case ::Left:
++         case Directions::Left:
+             if(crashed(i,-1,0))
+                players[i].alive=false;
+             else
+@@ -990,7 +990,7 @@
+                newType |= (LEFT | TOP | BOTTOM);
+             }
+          break;
+-         case ::Right:
++         case Directions::Right:
+             if(crashed(i,1,0))
+                players[i].alive=false;
+             else
+@@ -1013,13 +1013,13 @@
+       int xInc=0,yInc=0;
+       switch(players[1].dir)
+       {
+-         case ::Left:
++         case Directions::Left:
+             xInc = -1; break;
+-         case ::Right:
++         case Directions::Right:
+             xInc = 1; break;
+-         case ::Up:
++         case Directions::Up:
+             yInc = -1; break;
+-         case ::Down:
++         case Directions::Down:
+             yInc = 1; break;
+          default:
+             break;
+@@ -1074,7 +1074,7 @@
+   int opponent=(playerNr==1)? 0 : 1;
+ 
+   // determines left and right side
+-  Direction sides[2];
++  Directions::Direction sides[2];
+   // increments for moving to the different sides
+   int flags[6]={0,0,0,0,0,0};
+   int index[2];
+@@ -1086,7 +1086,7 @@
+ 
+   	switch (players[playerNr].dir)
+    	{
+-  			case ::Left:
++  			case Directions::Left:
+     			//forward flags
+     			flags[0] = -1;
+     			flags[1] = 0;
+@@ -1100,38 +1100,38 @@
+     			flags[5] = -1;
+ 
+     			//turns to either side
+-    			sides[0] = ::Down;
+-    			sides[1] = ::Up;
++    			sides[0] = Directions::Down;
++    			sides[1] = Directions::Up;
+     			break;
+-  			case ::Right:
++  			case Directions::Right:
+     			flags[0] = 1;
+     			flags[1] = 0;
+     			flags[2] = 0;
+ 			   flags[3] = -1;
+     			flags[4] = 0;
+     			flags[5] = 1;
+-    			sides[0] = ::Up;
+-    			sides[1] = ::Down;
++    			sides[0] = Directions::Up;
++    			sides[1] = Directions::Down;
+     			break;
+-  			case ::Up:
++  			case Directions::Up:
+     			flags[0] = 0;
+     			flags[1] = -1;
+     			flags[2] = -1;
+     			flags[3] = 0;
+     			flags[4] = 1;
+     			flags[5] = 0;
+-    			sides[0] = ::Left;
+-    			sides[1] = ::Right;
++    			sides[0] = Directions::Left;
++    			sides[1] = Directions::Right;
+     			break;
+-  			case ::Down:
++  			case Directions::Down:
+     			flags[0] = 0;
+     			flags[1] = 1;
+     			flags[2] = 1;
+     			flags[3] = 0;
+     			flags[4] = -1;
+     			flags[5] = 0;
+-    			sides[0] = ::Right;
+-    			sides[1] = ::Left;
++    			sides[0] = Directions::Right;
++    			sides[1] = Directions::Left;
+     			break;
+ 			default:
+ 			break;
+@@ -1187,52 +1187,52 @@
+ 
+   	switch(players[playerNr].dir)
+   	{
+-  	   case ::Up:
++  	   case Directions::Up:
+   	      opForwardDis=vert_dis;
+   	      opSideDis=-hor_dis;
+-  	      if(players[opponent].dir==::Down)
++  	      if(players[opponent].dir==Directions::Down)
+   	         opMovesOppositeDir=true;
+-  	      else if(players[opponent].dir==::Up)
++  	      else if(players[opponent].dir==Directions::Up)
+   	         opMovesSameDir=true;
+-  	      else if(players[opponent].dir==::Left)
++  	      else if(players[opponent].dir==Directions::Left)
+   	         opMovesLeft=true;
+-  	      else if(players[opponent].dir==::Right)
++  	      else if(players[opponent].dir==Directions::Right)
+   	         opMovesRight=true;
+   	      break;
+-  	   case ::Down:
++  	   case Directions::Down:
+   	      opForwardDis=-vert_dis;
+   	      opSideDis=hor_dis;
+-  	      if(players[opponent].dir==::Up)
++  	      if(players[opponent].dir==Directions::Up)
+   	         opMovesOppositeDir=true;
+-  	      else if(players[opponent].dir==::Down)
++  	      else if(players[opponent].dir==Directions::Down)
+   	         opMovesSameDir=true;
+-  	      else if(players[opponent].dir==::Left)
++  	      else if(players[opponent].dir==Directions::Left)
+   	         opMovesRight=true;
+-  	      else if(players[opponent].dir==::Right)
++  	      else if(players[opponent].dir==Directions::Right)
+   	         opMovesLeft=true;
+   	      break;
+-  	   case ::Left:
++  	   case Directions::Left:
+   	      opForwardDis=hor_dis;
+   	      opSideDis=vert_dis;
+-  	      if(players[opponent].dir==::Right)
++  	      if(players[opponent].dir==Directions::Right)
+   	         opMovesOppositeDir=true;
+-  	      else if(players[opponent].dir==::Left)
++  	      else if(players[opponent].dir==Directions::Left)
+   	         opMovesSameDir=true;
+-  	      else if(players[opponent].dir==::Down)
++  	      else if(players[opponent].dir==Directions::Down)
+   	         opMovesLeft=true;
+-  	      else if(players[opponent].dir==::Up)
++  	      else if(players[opponent].dir==Directions::Up)
+   	         opMovesRight=true;
+   	      break;
+-  	   case ::Right:
++  	   case Directions::Right:
+   	      opForwardDis=-hor_dis;
+   	      opSideDis=-vert_dis;
+-  	      if(players[opponent].dir==::Left)
++  	      if(players[opponent].dir==Directions::Left)
+   	         opMovesOppositeDir=true;
+-  	      else if(players[opponent].dir==::Right)
++  	      else if(players[opponent].dir==Directions::Right)
+   	         opMovesSameDir=true;
+-  	      else if(players[opponent].dir==::Up)
++  	      else if(players[opponent].dir==Directions::Up)
+   	         opMovesLeft=true;
+-  	      else if(players[opponent].dir==::Down)
++  	      else if(players[opponent].dir==Directions::Down)
+   	         opMovesRight=true;
+   	      break;
+   	    default:
+@@ -1475,7 +1475,7 @@
+ // xtron-1.1 by Rhett D. Jacobs <rhett@hotel.canberra.edu.au>
+ else // Settings::skill() == Settings::EnumSkill::Easy
+ {
+-  Direction sides[2];
++  Directions::Direction sides[2];
+   int flags[6] = {0,0,0,0,0,0};
+   int index[2];
+   int dis_forward,  dis_left, dis_right;
+@@ -1483,7 +1483,7 @@
+   dis_forward = dis_left = dis_right = 1;
+ 
+   switch (players[playerNr].dir) {
+-  case ::Left:
++  case Directions::Left:
+ 
+     //forward flags
+     flags[0] = -1;
+@@ -1498,38 +1498,38 @@
+     flags[5] = -1;
+ 
+     //turns to either side
+-    sides[0] = ::Down;
+-    sides[1] = ::Up;
++    sides[0] = Directions::Down;
++    sides[1] = Directions::Up;
+     break;
+-  case ::Right:
++  case Directions::Right:
+     flags[0] = 1;
+     flags[1] = 0;
+     flags[2] = 0;
+     flags[3] = -1;
+     flags[4] = 0;
+     flags[5] = 1;
+-    sides[0] = ::Up;
+-    sides[1] = ::Down;
++    sides[0] = Directions::Up;
++    sides[1] = Directions::Down;
+     break;
+-  case ::Up:
++  case Directions::Up:
+     flags[0] = 0;
+     flags[1] = -1;
+     flags[2] = -1;
+     flags[3] = 0;
+     flags[4] = 1;
+     flags[5] = 0;
+-    sides[0] = ::Left;
+-    sides[1] = ::Right;
++    sides[0] = Directions::Left;
++    sides[1] = Directions::Right;
+     break;
+-  case ::Down:
++  case Directions::Down:
+     flags[0] = 0;
+     flags[1] = 1;
+     flags[2] = 1;
+     flags[3] = 0;
+     flags[4] = -1;
+     flags[5] = 0;
+-    sides[0] = ::Right;
+-    sides[1] = ::Left;
++    sides[0] = Directions::Right;
++    sides[1] = Directions::Left;
+     break;
+   default:
+     break;
+@@ -1600,26 +1600,26 @@
+ 
+ void Tron::changeDirection(int playerNr,int dis_right,int dis_left)
+ {
+-   Direction currentDir=players[playerNr].dir;
+-   Direction sides[2];
++   Directions::Direction currentDir=players[playerNr].dir;
++   Directions::Direction sides[2];
+    switch (currentDir)
+    {
+-  		case ::Left:
++  		case Directions::Left:
+     		//turns to either side
+-    		sides[0] = ::Down;
+-    		sides[1] = ::Up;
++    		sides[0] = Directions::Down;
++    		sides[1] = Directions::Up;
+     		break;
+-  		case ::Right:
+-    		sides[0] = ::Up;
+-    		sides[1] = ::Down;
++  		case Directions::Right:
++    		sides[0] = Directions::Up;
++    		sides[1] = Directions::Down;
+     		break;
+-  		case ::Up:
+-    		sides[0] = ::Left;
+-    		sides[1] = ::Right;
++  		case Directions::Up:
++    		sides[0] = Directions::Left;
++    		sides[1] = Directions::Right;
+     		break;
+-  		case ::Down:
+-    		sides[0] = ::Right;
+-    		sides[1] = ::Left;
++  		case Directions::Down:
++    		sides[0] = Directions::Right;
++    		sides[1] = Directions::Left;
+     		break;
+ 		default:
+ 		break;
+diff -urN -x CVS kdegames.orig/ktron/tron.h kdegames/ktron/tron.h
+--- kdegames.orig/ktron/tron.h	Thu Oct  2 20:01:31 2003
++++ kdegames/ktron/tron.h	Thu Feb  5 12:44:41 2004
+@@ -151,7 +151,7 @@
+   void changeDirection(int playerNr,int dis_right,int dis_left);
+ 
+   /** sets the direction of player playerNr to newDirection */
+-  void switchDir(int playerNr,Direction newDirection);
++  void switchDir(int playerNr,Directions::Direction newDirection);
+   /**
+   * updates the the rect at current position to not draw a
+   * border in the direction of the next step.
+diff -urN -x CVS kdegames.orig/ktuberling/ktuberling.desktop kdegames/ktuberling/ktuberling.desktop
+--- kdegames.orig/ktuberling/ktuberling.desktop	Thu Jan 15 08:55:34 2004
++++ kdegames/ktuberling/ktuberling.desktop	Fri Feb  6 13:07:59 2004
+@@ -19,7 +19,7 @@
+ Name[he]=מר תפוח אדמה
+ Name[hi]=पोटाटो गाई
+ Name[hu]=Krumpli bácsi
+-Name[is]=KartÃ¶flukall
++Name[is]=Kartöflukall
+ Name[it]=Uomo patata
+ Name[ja]=福笑い
+ Name[ko]=감자돌이
+@@ -68,6 +68,7 @@
+ GenericName[hi]=बच्चों के लिए खेल
+ GenericName[hr]=Igra za djecu
+ GenericName[hu]=Gyermekjáték
++GenericName[is]=Leikur fyrir börn
+ GenericName[it]=Gioco per i bambini
+ GenericName[ja]=子供用ゲーム
+ GenericName[lv]=Spēle Bērniem
+diff -urN -x CVS kdegames.orig/ktuberling/x-tuberling.desktop kdegames/ktuberling/x-tuberling.desktop
+--- kdegames.orig/ktuberling/x-tuberling.desktop	Fri Jan 16 08:01:13 2004
++++ kdegames/ktuberling/x-tuberling.desktop	Fri Feb  6 13:08:01 2004
+@@ -14,6 +14,7 @@
+ Comment[gl]=Pataca
+ Comment[hi]=पोटाटो
+ Comment[hu]=Krumpli
++Comment[is]=Kartafla
+ Comment[it]=Patata
+ Comment[nl]=Aardappel
+ Comment[pl]=Ziemniak
+diff -urN -x CVS kdegames.orig/kwin4/kwin4.desktop kdegames/kwin4/kwin4.desktop
+--- kdegames.orig/kwin4/kwin4.desktop	Thu Jan 15 08:55:38 2004
++++ kdegames/kwin4/kwin4.desktop	Fri Feb  6 13:08:03 2004
+@@ -8,6 +8,7 @@
+ Name[hi]=के-विन4
+ Name[hr]=Kwin4
+ Name[hu]=Négy a nyerő
++Name[is]=Kwin4
+ Name[ru]=Четыре побеждают
+ Name[sv]=Kwin4
+ Name[ta]=Kவிண்4
+@@ -37,12 +38,14 @@
+ GenericName[hi]=कौशल का खेल
+ GenericName[hr]=Igra strategije
+ GenericName[hu]=Stratégiai
++GenericName[is]=Herkænskuleikur
+ GenericName[it]=Gioco di strategia
+ GenericName[ja]=戦略ゲーム
+ GenericName[lo]=ເກມກົນລະຍຸດ
+ GenericName[lv]=Stratēģiskā Game
+ GenericName[mt]=Logħba ta' strateġija
+ GenericName[nb]=Taktikkspill
++GenericName[nds]=Strategiespeel
+ GenericName[nl]=Strategisch spel
+ GenericName[nn]=Strategispel
+ GenericName[pl]=Gra strategiczna
+@@ -56,6 +59,7 @@
+ GenericName[ss]=Umdlalo wekusebentisa indlela yekwenta
+ GenericName[sv]=Strategispel
+ GenericName[ta]=தந்திர விளையாட்டு
++GenericName[tg]=Бозии стратегӣ
+ GenericName[th]=เกมกลยุทธ์
+ GenericName[tr]=Strateji Oyunu
+ GenericName[uk]=Гра на стратегію
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-aisleriot/index.desktop kdegames/libkdegames/carddecks/cards-aisleriot/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-aisleriot/index.desktop	Thu Jan 15 08:55:42 2004
++++ kdegames/libkdegames/carddecks/cards-aisleriot/index.desktop	Fri Feb  6 13:08:05 2004
+@@ -7,7 +7,6 @@
+ Name[fa]=ایسیل ریوت
+ Name[hi]=एस्लेरियॉट
+ Name[hr]=PobunaUprolazu
+-Name[is]=ÃeirÃ°ir Ã­ Hagkaup
+ Name[ko]=왕관
+ Name[ru]=ЭшлРиот (коллекция пасьянсов)
+ Name[sv]=Kyrkouppror
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-default/index.desktop kdegames/libkdegames/carddecks/cards-default/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-default/index.desktop	Thu Jan 15 08:55:44 2004
++++ kdegames/libkdegames/carddecks/cards-default/index.desktop	Fri Feb  6 13:08:07 2004
+@@ -10,7 +10,7 @@
+ Name[fi]=Normaali
+ Name[gl]=Estándar
+ Name[hi]=मानक
+-Name[is]=StaÃ°laÃ°
++Name[is]=Staðlað
+ Name[ja]=標準
+ Name[ko]=표준
+ Name[lv]=Standarta
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-gdkcard-bonded/index.desktop kdegames/libkdegames/carddecks/cards-gdkcard-bonded/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-gdkcard-bonded/index.desktop	Thu Jan 15 08:55:48 2004
++++ kdegames/libkdegames/carddecks/cards-gdkcard-bonded/index.desktop	Fri Feb  6 13:08:09 2004
+@@ -13,7 +13,7 @@
+ Name[gl]=Unidas
+ Name[hi]=बॉन्डेड
+ Name[hr]=Povezano
+-Name[is]=BundiÃ°
++Name[is]=Bundið
+ Name[ko]=보세
+ Name[lv]=Ieķīlāts
+ Name[mt]=Mehmuż
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-hard-a-port/index.desktop kdegames/libkdegames/carddecks/cards-hard-a-port/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-hard-a-port/index.desktop	Thu Jan 15 08:55:50 2004
++++ kdegames/libkdegames/carddecks/cards-hard-a-port/index.desktop	Fri Feb  6 13:08:11 2004
+@@ -6,7 +6,7 @@
+ Name[eo]=Tenta
+ Name[hi]=हार्ड ए पोर्ट
+ Name[hr]=Tvrdi na portu
+-Name[is]=Hart Ã¡ bakborÃ°a
++Name[is]=Hart á bakborða
+ Name[it]=Donnine
+ Name[ko]=폼 잡기 힘들다
+ Name[pt_BR]=Duramente um Porto
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-penguins/index.desktop kdegames/libkdegames/carddecks/cards-penguins/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-penguins/index.desktop	Thu Jan 15 08:55:54 2004
++++ kdegames/libkdegames/carddecks/cards-penguins/index.desktop	Fri Feb  6 13:08:13 2004
+@@ -19,7 +19,7 @@
+ Name[hi]=पेंग्विन्स
+ Name[hr]=Pingvini
+ Name[hu]=Pingvinek
+-Name[is]=MÃ¶rgÃ¦sir
++Name[is]=Mörgæsir
+ Name[it]=Pinguini
+ Name[ko]=펭귄
+ Name[lv]=Pingvīni
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-spaced/index.desktop kdegames/libkdegames/carddecks/cards-spaced/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-spaced/index.desktop	Thu Jan 15 08:55:56 2004
++++ kdegames/libkdegames/carddecks/cards-spaced/index.desktop	Fri Feb  6 13:08:15 2004
+@@ -12,7 +12,7 @@
+ Name[gl]=Espaciadas
+ Name[hi]=स्पेस्ड
+ Name[hu]=Űr
+-Name[is]=SpeisaÃ°
++Name[is]=Speisað
+ Name[it]=Spaziale
+ Name[mt]=Spazzjat
+ Name[nb]=Rom-duell
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-warwick/index.desktop kdegames/libkdegames/carddecks/cards-warwick/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-warwick/index.desktop	Thu Jan 15 08:55:58 2004
++++ kdegames/libkdegames/carddecks/cards-warwick/index.desktop	Fri Feb  6 13:08:17 2004
+@@ -18,7 +18,7 @@
+ Name[hi]=ब्लू बलून
+ Name[hr]=Plavi balon
+ Name[hu]=Kék léggömb
+-Name[is]=BlÃ¡ blaÃ°ra
++Name[is]=Blá blaðra
+ Name[it]=Pallone blu
+ Name[ja]=青風船
+ Name[ko]=파란 풍선
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck0.desktop kdegames/libkdegames/carddecks/decks/deck0.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck0.desktop	Thu Jan 15 08:56:02 2004
++++ kdegames/libkdegames/carddecks/decks/deck0.desktop	Fri Feb  6 13:08:19 2004
+@@ -15,7 +15,7 @@
+ Name[hr]=Tehnika
+ Name[hu]=Technikai
+ Name[id]=Teknik
+-Name[is]=TÃ¦kni
++Name[is]=Tækni
+ Name[it]=Tecnico
+ Name[ko]=기술
+ Name[lv]=Tehnika
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck1.desktop kdegames/libkdegames/carddecks/decks/deck1.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck1.desktop	Thu Jan 15 08:56:04 2004
++++ kdegames/libkdegames/carddecks/decks/deck1.desktop	Fri Feb  6 13:08:21 2004
+@@ -17,7 +17,7 @@
+ Name[hi]=परी
+ Name[hr]=Vila
+ Name[hu]=Tündéres
+-Name[is]=Ãlfur
++Name[is]=Álfur
+ Name[it]=Fata
+ Name[ko]=요정
+ Name[lv]=Burvju
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck10.desktop kdegames/libkdegames/carddecks/decks/deck10.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck10.desktop	Thu Jan 15 08:56:06 2004
++++ kdegames/libkdegames/carddecks/decks/deck10.desktop	Fri Feb  6 13:08:23 2004
+@@ -19,7 +19,7 @@
+ Name[hr]=Klasična plava
+ Name[hu]=Klasszikus kék
+ Name[id]=Biru klasik
+-Name[is]=KlassÃ­skur blÃ¡r
++Name[is]=Klassískur blár
+ Name[it]=Blu classico
+ Name[ja]=クラッシックブルー
+ Name[ko]=옛 파란 무늬
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck11.desktop kdegames/libkdegames/carddecks/decks/deck11.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck11.desktop	Thu Jan 15 08:56:08 2004
++++ kdegames/libkdegames/carddecks/decks/deck11.desktop	Fri Feb  6 13:08:25 2004
+@@ -19,7 +19,7 @@
+ Name[hr]=Klasična crvena
+ Name[hu]=klasszikus vörös
+ Name[id]=Merah klasik
+-Name[is]=KlassÃ­skur rauÃ°ur
++Name[is]=Klassískur rauður
+ Name[it]=Rosso classico
+ Name[ja]=クラッシックレッド
+ Name[ko]=옛 빨간 무늬
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck14.desktop kdegames/libkdegames/carddecks/decks/deck14.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck14.desktop	Thu Jan 15 08:56:14 2004
++++ kdegames/libkdegames/carddecks/decks/deck14.desktop	Fri Feb  6 13:08:27 2004
+@@ -19,7 +19,7 @@
+ Name[hi]=पेंग्विन
+ Name[hr]=Pingvin
+ Name[hu]=Pingvin
+-Name[is]=MÃ¶rgÃ¦s
++Name[is]=Mörgæs
+ Name[it]=Pinguino
+ Name[ko]=펭귄
+ Name[lv]=Pingvīns
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck17.desktop kdegames/libkdegames/carddecks/decks/deck17.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck17.desktop	Thu Jan 15 08:56:20 2004
++++ kdegames/libkdegames/carddecks/decks/deck17.desktop	Fri Feb  6 13:08:29 2004
+@@ -18,7 +18,7 @@
+ Name[hi]=आधुनिक लाल
+ Name[hr]=Moderna crvena
+ Name[hu]=Modern vörös
+-Name[is]=NÃºtÃ­ma rauÃ°ur
++Name[is]=Nútíma rauður
+ Name[it]=Rosso moderno
+ Name[ja]=モダンレッド
+ Name[ko]=모던 빨간 무늬
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck19.desktop kdegames/libkdegames/carddecks/decks/deck19.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck19.desktop	Thu Jan 15 08:56:24 2004
++++ kdegames/libkdegames/carddecks/decks/deck19.desktop	Fri Feb  6 13:08:32 2004
+@@ -18,7 +18,7 @@
+ Name[hi]=क्षितिज
+ Name[hr]=Horizont
+ Name[hu]=Horizont
+-Name[is]=SjÃ³ndeildarhringur
++Name[is]=Sjóndeildarhringur
+ Name[it]=Orizzonte
+ Name[ko]=지평선
+ Name[lv]=Horizonts
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck20.desktop kdegames/libkdegames/carddecks/decks/deck20.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck20.desktop	Thu Jan 15 08:56:28 2004
++++ kdegames/libkdegames/carddecks/decks/deck20.desktop	Fri Feb  6 13:08:34 2004
+@@ -20,7 +20,7 @@
+ Name[hi]=पुष्प
+ Name[hr]=Cvjetovi
+ Name[hu]=Virágok
+-Name[is]=BlÃ³m
++Name[is]=Blóm
+ Name[it]=Fiori
+ Name[ja]=花
+ Name[ko]=꽃
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck22.desktop kdegames/libkdegames/carddecks/decks/deck22.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck22.desktop	Thu Jan 15 08:56:32 2004
++++ kdegames/libkdegames/carddecks/decks/deck22.desktop	Fri Feb  6 13:08:36 2004
+@@ -18,7 +18,7 @@
+ Name[hi]=बाथिंग
+ Name[hr]=Kupanje
+ Name[hu]=Fürdő
+-Name[is]=Ã baÃ°i
++Name[is]=Í baði
+ Name[it]=Balneare
+ Name[ko]=목욕
+ Name[lv]=Peldēšanās
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck3.desktop kdegames/libkdegames/carddecks/decks/deck3.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck3.desktop	Thu Jan 15 08:56:38 2004
++++ kdegames/libkdegames/carddecks/decks/deck3.desktop	Fri Feb  6 13:08:38 2004
+@@ -19,7 +19,7 @@
+ Name[hi]=रूमानी
+ Name[hr]=Romantika
+ Name[hu]=Romantikus
+-Name[is]=RÃ³mantÃ­skt
++Name[is]=Rómantískt
+ Name[it]=Romantico
+ Name[ko]=로맨틱
+ Name[lv]=Romantika
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck4.desktop kdegames/libkdegames/carddecks/decks/deck4.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck4.desktop	Thu Jan 15 08:56:40 2004
++++ kdegames/libkdegames/carddecks/decks/deck4.desktop	Sat Feb  7 13:42:59 2004
+@@ -4,7 +4,7 @@
+ Name[el]=Πάντα
+ Name[eo]=Pando
+ Name[hi]=पाण्डा
+-Name[is]=Panda bjÃ¶rn
++Name[is]=Pandabjörn
+ Name[ko]=팬더
+ Name[ru]=Панда
+ Name[sr]=Панда
+@@ -40,7 +40,7 @@
+ Comment[hi]=डब्लयूडब्लयूएफ को समर्पित
+ Comment[hr]=Posvećeno WWF-u
+ Comment[hu]=A WWF-nek dedikálva
+-Comment[is]=TileinkaÃ° WWF  :-o
++Comment[is]=Tileinkað WWF
+ Comment[it]=Dedicato al WWF
+ Comment[ja]=WWFに捧ぐ
+ Comment[lv]=Izdalīts uz WWF
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck6.desktop kdegames/libkdegames/carddecks/decks/deck6.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck6.desktop	Thu Jan 15 08:56:44 2004
++++ kdegames/libkdegames/carddecks/decks/deck6.desktop	Fri Feb  6 13:08:42 2004
+@@ -19,7 +19,7 @@
+ Name[hi]=समुद्र तट
+ Name[hr]=Plaža
+ Name[hu]=Tengerpart
+-Name[is]=StrÃ¶nd
++Name[is]=Strönd
+ Name[it]=Spiaggia
+ Name[ko]=바닷가
+ Name[lv]=Pludmale
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/decks/deck7.desktop kdegames/libkdegames/carddecks/decks/deck7.desktop
+--- kdegames.orig/libkdegames/carddecks/decks/deck7.desktop	Thu Jan 15 08:56:46 2004
++++ kdegames/libkdegames/carddecks/decks/deck7.desktop	Fri Feb  6 13:08:44 2004
+@@ -20,7 +20,7 @@
+ Name[hi]=सूर्यास्त
+ Name[hr]=Zalazak sunca
+ Name[hu]=Naplemente
+-Name[is]=SÃ³lsetur
++Name[is]=Sólsetur
+ Name[it]=Tramonto
+ Name[ko]=저녁 노을
+ Name[lv]=Saullēkts
+diff -urN -x CVS kdegames.orig/libksirtet/lib/meeting.cpp kdegames/libksirtet/lib/meeting.cpp
+--- kdegames.orig/libksirtet/lib/meeting.cpp	Tue Jul  1 02:31:38 2003
++++ kdegames/libksirtet/lib/meeting.cpp	Thu Feb  5 15:11:15 2004
+@@ -152,14 +152,14 @@
+ 	sm[i]->readingStream() >> mt;
+ 	CHECK_READ(i);
+ 	switch (mt) {
+-	 case End:      endFlag(i);     break;
+-	 case New:      newFlag(i);     break;
+-	 case Mod_Text: modTextFlag(i); break;
+-	 case Mod_Type: modTypeFlag(i); break;
+-	 case Id:       idFlag(i);      break;
+-	 case Del:      delFlag(i);     break;
+-	 case Mod_Opt:  modOptFlag(i);  break;
+-	 case Play:     playFlag(i);    break;
++	 case EndFlag:      endFlag(i);     break;
++	 case NewFlag:      newFlag(i);     break;
++	 case Mod_TextFlag: modTextFlag(i); break;
++	 case Mod_TypeFlag: modTypeFlag(i); break;
++	 case IdFlag:       idFlag(i);      break;
++	 case DelFlag:      delFlag(i);     break;
++	 case Mod_OptFlag:  modOptFlag(i);  break;
++	 case PlayFlag:     playFlag(i);    break;
+ 	 default:       dataError(i);
+ 	}
+ 
+@@ -194,7 +194,7 @@
+ void NetMeeting::reject()
+ {
+ 	// send an End flag
+-	sm.commonWritingStream() << End;
++	sm.commonWritingStream() << EndFlag;
+ 	writeToAll();
+ 
+ 	cleanReject();
+@@ -252,7 +252,7 @@
+ 		removeLine(i-1);
+ 
+ 		// Send a Del message to all (other) clients
+-		sm.commonWritingStream() << Del << i;
++		sm.commonWritingStream() << DelFlag << i;
+ 		writeToAll();
+ 	}
+ 	players.remove(players.at(i));
+@@ -291,7 +291,7 @@
+ 
+ 	// send result to client
+ 	Stream &s = sm[i]->writingStream();
+-	s << Id << id;
++	s << IdFlag << id;
+ 	WRITE(i);
+ 
+ 	// if not accepted : remove socket and player from list
+@@ -322,18 +322,18 @@
+ 	// send to the new client already present lines including its own
+ 	// (New flag + MeetingLineData struct)
+ 	spl->data(pld.ed);
+-	sm[i]->writingStream() << New << pld.ed;
++	sm[i]->writingStream() << NewFlag << pld.ed;
+ 	for(uint k=1; k<sm.size(); k++) {
+ 		wl->widget(k-1)->data(pld.ed);
+ 		pld.own = ( k==i );
+-		sm[i]->writingStream() << New << pld;
++		sm[i]->writingStream() << NewFlag << pld;
+ 	}
+ 	WRITE(i);
+ 
+ 	// send to all other clients the new line (New flag + MeetingLineData struct)
+ 	wl->widget(i-1)->data(pld.ed);
+ 	pld.own = FALSE;
+-	sm.commonWritingStream() << New << pld;
++	sm.commonWritingStream() << NewFlag << pld;
+ 	writeToAll(i);
+ }
+ 
+@@ -349,7 +349,7 @@
+ 	setText(ti);
+ 
+ 	// send it to all other clients (Mod_Text flag + TextInfo struct)
+-	sm.commonWritingStream() << Mod_Text << ti;
++	sm.commonWritingStream() << Mod_TextFlag << ti;
+ 	writeToAll(i);
+ }
+ 
+@@ -365,7 +365,7 @@
+ 	setType(ti);
+ 
+ 	// send it to all other clients (Mod_Type flag + TypeInfo struct)
+-	sm.commonWritingStream() << Mod_Type << ti;
++	sm.commonWritingStream() << Mod_TypeFlag << ti;
+ 	writeToAll(i);
+ }
+ 
+@@ -373,7 +373,7 @@
+ {
+ 	// server line text changed : send to every clients (Mod_Text flag + TextInfo struct)
+ 	TextInfo ti; ti.i = 0; ti.text = text;
+-	sm.commonWritingStream() << Mod_Text << ti;
++	sm.commonWritingStream() << Mod_TextFlag << ti;
+ 	writeToAll();
+ }
+ 
+@@ -390,7 +390,7 @@
+ 	ty.i++;
+ 
+ 	// TCB change : send to every clients (Mod_Type flag + TypeInfo struct)
+-	sm.commonWritingStream() << Mod_Type << ty;
++	sm.commonWritingStream() << Mod_TypeFlag << ty;
+ 	writeToAll();
+ 	if (server) enableButtonOK(ready());
+ }
+@@ -421,7 +421,7 @@
+ 
+ 			// send play message to client (Play flag
+ 			// + bool [accepted/rejected])
+-			sm[0]->writingStream() << Play << (Q_UINT8)willPlay;
++			sm[0]->writingStream() << PlayFlag << (Q_UINT8)willPlay;
+ 			// if write failed and the client is not playing : silently
+ 			// put it aside ...
+ 			if ( !sm[0]->write() && willPlay ) {
+@@ -440,7 +440,7 @@
+ 
+ void ServerNetMeeting::optionsChanged()
+ {
+-	sm.commonWritingStream() << Mod_Opt;
++	sm.commonWritingStream() << Mod_OptFlag;
+ 	ow->dataOut( sm.commonWritingStream() );
+ 	writeToAll();
+ }
+@@ -456,7 +456,7 @@
+ 	players.append(NewPlayer); // server player
+ 
+ 	// Send id to server (Id flag + Id struct)
+-	sm.commonWritingStream() << Id << id;
++	sm.commonWritingStream() << IdFlag << id;
+ 	writeToAll(); // what happens if there is a message box appearing before exec() call ??
+ }
+ 
+@@ -484,7 +484,7 @@
+ 	if ( !serverId.accepted() ) cleanReject(serverId.errorMessage(id));
+ 	else {
+ 		// send client info (New flag + GameData struct)
+-		sm.commonWritingStream() << New << bds;
++		sm.commonWritingStream() << NewFlag << bds;
+ 		writeToAll();
+ 	}
+ }
+@@ -535,14 +535,14 @@
+ void ClientNetMeeting::textChanged(const QString &text)
+ {
+ 	// text changed : send to server (Mod_Text flag + QString)
+-	sm.commonWritingStream() << Mod_Text << text;
++	sm.commonWritingStream() << Mod_TextFlag << text;
+ 	writeToAll();
+ }
+ 
+ void ClientNetMeeting::typeChanged(MeetingCheckBox::Type type)
+ {
+ 	// type changed : send to server (Mod_Type flag + TCB)
+-	sm.commonWritingStream() << Mod_Type << type;
++	sm.commonWritingStream() << Mod_TypeFlag << type;
+ 	writeToAll();
+ }
+ 
+diff -urN -x CVS kdegames.orig/libksirtet/lib/types.h kdegames/libksirtet/lib/types.h
+--- kdegames.orig/libksirtet/lib/types.h	Sat Sep  1 13:52:21 2001
++++ kdegames/libksirtet/lib/types.h	Thu Feb  5 15:11:15 2004
+@@ -32,7 +32,7 @@
+ 
+ /** Flags used for the netmeeting. */
+ enum MeetingMsgFlag
+-    { Id = 0, End, New, Del, Mod_Text, Mod_Type, Mod_Opt, Play };
++    { IdFlag = 0, EndFlag, NewFlag, DelFlag, Mod_TextFlag, Mod_TypeFlag, Mod_OptFlag, PlayFlag };
+ QDataStream &operator << (QDataStream &s, const MeetingMsgFlag &f);
+ QDataStream &operator >> (QDataStream &s, MeetingMsgFlag &f);
+ 
+diff -urN -x CVS kdegames.orig/lskat/lskat.desktop kdegames/lskat/lskat.desktop
+--- kdegames.orig/lskat/lskat.desktop	Thu Jan 15 08:56:50 2004
++++ kdegames/lskat/lskat.desktop	Fri Feb  6 13:08:46 2004
+@@ -23,12 +23,14 @@
+ GenericName[hi]=ताश के खेल
+ GenericName[hr]=Kartaška igra
+ GenericName[hu]=Kártyajáték
++GenericName[is]=Spil
+ GenericName[it]=Gioco di carte
+ GenericName[ja]=カードゲーム
+ GenericName[lo]=ເກມໄພ້
+ GenericName[lv]=Kāršu Spēle
+ GenericName[mt]=Logħba tal-karti
+ GenericName[nb]=Kortspill
++GenericName[nds]=Koortspeel
+ GenericName[nl]=Kaartspel
+ GenericName[nn]=Kortspel
+ GenericName[nso]=Papadi ya Dikarata
+@@ -42,6 +44,7 @@
+ GenericName[sr]=Игра са картама
+ GenericName[ss]=Umdlalo welikhadi
+ GenericName[sv]=Kortspel
++GenericName[tg]=Бозии Корт
+ GenericName[th]=เกมไพ่
+ GenericName[tr]=İskambil Oyunu
+ GenericName[uk]=Карти
+@@ -72,7 +75,7 @@
+ Name[hi]=लेफ्टिनेंट स्कट
+ Name[hu]=Skat hadnagy
+ Name[id]=Letnan Skat
+-Name[is]=HermaÃ°urinn Skat
++Name[is]=Hermaðurinn Skat
+ Name[it]=Tenente Skat
+ Name[ko]=스카트 상사
+ Name[lv]=Leitnants Skots
