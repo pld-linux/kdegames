@@ -5,7 +5,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040213
+%define		_snap		040407
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -22,8 +22,8 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
-##%% Source0-md5:	30af752fbe3547a30963bf0df0380c24
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	8de9b8fafdd70db58f335f83e0a99119
 #Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 ##%% Source1-md5:	dab4d56eef3c480584b3df46085b33bb
 Patch0:		%{name}-disable_install-exec-hook.patch
@@ -1544,6 +1544,7 @@ EOF
 %{_datadir}/apps/kfouleggs
 %{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
+%{_iconsdir}/crystalsvg/*/*/kfouleggs*
 
 %files kgoldrunner -f kgoldrunner_en.lang
 %defattr(644,root,root,755)
