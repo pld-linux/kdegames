@@ -6,7 +6,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	3.0.3
-Release:	5
+Release:	6
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -28,6 +28,7 @@ Requires:	kdelibs = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
+Obsoletes:	kdegames-kpm
 
 %define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
