@@ -706,7 +706,6 @@ cd -
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang	atlantik		--with-kde
-#%find_lang	kio_atlantik		--with-kde
 %find_lang	kasteroids		--with-kde
 %find_lang	katomic			--with-kde
 %find_lang	kbackgammon		--with-kde
@@ -745,6 +744,10 @@ cat libkdehighscores.lang >> kmines.lang
 
 # seems required by klickety, kfouleggs and ksirtet (statically linked code) 
 cat libksirtet.lang >> libkdegames.lang
+
+# missing
+#%find_lang	kio_atlantik		--with-kde
+# cat kio_atlantik.lang >> atlantik.lang
 
 # obsolete ?
 #%find_lang	multiplayers		--with-kde
