@@ -21,6 +21,8 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
+# generated from kde-i18n
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	kdelibs-devel >= %{version}
@@ -667,6 +669,8 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
 mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 	$RPM_BUILD_ROOT%{_applnkdir}/Amusements
+
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%
 
 #%find_lang kabalone --with-kde
 %find_lang kasteroids --with-kde
