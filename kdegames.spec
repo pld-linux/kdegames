@@ -7,7 +7,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	3.0.4
-Release:	1
+Release:	2
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -594,6 +594,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 %configure \
 	--with-qt-dir=%{_prefix} \
 	--with-pam="yes" \
+	--disable-rpath \
 	--enable-final
 %{__make}
 
@@ -603,8 +604,8 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
-	$RPM_BUILD_ROOT%{_applnkdir}/Amusements
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Toys/ktuberling.desktop,Amusements}
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/Games/{TacticStrategy,Strategy}
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
@@ -690,7 +691,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f katomic.lang katomic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
-%{_applnkdir}/Games/TacticStrategy/katomic.desktop
+%{_applnkdir}/Games/Strategy/katomic.desktop
 %{_datadir}/apps/katomic/*
 %{_pixmapsdir}/hicolor/*x*/apps/katomic.png
 
@@ -742,7 +743,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kjumpingcube.lang kjumpingcube
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
-%{_applnkdir}/Games/TacticStrategy/kjumpingcube.desktop
+%{_applnkdir}/Games/Strategy/kjumpingcube.desktop
 %{_pixmapsdir}/hicolor/*x*/apps/kjumpingcube.png
 %{_datadir}/apps/kjumpingcube/*
 
@@ -752,7 +753,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f klines.lang klines
 %defattr(644,root,root,755)
-%{_applnkdir}/Games/TacticStrategy/klines.desktop
+%{_applnkdir}/Games/Strategy/klines.desktop
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines/*
 %{_pixmapsdir}/hicolor/*x*/apps/klines.png
@@ -775,7 +776,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kmines.lang kmines
 %defattr(644,root,root,755)
-%{_applnkdir}/Games/TacticStrategy/kmines.desktop
+%{_applnkdir}/Games/Strategy/kmines.desktop
 %attr(755,root,root) %{_bindir}/kmines
 %{_pixmapsdir}/hicolor/*x*/apps/kmines.png
 %{_datadir}/apps/kmines/*
@@ -786,7 +787,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f konquest.lang konquest
 %defattr(644,root,root,755)
-%{_applnkdir}/Games/TacticStrategy/konquest.desktop
+%{_applnkdir}/Games/Strategy/konquest.desktop
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest/*
 %{_pixmapsdir}/hicolor/*x*/apps/konquest.png
@@ -830,7 +831,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksame.lang ksame
 %defattr(644,root,root,755)
-%{_applnkdir}/Games/TacticStrategy/ksame.desktop
+%{_applnkdir}/Games/Strategy/ksame.desktop
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame/*
 %{_pixmapsdir}/hicolor/*x*/apps/ksame.png
@@ -888,7 +889,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksokoban.lang ksokoban
 %defattr(644,root,root,755)
-%{_applnkdir}/Games/TacticStrategy/ksokoban.desktop
+%{_applnkdir}/Games/Strategy/ksokoban.desktop
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_pixmapsdir}/hicolor/*x*/apps/ksokoban.png
 
