@@ -754,6 +754,11 @@ Jogo de cartas Lieutenant Skat para KDE
 	ktuberling/ktuberling.desktop \
 	kwin4/kwin4.desktop \
 	lskat/lskat.desktop
+for f in `find . -name \*.desktop`; do
+	if grep -q '^Categories=.*[^;]$' $f; then
+		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
+	fi
+done
 
 %build
 cp %{_datadir}/automake/config.sub admin
