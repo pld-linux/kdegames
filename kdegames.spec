@@ -6,9 +6,9 @@ Release:	1
 Epoch:		6
 License:	GPL
 Vendor:		The KDE Team
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
 BuildRequires:	XFree86-devel
 BuildRequires:	kdelibs-devel >= %{version}
@@ -29,9 +29,14 @@ Biblioteki dla gier KDE.
 
 %package devel
 Summary:	Development files for KDE games
-Group:		X11/KDE/Development
-Group(de):	X11/KDE/Entwicklung
-Group(pl):	X11/KDE/Programowanie
+Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
+Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -40,9 +45,9 @@ Development files for KDE games.
 
 %package carddecks
 Summary:	KDE carddecks
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 
 %description carddecks
 KDE carddecks.
@@ -50,9 +55,9 @@ KDE carddecks.
 %package kabalone
 Summary:	KDE game
 Summary(pl):	Gra KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -66,9 +71,9 @@ KAbalone to gra podobna do Reversi. Zasady znajdziesz w dokumentacji.
 %package kasteroids
 Summary:	KDE Asteroids clone	
 Summary(pl):	Klon Asterids dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -81,9 +86,9 @@ Klon znanej gry "Asteroids".
 %package katomic
 Summary:	KDE Sokoban clone	
 Summary(pl):	Klon gry Sokoban dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -99,9 +104,9 @@ chemicznych moleku³ na planszy podobnej do tej z gry Sokoban.
 %package kbackgammon
 Summary:	Backgammon program for KDE
 Summary(pl):	Backgammon dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -116,13 +121,12 @@ KBackgammon to graficzna wersja gry backgammon dla KDE. Mo¿esz graæ z
 innymi graczami, przeciwko komputerowi lub nawet rozegraæ partiê przez
 sieæ korzystaj±c z Pierwszego Internetowego Serwera Backgammon.
 
-
 %package kbattleship
 Summary:	Battleship for KDE
 Summary(pl):	Statki dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -132,13 +136,12 @@ Battleship for KDE.
 %description kbattleship -l pl
 Statki dla KDE.
 
-
 %package kblackbox
 Summary:	A little logical game for KDE	
 Summary(pl):	Prosta gra logiczna
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -150,32 +153,32 @@ Prosta gra logiczna.
 
 %package kfouleggs
 Summary:	KDE kfouleggs	
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
 %description kfouleggs
-KDE kfouleggs
+KDE kfouleggs.
 
 %package kjezz
 Summary:	KDE jezz
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
 %description kjezz
-KDE jezz
+KDE jezz.
 
 %package kjumpingcube
 Summary:	A little tactical game for KDE
 Summary(pl):	Prosta gra taktyczna
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -198,9 +201,9 @@ wszystkie pola na wlasno¶æ.
 
 %package klines
 Summary:	Lines for KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -210,9 +213,9 @@ Lines for KDE.
 %package kmahjongg
 Summary:	KDE Mahjongg clone	
 Summary(pl):	Klon gry Mahjongg dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -225,9 +228,9 @@ Wersja KDE znanej gry Mahjongg.
 %package kmines 
 Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -236,7 +239,7 @@ This is a very classical minesweeper written from scratch.
 - 3 predefined levels : Easy : 8x8 with 10 mines Normal : 16x16 with
   40 mines Expert : 30x16 with 99 mines
 - Custom levels
-- High Scores
+- High Scores.
 
 %description kmines -l pl
 Wersja znanej gry "saper" dla KDE.
@@ -244,9 +247,9 @@ Wersja znanej gry "saper" dla KDE.
 %package konquest
 Summary:	KDE version of Gnu-Lactic Konquest
 Summary(pl):	Podbój galaktyki
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -254,14 +257,14 @@ Requires:	kdelibs >= %{version}
 KDE version of Gnu-Lactic Konquest.
 
 %description konquest -l pl
-Podbój galaktyki..
+Podbój galaktyki.
 
 %package kpat
 Summary:	KDE solitaire patience game	
 Summary(pl):	Pasjanse KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -274,9 +277,9 @@ Program umo¿liwia uk³adanie kilku rodzajów pasjansów.
 %package kpoker
 Summary:	KDE poker	
 Summary(pl):	Poker KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -289,9 +292,9 @@ Prosy poker dla KDE.
 %package kreversi
 Summary:	KDE Reversi game	
 Summary(pl):	Gra Reversi dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -308,9 +311,9 @@ Reversi to prosta gra strategiczna dla dwóch graczy.
 %package ksame
 Summary:	KDE SameGame	
 Summary(pl):	"To Samo" dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -325,9 +328,9 @@ KSame to prosta gra dla jednego gracza.
 %package kshisen
 Summary:	KDE Shisen-Sho	
 Summary(pl):	Shisen-Sho dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -342,9 +345,9 @@ ko¶ci.
 %package ksirtet
 Summary:	KDE Tetris	
 Summary(pl):	Tetris dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -357,9 +360,9 @@ Kolejny klon dobrze znanego Tetrisa.
 %package ksmiletris
 Summary:	KDE Tetris	
 Summary(pl):	Tetris dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -372,9 +375,9 @@ Kolejny klon dobrze znanego Tetrisa.
 %package ksnake
 Summary:	KDE Snake Race	
 Summary(pl):	Wy¶cig Wê¿y dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -389,9 +392,9 @@ wê¿a próbuj±cego zje¶æ wszystkie jab³ka w pomieszczeniu.
 %package ksokoban
 Summary:	KDE Sokoban	
 Summary(pl):	Sokoban dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -403,9 +406,9 @@ Gra japoñskiego magazyniera.
 
 %package kspaceduel
 Summary:	KDE space arcade game for two players
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -423,9 +426,9 @@ komputerem, lub mo¿esz pozwoliæ aby computer kierowa³ oboma statkami.
 %package ktron
 Summary:	Tron clone for KDE
 Summary(pl):	Klon Tron dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -446,9 +449,9 @@ uderzenia w ¶cianê, ogon w³asny lub przeciwnika.
 %package ktuberling
 Summary:	KDE game for small children
 Summary(pl):	Gra dla ma³ych dzieci
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
@@ -469,9 +472,9 @@ najzabawniejszej twarzy, jak± sie da u³o¿yæ.
 
 %package kwin4
 Summary:	Four wins for KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 
@@ -489,14 +492,14 @@ or diagonal or no more moves are possbile because the board is filled.
 %package lskat
 Summary:	KDE lskat
 Summary(pl):	Lskat dla KDE
-Group:		X11/KDE/Games
-Group(de):	X11/KDE/Spiele
-Group(pl):	X11/KDE/Gry
+Group:		X11/Applications/Games
+Group(de):	X11/Applikationen/Spiele
+Group(pl):	X11/Aplikacje/Gry
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version} 
 
 %description lskat
-Lieutnant Skat
+Lieutnant Skat.
 
 %prep
 %setup -q
