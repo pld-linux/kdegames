@@ -27,6 +27,7 @@ Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	kdelibs-devel >= 9:%{version}
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdegames-kabalone
+Obsoletes:     	kdegames-megami
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -722,7 +723,7 @@ done
 
 %{__make} -f admin/Makefile.common cvs
 
-%configure
+%configure --enable-final
 
 %{__make}
 
