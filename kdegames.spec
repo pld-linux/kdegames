@@ -2,35 +2,22 @@ Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
 Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
-Summary(ru):	K Desktop Environment - éÇÒÙ
-Summary(uk):	K Desktop Environment - úÁÂÁ×É
 Name:		kdegames
-Version:	2.2.2
-Release:	2
-Epoch:		6
+Version:	3.0.3
+Release:	1
+Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
+# generated from kde-i18n - need update!
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
-Patch1:		%{name}-fix-kabalone-fix-mem-leak.patch
-Patch2:		%{name}-fix-kbattlechips.patch
-Patch3:		%{name}-fix-kbattleship-mem-leak.patch
-Patch4:		%{name}-fix-kjezz-mem-leak.patch
-Patch5:		%{name}-fix-kjumpingcube-mem-leak.patch
-Patch6:		%{name}-fix-klines-mem-leak.patch
-Patch7:		%{name}-fix-kpat-fix-load-bg.patch
-Patch8:		%{name}-fix-kpoker-mem-leak.patch
-Patch9:		%{name}-fix-kpoker-use-kintvalidator.patch
-Patch10:	%{name}-fix-ksmiletris-mem-leak.patch
-Patch11:	%{name}-fix-ktron-mem-leak.patch
-Patch12:	%{name}-fix-ktron-remove-duplicate-entry-in-menu.patch
-BuildRequires:	XFree86-devel
 BuildRequires:	kdelibs-devel >= %{version}
-BuildRequires:	qt-devel >= 2.2
+BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
 BuildRequires:	arts-devel
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -38,18 +25,16 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_htmldir	/usr/share/doc/kde/HTML
 
 %description
-Libraries for kdegames. Included with this package are: kabalone,
-kasteroids, kblackbox, kmahjongg, kmines, konquest, kpat, kpoker,
-kreversi, ksame, kshisen, ksokoban, ksmiletris, ksnake, ksirtet,
-katomic, kjumpingcube, ktuberling.
+Libraries for kdegames. Included with this package are: kasteroids, kblackbox,
+kmahjongg, kmines, konquest, kpat, kpoker, kreversi, ksame, kshisen, ksokoban,
+ksmiletris, ksnake, ksirtet, katomic, kjumpingcube, ktuberling.
 
 %description -l es
-Juegos para KDE. Incluidos en este paquete: kabalone: estrategia
-kasteroids: arcade kmahjongg: el popular mahjongg kmines: desarmar las
-minas kpat: juegos de cartas, incluso solitario kpoker: vídeo póquer
-kreversi: Reversi ksame: un juego de tablero kshisen: Shisen-Sho -
-relacionado con el mahjongg ksnake: corrida de las cobras ktetris: el
-bien conocido tetris
+Juegos para KDE. Incluidos en este paquete: kasteroids: arcade kmahjongg: el
+popular mahjongg kmines: desarmar las minas kpat: juegos de cartas, incluso
+solitario kpoker: vídeo póquer kreversi: Reversi ksame: un juego de tablero
+kshisen: Shisen-Sho - relacionado con el mahjongg ksnake: corrida de las cobras
+ktetris: el bien conocido tetris
 
 %description -l pl
 Biblioteki dla gier KDE.
@@ -65,24 +50,12 @@ kpoker: vídeo-poker kreversi: Reversi ksame: um jogo de tabuleiro
 kshisen: Shisen-Sho - relacionado com o mahjongg ksnake: corrida das
 cobras ktetris: o bem conhecido tetris
 
-%description -l ru
-éÇÒÙ ÄÌÑ K Desktop Environment. üÔÏÔ ÐÁËÅÔ ×ËÌÀÞÁÅÔ: kabalone,
-kasteroids, kblackbox, kmahjongg, kmines, konquest, kpat, kpoker,
-kreversi, ksame, kshisen, ksokoban, ksmiletris, ksnake, ksirtet,
-katomic, kjumpingcube, ktuberling.
-
-%description -l uk
-úÁÂÁ×É ÄÌÑ K Desktop Environment. ãÅÊ ÐÁËÅÔ Í¦ÓÔÉÔØ: kabalone,
-kasteroids, kblackbox, kmahjongg, kmines, konquest, kpat, kpoker,
-kreversi, ksame, kshisen, ksokoban, ksmiletris, ksnake, ksirtet,
-katomic, kjumpingcube, ktuberling.
-
 %package devel
 Summary:	Development files for KDE games
 Summary(pl):	Pliki developerskie dla KDE games
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description devel
@@ -110,29 +83,29 @@ Karcianki dla KDE.
 %description carddecks -l pt_BR
 Biblioteca de baralhos para jogos do KDE que usem cartas.
 
-%package kabalone
-Summary:	KAbalone (strategy hexagonal game) for KDE
-Summary(pl):	KAbalone - gra strategiczna dla KDE
-Group:		X11/Applications/Games
-Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version}
-
-%description kabalone
-KAbalone is a game like Reversi. You play against the computer on a
-board. For rules look at the HTML manual.
-
-%description kabalone -l pl
-KAbalone to gra podobna do Reversi. Zasady znajdziesz w dokumentacji.
-
-%description kabalone -l pt_BR
-Abalone para KDE (jogo hexagonal de estratégia)
+#%package kabalone
+#Summary:	KAbalone (strategy hexagonal game) for KDE
+#Summary(pl):	KAbalone - gra strategiczna dla KDE
+#Group:		X11/Applications/Games
+#Requires:	qt >= 3.0.3
+#Requires:	kdelibs >= %{version}
+#
+#%description kabalone
+#KAbalone is a game like Reversi. You play against the computer on a
+#board. For rules look at the HTML manual.
+#
+#%description kabalone -l pl
+#KAbalone to gra podobna do Reversi. Zasady znajdziesz w dokumentacji.
+#
+#%description kabalone -l pt_BR
+#Abalone para KDE (jogo hexagonal de estratégia)
 
 %package kasteroids
 Summary:	KDE Asteroids clone
 Summary(pl):	Klon Asterids dla KDE
 Summary(pt_BR):	Destrua os asteróides para não ser destruído
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kasteroids
@@ -149,7 +122,7 @@ Summary:	KDE Sokoban clone
 Summary(pl):	Klon gry Sokoban dla KDE
 Summary(pt_BR):	Jogo semelhante ao Sokoban mas o objetivo é formar moléculas
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description katomic
@@ -169,7 +142,7 @@ Summary:	Backgammon program for KDE
 Summary(pl):	Backgammon dla KDE
 Summary(pt_BR):	Jogo de gamão para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kbackgammon
@@ -191,7 +164,7 @@ Summary:	Battleship for KDE
 Summary(pl):	Statki dla KDE
 Summary(pt_BR):	Jogo de batalha naval com servidor embutido
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kbattleship
@@ -208,7 +181,7 @@ Summary:	A little logical game for KDE
 Summary(pl):	Prosta gra logiczna
 Summary(pt_BR):	Versão do jogo Blackbox do Emacs para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kblackbox
@@ -220,12 +193,36 @@ Prosta gra logiczna.
 %description kblackbox -l pt_BR
 Versão do jogo Blackbox do Emacs para KDE.
 
+%package kbounce
+Summary:	Claim areas and don't get disturbed
+#Summary(pl):	
+Group:		X11/Applications/Games
+Requires:	qt >= 3.0.3
+Requires:	kdelibs >= %{version}
+
+%description kbounce
+Claim areas and don't get disturbed.
+
+#%description kbounce -l pl
+
+%package kenolaba
+Summary:	-
+#Summary(pl):	-
+Group:		X11/Applications/Games
+Requires:	qt >= 3.0.3
+Requires:	kdelibs >= %{version}
+
+%description kenolaba
+-
+
+#%description kenolaba -l pl
+
 %package kfouleggs
 Summary:	KDE kfouleggs
 Summary(pl):	kfouleggs dla KDE
 Summary(pt_BR):	Mais um jogo que lembra o estilo Tetris
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kfouleggs
@@ -237,29 +234,29 @@ kfouleggs dla KDE.
 %description kfouleggs -l pt_BR
 Mais um jogo que lembra o estilo Tetris.
 
-%package kjezz
-Summary:	KDE jezz
-Summary(pl):	Jezz dla KDE
-Summary(pt_BR):	Diminua a área ocupada pelas bolinhas o mais depressa possível
-Group:		X11/Applications/Games
-Requires:	qt >= 2.2
-Requires:	kdelibs >= %{version}
-
-%description kjezz
-KDE jezz.
-
-%description kjezz -l pl
-Jezz dla KDE.
-
-%description kjezz -l pt_BR
-Diminua a área ocupada pelas bolinhas o mais depressa possível.
+#%package kjezz
+#Summary:	KDE jezz
+#Summary(pl):	Jezz dla KDE
+#Summary(pt_BR):	Diminua a área ocupada pelas bolinhas o mais depressa possível
+#Group:		X11/Applications/Games
+#Requires:	qt >= 3.0.3
+#Requires:	kdelibs >= %{version}
+#
+#%description kjezz
+#KDE jezz.
+#
+#%description kjezz -l pl
+#Jezz dla KDE.
+#
+#%description kjezz -l pt_BR
+#Diminua a área ocupada pelas bolinhas o mais depressa possível.
 
 %package kjumpingcube
 Summary:	A little tactical game for KDE
 Summary(pl):	Prosta gra taktyczna
 Summary(pt_BR):	Jogo de estratégia para 2 contendores
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kjumpingcube
@@ -286,7 +283,7 @@ Jogo de estratégia para 2 contendores.
 Summary:	Lines for KDE
 Summary(pl):	Lines dla KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description klines
@@ -300,7 +297,7 @@ Summary:	KDE Mahjongg clone
 Summary(pl):	Klon gry Mahjongg dla KDE
 Summary(pt_BR):	Versão do jogo Mahjongg para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kmahjongg
@@ -317,7 +314,7 @@ Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
 Summary(pt_BR):	Versão do jogo 'caça-minas' para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kmines
@@ -338,7 +335,7 @@ Summary:	KDE version of Gnu-Lactic Konquest
 Summary(pl):	Podbój galaktyki
 Summary(pt_BR):	Jogo espacial de estratégia
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description konquest
@@ -355,7 +352,7 @@ Summary:	KDE solitaire patience game
 Summary(pl):	Pasjanse KDE
 Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kpat
@@ -372,7 +369,7 @@ Summary:	KDE poker
 Summary(pl):	Poker KDE
 Summary(pt_BR):	Jogo de vídeo-pôquer para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kpoker
@@ -389,7 +386,7 @@ Summary:	KDE Reversi game
 Summary(pl):	Gra Reversi dla KDE
 Summary(pt_BR):	Jogo no estilo Otelo para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kreversi
@@ -410,7 +407,7 @@ Summary:	KDE SameGame
 Summary(pl):	"To Samo" dla KDE
 Summary(pt_BR):	Jogo relaxante onde você deve remover o maior número possível de bolas
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksame
@@ -430,7 +427,7 @@ Summary:	KDE Shisen-Sho
 Summary(pl):	Shisen-Sho dla KDE
 Summary(pt_BR):	Jogo Shisen para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kshisen
@@ -449,7 +446,7 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksirtet
@@ -466,7 +463,7 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksmiletris
@@ -483,7 +480,7 @@ Summary:	KDE Snake Race
 Summary(pl):	Wy¶cig Wê¿y dla KDE
 Summary(pt_BR):	Jogo da cobra sempre crescente para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksnake
@@ -502,7 +499,7 @@ Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Summary(pt_BR):	Jogo Sokoban ou 'Fiscal de Estoque' para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksokoban
@@ -519,7 +516,7 @@ Summary:	KDE space arcade game for two players
 Summary(pl):	Gra arcade pod KDE dla dwóch graczy
 Summary(pt_BR):	Versão do jogo Duelo Espacial para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kspaceduel
@@ -541,7 +538,7 @@ Summary:	Tron clone for KDE
 Summary(pl):	Klon Tron dla KDE
 Summary(pt_BR):	Versão do jogo Tron / Motos de Luz para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ktron
@@ -566,7 +563,7 @@ Summary:	KDE game for small children
 Summary(pl):	Gra dla ma³ych dzieci
 Summary(pt_BR):	Jogo de desenho do 'Homem-batata' para crianças
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ktuberling
@@ -592,7 +589,7 @@ Summary:	Four wins for KDE
 Summary(pl):	Gra "cztery wygrywa" dla KDE
 Summary(pt_BR):	Jogo de estratégia que lembra um pouco o Otelo
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kwin4
@@ -622,7 +619,7 @@ Summary:	KDE lskat
 Summary(pl):	Lskat dla KDE
 Summary(pt_BR):	Jogo de cartas Lieutenant Skat para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 2.2
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description lskat
@@ -637,25 +634,12 @@ Jogo de cartas Lieutenant Skat para KDE
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-export LDFLAGS
-%configure2_13 \
+%configure \
 	--with-qt-dir=%{_prefix} \
 	--with-pam="yes" \
 	--enable-final
@@ -670,50 +654,65 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 	$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
-%find_lang kabalone --with-kde
-%find_lang kasteroids --with-kde
-%find_lang katomic --with-kde
-%find_lang kbackgammon --with-kde
-%find_lang kbattleship --with-kde
-%find_lang kblackbox --with-kde
-%find_lang kfouleggs --with-kde
-%find_lang kjezz --with-kde
-%find_lang kjumpingcube --with-kde
-%find_lang klines --with-kde
-#%find_lang kmahjongg --with-kde
-%find_lang kmines --with-kde
-%find_lang konquest --with-kde
-%find_lang kpat --with-kde
-%find_lang kpoker --with-kde
-%find_lang kreversi --with-kde
-%find_lang ksame --with-kde
-%find_lang kshisen --with-kde
-%find_lang ksirtet --with-kde
-#%find_lang ksmiletris --with-kde
-%find_lang ksnake --with-kde
-%find_lang ksokoban --with-kde
-%find_lang kspaceduel --with-kde
-%find_lang ktron --with-kde
-%find_lang ktuberling --with-kde
-%find_lang kwin4 --with-kde
-%find_lang lskat --with-kde
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
+#%find_lang kabalone	--with-kde
+%find_lang kasteroids	--with-kde
+%find_lang katomic	--with-kde
+%find_lang kbackgammon	--with-kde
+%find_lang kbattleship	--with-kde
+%find_lang kblackbox	--with-kde
+%find_lang kbounce	--with-kde
+%find_lang kenolaba	--with-kde
+%find_lang kfouleggs	--with-kde
+%find_lang kjezz	--with-kde
+%find_lang kjumpingcube	--with-kde
+%find_lang klines	--with-kde
+%find_lang kmahjongg	--with-kde
+%find_lang kmines	--with-kde
+%find_lang konquest	--with-kde
+%find_lang kpat		--with-kde
+%find_lang kpoker	--with-kde
+%find_lang kreversi	--with-kde
+%find_lang ksame	--with-kde
+%find_lang kshisen	--with-kde
+%find_lang ksirtet	--with-kde
+%find_lang ksmiletris	--with-kde
+%find_lang ksnake	--with-kde
+%find_lang ksokoban	--with-kde
+%find_lang kspaceduel	--with-kde
+%find_lang ktron	--with-kde
+%find_lang ktuberling	--with-kde
+%find_lang kwin4	--with-kde
+%find_lang libkdegames	--with-kde 
+%find_lang libkdehighscores	--with-kde
+%find_lang multiplayers	--with-kde
+%find_lang lskat	--with-kde
 
-%postun -p /sbin/ldconfig
+cat libkdehighscores.lang	>> libkdegames.lang
+cat multiplayers.lang		>> libkdegames.lang	
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-%files
+
+%files -f libkdegames.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*
 %{_datadir}/apps/kdegames/pics/*
+%{_datadir}/apps/sounds/*/*.wav
 %{_libdir}/libkdegames.la
+%{_libdir}/libkdehighscores.la
+%{_libdir}/libkdehighscores.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/*.h
+%{_includedir}/kgame
 %{_libdir}/libkdegames.so
+%{_libdir}/libksirtet*.so
+%{_libdir}/libkdehighscores.so
+%{_pixmapsdir}/*/*/*/highscore.*
+%{_pixmapsdir}/*/*/*/roll.*
 
 %files carddecks
 %defattr(644,root,root,755)
@@ -723,12 +722,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KABALONE
 #################################################
 
-%files -f kabalone.lang kabalone
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Board/kabalone.desktop
-%attr(755,root,root) %{_bindir}/kabalone
-%{_datadir}/apps/kabalone/*
-%{_pixmapsdir}/hicolor/*x*/apps/kabalone.png
+#%files -f kabalone.lang kabalone
+#%defattr(644,root,root,755)
+#%{_applnkdir}/Games/Board/kabalone.desktop
+#%attr(755,root,root) %{_bindir}/kabalone
+#%{_datadir}/apps/kabalone/*
+#%{_pixmapsdir}/hicolor/*x*/apps/kabalone.png
 
 #################################################
 #             KASTEROIDS
@@ -801,13 +800,13 @@ rm -rf $RPM_BUILD_ROOT
 #             KJEZZ
 #################################################
 
-%files -f kjezz.lang kjezz
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kjezz
-%{_applnkdir}/Games/Arcade/kjezz.desktop
-%{_datadir}/apps/kjezz/*
-%{_pixmapsdir}/hicolor/*x*/apps/kjezz.png
-%{_pixmapsdir}/locolor/*x*/apps/kjezz.png
+#%files -f kjezz.lang kjezz
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_bindir}/kjezz
+#%{_applnkdir}/Games/Arcade/kjezz.desktop
+#%{_datadir}/apps/kjezz/*
+#%{_pixmapsdir}/hicolor/*x*/apps/kjezz.png
+#%{_pixmapsdir}/locolor/*x*/apps/kjezz.png
 
 #################################################
 #             KJUMPINGCUBE
@@ -835,8 +834,8 @@ rm -rf $RPM_BUILD_ROOT
 #             KMAHJONGG
 #################################################
 
-#%files -f kmahjongg.lang kmahjongg
-%files kmahjongg
+#%files kmahjongg
+%files -f kmahjongg.lang kmahjongg
 %defattr(644,root,root,755)
 %{_applnkdir}/Games/Board/kmahjongg.desktop
 %attr(755,root,root) %{_bindir}/kmahjongg
@@ -917,6 +916,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_applnkdir}/Games/Arcade/ksirtet.desktop
 %attr(755,root,root) %{_bindir}/ksirtet
+%{_libdir}/libksirtet*.la
+%{_libdir}/libksirtet*.so.*.*.*
 %{_datadir}/apps/ksirtet/*
 %{_pixmapsdir}/hicolor/*x*/apps/ksirtet.png
 
@@ -924,8 +925,8 @@ rm -rf $RPM_BUILD_ROOT
 #             KSMILETRIS
 #################################################
 
-#%files -f ksmiletris.lang ksmiletris
-%files ksmiletris
+#%files ksmiletris
+%files -f ksmiletris.lang ksmiletris
 %defattr(644,root,root,755)
 %{_applnkdir}/Games/Arcade/ksmiletris.desktop
 %attr(755,root,root) %{_bindir}/ksmiletris
@@ -1004,8 +1005,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kwin4.lang kwin4
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kwin4
-%attr(755,root,root) %{_bindir}/kproc4
+%attr(755,root,root) %{_bindir}/kwin4*
 %{_applnkdir}/Games/Board/kwin4.desktop
 %{_datadir}/apps/kwin4/*
 %{_pixmapsdir}/hicolor/*x*/apps/kwin4.png
@@ -1022,3 +1022,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/lskat/*
 %{_pixmapsdir}/hicolor/*x*/apps/lskat.png
 %{_pixmapsdir}/locolor/*x*/apps/lskat.png
+
+#################################################
+#             KBOUNCE
+#################################################
+
+%files -f kbounce.lang kbounce
+%defattr(644,root,root,755)
+%{_bindir}/kbounce
+%{_datadir}/apps/kbounce
+%{_applnkdir}/Games/Arcade/kbounce.desktop
+%{_pixmapsdir}/*/*/*/kbounce*
+
+#################################################
+#             KENOLABA
+#################################################
+
+%files -f kenolaba.lang kenolaba
+%defattr(644,root,root,755)
+%{_bindir}/kenolaba
+%{_datadir}/apps/kenolaba
+%{_applnkdir}/Games/Board/kenolaba.desktop
+%{_pixmapsdir}/*/*/*/kenolaba*
