@@ -9,10 +9,9 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
-BuildRequires:	kdelibs-devel >= %{version}
-BuildRequires:	libstdc++-devel
-BuildRequires:	qt-devel >= 2.2
 BuildRequires:	XFree86-devel
+BuildRequires:	kdelibs-devel >= %{version}
+BuildRequires:	qt-devel >= 2.2
 BuildRequires:	zlib-devel
 Requires:	qt >= 2.2
 Requires:	kdelibs = %{version}
