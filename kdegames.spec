@@ -1,11 +1,16 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# do not prepare API documentation
 %bcond_without	highscore	# without system-wide score feature
 %bcond_with	i18n		# don't build i18n packages per module
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040407
+%define		_snap		040510
+%define		_packager	adgor
+
+%define		_minlibsevr	9:3.2.90.040508
+%define		_minbaseevr	9:3.2.90.040508
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -22,16 +27,18 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	8de9b8fafdd70db58f335f83e0a99119
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	8de9b8fafdd70db58f335f83e0a99119
 #Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 ##%% Source1-md5:	dab4d56eef3c480584b3df46085b33bb
 Patch0:		%{name}-disable_install-exec-hook.patch
-BuildRequires:	ed
-BuildRequires:	kdelibs-devel >= 9:%{version}
+Patch1:		kde-common-QTDOCDIR.patch
+%{?with_apidocs:BuildRequires:  doxygen}
+%{?with_apidocs:BuildRequires:  graphviz}
+BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-megami
 Obsoletes:	kdegames-kjezz
@@ -91,7 +98,7 @@ Summary:	Development files for KDE games
 Summary(pl):	Pliki przydatne twórcom gier dla KDE
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-atlantik = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kolf = %{epoch}:%{version}-%{release}
@@ -106,12 +113,24 @@ Pliki dla programistów KDE games.
 Este pacote detém os arquivos de inclusão necessários para compilar
 aplicativos que usam bibliotecas do kdegames.
 
+%package apidocs
+Summary:	API documentation
+Summary(pl):	Dokumentacja API
+Group:		Development/Docs
+Requires:	kdelibs >= %{_minlibsevr}
+
+%description apidocs
+API documentation.
+
+%description apidocs -l pl
+Dokumentacja API.
+
 %package atlantik
 Summary:	KDE client for playing Monopoly-like games
 Summary(pl):	Klient KDE do grania w gry typu Monopoly
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description atlantik
 Atlantik is a KDE client for Monopoly-like board games to be played on
@@ -126,7 +145,7 @@ Summary:	KDE carddecks
 Summary(pl):	Karcianki dla KDE
 Summary(pt_BR):	Biblioteca de baralhos para jogos do KDE que usem cartas
 Group:		X11/Applications/Games
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description carddecks
 KDE carddecks.
@@ -143,7 +162,7 @@ Summary(pl):	Klon Asteroids dla KDE
 Summary(pt_BR):	Destrua os asteróides para não ser destruído
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kasteroids
 Asteroids clone for KDE.
@@ -160,7 +179,7 @@ Summary(pl):	Klon gry Sokoban dla KDE
 Summary(pt_BR):	Jogo semelhante ao Sokoban mas o objetivo é formar moléculas
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description katomic
 Atomic Entertainment is a small game which resembles Sokoban. The
@@ -180,7 +199,7 @@ Summary(pl):	Backgammon dla KDE
 Summary(pt_BR):	Jogo de gamão para KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kbackgammon
 KBackgammon is a graphical backgammon program for KDE. It supports
@@ -202,7 +221,7 @@ Summary(pl):	Statki dla KDE
 Summary(pt_BR):	Jogo de batalha naval com servidor embutido
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kbattleship
 Battleship for KDE.
@@ -219,7 +238,7 @@ Summary(pl):	Prosta gra logiczna
 Summary(pt_BR):	Versão do jogo Blackbox do Emacs para KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kblackbox
 A little logical game for KDE.
@@ -235,7 +254,7 @@ Summary:	Claim areas and don't get disturbed
 Summary(pl):	Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kbounce
 Claim areas and don't get disturbed.
@@ -248,7 +267,7 @@ Summary:	Abalone-like board game against the computer
 Summary(pl):	Gra planszowa podobna do Abalone przeciwko komputerowi
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kenolaba
 Abalone-like board game against the computer.
@@ -262,7 +281,7 @@ Summary(pl):	Gra kfouleggs dla KDE
 Summary(pt_BR):	Mais um jogo que lembra o estilo Tetris
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kfouleggs
 KDE kfouleggs.
@@ -278,7 +297,7 @@ Summary:	A KDE clone of Lode Runner (TM) Commodore game
 Summary(pl):	Klon gry Lode Runner dla KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kgoldrunner
 KGoldrunner is based on the Lode Runner (TM) game written in the USA
@@ -294,7 +313,7 @@ Summary(pl):	Prosta gra taktyczna dla KDE
 Summary(pt_BR):	Jogo de estratégia para 2 contendores
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kjumpingcube
 KJumpingCube is a simple tactical game. You can play it against the
@@ -321,7 +340,7 @@ Summary:	A Clickomania-alike game for KDE
 Summary(pl):	Gra dla KDE podobna do Clickomanii
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description klickety
 Klickety is an adaptation of the (perharps) well-known Clickomania
@@ -336,7 +355,7 @@ Summary:	Lines for KDE
 Summary(pl):	Gra Lines dla KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description klines
 Lines for KDE.
@@ -350,7 +369,7 @@ Summary(pl):	Klon gry Mahjongg dla KDE
 Summary(pt_BR):	Versão do jogo Mahjongg para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kmahjongg
 This program is a clone of the well known Mahjongg game.
@@ -367,7 +386,7 @@ Summary(pl):	Saper dla KDE
 Summary(pt_BR):	Versão do jogo 'caça-minas' para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kmines
 This is a very classical minesweeper written from scratch.
@@ -391,7 +410,7 @@ Summary:	Miniature golf for KDE
 Summary(pl):	Mini golf
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kolf
 Kolf - miniature golf for KDE.
@@ -405,7 +424,7 @@ Summary(pl):	Podbój galaktyki dla KDE
 Summary(pt_BR):	Jogo espacial de estratégia
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description konquest
 KDE version of Gnu-Lactic Konquest.
@@ -423,7 +442,7 @@ Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kpat
 KDE solitaire patience games.
@@ -441,7 +460,7 @@ Summary(pt_BR):	Jogo de vídeo-pôquer para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kpoker
 A simple video poker clone for the KDE desktop environment.
@@ -458,7 +477,7 @@ Summary(pl):	Gra Reversi dla KDE
 Summary(pt_BR):	Jogo no estilo Otelo para KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kreversi
 Reversi is a simple strategy game that is played by two players. There
@@ -483,7 +502,7 @@ Summary(pl):	"To Samo" dla KDE
 Summary(pt_BR):	Jogo relaxante onde você deve remover o maior número possível de bolas
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ksame
 KSame is a simple game. It's played by one player, so there is only
@@ -505,7 +524,7 @@ Summary(pl):	Shisen-Sho dla KDE
 Summary(pt_BR):	Jogo Shisen para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kshisen
 Shisen-Sho is similar to Mahjongg and uses the same set of tiles as
@@ -524,7 +543,7 @@ Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ksirtet
 This program is a clone of the well-known game Tetris.
@@ -541,7 +560,7 @@ Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ksmiletris
 This program is a clone of the well-known game Tetris.
@@ -558,7 +577,7 @@ Summary(pl):	Wy¶cig Wê¿y dla KDE
 Summary(pt_BR):	Jogo da cobra sempre crescente para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ksnake
 Snake Race is a game of speed and agility. You are a hungry snake and
@@ -576,7 +595,7 @@ Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Summary(pt_BR):	Jogo Sokoban ou 'Fiscal de Estoque' para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ksokoban
 The Japanese warehouse keeper game.
@@ -593,7 +612,7 @@ Summary(pl):	Gra zrêczno¶ciowa pod KDE dla dwóch graczy
 Summary(pt_BR):	Versão do jogo Duelo Espacial para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kspaceduel
 Each player control a ship that flies around the sun and tries to
@@ -615,7 +634,7 @@ Summary(pl):	Klon Trone dla KDE
 Summary(pt_BR):	Versão do jogo Tron / Motos de Luz para o KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ktron
 KTron is a simple Trone-Clone for the KDE. You can play KTron against
@@ -640,7 +659,7 @@ Summary(pl):	Gra dla ma³ych dzieci
 Summary(pt_BR):	Jogo de desenho do 'Homem-batata' para crianças
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ktuberling
 It is a potato editor. That means that you can drag and drop eyes,
@@ -666,7 +685,7 @@ Summary(pl):	Gra "cztery wygrywa" dla KDE
 Summary(pt_BR):	Jogo de estratégia que lembra um pouco o Otelo
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description kwin4
 Four wins is a game for two players. Each player is represented by a
@@ -697,7 +716,7 @@ Summary(pt_BR):	Jogo de cartas Lieutenant Skat para KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description lskat
 Lieutnant Skat.
@@ -714,13 +733,15 @@ Summary(pl):	Popularna gra hazardowa
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description megami
 Popular Gambling Game.
 
 %description megami -l pl
 Popularna gra hazardowa.
+
+# <i18n stuff>
 
 %package i18n
 Summary:	Common internationalization and localization files for kdegames
@@ -1183,8 +1204,9 @@ Internationalization and localization files for megami.
 Pliki umiêdzynarodawiaj±ce dla megami.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
@@ -1200,6 +1222,8 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 	--with-qt-libraries=%{_libdir}
 
 %{__make}
+
+%{?with_apidocs:%{__make} apidox}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -1459,13 +1483,18 @@ EOF
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 %attr(755,root,root) %{_libdir}/libatlantic.so
 %attr(755,root,root) %{_libdir}/libatlantikclient.so
 %attr(755,root,root) %{_libdir}/libatlantikui.so
 %attr(755,root,root) %{_libdir}/libkdegames.so
 %attr(755,root,root) %{_libdir}/libkolf.so
 %{_includedir}/*
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%{_kdedocdir}/en/%{name}-%{_snap}-apidocs
+%endif
 
 %files carddecks
 %defattr(644,root,root,755)
