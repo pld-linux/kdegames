@@ -6,7 +6,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	3.0.3
-Release:	2
+Release:	4
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -15,6 +15,9 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.
 # generated from kde-i18n - need update!
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
+Patch1:		%{name}-fix-crash-in-kwin4-fix-network-connect.patch
+Patch2:		%{name}-fix-crash-in-the-king-demo.patch
+Patch3:		%{name}-fix-mem-leak-in-kwin4.patch
 BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
@@ -22,6 +25,8 @@ BuildRequires:	arts-devel
 Requires:	qt >= 3.0.5
 Requires:	kdelibs = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	kdegames-kabalone
+Obsoletes:	kdegames-kjezz
 
 %define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
@@ -43,11 +48,11 @@ tetris
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î¥²¡¼¥à °Ê²¼¤Î¤è¤¦¤Ê¥Ñ¥Ã¥±¡¼¥¸¤¬Æþ¤Ã¤Æ¤¤¤Þ¤¹¡£
 
-kabalone: ÀïÎ¬¥²¡¼¥à, kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, kblackbox: a
-strategy game with hidden boxes and rays, kmahjongg: ¾å³¤ kmines:
-¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kpat: °ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi:
-¥ê¥Ð¡¼¥·, ksame: same game, kshisen: »ÍÀî¾Ê, ksnake: ¥¹¥Í¡¼¥¯¥ì¡¼¥¹,
-ksokoban: ÁÒ¸ËÈÖ, ktetris: ¥Æ¥È¥ê¥¹
+kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, kblackbox: a strategy game with hidden
+boxes and rays, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kpat:
+°ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame: same
+game, kshisen: »ÍÀî¾Ê, ksnake: ¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ,
+ktetris: ¥Æ¥È¥ê¥¹
 
 %description -l pl
 Biblioteki dla gier KDE.
@@ -57,11 +62,11 @@ Jogos para o KDE.
 
 Incluídos neste pacote:
 
-kabalone: estratégia kasteroids: arcade kmahjongg: o popular mahjongg
-kmines: desarmar as minas kpat: jogos de cartas, inclusive paciência
-kpoker: vídeo-poker kreversi: Reversi ksame: um jogo de tabuleiro
-kshisen: Shisen-Sho - relacionado com o mahjongg ksnake: corrida das
-cobras ktetris: o bem conhecido tetris
+kasteroids: arcade kmahjongg: o popular mahjongg kmines: desarmar as
+minas kpat: jogos de cartas, inclusive paciência kpoker: vídeo-poker
+kreversi: Reversi ksame: um jogo de tabuleiro kshisen: Shisen-Sho -
+relacionado com o mahjongg ksnake: corrida das cobras ktetris: o bem
+conhecido tetris
 
 %package devel
 Summary:	Development files for KDE games
@@ -96,23 +101,6 @@ Karcianki dla KDE.
 
 %description carddecks -l pt_BR
 Biblioteca de baralhos para jogos do KDE que usem cartas.
-
-%package kabalone
-Summary:	KAbalone (strategy hexagonal game) for KDE
-Summary(pl):	KAbalone - gra strategiczna dla KDE
-Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
-Requires:	kdelibs >= %{version}
-
-%description kabalone
-KAbalone is a game like Reversi. You play against the computer on a
-board. For rules look at the HTML manual.
-
-%description kabalone -l pl
-KAbalone to gra podobna do Reversi. Zasady znajdziesz w dokumentacji.
-
-%description kabalone -l pt_BR
-Abalone para KDE (jogo hexagonal de estratégia)
 
 %package kasteroids
 Summary:	KDE Asteroids clone
@@ -243,23 +231,6 @@ kfouleggs dla KDE.
 
 %description kfouleggs -l pt_BR
 Mais um jogo que lembra o estilo Tetris.
-
-%package kjezz
-Summary:	KDE jezz
-Summary(pl):	Jezz dla KDE
-Summary(pt_BR):	Diminua a área ocupada pelas bolinhas o mais depressa possível
-Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
-Requires:	kdelibs >= %{version}
-
-%description kjezz
-KDE jezz.
-
-%description kjezz -l pl
-Jezz dla KDE.
-
-%description kjezz -l pt_BR
-Diminua a área ocupada pelas bolinhas o mais depressa possível.
 
 %package kjumpingcube
 Summary:	A little tactical game for KDE
@@ -644,6 +615,9 @@ Jogo de cartas Lieutenant Skat para KDE
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -666,7 +640,6 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-#%find_lang kabalone	--with-kde
 %find_lang kasteroids	--with-kde
 %find_lang katomic	--with-kde
 %find_lang kbackgammon	--with-kde
@@ -675,7 +648,6 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang kbounce	--with-kde
 %find_lang kenolaba	--with-kde
 %find_lang kfouleggs	--with-kde
-%find_lang kjezz	--with-kde
 %find_lang kjumpingcube	--with-kde
 %find_lang klines	--with-kde
 %find_lang kmahjongg	--with-kde
@@ -730,17 +702,6 @@ rm -rf $RPM_BUILD_ROOT
 %files carddecks
 %defattr(644,root,root,755)
 %{_datadir}/apps/carddecks/*
-
-#################################################
-#             KABALONE
-#################################################
-
-#%files -f kabalone.lang kabalone
-#%defattr(644,root,root,755)
-#%{_applnkdir}/Games/Board/kabalone.desktop
-#%attr(755,root,root) %{_bindir}/kabalone
-#%{_datadir}/apps/kabalone/*
-#%{_pixmapsdir}/hicolor/*x*/apps/kabalone.png
 
 #################################################
 #             KASTEROIDS
@@ -808,22 +769,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_applnkdir}/Games/Arcade/kfouleggs.desktop
 %{_datadir}/apps/kfouleggs/*
-
-#################################################
-#             KJEZZ
-#################################################
-
-#%files -f kjezz.lang kjezz
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/kjezz
-#%{_applnkdir}/Games/Arcade/kjezz.desktop
-#%{_datadir}/apps/kjezz/*
-#%{_pixmapsdir}/hicolor/*x*/apps/kjezz.png
-#%{_pixmapsdir}/locolor/*x*/apps/kjezz.png
-
-#################################################
-#             KJUMPINGCUBE
-#################################################
 
 %files -f kjumpingcube.lang kjumpingcube
 %defattr(644,root,root,755)
