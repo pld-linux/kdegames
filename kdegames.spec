@@ -785,8 +785,8 @@ for f in *.lang; do
 	if grep -q %{name}-%{_snap}-apidocs $f; then
 		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
 		mv $f.tmp $f
-	fi	
-done	
+	fi
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -817,7 +817,7 @@ cat << EOF
  *******************************************************
 
 EOF
- 
+
 %post 	klickety
 cat << EOF
 
@@ -833,7 +833,7 @@ cat << EOF
  *******************************************************
 
 EOF
- 
+
 %post 	kmines
 cat << EOF
 
@@ -849,7 +849,7 @@ cat << EOF
  *******************************************************
 
 EOF
- 
+
 %post 	ksirtet
 cat << EOF
 
@@ -866,7 +866,7 @@ cat << EOF
 
 EOF
 %endif
- 
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README README.highscore
@@ -1134,7 +1134,7 @@ EOF
 %{_desktopdir}/kde/lskat.desktop
 %{_iconsdir}/[!l]*/*/apps/lskat.png
 
-#%files megami -f megami.lang 
+#%files megami -f megami.lang
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/megami
 #%{_datadir}/apps/megami
