@@ -386,21 +386,24 @@ Lieutnant Skat
 %setup -q
 
 %build
-export KDEDIR=%{_prefix}
-LDFLAGS="-s" \
-./configure %{_target_platform} \
-	--prefix=$KDEDIR \
- 	--with-install-root=$RPM_BUILD_ROOT \
+%define         _sharedir       %{_prefix}/share
+%define         _htmldir        %{_sharedir}/doc/kde/HTML
+%define         _pixmapsdir     %{_sharedir}/pixmaps
+
+kde_htmldir="%{_htmldir}"; export kde_htmldir
+kde_icondir="%{_pixmapsdir}"; export kde_icondir
+
+LDFLAGS="-s"; export LDFLAGS
+%configure \
 	--with-qt-dir=%{_prefix} \
- 	--with-pam="yes"
-%{__make} KDEDIR=$KDEDIR
+ 	--with-pam="yes" \
+	--enable-final
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-export KDEDIR=%{_prefix}
-%{__make} kde_htmldir=$RPM_BUILD_ROOT/%{_datadir}/doc/kde/HTML \
-          RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
+%{__make} DESTDIR=$RPM_BUILD_ROOT install
 
 install -d $RPM_BUILD_ROOT/var/lib/games/ksnake/
 touch $RPM_BUILD_ROOT/var/lib/games/ksnake/highScores
@@ -440,8 +443,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/kabalone.desktop
 %attr(755,root,root) %{_bindir}/kabalone
 %{_datadir}/apps/kabalone/
-%{_datadir}/icons/hicolor/*x*/apps/kabalone.png
-%{_datadir}/icons/locolor/*x*/apps/kabalone.png
+%{_pixmapsdir}/hicolor/*x*/apps/kabalone.png
+%{_pixmapsdir}/locolor/*x*/apps/kabalone.png
 
 #################################################
 #             KASTEROIDS 
@@ -452,8 +455,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kasteroids
 %config(missingok) %{_datadir}/applnk/Games/kasteroids.desktop
 %{_datadir}/apps/kasteroids/
-%{_datadir}/icons/hicolor/*x*/apps/kasteroids.png
-%{_datadir}/icons/locolor/*x*/apps/kasteroids.png
+%{_pixmapsdir}/hicolor/*x*/apps/kasteroids.png
+%{_pixmapsdir}/locolor/*x*/apps/kasteroids.png
 
 #################################################
 #             KATOMIC
@@ -464,7 +467,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/katomic
 %config(missingok) %{_datadir}/applnk/Games/katomic.desktop
 %{_datadir}/apps/katomic/
-%{_datadir}/icons/locolor/*x*/apps/katomic.png
+%{_pixmapsdir}/locolor/*x*/apps/katomic.png
 
 #################################################
 #             KBLACKBOX 
@@ -475,8 +478,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kblackbox
 %config(missingok) %{_datadir}/applnk/Games/kblackbox.desktop
 %{_datadir}/apps/kblackbox/
-%{_datadir}/icons/hicolor/*x*/apps/kblackbox.png
-%{_datadir}/icons/locolor/*x*/apps/kblackbox.png
+%{_pixmapsdir}/hicolor/*x*/apps/kblackbox.png
+%{_pixmapsdir}/locolor/*x*/apps/kblackbox.png
 
 #################################################
 #             KFOULEGGS
@@ -496,7 +499,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %config(missingok) %{_datadir}/applnk/Games/kjumpingcube.desktop
-%{_datadir}/icons/locolor/*x*/apps/kjumpingcube.png
+%{_pixmapsdir}/locolor/*x*/apps/kjumpingcube.png
 
 #################################################
 #             KMAHJONGG
@@ -507,8 +510,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/kmahjongg.desktop
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg/
-%{_datadir}/icons/hicolor/*x*/apps/kmahjongg.png
-%{_datadir}/icons/locolor/*x*/apps/kmahjongg.png
+%{_pixmapsdir}/hicolor/*x*/apps/kmahjongg.png
+%{_pixmapsdir}/locolor/*x*/apps/kmahjongg.png
 
 #################################################
 #             KMINES
@@ -518,8 +521,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %config(missingok) %{_datadir}/applnk/Games/kmines.desktop
 %attr(755,root,root) %{_bindir}/kmines
-%{_datadir}/icons/hicolor/*x*/apps/kmines.png
-%{_datadir}/icons/locolor/*x*/apps/kmines.png
+%{_pixmapsdir}/hicolor/*x*/apps/kmines.png
+%{_pixmapsdir}/locolor/*x*/apps/kmines.png
 
 #################################################
 #             KONQUEST
@@ -530,8 +533,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/konquest.desktop
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest/
-%{_datadir}/icons/hicolor/*x*/apps/konquest.png
-%{_datadir}/icons/locolor/*x*/apps/konquest.png
+%{_pixmapsdir}/hicolor/*x*/apps/konquest.png
+%{_pixmapsdir}/locolor/*x*/apps/konquest.png
 
 #################################################
 #             KPAT
@@ -542,8 +545,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/kpat.desktop
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat/
-%{_datadir}/icons/hicolor/*x*/apps/kpat.png
-%{_datadir}/icons/locolor/*x*/apps/kpat.png
+%{_pixmapsdir}/hicolor/*x*/apps/kpat.png
+%{_pixmapsdir}/locolor/*x*/apps/kpat.png
 
 #################################################
 #             KPOKER
@@ -554,8 +557,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/kpoker.desktop
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker/
-%{_datadir}/icons/hicolor/*x*/apps/kpoker.png
-%{_datadir}/icons/locolor/*x*/apps/kpoker.png
+%{_pixmapsdir}/hicolor/*x*/apps/kpoker.png
+%{_pixmapsdir}/locolor/*x*/apps/kpoker.png
 
 #################################################
 #             KREVERSI
@@ -566,8 +569,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/kreversi.desktop
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi/
-%{_datadir}/icons/hicolor/*x*/apps/kpoker.png
-%{_datadir}/icons/locolor/*x*/apps/kpoker.png
+%{_pixmapsdir}/hicolor/*x*/apps/kpoker.png
+%{_pixmapsdir}/locolor/*x*/apps/kpoker.png
 
 #################################################
 #            KSAME 
@@ -578,8 +581,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/ksame.desktop
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame/
-%{_datadir}/icons/hicolor/*x*/apps/ksame.png
-%{_datadir}/icons/locolor/*x*/apps/ksame.png
+%{_pixmapsdir}/hicolor/*x*/apps/ksame.png
+%{_pixmapsdir}/locolor/*x*/apps/ksame.png
 
 #################################################
 #             KSIRTET
@@ -590,8 +593,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/ksirtet.desktop
 %attr(755,root,root) %{_bindir}/ksirtet
 %{_datadir}/apps/ksirtet/
-%{_datadir}/icons/hicolor/*x*/apps/ksirtet.png
-%{_datadir}/icons/locolor/*x*/apps/ksirtet.png
+%{_pixmapsdir}/hicolor/*x*/apps/ksirtet.png
+%{_pixmapsdir}/locolor/*x*/apps/ksirtet.png
 
 #################################################
 #             KSMILETRIS
@@ -602,8 +605,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/ksmiletris.desktop
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_datadir}/apps/ksmiletris/
-%{_datadir}/icons/hicolor/*x*/apps/ksmiletris.png
-%{_datadir}/icons/locolor/*x*/apps/ksmiletris.png
+%{_pixmapsdir}/hicolor/*x*/apps/ksmiletris.png
+%{_pixmapsdir}/locolor/*x*/apps/ksmiletris.png
 
 #################################################
 #             KSHISEN
@@ -614,8 +617,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/kshisen.desktop
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen/
-%{_datadir}/icons/hicolor/*x*/apps/kshisen.png
-%{_datadir}/icons/locolor/*x*/apps/kshisen.png
+%{_pixmapsdir}/hicolor/*x*/apps/kshisen.png
+%{_pixmapsdir}/locolor/*x*/apps/kshisen.png
 
 #################################################
 #             KSNAKE
@@ -626,8 +629,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/ksnake.desktop
 %attr(4755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake/
-%{_datadir}/icons/hicolor/*x*/apps/ksnake.png
-%{_datadir}/icons/locolor/*x*/apps/ksnake.png
+%{_pixmapsdir}/hicolor/*x*/apps/ksnake.png
+%{_pixmapsdir}/locolor/*x*/apps/ksnake.png
 %attr(664,root,games) %ghost /var/lib/games/ksnake/highScores
 
 #################################################
@@ -638,8 +641,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %config(missingok) %{_datadir}/applnk/Games/ksokoban.desktop
 %attr(755,root,root) %{_bindir}/ksokoban
-%{_datadir}/icons/hicolor/*x*/apps/ksokoban.png
-%{_datadir}/icons/locolor/*x*/apps/ksokoban.png
+%{_pixmapsdir}/hicolor/*x*/apps/ksokoban.png
+%{_pixmapsdir}/locolor/*x*/apps/ksokoban.png
 
 #################################################
 #             KSPACEDUEL
@@ -650,7 +653,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/kspaceduel.desktop
 %attr(4755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel/
-%{_datadir}/icons/locolor/*x*/apps/kspaceduel.png
+%{_pixmapsdir}/locolor/*x*/apps/kspaceduel.png
 
 #################################################
 #             KTRON
@@ -661,7 +664,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/ktron.desktop
 %attr(4755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron/
-%{_datadir}/icons/locolor/*x*/apps/ktron.png
+%{_pixmapsdir}/locolor/*x*/apps/ktron.png
 
 #################################################
 #             KTUBERLING
@@ -672,7 +675,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/ktuberling.desktop
 %attr(4755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling/
-%{_datadir}/icons/locolor/*x*/apps/ktuberling.png
+%{_pixmapsdir}/locolor/*x*/apps/ktuberling.png
 
 #################################################
 #             LSKAT
@@ -683,5 +686,5 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_datadir}/applnk/Games/lskat.desktop
 %attr(4755,root,games) %{_bindir}/lskat
 %{_datadir}/apps/lskat/
-%{_datadir}/icons/hicolor/*x*/apps/lskat.png
-%{_datadir}/icons/locolor/*x*/apps/lskat.png
+%{_pixmapsdir}/hicolor/*x*/apps/lskat.png
+%{_pixmapsdir}/locolor/*x*/apps/lskat.png
