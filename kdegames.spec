@@ -126,7 +126,7 @@ Biblioteca de baralhos para jogos do KDE que usem cartas.
 
 %package kasteroids
 Summary:	KDE Asteroids clone
-Summary(pl):	Klon Asterids dla KDE
+Summary(pl):	Klon Asteroids dla KDE
 Summary(pt_BR):	Destrua os asteróides para não ser destruído
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
@@ -228,7 +228,7 @@ Requires:	kdebase-core >= %{version}
 Claim areas and don't get disturbed.
 
 %description kbounce -l pl
-Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom
+Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom.
 
 %package kenolaba
 Summary:	Abalone-like board game against the computer
