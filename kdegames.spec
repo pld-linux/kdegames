@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	1.1
+Release:	1.2
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -22,13 +22,13 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 # Source0-md5:	98151556b1556e7e39930ab12bdeace2
 # generated from kde-i18n - need update!
 Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	064fd66dd64af7b055f52f13bb8d176e
+# Source1-md5:	5dfdecbab23781494840b945a086c5e1
 #Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
-BuildRequires:	arts-kde-devel >= %{version}
-BuildRequires:	kdelibs-devel >= %{version}
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.0.5
+BuildRequires:	arts-kde-devel >= 8:%{version}
+BuildRequires:	kdelibs-devel >= 8:%{version}
+Requires:	kdelibs >= 8:%{version}
+Requires:	qt >= 3.1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
@@ -82,7 +82,7 @@ Summary:	Development files for KDE games
 Summary(pl):	Pliki przydatne twórcom gier KDE
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= %{version}
+Requires:	kdelibs-devel >= 8:%{version}
 Requires:	%{name} = %{epoch}:%{version}
 Requires:	%{name}-atlantik = %{epoch}:%{version}
 Requires:	%{name}-kolf = %{epoch}:%{version}
@@ -380,7 +380,7 @@ Summary:	KDE solitaire patience game
 Summary(pl):	Pasjanse dla KDE
 Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
-Requires:	kdegames-carddecks = %{version}
+Requires:	kdegames-carddecks = %{epoch}:%{version}
 Requires:	kdebase-core >= %{version}
 
 %description kpat
@@ -397,7 +397,7 @@ Summary:	KDE poker
 Summary(pl):	Poker dla KDE
 Summary(pt_BR):	Jogo de vídeo-pôquer para o KDE
 Group:		X11/Applications/Games
-Requires:	kdegames-carddecks = %{version}
+Requires:	kdegames-carddecks = %{epoch}:%{version}
 Requires:	kdebase-core >= %{version}
 
 %description kpoker
@@ -700,7 +700,7 @@ cd $RPM_BUILD_ROOT%{_pixmapsdir}
 mv {locolor,crystalsvg}/16x16/apps/lskat.png
 cd -
 
-#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
