@@ -1,8 +1,11 @@
 #
 # TODO: Adding new games desc.
 
-%define		_state		stable
-%define		_ver		3.1.4
+%bcond_without highscore	# without system-wide score feature
+
+%define		_state		snapshots
+%define		_ver		3.1.93
+%define		_snap		031114
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -12,80 +15,83 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-Version:	%{_ver}
-Release:	0.1
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	be604fb91e24f990659f5cab2ac8decf
-# generated from kde-i18n - need update!
-Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	510dc744a3918fc932d9f7497638eeba
-#Patch0:		%{name}-kpatcards.patch
-BuildRequires:	arts-devel
-BuildRequires:	arts-kde-devel >= 8:%{version}
-BuildRequires:	kdelibs-devel >= 8:%{version}
-Requires:	kdelibs >= 8:%{version}
-Requires:	qt >= 3.1.2
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	858abe181a420cb2b27bad8c088196fa
+Patch0:		%{name}-disable_install-exec-hook.patch
+BuildRequires:	ed
+BuildRequires:	kdelibs-devel >= 9:%{version}
+BuildRequires:	rpmbuild(macros) >= 1.129
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdegames-kabalone
+Obsoletes:	kdegames-megami
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
-
-%define		_htmldir	/usr/share/doc/kde/HTML
-
-%define		no_install_post_chrpath		1
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Libraries for kdegames. Included with this package are: kasteroids,
-kblackbox, kmahjongg, kmines, konquest, kpat, kpoker, kreversi, ksame,
-kshisen, ksokoban, ksmiletris, ksnake, ksirtet, katomic, kjumpingcube,
-ktuberling.
+katomic, kbackgammon, kbattleship, kblackbox, kbounce, kenolaba,
+kfouleggs, kgoldrunner, kjumpingcube, klickety, klines, kmahjongg,
+kmines, kolf, konquest, kpat, kpoker, kreversi, ksame, kshisen,
+ksirtet, ksmiletris, ksnake, ksokoban, kspaceduel, ktron, ktuberling,
+kwin4, lskat.
 
 %description -l es
-Juegos para KDE. Incluidos en este paquete: kasteroids: arcade
-kmahjongg: el popular mahjongg kmines: desarmar las minas kpat: juegos
-de cartas, incluso solitario kpoker: vídeo póquer kreversi: Reversi
-ksame: un juego de tablero kshisen: Shisen-Sho - relacionado con el
-mahjongg ksnake: corrida de las cobras ktetris: el bien conocido
-tetris
+Juegos para KDE. Incluidos en este paquete:
+
+kasteroids: arcade, katomic, kbackgammon, kbattleship, kblackbox,
+kbounce, kenolaba, kfouleggs, kgoldrunner, kjumpingcube, klickety,
+klines, kmahjongg: el popular mahjongg, kmines: desarmar las minas,
+kolf, konquest, kpat: juegos de cartas, incluso solitario, kpoker:
+vídeo póquer, kreversi: Reversi, ksame: un juego de tablero, kshisen:
+Shisen-Sho - relacionado con el mahjongg, ksirtet, ksmiletris, ksnake:
+corrida de las cobras, ksokoban, kspaceduel, ktron, kwin4, lskat.
 
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î¥²¡¼¥à °Ê²¼¤Î¤è¤¦¤Ê¥Ñ¥Ã¥±¡¼¥¸¤¬Æþ¤Ã¤Æ¤¤¤Þ¤¹¡£
 
-kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, kblackbox: a strategy game with hidden
-boxes and rays, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kpat:
-°ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame: same
-game, kshisen: »ÍÀî¾Ê, ksnake: ¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ,
-ktetris: ¥Æ¥È¥ê¥¹
+kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, katomic, kbackgammon, kbattleship,
+kblackbox: a strategy game with hidden boxes and rays, kbounce,
+kenolaba, kfouleggs, kenolaba, kgoldrunner, kjumpingcube, klickety,
+klines, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kolf, konquest,
+kpat: °ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame:
+same game, kshisen: »ÍÀî¾Ê, ksirtet, ksmiletris, ksnake:
+¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ, kspaceduel, ktron, kwin4, lskat
 
 %description -l pl
-Biblioteki dla gier KDE: kasteroids, kblackbox, kmahjongg, kmines,
-konquest, kpat, kpoker, kreversi, ksame, kshisen, ksokoban,
-ksmiletris, ksnake, ksirtet, katomic, kjumpingcube, ktuberling.
+Biblioteki dla gier KDE: kasteroids, katomic, kbackgammon,
+kbattleship, kblackbox, kbounce, kenolaba, kfouleggs, kgoldrunner,
+kjumpingcube, klickety, klines, kmahjongg, kmines, kolf, konquest,
+kpat, kpoker, kreversi, ksame, kshisen, ksirtet, ksmiletris, ksnake,
+ksokoban, kspaceduel, ktron, ktuberling, kwin4, lskat.
 
 %description -l pt_BR
-Jogos para o KDE.
+Jogos para o KDE. Incluídos neste pacote:
 
-Incluídos neste pacote:
-
-kasteroids: arcade kmahjongg: o popular mahjongg kmines: desarmar as
-minas kpat: jogos de cartas, inclusive paciência kpoker: vídeo-poker
-kreversi: Reversi ksame: um jogo de tabuleiro kshisen: Shisen-Sho -
-relacionado com o mahjongg ksnake: corrida das cobras ktetris: o bem
-conhecido tetris
+kasteroids: arcade, katomic, kblackbox, kbackgammon, kbattleship,
+kbounce, kenolaba, kfouleggs, kgoldrunner, kjumpingcube, klickety,
+klines, kmahjongg: o popular mahjongg, kmines: desarmar as minas,
+kolf, konquest, kpat: jogos de cartas, inclusive paciência, kpoker:
+vídeo-poker, kreversi: Reversi, ksame: um jogo de tabuleiro, kshisen:
+Shisen-Sho - relacionado com o mahjongg, ksirtet, ksmiletris, ksnake:
+corrida das cobras, ksokoban, kspaceduel, ktron, kwin4, lskat.
 
 %package devel
 Summary:	Development files for KDE games
 Summary(pl):	Pliki przydatne twórcom gier KDE
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= 8:%{version}
-Requires:	%{name} = %{epoch}:%{version}
-Requires:	%{name}-atlantik = %{epoch}:%{version}
-Requires:	%{name}-kolf = %{epoch}:%{version}
+Requires:	kdelibs-devel >= 9:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-atlantik = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kolf = %{epoch}:%{version}-%{release}
 
 %description devel
 Development files for KDE games.
@@ -97,11 +103,27 @@ Pliki dla programistów KDE games.
 Este pacote detém os arquivos de inclusão necessários para compilar
 aplicativos que usam bibliotecas do kdegames.
 
+%package atlantik
+Summary:	KDE client for playing Monopoly-like games
+Summary(pl):	Klient KDE do grania w gry typu Monopoly
+Group:		X11/Applications/Games
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
+
+%description atlantik
+Atlantik is a KDE client for Monopoly-like board games to be played on
+the monopd network.
+
+%description atlantik -l pl
+Atlantik to klient KDE dla gier planszowych typu Monopoly, którym
+mo¿na graæ w sieci monopd.
+
 %package carddecks
 Summary:	KDE carddecks
 Summary(pl):	Karcianki dla KDE
 Summary(pt_BR):	Biblioteca de baralhos para jogos do KDE que usem cartas
 Group:		X11/Applications/Games
+Requires:	kdelibs >= 9:%{version}
 
 %description carddecks
 KDE carddecks.
@@ -112,26 +134,13 @@ Karcianki dla KDE.
 %description carddecks -l pt_BR
 Biblioteca de baralhos para jogos do KDE que usem cartas.
 
-%package atlantik
-Summary:	KDE client for playing Monopoly-like games
-Summary(pl):	Klient KDE do grania w gry typu Monopoly
-Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
-
-%description atlantik
-Atlantik is a KDE client for Monopoly-like board games to be played on
-the monopd network.
-
-%description atlantik -l pl
-Atlantik to klient KDE dla gier planszowych typu Monopoly, którym
-mo¿na graæ w sieci monopd.
-
 %package kasteroids
 Summary:	KDE Asteroids clone
 Summary(pl):	Klon Asteroids dla KDE
 Summary(pt_BR):	Destrua os asteróides para não ser destruído
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kasteroids
 Asteroids clone for KDE.
@@ -147,7 +156,8 @@ Summary:	KDE Sokoban clone
 Summary(pl):	Klon gry Sokoban dla KDE
 Summary(pt_BR):	Jogo semelhante ao Sokoban mas o objetivo é formar moléculas
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description katomic
 Atomic Entertainment is a small game which resembles Sokoban. The
@@ -166,7 +176,8 @@ Summary:	Backgammon program for KDE
 Summary(pl):	Backgammon dla KDE
 Summary(pt_BR):	Jogo de gamão para KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kbackgammon
 KBackgammon is a graphical backgammon program for KDE. It supports
@@ -187,7 +198,8 @@ Summary:	Battleship for KDE
 Summary(pl):	Statki dla KDE
 Summary(pt_BR):	Jogo de batalha naval com servidor embutido
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kbattleship
 Battleship for KDE.
@@ -203,7 +215,8 @@ Summary:	A little logical game for KDE
 Summary(pl):	Prosta gra logiczna
 Summary(pt_BR):	Versão do jogo Blackbox do Emacs para KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kblackbox
 A little logical game for KDE.
@@ -218,7 +231,8 @@ Versão do jogo Blackbox do Emacs para KDE.
 Summary:	Claim areas and don't get disturbed
 Summary(pl):	Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kbounce
 Claim areas and don't get disturbed.
@@ -230,7 +244,8 @@ Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom.
 Summary:	Abalone-like board game against the computer
 Summary(pl):	Gra planszowa podobna do Abalone przeciwko komputerowi
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kenolaba
 Abalone-like board game against the computer.
@@ -243,7 +258,8 @@ Summary:	KDE kfouleggs
 Summary(pl):	Gra kfouleggs dla KDE
 Summary(pt_BR):	Mais um jogo que lembra o estilo Tetris
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kfouleggs
 KDE kfouleggs.
@@ -254,12 +270,26 @@ Gra kfouleggs dla KDE.
 %description kfouleggs -l pt_BR
 Mais um jogo que lembra o estilo Tetris.
 
+%package kgoldrunner
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications/Games
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
+
+%description kgoldrunner
+TODO.
+
+%description kgoldrunner -l pl
+TODO.
+
 %package kjumpingcube
 Summary:	A little tactical game for KDE
 Summary(pl):	Prosta gra taktyczna dla KDE
 Summary(pt_BR):	Jogo de estratégia para 2 contendores
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kjumpingcube
 KJumpingCube is a simple tactical game. You can play it against the
@@ -285,7 +315,8 @@ Jogo de estratégia para 2 contendores.
 Summary:	A Clickomania-alike game for KDE
 Summary(pl):	Gra dla KDE podobna do Clickomanii
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description klickety
 Klickety is an adaptation of the (perharps) well-known Clickomania
@@ -299,7 +330,8 @@ gry "same".
 Summary:	Lines for KDE
 Summary(pl):	Gra Lines dla KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description klines
 Lines for KDE.
@@ -312,7 +344,8 @@ Summary:	KDE Mahjongg clone
 Summary(pl):	Klon gry Mahjongg dla KDE
 Summary(pt_BR):	Versão do jogo Mahjongg para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kmahjongg
 This program is a clone of the well known Mahjongg game.
@@ -328,7 +361,8 @@ Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
 Summary(pt_BR):	Versão do jogo 'caça-minas' para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kmines
 This is a very classical minesweeper written from scratch.
@@ -351,7 +385,8 @@ Versão do jogo 'caça-minas' para o KDE.
 Summary:	Miniature golf for KDE
 Summary(pl):	Mini golf
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kolf
 Kolf - miniature golf for KDE.
@@ -364,7 +399,8 @@ Summary:	KDE version of Gnu-Lactic Konquest
 Summary(pl):	Podbój galaktyki dla KDE
 Summary(pt_BR):	Jogo espacial de estratégia
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description konquest
 KDE version of Gnu-Lactic Konquest.
@@ -380,8 +416,9 @@ Summary:	KDE solitaire patience game
 Summary(pl):	Pasjanse dla KDE
 Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
-Requires:	kdegames-carddecks = %{epoch}:%{version}
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kpat
 KDE solitaire patience games.
@@ -397,8 +434,9 @@ Summary:	KDE poker
 Summary(pl):	Poker dla KDE
 Summary(pt_BR):	Jogo de vídeo-pôquer para o KDE
 Group:		X11/Applications/Games
-Requires:	kdegames-carddecks = %{epoch}:%{version}
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kpoker
 A simple video poker clone for the KDE desktop environment.
@@ -414,7 +452,8 @@ Summary:	KDE Reversi game
 Summary(pl):	Gra Reversi dla KDE
 Summary(pt_BR):	Jogo no estilo Otelo para KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kreversi
 Reversi is a simple strategy game that is played by two players. There
@@ -438,7 +477,8 @@ Summary:	KDE SameGame
 Summary(pl):	"To Samo" dla KDE
 Summary(pt_BR):	Jogo relaxante onde você deve remover o maior número possível de bolas
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ksame
 KSame is a simple game. It's played by one player, so there is only
@@ -459,7 +499,8 @@ Summary:	KDE Shisen-Sho
 Summary(pl):	Shisen-Sho dla KDE
 Summary(pt_BR):	Jogo Shisen para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kshisen
 Shisen-Sho is similar to Mahjongg and uses the same set of tiles as
@@ -477,7 +518,8 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ksirtet
 This program is a clone of the well-known game Tetris.
@@ -493,7 +535,8 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ksmiletris
 This program is a clone of the well-known game Tetris.
@@ -509,7 +552,8 @@ Summary:	KDE Snake Race
 Summary(pl):	Wy¶cig Wê¿y dla KDE
 Summary(pt_BR):	Jogo da cobra sempre crescente para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ksnake
 Snake Race is a game of speed and agility. You are a hungry snake and
@@ -527,7 +571,7 @@ Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Summary(pt_BR):	Jogo Sokoban ou 'Fiscal de Estoque' para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ksokoban
 The Japanese warehouse keeper game.
@@ -543,7 +587,8 @@ Summary:	KDE space arcade game for two players
 Summary(pl):	Gra zrêczno¶ciowa pod KDE dla dwóch graczy
 Summary(pt_BR):	Versão do jogo Duelo Espacial para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kspaceduel
 Each player control a ship that flies around the sun and tries to
@@ -564,7 +609,8 @@ Summary:	Trone clone for KDE
 Summary(pl):	Klon Trone dla KDE
 Summary(pt_BR):	Versão do jogo Tron / Motos de Luz para o KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ktron
 KTron is a simple Trone-Clone for the KDE. You can play KTron against
@@ -588,7 +634,8 @@ Summary:	KDE game for small children
 Summary(pl):	Gra dla ma³ych dzieci
 Summary(pt_BR):	Jogo de desenho do 'Homem-batata' para crianças
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ktuberling
 It is a potato editor. That means that you can drag and drop eyes,
@@ -613,7 +660,8 @@ Summary:	Four wins for KDE
 Summary(pl):	Gra "cztery wygrywa" dla KDE
 Summary(pt_BR):	Jogo de estratégia que lembra um pouco o Otelo
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kwin4
 Four wins is a game for two players. Each player is represented by a
@@ -642,7 +690,9 @@ Summary:	KDE lskat
 Summary(pl):	Lskat dla KDE
 Summary(pt_BR):	Jogo de cartas Lieutenant Skat para KDE
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description lskat
 Lieutnant Skat.
@@ -657,7 +707,9 @@ Jogo de cartas Lieutenant Skat para KDE
 Summary:	Popular Gambling Game
 Summary(pl):	Popularna gra hazardowa
 Group:		X11/Applications/Games
-Requires:	kdebase-core >= %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:%{version}
 
 %description megami
 Popular Gambling Game.
@@ -666,41 +718,37 @@ Popular Gambling Game.
 Popularna gra hazardowa.
 
 %prep
-%setup -q
-#%patch0 -p1
+%setup -q -n %{name}-%{_snap}
+%patch0 -p1
 
 %build
-kde_appsdir="%{_applnkdir}"; export kde_appsdir
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
-
-for plik in `find ./ -name \*.desktop` ; do
-	echo $plik
-	sed -i -e 's/\[nb\]/[no]/g' $plik
+for f in `find . -name \*.desktop | xargs grep -l '\[nb\]'` ; do
+	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $f 2>/dev/null
 done
 
+%{__make} -f admin/Makefile.common cvs
+
 %configure \
-	--with-qt-dir=%{_prefix} \
-	--with-pam="yes" \
 	--disable-rpath \
-	--enable-final
+	--enable-final \
+	%{?with_highscore:--enable-highscore-dir=/var/games}
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir}
 
-mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Games/Kidsgames/*,Amusements}
-mv -f $RPM_BUILD_ROOT%{_applnkdir}/Games/{TacticStrategy,Strategy}
+mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/lskat.png
 
-cd $RPM_BUILD_ROOT%{_pixmapsdir}
-mv {locolor,crystalsvg}/16x16/apps/lskat.png
-cd -
+cp libkdegames/highscore/INSTALL ./README.highscore
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+%if %{with highscore}
+install -d $RPM_BUILD_ROOT/var/games
+touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
@@ -711,10 +759,10 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang kbounce	--with-kde
 %find_lang kenolaba	--with-kde
 %find_lang kfouleggs	--with-kde
+%find_lang kgoldrunner	--with-kde
 %find_lang kjumpingcube	--with-kde
 %find_lang klickety	--with-kde
 %find_lang klines	--with-kde
-#%find_lang kmahjongg	--with-kde
 %find_lang kmines	--with-kde
 %find_lang kolf		--with-kde
 %find_lang konquest	--with-kde
@@ -724,42 +772,113 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang ksame	--with-kde
 %find_lang kshisen	--with-kde
 %find_lang ksirtet	--with-kde
-#%find_lang ksmiletris	--with-kde
 %find_lang ksnake	--with-kde
 %find_lang ksokoban	--with-kde
 %find_lang kspaceduel	--with-kde
 %find_lang ktron	--with-kde
 %find_lang ktuberling	--with-kde
 %find_lang kwin4	--with-kde
-#%find_lang libkdegames	--with-kde
-#%find_lang libkdehighscores	--with-kde
-#%find_lang multiplayers	--with-kde
 %find_lang lskat	--with-kde
-%find_lang megami	--with-kde
 
-
-#cat libkdehighscores.lang	>> libkdegames.lang
-#cat multiplayers.lang		>> libkdegames.lang
+for f in *.lang; do
+	if grep -q %{name}-%{_snap}-apidocs $f; then
+		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
+		mv $f.tmp $f
+	fi
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
 
-#%files -f libkdegames.lang
+%post			-p /sbin/ldconfig
+%postun			-p /sbin/ldconfig
+
+%post	atlantik	-p /sbin/ldconfig
+%postun	atlantik	-p /sbin/ldconfig
+
+%post	kolf		-p /sbin/ldconfig
+%postun	kolf		-p /sbin/ldconfig
+
+%if %{with highscore}
+%post 	kfouleggs
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for kfouleggs binary      *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+
+%post 	klickety
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for klickety binary       *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+
+%post 	kmines
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for kmines binary         *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+
+%post 	ksirtet
+cat << EOF
+
+ *******************************************************
+ *                                                     *
+ * NOTE:                                               *
+ * You must set sgid "games" for ksirtet binary        *
+ * to use system-wide highscore file.                  *
+ *                                                     *
+ * See the README.highscore stored in kdegames package *
+ * documentation for details.                          *
+ *                                                     *
+ *******************************************************
+
+EOF
+%endif
+
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README README.highscore
 %{_libdir}/libkdegames.la
-%attr(755,root,root) %{_libdir}/libkdegames.so.*
+%attr(755,root,root) %{_libdir}/libkdegames.so.*.*.*
 %{_datadir}/apps/kdegames
-%{_pixmapsdir}/*/*/actions/endturn.png
-%{_pixmapsdir}/*/*/*/highscore.png
-%{_pixmapsdir}/*/*/*/roll.png
+%{_iconsdir}/*/*/actions/endturn.png
+%{_iconsdir}/*/*/*/highscore.png
+%{_iconsdir}/*/*/*/roll.png
 
 %files devel
 %defattr(644,root,root,755)
+%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
 %{_includedir}/*
 %{_libdir}/libatlantic.so
 %{_libdir}/libatlantikclient.so
@@ -771,360 +890,252 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/apps/carddecks
 
-#################################################
-#             ATLANTIK
-#################################################
-
 %files atlantik -f atlantik.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %{_libdir}/libatlantic.la
-%attr(755,root,root) %{_libdir}/libatlantic.so.*
+%attr(755,root,root) %{_libdir}/libatlantic.so.*.*.*
 %{_libdir}/libatlantikclient.la
-%attr(755,root,root) %{_libdir}/libatlantikclient.so.*
+%attr(755,root,root) %{_libdir}/libatlantikclient.so.*.*.*
 %{_libdir}/libatlantikui.la
 %attr(755,root,root) %{_libdir}/libatlantikui.so.*
 %{_libdir}/kde3/kio_atlantik.la
 %attr(755,root,root) %{_libdir}/kde3/kio_atlantik.so
 %{_datadir}/apps/atlantik
 %{_datadir}/services/atlantik.protocol
-%{_applnkdir}/Games/Board/atlantik.desktop
-%{_pixmapsdir}/*/*/apps/atlantik.png
-
-#################################################
-#             KASTEROIDS
-#################################################
+%{_desktopdir}/kde/atlantik.desktop
+%{_iconsdir}/*/*/apps/atlantik.png
 
 %files kasteroids -f kasteroids.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
-%{_applnkdir}/Games/Arcade/kasteroids.desktop
-%{_pixmapsdir}/*/*/apps/kasteroids.png
-
-#################################################
-#             KATOMIC
-#################################################
+%{_datadir}/config.kcfg/kasteroids.kcfg
+%{_desktopdir}/kde/kasteroids.desktop
+%{_iconsdir}/*/*/apps/kasteroids.png
 
 %files katomic -f katomic.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
-%{_applnkdir}/Games/Strategy/katomic.desktop
-%{_pixmapsdir}/*/*/apps/katomic.png
-
-#################################################
-#             KBACKGAMMON
-#################################################
+%{_desktopdir}/kde/katomic.desktop
+%{_iconsdir}/*/*/apps/katomic.png
 
 %files kbackgammon -f kbackgammon.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %{_datadir}/apps/kbackgammon
-%{_applnkdir}/Games/Board/kbackgammon.desktop
-%{_pixmapsdir}/*/*/apps/kbackgammon*.png
-
-#################################################
-#             KBATTLESHIP
-#################################################
+%{_desktopdir}/kde/kbackgammon.desktop
+%{_iconsdir}/*/*/apps/kbackgammon*.png
 
 %files kbattleship -f kbattleship.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
-%{_applnkdir}/Games/Board/kbattleship.desktop
-%{_pixmapsdir}/*/*/apps/kbattleship.png
-
-
-#################################################
-#             KBLACKBOX
-#################################################
+%{_desktopdir}/kde/kbattleship.desktop
+%{_iconsdir}/*/*/apps/kbattleship.png
 
 %files kblackbox -f kblackbox.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_datadir}/apps/kblackbox
-%{_applnkdir}/Games/Board/kblackbox.desktop
-%{_pixmapsdir}/*/*/apps/kblackbox.png
-
-#################################################
-#             KBOUNCE
-#################################################
+%{_desktopdir}/kde/kblackbox.desktop
+%{_iconsdir}/*/*/apps/kblackbox.png
 
 %files kbounce -f kbounce.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
-%{_applnkdir}/Games/Arcade/kbounce.desktop
-%{_pixmapsdir}/[!l]*/*/*/kbounce*
-
-#################################################
-#             KENOLABA
-#################################################
+%{_desktopdir}/kde/kbounce.desktop
+%{_iconsdir}/[!l]*/*/*/kbounce*
 
 %files kenolaba -f kenolaba.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_datadir}/apps/kenolaba
-%{_applnkdir}/Games/Board/kenolaba.desktop
-%{_pixmapsdir}/*/*/*/kenolaba*
-
-#################################################
-#             KFOULEGGS
-#################################################
+%{_desktopdir}/kde/kenolaba.desktop
+%{_iconsdir}/*/*/*/kenolaba*
 
 %files kfouleggs -f kfouleggs.lang
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores}
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_datadir}/apps/kfouleggs
-%{_applnkdir}/Games/Arcade/kfouleggs.desktop
+%{_datadir}/config.kcfg/kfouleggs.kcfg
+%{_desktopdir}/kde/kfouleggs.desktop
 
-#################################################
-#             KJUMPINGCUBE
-#################################################
+%files kgoldrunner -f kgoldrunner.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kgoldrunner
+%{_datadir}/apps/kgoldrunner
+%{_desktopdir}/kde/KGoldrunner.desktop
+%{_iconsdir}/hicolor/*/apps/kgoldrunner.png
 
 %files kjumpingcube -f kjumpingcube.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
-%{_applnkdir}/Games/Strategy/kjumpingcube.desktop
-%{_pixmapsdir}/*/*/apps/kjumpingcube.png
-
-#################################################
-#             KLICKETY
-#################################################
+%{_datadir}/config.kcfg/kjumpingcube.kcfg
+%{_desktopdir}/kde/kjumpingcube.desktop
+%{_iconsdir}/*/*/apps/kjumpingcube.png
 
 %files klickety -f klickety.lang
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores}
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
-%{_applnkdir}/Games/Arcade/klickety.desktop
-
-#################################################
-#             KLINES
-#################################################
+%{_desktopdir}/kde/klickety.desktop
 
 %files klines -f klines.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
-%{_applnkdir}/Games/Strategy/klines.desktop
-%{_pixmapsdir}/*/*/apps/klines.png
+%{_desktopdir}/kde/klines.desktop
 
-#################################################
-#             KMAHJONGG
-#################################################
-
-#%files kmahjongg -f kmahjongg.lang
 %files kmahjongg
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg
-%{_applnkdir}/Games/Board/kmahjongg.desktop
-%{_pixmapsdir}/*/*/apps/kmahjongg.png
-
-#################################################
-#             KMINES
-#################################################
+%{_datadir}/config.kcfg/kmahjongg.kcfg
+%{_desktopdir}/kde/kmahjongg.desktop
+%{_iconsdir}/*/*/apps/kmahjongg.png
 
 %files kmines -f kmines.lang
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores}
 %attr(755,root,root) %{_bindir}/kmines
 %{_datadir}/apps/kmines
-%{_applnkdir}/Games/Strategy/kmines.desktop
-%{_pixmapsdir}/*/*/apps/kmines.png
-
-#################################################
-#             KOLF
-#################################################
+%{_desktopdir}/kde/kmines.desktop
+%{_iconsdir}/*/*/apps/kmines.png
 
 %files kolf -f kolf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
+%{_libdir}/libkdeinit_kolf.la
+%attr(755,root,root) %{_libdir}/libkdeinit_kolf.so
 %{_libdir}/libkolf.la
-%attr(755,root,root) %{_libdir}/libkolf.so.*
+%attr(755,root,root) %{_libdir}/libkolf.so.*.*.*
 %{_libdir}/kde3/kolf.la
 %attr(755,root,root) %{_libdir}/kde3/kolf.so
 %{_datadir}/config/magic
 %{_datadir}/apps/kolf
 %{_datadir}/mimelnk/application/*
-%{_applnkdir}/Games/Arcade/kolf.desktop
-%{_pixmapsdir}/*/*/apps/kolf.png
-
-#################################################
-#             KONQUEST
-#################################################
+%{_desktopdir}/kde/kolf.desktop
+%{_iconsdir}/*/*/apps/kolf.png
 
 %files konquest -f konquest.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest
-%{_applnkdir}/Games/Strategy/konquest.desktop
-%{_pixmapsdir}/*/*/apps/konquest.png
-
-#################################################
-#             KPAT
-#################################################
+%{_desktopdir}/kde/konquest.desktop
+%{_iconsdir}/*/*/apps/konquest.png
 
 %files kpat -f kpat.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat
-%{_applnkdir}/Games/Card/kpat.desktop
-%{_pixmapsdir}/*/*/apps/kpat.png
-
-#################################################
-#             KPOKER
-#################################################
+%{_desktopdir}/kde/kpat.desktop
+%{_iconsdir}/*/*/apps/kpat.png
 
 %files kpoker -f kpoker.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker
-%{_applnkdir}/Games/Card/kpoker.desktop
-%{_pixmapsdir}/*/*/apps/kpoker.png
-
-#################################################
-#             KREVERSI
-#################################################
+%{_desktopdir}/kde/kpoker.desktop
+%{_iconsdir}/*/*/apps/kpoker.png
 
 %files kreversi -f kreversi.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
-%{_applnkdir}/Games/Board/kreversi.desktop
-%{_pixmapsdir}/*/*/apps/kreversi.png
-
-#################################################
-#            KSAME
-#################################################
+%{_datadir}/config.kcfg/kreversi.kcfg
+%{_desktopdir}/kde/kreversi.desktop
+%{_iconsdir}/*/*/apps/kreversi.png
 
 %files ksame -f ksame.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame
-%{_applnkdir}/Games/Strategy/ksame.desktop
-%{_pixmapsdir}/*/*/apps/ksame.png
-
-#################################################
-#             KSHISEN
-#################################################
+%{_desktopdir}/kde/ksame.desktop
+%{_iconsdir}/*/*/apps/ksame.png
 
 %files kshisen -f kshisen.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen
-%{_applnkdir}/Games/Board/kshisen.desktop
-%{_pixmapsdir}/*/*/apps/kshisen.png
-
-#################################################
-#             KSIRTET
-#################################################
+%{_desktopdir}/kde/kshisen.desktop
+%{_iconsdir}/*/*/apps/kshisen.png
 
 %files ksirtet -f ksirtet.lang
 %defattr(644,root,root,755)
+%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores}
 %attr(755,root,root) %{_bindir}/ksirtet
 %{_datadir}/apps/ksirtet
-%{_applnkdir}/Games/Arcade/ksirtet.desktop
-%{_pixmapsdir}/*/*/apps/ksirtet.png
+%{_datadir}/config.kcfg/ksirtet.kcfg
+%{_desktopdir}/kde/ksirtet.desktop
+%{_iconsdir}/*/*/apps/ksirtet.png
 
-#################################################
-#             KSMILETRIS
-#################################################
-
-#%files ksmiletris -f ksmiletris.lang
 %files ksmiletris
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_datadir}/apps/ksmiletris
-%{_applnkdir}/Games/Arcade/ksmiletris.desktop
-%{_pixmapsdir}/*/*/apps/ksmiletris.png
-
-#################################################
-#             KSNAKE
-#################################################
+%{_desktopdir}/kde/ksmiletris.desktop
+%{_iconsdir}/*/*/apps/ksmiletris.png
 
 %files ksnake -f ksnake.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake
-%{_applnkdir}/Games/Arcade/ksnake.desktop
-%{_pixmapsdir}/*/*/apps/ksnake.png
-
-#################################################
-#             KSOKOBAN
-#################################################
+%{_desktopdir}/kde/ksnake.desktop
+%{_iconsdir}/*/*/apps/ksnake.png
 
 %files ksokoban -f ksokoban.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
-%{_applnkdir}/Games/Strategy/ksokoban.desktop
-%{_pixmapsdir}/*/*/apps/ksokoban.png
-
-#################################################
-#             KSPACEDUEL
-#################################################
+%{_desktopdir}/kde/ksokoban.desktop
+%{_iconsdir}/*/*/apps/ksokoban.png
 
 %files kspaceduel -f kspaceduel.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
-%{_applnkdir}/Games/Arcade/kspaceduel.desktop
-%{_pixmapsdir}/[!l]*/*/apps/kspaceduel.png
-
-#################################################
-#             KTRON
-#################################################
+%{_datadir}/config.kcfg/kspaceduel.kcfg
+%{_desktopdir}/kde/kspaceduel.desktop
+%{_iconsdir}/[!l]*/*/apps/kspaceduel.png
 
 %files ktron -f ktron.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
-%{_applnkdir}/Games/Arcade/ktron.desktop
-%{_pixmapsdir}/*/*/apps/ktron.png
-
-#################################################
-#             KTUBERLING
-#################################################
+%{_datadir}/config.kcfg/ktron.kcfg
+%{_desktopdir}/kde/ktron.desktop
+%{_iconsdir}/*/*/apps/ktron.png
 
 %files ktuberling -f ktuberling.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling
-%{_applnkdir}/Amusements/ktuberling.desktop
-%{_pixmapsdir}/*/*/apps/ktuberling.png
-
-#################################################
-#             KWIN4
-#################################################
+%{_desktopdir}/kde/ktuberling.desktop
+%{_iconsdir}/*/*/apps/ktuberling.png
 
 %files kwin4 -f kwin4.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_datadir}/apps/kwin4
-%{_applnkdir}/Games/Board/kwin4.desktop
-%{_pixmapsdir}/*/*/apps/kwin4.png
-
-
-#################################################
-#             LSKAT
-#################################################
+%{_desktopdir}/kde/kwin4.desktop
+%{_iconsdir}/*/*/apps/kwin4.png
 
 %files lskat -f lskat.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/lskat
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
-%{_applnkdir}/Games/Card/lskat.desktop
-%{_pixmapsdir}/[!l]*/*/apps/lskat.png
+%{_desktopdir}/kde/lskat.desktop
+%{_iconsdir}/[!l]*/*/apps/lskat.png
 
-#################################################
-#             MEGAMI
-#################################################
-
-%files megami -f megami.lang
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/megami
-%{_datadir}/apps/megami
-%{_applnkdir}/Games/Card/megami.desktop
-%{_pixmapsdir}/*/*/apps/megami.png
+#%files megami -f megami.lang
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_bindir}/megami
+#%{_datadir}/apps/megami
+#%{_desktopdir}/kde/megami.desktop
+#%{_iconsdir}/*/*/apps/megami.png
