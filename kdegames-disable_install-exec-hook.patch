@@ -1,0 +1,44 @@
+--- kdegames-030613/kfouleggs/Makefile.in~	2003-06-13 00:54:26.000000000 +0200
++++ kdegames-030613/kfouleggs/Makefile.in	2003-06-15 21:41:52.000000000 +0200
+@@ -606,7 +606,7 @@
+ 
+ install-exec-am: install-binPROGRAMS
+ 	@$(NORMAL_INSTALL)
+-	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
++	$(MAKE) $(AM_MAKEFLAGS)
+ 
+ install-info: install-info-am
+ 
+--- kdegames-030613/klickety/Makefile.in~	2003-06-13 00:54:27.000000000 +0200
++++ kdegames-030613/klickety/Makefile.in	2003-06-15 21:42:23.000000000 +0200
+@@ -606,7 +606,7 @@
+ 
+ install-exec-am: install-binPROGRAMS
+ 	@$(NORMAL_INSTALL)
+-	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
++	$(MAKE) $(AM_MAKEFLAGS)
+ 
+ install-info: install-info-am
+ 
+--- kdegames-030613/kmines/Makefile.in~	2003-06-13 00:54:27.000000000 +0200
++++ kdegames-030613/kmines/Makefile.in	2003-06-15 21:40:55.000000000 +0200
+@@ -659,7 +659,7 @@
+ 
+ install-exec-am: install-binPROGRAMS
+ 	@$(NORMAL_INSTALL)
+-	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
++	$(MAKE) $(AM_MAKEFLAGS)
+ 
+ install-info: install-info-recursive
+ 
+--- kdegames-030613/ksirtet/ksirtet/Makefile.in~	2003-06-13 00:54:28.000000000 +0200
++++ kdegames-030613/ksirtet/ksirtet/Makefile.in	2003-06-15 21:43:53.000000000 +0200
+@@ -638,7 +638,7 @@
+ 
+ install-exec-am: install-binPROGRAMS
+ 	@$(NORMAL_INSTALL)
+-	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
++	$(MAKE) $(AM_MAKEFLAGS)
+ 
+ install-info: install-info-am
+ 
