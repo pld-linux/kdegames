@@ -70,6 +70,9 @@
  GenericName[zu]=Umdlalo Wamathayizi
  Terminal=0
 -Icon=kmahjongg
++Icon=kmahjongg.png
+ X-KDE-StartupNotify=true
+ X-DCOP-ServiceType=Multi
 --- kdegames-3.0.4/kmines/data/kmines.desktop~	Wed Nov 13 01:52:54 2002
 +++ kdegames-3.0.4/kmines/data/kmines.desktop	Wed Nov 13 01:52:54 2002
 @@ -16,7 +16,7 @@
