@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		stable
-%define		_ver		3.1.1
+%define		_ver		3.1.2
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -23,8 +23,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 #Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
-BuildRequires:	arts-kde-devel = %{version}
-BuildRequires:	kdelibs-devel = %{version}
+BuildRequires:	arts-kde-devel >= %{version}
+BuildRequires:	kdelibs-devel >= %{version}
 Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -77,10 +77,10 @@ conhecido tetris
 
 %package devel
 Summary:	Development files for KDE games
-Summary(pl):	Pliki dla programistów KDE games
+Summary(pl):	Pliki przydatne twórcom gier KDE
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs-devel >= %{version}
 Requires:	%{name} = %{version}
 Requires:	%{name}-atlantik = %{version}
 Requires:	%{name}-kolf = %{version}
@@ -114,7 +114,7 @@ Biblioteca de baralhos para jogos do KDE que usem cartas.
 Summary:	KDE client for playing Monopoly-like games
 Summary(pl):	Klient KDE do grania w gry typu Monopoly
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description atlantik
 Atlantik is a KDE client for Monopoly-like board games to be played on
@@ -129,7 +129,7 @@ Summary:	KDE Asteroids clone
 Summary(pl):	Klon Asteroids dla KDE
 Summary(pt_BR):	Destrua os asteróides para não ser destruído
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kasteroids
 Asteroids clone for KDE.
@@ -145,7 +145,7 @@ Summary:	KDE Sokoban clone
 Summary(pl):	Klon gry Sokoban dla KDE
 Summary(pt_BR):	Jogo semelhante ao Sokoban mas o objetivo é formar moléculas
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description katomic
 Atomic Entertainment is a small game which resembles Sokoban. The
@@ -164,7 +164,7 @@ Summary:	Backgammon program for KDE
 Summary(pl):	Backgammon dla KDE
 Summary(pt_BR):	Jogo de gamão para KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kbackgammon
 KBackgammon is a graphical backgammon program for KDE. It supports
@@ -185,7 +185,7 @@ Summary:	Battleship for KDE
 Summary(pl):	Statki dla KDE
 Summary(pt_BR):	Jogo de batalha naval com servidor embutido
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kbattleship
 Battleship for KDE.
@@ -201,7 +201,7 @@ Summary:	A little logical game for KDE
 Summary(pl):	Prosta gra logiczna
 Summary(pt_BR):	Versão do jogo Blackbox do Emacs para KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kblackbox
 A little logical game for KDE.
@@ -216,7 +216,7 @@ Versão do jogo Blackbox do Emacs para KDE.
 Summary:	Claim areas and don't get disturbed
 Summary(pl):	Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kbounce
 Claim areas and don't get disturbed.
@@ -228,7 +228,7 @@ Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom.
 Summary:	Abalone-like board game against the computer
 Summary(pl):	Gra planszowa podobna do Abalone przeciwko komputerowi
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kenolaba
 Abalone-like board game against the computer.
@@ -241,7 +241,7 @@ Summary:	KDE kfouleggs
 Summary(pl):	Gra kfouleggs dla KDE
 Summary(pt_BR):	Mais um jogo que lembra o estilo Tetris
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kfouleggs
 KDE kfouleggs.
@@ -257,7 +257,7 @@ Summary:	A little tactical game for KDE
 Summary(pl):	Prosta gra taktyczna dla KDE
 Summary(pt_BR):	Jogo de estratégia para 2 contendores
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kjumpingcube
 KJumpingCube is a simple tactical game. You can play it against the
@@ -283,7 +283,7 @@ Jogo de estratégia para 2 contendores.
 Summary:	A Clickomania-alike game for KDE
 Summary(pl):	Gra dla KDE podobna do Clickomanii
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description klickety
 Klickety is an adaptation of the (perharps) well-known Clickomania
@@ -297,7 +297,7 @@ gry "same".
 Summary:	Lines for KDE
 Summary(pl):	Gra Lines dla KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description klines
 Lines for KDE.
@@ -310,7 +310,7 @@ Summary:	KDE Mahjongg clone
 Summary(pl):	Klon gry Mahjongg dla KDE
 Summary(pt_BR):	Versão do jogo Mahjongg para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kmahjongg
 This program is a clone of the well known Mahjongg game.
@@ -326,7 +326,7 @@ Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
 Summary(pt_BR):	Versão do jogo 'caça-minas' para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kmines
 This is a very classical minesweeper written from scratch.
@@ -349,7 +349,7 @@ Versão do jogo 'caça-minas' para o KDE.
 Summary:	Miniature golf for KDE
 Summary(pl):	Mini golf
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kolf
 Kolf - miniature golf for KDE.
@@ -362,7 +362,7 @@ Summary:	KDE version of Gnu-Lactic Konquest
 Summary(pl):	Podbój galaktyki dla KDE
 Summary(pt_BR):	Jogo espacial de estratégia
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description konquest
 KDE version of Gnu-Lactic Konquest.
@@ -379,7 +379,7 @@ Summary(pl):	Pasjanse dla KDE
 Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
 Requires:	kdegames-carddecks = %{version}
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kpat
 KDE solitaire patience games.
@@ -396,7 +396,7 @@ Summary(pl):	Poker dla KDE
 Summary(pt_BR):	Jogo de vídeo-pôquer para o KDE
 Group:		X11/Applications/Games
 Requires:	kdegames-carddecks = %{version}
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kpoker
 A simple video poker clone for the KDE desktop environment.
@@ -412,7 +412,7 @@ Summary:	KDE Reversi game
 Summary(pl):	Gra Reversi dla KDE
 Summary(pt_BR):	Jogo no estilo Otelo para KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kreversi
 Reversi is a simple strategy game that is played by two players. There
@@ -436,7 +436,7 @@ Summary:	KDE SameGame
 Summary(pl):	"To Samo" dla KDE
 Summary(pt_BR):	Jogo relaxante onde você deve remover o maior número possível de bolas
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description ksame
 KSame is a simple game. It's played by one player, so there is only
@@ -457,7 +457,7 @@ Summary:	KDE Shisen-Sho
 Summary(pl):	Shisen-Sho dla KDE
 Summary(pt_BR):	Jogo Shisen para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kshisen
 Shisen-Sho is similar to Mahjongg and uses the same set of tiles as
@@ -475,7 +475,7 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description ksirtet
 This program is a clone of the well-known game Tetris.
@@ -491,7 +491,7 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description ksmiletris
 This program is a clone of the well-known game Tetris.
@@ -507,7 +507,7 @@ Summary:	KDE Snake Race
 Summary(pl):	Wy¶cig Wê¿y dla KDE
 Summary(pt_BR):	Jogo da cobra sempre crescente para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description ksnake
 Snake Race is a game of speed and agility. You are a hungry snake and
@@ -525,7 +525,7 @@ Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Summary(pt_BR):	Jogo Sokoban ou 'Fiscal de Estoque' para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description ksokoban
 The Japanese warehouse keeper game.
@@ -541,7 +541,7 @@ Summary:	KDE space arcade game for two players
 Summary(pl):	Gra zrêczno¶ciowa pod KDE dla dwóch graczy
 Summary(pt_BR):	Versão do jogo Duelo Espacial para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kspaceduel
 Each player control a ship that flies around the sun and tries to
@@ -562,7 +562,7 @@ Summary:	Trone clone for KDE
 Summary(pl):	Klon Trone dla KDE
 Summary(pt_BR):	Versão do jogo Tron / Motos de Luz para o KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description ktron
 KTron is a simple Trone-Clone for the KDE. You can play KTron against
@@ -586,7 +586,7 @@ Summary:	KDE game for small children
 Summary(pl):	Gra dla ma³ych dzieci
 Summary(pt_BR):	Jogo de desenho do 'Homem-batata' para crianças
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description ktuberling
 It is a potato editor. That means that you can drag and drop eyes,
@@ -611,7 +611,7 @@ Summary:	Four wins for KDE
 Summary(pl):	Gra "cztery wygrywa" dla KDE
 Summary(pt_BR):	Jogo de estratégia que lembra um pouco o Otelo
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description kwin4
 Four wins is a game for two players. Each player is represented by a
@@ -640,7 +640,7 @@ Summary:	KDE lskat
 Summary(pl):	Lskat dla KDE
 Summary(pt_BR):	Jogo de cartas Lieutenant Skat para KDE
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description lskat
 Lieutnant Skat.
@@ -655,7 +655,7 @@ Jogo de cartas Lieutenant Skat para KDE
 Summary:	Popular Gambling Game
 Summary(pl):	Popularna gra hazardowa
 Group:		X11/Applications/Games
-Requires:	kdelibs >= %{version}
+Requires:	kdebase-core >= %{version}
 
 %description megami
 Popular Gambling Game.
