@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc3
+%define		_kdever		kde-3.1-rc4
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -12,7 +12,7 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-Version:	3.0.99
+Version:	3.1
 Release:	1
 Epoch:		7
 License:	GPL
@@ -25,7 +25,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 BuildRequires:	arts-devel
 BuildRequires:	kdelibs-devel = %{version}
 Requires:	qt >= 3.0.5
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
@@ -78,7 +78,7 @@ Summary:	Development files for KDE games
 Summary(pl):	Pliki developerskie dla KDE games
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 Requires:	kdegames = %{version}
 
 %description devel
