@@ -4,10 +4,10 @@
 %bcond_without	highscore	# without system-wide score feature
 
 %define		_state		stable
-%define		_ver		3.3.1
+%define		_ver		3.3.2
 
-%define		_minlibsevr	9:3.3.1
-%define		_minbaseevr	9:3.3.1
+%define		_minlibsevr	9:3.3.2
+%define		_minbaseevr	9:3.3.2
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -18,20 +18,19 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	3
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Icon:		kde-games.xpm
-Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	a105e16aab1fccbb24e6bd24d6345e7a
-# Source0-size:	9311008
-Patch100:	%{name}-branch.diff
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	41791396e595b9fc8a84e08ae63b552d
+#Patch100:	%{name}-branch.diff
 Patch0:		%{name}-disable_install-exec-hook.patch
 Patch1:		kde-common-QTDOCDIR.patch
-%{?with_apidocs:BuildRequires:  doxygen}
-%{?with_apidocs:BuildRequires:  graphviz}
+%{?with_apidocs:BuildRequires:	doxygen}
+%{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
@@ -729,7 +728,7 @@ Jogo de cartas Lieutenant Skat para KDE
 
 %prep
 %setup -q
-%patch100 -p1
+#%%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 
