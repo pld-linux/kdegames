@@ -29,7 +29,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	dab4d56eef3c480584b3df46085b33bb
 %endif
-Patch0:		%{name}-disable_install-exec-hook.patch
+Patch0:		%{name}-3.2branch.diff
+Patch1:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	ed
 BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	rpmbuild(macros) >= 1.129
@@ -1188,6 +1189,7 @@ Pliki umiêdzynarodawiaj±ce dla megami.
 #%setup -q -n %{name}-%{_snap}
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
