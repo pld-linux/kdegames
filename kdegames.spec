@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		stable
-%define		_ver		3.1
+%define		_ver		3.1.1
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	5
+Release:	0.1
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
