@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc5
+%define		_kdever		kde-3.1-rc7
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	3.1
-Release:	3
+Release:	4
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -31,7 +31,6 @@ Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
 
-%define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
 
 %define		no_install_post_chrpath		1
@@ -82,7 +81,6 @@ Requires:	kdelibs >= %{version}
 Requires:	%{name} = %{version}
 Requires:	%{name}-atlantik = %{version}
 Requires:	%{name}-kolf = %{version}
-Requires:	%{name}-ksirtet = %{version}
 
 %description devel
 Development files for KDE games.
@@ -640,6 +638,7 @@ Requires:	kdelibs >= %{version}
 #%patch0 -p1
 
 %build
+kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
@@ -716,8 +715,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so.*
-%attr(755,root,root) %{_libdir}/libkdehighscores.la
-%attr(755,root,root) %{_libdir}/libkdehighscores.so.*
 %{_datadir}/apps/kdegames
 %{_pixmapsdir}/*/*/actions/endturn.png
 %{_pixmapsdir}/*/*/*/highscore.png
@@ -730,9 +727,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libatlantikclient.so
 %{_libdir}/libatlantikui.so
 %{_libdir}/libkdegames.so
-%{_libdir}/libkdehighscores.so
 %{_libdir}/libkolf.so
-%{_libdir}/libksirtet*.so
 
 %files carddecks
 %defattr(644,root,root,755)
@@ -786,7 +781,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kbackgammon.lang kbackgammon
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
-%attr(755,root,root) %{_libdir}/kbackgammon.??
 %{_datadir}/apps/kbackgammon
 %{_applnkdir}/Games/Board/kbackgammon.desktop
 %{_pixmapsdir}/*/*/apps/kbackgammon*.png
@@ -990,8 +984,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -f ksirtet.lang ksirtet
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksirtet
-%attr(755,root,root) %{_libdir}/libksirtet*.la
-%attr(755,root,root) %{_libdir}/libksirtet*.so.*
 %{_datadir}/apps/ksirtet
 %{_applnkdir}/Games/Arcade/ksirtet.desktop
 %{_pixmapsdir}/*/*/apps/ksirtet.png
