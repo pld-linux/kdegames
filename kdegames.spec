@@ -713,7 +713,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
-%attr(755,root,root) %{_libdir}/libkdegames.la
+%{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so.*
 %{_datadir}/apps/kdegames
 %{_pixmapsdir}/*/*/actions/endturn.png
@@ -740,13 +740,14 @@ rm -rf $RPM_BUILD_ROOT
 %files -f atlantik.lang atlantik
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
-%attr(755,root,root) %{_libdir}/libatlantic.la
+%{_libdir}/libatlantic.la
 %attr(755,root,root) %{_libdir}/libatlantic.so.*
-%attr(755,root,root) %{_libdir}/libatlantikclient.la
+%{_libdir}/libatlantikclient.la
 %attr(755,root,root) %{_libdir}/libatlantikclient.so.*
-%attr(755,root,root) %{_libdir}/libatlantikui.la
+%{_libdir}/libatlantikui.la
 %attr(755,root,root) %{_libdir}/libatlantikui.so.*
-%attr(755,root,root) %{_libdir}/kde3/kio_atlantik.??
+%{_libdir}/kde3/kio_atlantik.la
+%attr(755,root,root) %{_libdir}/kde3/kio_atlantik.so
 %{_datadir}/apps/atlantik
 %{_datadir}/services/atlantik.protocol
 %{_applnkdir}/Games/Board/atlantik.desktop
@@ -902,9 +903,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kolf.lang kolf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
-%attr(755,root,root) %{_libdir}/libkolf.la
+%{_libdir}/libkolf.la
 %attr(755,root,root) %{_libdir}/libkolf.so.*
-%attr(755,root,root) %{_libdir}/kde3/kolf.??
+%{_libdir}/kde3/kolf.la
+%attr(755,root,root) %{_libdir}/kde3/kolf.so
 %{_datadir}/config/magic
 %{_datadir}/apps/kolf
 %{_datadir}/mimelnk/application/*
