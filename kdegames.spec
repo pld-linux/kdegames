@@ -711,7 +711,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f ksnake.lang ksnake
 %defattr(644,root,root,755)
 %config(missingok) %{_datadir}/applnk/Games/ksnake.desktop
-%attr(4755,root,games) %{_bindir}/ksnake
+%attr(755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake/
 %{_pixmapsdir}/hicolor/*x*/apps/ksnake.png
 %{_pixmapsdir}/locolor/*x*/apps/ksnake.png
@@ -735,7 +735,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kspaceduel.lang kspaceduel
 %defattr(644,root,root,755)
 %config(missingok) %{_datadir}/applnk/Games/kspaceduel.desktop
-%attr(4755,root,games) %{_bindir}/kspaceduel
+%attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel/
 %{_pixmapsdir}/locolor/*x*/apps/kspaceduel.png
 
@@ -746,7 +746,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f ktron.lang ktron
 %defattr(644,root,root,755)
 %config(missingok) %{_datadir}/applnk/Games/ktron.desktop
-%attr(4755,root,games) %{_bindir}/ktron
+%attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron/
 %{_pixmapsdir}/locolor/*x*/apps/ktron.png
 
@@ -757,7 +757,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f ktuberling.lang ktuberling
 %defattr(644,root,root,755)
 %config(missingok) %{_datadir}/applnk/Games/ktuberling.desktop
-%attr(4755,root,games) %{_bindir}/ktuberling
+%attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling/
 %{_pixmapsdir}/locolor/*x*/apps/ktuberling.png
 
@@ -781,8 +781,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f lskat.lang lskat
 %defattr(644,root,root,755)
 %config(missingok) %{_datadir}/applnk/Games/lskat.desktop
-%attr(4755,root,games) %{_bindir}/lskat
-%attr(4755,root,games) %{_bindir}/lskatproc
+%attr(755,root,games) %{_bindir}/lskat
+%attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat/
 %{_pixmapsdir}/hicolor/*x*/apps/lskat.png
 %{_pixmapsdir}/locolor/*x*/apps/lskat.png
