@@ -593,7 +593,7 @@ Jogo de cartas Lieutenant Skat para KDE
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
+%patch4 -p2
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
