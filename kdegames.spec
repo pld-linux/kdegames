@@ -45,42 +45,52 @@ Obsoletes:	kdegames-kpm
 
 %description
 Libraries for kdegames. Included with this package are: kasteroids,
-kblackbox, kmahjongg, kmines, konquest, kpat, kpoker, kreversi, ksame,
-kshisen, ksokoban, ksmiletris, ksnake, ksirtet, katomic, kjumpingcube,
-ktuberling.
+katomic, kbackgammon, kbattleship, kblackbox, kbounce, kenolaba,
+kfouleggs, kjumpingcube, klickety, klines, kmahjongg, kmines, kolf,
+konquest, kpat, kpoker, kreversi, ksame, kshisen, ksirtet, ksmiletris,
+ksnake, ksokoban, kspaceduel, ktron, ktuberling, kwin4, lskat, megami.
 
 %description -l es
-Juegos para KDE. Incluidos en este paquete: kasteroids: arcade
-kmahjongg: el popular mahjongg kmines: desarmar las minas kpat: juegos
-de cartas, incluso solitario kpoker: vídeo póquer kreversi: Reversi
-ksame: un juego de tablero kshisen: Shisen-Sho - relacionado con el
-mahjongg ksnake: corrida de las cobras ktetris: el bien conocido
-tetris
+Juegos para KDE. Incluidos en este paquete:
+
+kasteroids: arcade, katomic, kbackgammon, kbattleship, kblackbox,
+kbounce, kenolaba, kfouleggs, kjumpingcube, klickety, klines,
+kmahjongg: el popular mahjongg, kmines: desarmar las minas, kolf,
+konquest, kpat: juegos de cartas, incluso solitario, kpoker: vídeo
+póquer, kreversi: Reversi, ksame: un juego de tablero, kshisen:
+Shisen-Sho - relacionado con el mahjongg, ksirtet, ksmiletris, ksnake:
+corrida de las cobras, ksokoban, kspaceduel, ktron, ktuberling, kwin4,
+lskat, megami.
 
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î¥²¡¼¥à °Ê²¼¤Î¤è¤¦¤Ê¥Ñ¥Ã¥±¡¼¥¸¤¬Æþ¤Ã¤Æ¤¤¤Þ¤¹¡£
 
-kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, kblackbox: a strategy game with hidden
-boxes and rays, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kpat:
-°ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame: same
-game, kshisen: »ÍÀî¾Ê, ksnake: ¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ,
-ktetris: ¥Æ¥È¥ê¥¹
+kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, katomic, kbackgammon, kbattleship,
+kblackbox, kbounce, kenolaba, kfouleggs, kjumpingcube, klickety,
+klines, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kolf, konquest,
+kpat: °ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame:
+same game, kshisen: »ÍÀî¾Ê, ksirtet, ksmiletris, ksnake:
+¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ, kspaceduel, ktron, ktuberling,
+kwin4, lskat, megami
 
 %description -l pl
-Biblioteki dla gier KDE: kasteroids, kblackbox, kmahjongg, kmines,
-konquest, kpat, kpoker, kreversi, ksame, kshisen, ksokoban,
-ksmiletris, ksnake, ksirtet, katomic, kjumpingcube, ktuberling.
+Biblioteki dla gier KDE: kasteroids, katomic, kbackgammon,
+kbattleship, kblackbox, kbounce, kenolaba, kfouleggs, kjumpingcube,
+klickety, klines, kmahjongg, kmines, kolf, konquest, kpat, kpoker,
+kreversi, ksame, kshisen, ksirtet, ksmiletris, ksnake, ksokoban,
+kspaceduel, ktron, ktuberling, kwin4, lskat, megami.
 
 %description -l pt_BR
-Jogos para o KDE.
+Jogos para o KDE. Incluídos neste pacote:
 
-Incluídos neste pacote:
-
-kasteroids: arcade kmahjongg: o popular mahjongg kmines: desarmar as
-minas kpat: jogos de cartas, inclusive paciência kpoker: vídeo-poker
-kreversi: Reversi ksame: um jogo de tabuleiro kshisen: Shisen-Sho -
-relacionado com o mahjongg ksnake: corrida das cobras ktetris: o bem
-conhecido tetris
+kasteroids: arcade, katomic, kbackgammon, kbattleship, kblackbox,
+kbounce, kenolaba, kfouleggs, kjumpingcube, klickety, klines,
+kmahjongg: o popular mahjongg, kmines: desarmar as minas, kolf,
+konquest, kpat: jogos de cartas, inclusive paciência, kpoker:
+vídeo-poker, kreversi: Reversi, ksame: um jogo de tabuleiro, kshisen:
+Shisen-Sho - relacionado com o mahjongg, ksirtet, ksmiletris, ksnake:
+corrida das cobras, ksokoban, kspaceduel, ktron, ktuberling, kwin4,
+lskat, megami.
 
 %package devel
 Summary:	Development files for KDE games
