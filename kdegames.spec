@@ -16,7 +16,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Name:		kdegames
 Version:	%{_version}
 Release:	%{_release}
-Epoch:		6
+Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
@@ -700,6 +700,7 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*
