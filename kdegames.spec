@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.92
-%define		_snap		030930
+%define		_snap		031006
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -22,7 +22,7 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	8d87f62710f5da65ec7005ab37cf79aa
+# Source0-md5:	5bdc4d6ac2681dbb1e3b0e20a946eb0d
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	kdelibs-devel >= 9:%{version}
 Requires:	kdelibs >= 9:%{version}
@@ -823,6 +823,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
+%{_datadir}/config.kcfg/kasteroids.kcfg
 %{_desktopdir}/kde/kasteroids.desktop
 %{_iconsdir}/*/*/apps/kasteroids.png
 
@@ -1010,6 +1011,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
+%{_datadir}/config.kcfg/ktron.kcfg
 %{_desktopdir}/kde/ktron.desktop
 %{_iconsdir}/*/*/apps/ktron.png
 
