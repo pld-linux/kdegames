@@ -747,11 +747,11 @@ Jogo de cartas Lieutenant Skat para KDE
 	kpoker/kpoker.desktop \
 	kreversi/kreversi.desktop \
 	ksmiletris/ksmiletris.desktop \
-	kdegames-3.3.0/ksnake/ksnake.desktop \
-	kdegames-3.3.0/kspaceduel/kspaceduel.desktop \
+	ksnake/ksnake.desktop \
+	kspaceduel/kspaceduel.desktop \
 	ksokoban/data/ksokoban.desktop \
 	ktron/ktron.desktop \
-	kdegames-3.3.0/ktuberling/ktuberling.desktop \
+	ktuberling/ktuberling.desktop \
 	kwin4/kwin4.desktop \
 	lskat/lskat.desktop
 
