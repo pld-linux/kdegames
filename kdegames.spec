@@ -2,15 +2,29 @@ Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
 Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
+Summary(ru):	K Desktop Environment - Игры
+Summary(uk):	K Desktop Environment - Забави
 Name:		kdegames
 Version:	2.2.2
-Release:	1
+Release:	2
 Epoch:		6
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
+Patch1:		%{name}-fix-kabalone-fix-mem-leak.patch
+Patch2:		%{name}-fix-kbattlechips.patch
+Patch3:		%{name}-fix-kbattleship-mem-leak.patch
+Patch4:		%{name}-fix-kjezz-mem-leak.patch
+Patch5:		%{name}-fix-kjumpingcube-mem-leak.patch
+Patch6:		%{name}-fix-klines-mem-leak.patch
+Patch7:		%{name}-fix-kpat-fix-load-bg.patch
+Patch8:		%{name}-fix-kpoker-mem-leak.patch
+Patch9:		%{name}-fix-kpoker-use-kintvalidator.patch
+Patch10:	%{name}-fix-ksmiletris-mem-leak.patch
+Patch11:	%{name}-fix-ktron-mem-leak.patch
+Patch12:	%{name}-fix-ktron-remove-duplicate-entry-in-menu.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	qt-devel >= 2.2
@@ -50,6 +64,18 @@ kmines: desarmar as minas kpat: jogos de cartas, inclusive paciЙncia
 kpoker: vМdeo-poker kreversi: Reversi ksame: um jogo de tabuleiro
 kshisen: Shisen-Sho - relacionado com o mahjongg ksnake: corrida das
 cobras ktetris: o bem conhecido tetris
+
+%description -l ru
+Игры для K Desktop Environment. Этот пакет включает: kabalone,
+kasteroids, kblackbox, kmahjongg, kmines, konquest, kpat, kpoker,
+kreversi, ksame, kshisen, ksokoban, ksmiletris, ksnake, ksirtet,
+katomic, kjumpingcube, ktuberling.
+
+%description -l uk
+Забави для K Desktop Environment. Цей пакет м╕стить: kabalone,
+kasteroids, kblackbox, kmahjongg, kmines, konquest, kpat, kpoker,
+kreversi, ksame, kshisen, ksokoban, ksmiletris, ksnake, ksirtet,
+katomic, kjumpingcube, ktuberling.
 
 %package devel
 Summary:	Development files for KDE games
@@ -611,6 +637,18 @@ Jogo de cartas Lieutenant Skat para KDE
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
