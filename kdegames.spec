@@ -27,7 +27,7 @@ Group:		X11/Applications/Games
 Icon:		kde-games.xpm
 # Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
-# Source-md5:	fc3cba390d748ee02858ef260563e174
+# Source0-md5:	fc3cba390d748ee02858ef260563e174
 Patch0:		%{name}-disable_install-exec-hook.patch
 Patch1:		kde-common-QTDOCDIR.patch
 %{?with_apidocs:BuildRequires:  doxygen}
