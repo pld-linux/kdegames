@@ -899,7 +899,7 @@ EOF
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_kdedocdir}/en/%{name}-%{_snap}-apidocs
+%{_kdedocdir}/en/%{name}-apidocs
 %endif
 
 %files carddecks
@@ -921,7 +921,6 @@ EOF
 %{_datadir}/services/atlantik.protocol
 %{_desktopdir}/kde/atlantik.desktop
 %{_iconsdir}/*/*/apps/atlantik.png
-%{_kdedocdir}/en/atlantik
 
 %files kasteroids -f kasteroids.lang
 %defattr(644,root,root,755)
@@ -958,7 +957,6 @@ EOF
 %{_datadir}/apps/kblackbox
 %{_desktopdir}/kde/kblackbox.desktop
 %{_iconsdir}/*/*/apps/kblackbox.png
-%{_kdedocdir}/en/kblackbox
 
 %files kbounce -f kbounce.lang
 %defattr(644,root,root,755)
@@ -989,7 +987,6 @@ EOF
 %{_datadir}/apps/kgoldrunner
 %{_desktopdir}/kde/KGoldrunner.desktop
 %{_iconsdir}/hicolor/*/apps/kgoldrunner.png
-%{_kdedocdir}/en/kgoldrunner
 
 %files kjumpingcube -f kjumpingcube.lang
 %defattr(644,root,root,755)
@@ -998,7 +995,6 @@ EOF
 %{_datadir}/config.kcfg/kjumpingcube.kcfg
 %{_desktopdir}/kde/kjumpingcube.desktop
 %{_iconsdir}/*/*/apps/kjumpingcube.png
-%{_kdedocdir}/en/kjumpingcube
 
 %files klickety -f klickety.lang
 %defattr(644,root,root,755)
