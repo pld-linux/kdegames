@@ -4,12 +4,12 @@
 %bcond_without	highscore	# without system-wide score feature
 
 %define		_state		snapshots
-%define		_ver		3.2.90
-%define		_snap		040526
+%define		_ver		3.2.91
+%define		_snap		040703
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.040524
-%define		_minbaseevr	9:3.2.90.040524
+%define		_minlibsevr	9:3.2.91.040629
+%define		_minbaseevr	9:3.2.91.040629
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
