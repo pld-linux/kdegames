@@ -1269,8 +1269,6 @@ cat libksirtet.lang >> ksirtet.lang
 %find_lang ksmiletris	--with-kde
 
 > i18n.lang
-%find_lang desktop_kdegames	--with-kde
-cat desktop_kdegames.lang >> i18n.lang
 %find_lang libkdegames	--with-kde
 cat libkdegames.lang >> i18n.lang
 %find_lang libkdehighscores	--with-kde
