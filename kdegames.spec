@@ -26,12 +26,11 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 Icon:		kde-games.xpm
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-disable_install-exec-hook.patch
-BuildRequires:	ed
 BuildRequires:	autoconf
-BuildRequires:	unsermake >= 040511
 BuildRequires:	automake
 BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	unsermake >= 040511
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-megami
@@ -189,7 +188,12 @@ the hidden balls. The fewer rays you use to find the balls, the better
 (the lower) your score.
 
 %description kblackbox -l pl
-Prosta gra logiczna.
+KBlackbox to gra w ukrywanie i szukanie rozgrywana na siatce pude³ek.
+Przeciwnik (w tym wypadku generator liczb losowych) ukry³ kilka pi³ek
+w tym pude³ku. Poprzez strzelanie promieniami w pude³ko i obserwowanie
+jak siê wynurzaj± mo¿na wydedukowaæ po³o¿enie ukrytych pi³ek. Im mniej
+promieni u¿yje siê do znalezienia pi³ek, tym lepszy (mniejszy) jest
+wynik.
 
 %description kblackbox -l pt_BR
 Versão do jogo Blackbox do Emacs para KDE.
@@ -222,7 +226,11 @@ player has 14 pieces, moves are drawn until one player has pushed 6 of
 his opponent's pieces out of the board.
 
 %description kenolaba -l pl
-Gra planszowa podobna do Abalone przeciwko komputerowi.
+Gra planszowa podobna do Abalone przeciwko komputerowi. Kenolaba to
+prosta planszowa gra strategiczna dla dwóch graczy. S± pionki czerwone
+i ¿ó³te dla obu graczy. Zaczyna siê z miejsca, gdzie ka¿dy gracz ma 14
+pionów i toczy siê dopóki który¶ z graczy wypchnie 6 pionów
+przeciwnika poza planszê.
 
 %package kfouleggs
 Summary:	KDE kfouleggs
@@ -314,7 +322,11 @@ marbles - they are removed from the field and your score grows. After
 each of your turns computer drops three more marbles onto the field.
 
 %description klines -l pl
-Gra Lines dla KDE.
+Gra Lines dla KDE. Podstawowe zasady gry s± najprostsze jak to
+mo¿liwe: przesuwa siê (przy u¿yciu muszy) klocki z pola na pole i
+buduje linie (poziome, pionowe lub uko¶ne). Kiedy linia zawiera 5 lub
+wiêcej klocków - s± usuwane z pola i wynik wzrasta. Po ka¿dym ruchu
+gracza komputer zrzuca trzy dodatkowe klocki.
 
 %package kmahjongg
 Summary:	KDE Mahjongg clone
@@ -366,16 +378,18 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description kolf
-Kolf is a miniature golf game with block graphics and a 2d top-down
+Kolf is a miniature golf game with block graphics and a 2D top-down
 view. Courses are dynamic, and up to 10 people can play at once in
 competition.
 
 %description kolf -l pl
-Kolf - mini golf dla KDE.
+Kolf to miniaturowa gra w golfa z blokowa grafik± i dwuwymiarowym
+widokiem. Rundy s± dynamiczne, a w zawodach mo¿e graæ do 10 osób
+naraz.
 
 %package konquest
 Summary:	KDE version of Gnu-Lactic Konquest
-Summary(pl):	Podbój galaktyki dla KDE
+Summary(pl):	Podbój galaktyki - wersja KDE gry Gnu-Lactic Konquest
 Summary(pt_BR):	Jogo espacial de estratégia
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -387,7 +401,9 @@ game. The goal of the game is to expand your interstellar empire
 across the galaxy and of course, crush your rivals in the process.
 
 %description konquest -l pl
-Podbój galaktyki dla KDE.
+To jest wersja KDE gry Gnu-Lactic Konquest - gry strategicznej dla
+wielu graczy. Celem gry jest rozszerzenie imperium miêdzygwiezdnego
+poprzez galaktyki, i oczywi¶cie niszczenie w tym czasie przeciwników.
 
 %description konquest -l pt_BR
 Jogo espacial de estratégia.
@@ -405,7 +421,7 @@ Requires:	kdebase-core >= 9:%{version}
 KDE solitaire patience games.
 
 %description kpat -l pl
-Program umo¿liwia uk³adanie kilku rodzajów pasjansów.
+Program dla KDE umo¿liwiaj±cy uk³adanie kilku rodzajów pasjansów.
 
 %description kpat -l pt_BR
 Versão do jogo 'Paciência' para o KDE.
@@ -490,7 +506,7 @@ field.
 
 %description kshisen -l pl
 Shisen-Sho to gra podobna do Mahjongg i wykorzystuj±ca ten sam zestaw
-ko¶ci.
+kostek. Celem gry jest usuniêcie wszystkich kostek z planszy.
 
 %description kshisen -l pt_BR
 Jogo Shisen para o KDE.
