@@ -16,7 +16,7 @@ Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 #Version:	%{_ver}.%{_snap}
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -701,7 +701,12 @@ players try to win more than 60 of the 120 possible points. After 16
 moves all cards are played and the game ends.
 
 %description lskat -l pl
-Lskat dla KDE.
+Lieutenant skat (oficerski skat, od niemieckiego Offizierskat) to gra
+karciana dla dwóch graczy. Jest rozgrywana z grubsza na zasadach
+skata, ale tylko miêdzy dwoma graczami i z uproszczonymi zasadami.
+Ka¿dy gracz ma zestaw kart przed sob±, z których po³owa jest zakryta,
+a po³owa odkryta. Obaj gracze próbuj± wygraæ ponad 60 ze 120 mo¿liwych
+punktów. Po 16 ruchach wszystkie karty s± rozegrane i gra siê koñczy.
 
 %description lskat -l pt_BR
 Jogo de cartas Lieutenant Skat para KDE
