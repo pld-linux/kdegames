@@ -1,0 +1,11 @@
+--- kdegames/atlantik/client/selectserver_widget.cpp	13 Jul 2004 22:10:18 -0000	1.46
++++ kdegames/atlantik/client/selectserver_widget.cpp	28 Jan 2005 11:21:27 -0000	1.46.2.1
+@@ -116,7 +116,7 @@
+ 	emit msgStatus(i18n("Retrieving server list..."));
+ 
+ 	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "reload"));
+-	m_monopigator->loadData(KURL( "http://monopd.unixcode.org/"));
++	m_monopigator->loadData(KURL( "http://monopd-gator.kde.org/"));
+ }
+ 
+ void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users)

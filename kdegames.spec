@@ -29,6 +29,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-disable_install-exec-hook.patch
 Patch1:		kde-common-QTDOCDIR.patch
+Patch2:		%{name}-fixatlantikserveraddr.patch
 %{?with_apidocs:BuildRequires:	doxygen}
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -731,6 +732,7 @@ Jogo de cartas Lieutenant Skat para KDE
 #%%patch100 -p1
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	klickety/klickety.desktop
