@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		1.1
+%define		_rel		1.2
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -672,36 +672,36 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%find_lang libkde --with-kde --all-name
-#%find_lang kabalone --with-kde
-%find_lang kasteroids --with-kde
-%find_lang katomic --with-kde
-%find_lang kbackgammon --with-kde
-%find_lang kbattleship --with-kde
-%find_lang kblackbox --with-kde
-%find_lang kbounce --with-kde
-%find_lang kenolaba --with-kde
-%find_lang kfouleggs --with-kde
-#%find_lang kjezz --with-kde
-%find_lang kjumpingcube --with-kde
-%find_lang klines --with-kde
-#%find_lang kmahjongg --with-kde
-%find_lang kmines --with-kde
-%find_lang konquest --with-kde
-%find_lang kpat --with-kde
-%find_lang kpoker --with-kde
-%find_lang kreversi --with-kde
-%find_lang ksame --with-kde
-%find_lang kshisen --with-kde
-%find_lang ksirtet --with-kde
-#%find_lang ksmiletris --with-kde
-%find_lang ksnake --with-kde
-%find_lang ksokoban --with-kde
-%find_lang kspaceduel --with-kde
-%find_lang ktron --with-kde
-%find_lang ktuberling --with-kde
-%find_lang kwin4 --with-kde
-%find_lang lskat --with-kde
+%find_lang libkdegames	--with-kde 
+#%find_lang kabalone	--with-kde
+%find_lang kasteroids	--with-kde
+%find_lang katomic	--with-kde
+%find_lang kbackgammon	--with-kde
+%find_lang kbattleship	--with-kde
+%find_lang kblackbox	--with-kde
+%find_lang kbounce	--with-kde
+%find_lang kenolaba	--with-kde
+%find_lang kfouleggs	--with-kde
+#%find_lang kjezz	--with-kde
+%find_lang kjumpingcube	--with-kde
+%find_lang klines	--with-kde
+#%find_lang kmahjongg	--with-kde
+%find_lang kmines	--with-kde
+%find_lang konquest	--with-kde
+%find_lang kpat		--with-kde
+%find_lang kpoker	--with-kde
+%find_lang kreversi	--with-kde
+%find_lang ksame	--with-kde
+%find_lang kshisen	--with-kde
+%find_lang ksirtet	--with-kde
+#%find_lang ksmiletris	--with-kde
+%find_lang ksnake	--with-kde
+%find_lang ksokoban	--with-kde
+%find_lang kspaceduel	--with-kde
+%find_lang ktron	--with-kde
+%find_lang ktuberling	--with-kde
+%find_lang kwin4	--with-kde
+%find_lang lskat	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
