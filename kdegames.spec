@@ -3,6 +3,7 @@ Summary(pl):	K Desktop Environment - gry
 Name:		kdegames
 Version:	2.1.1
 Release:	1
+Epoch:		6
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/KDE/Games
