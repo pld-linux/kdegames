@@ -18,7 +18,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -26,6 +26,8 @@ Group:		X11/Applications/Games
 Icon:		kde-games.xpm
 Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	a105e16aab1fccbb24e6bd24d6345e7a
+# Source0-size:	9311008
+Patch100:	%{name}-branch.diff
 Patch0:		%{name}-disable_install-exec-hook.patch
 Patch1:		kde-common-QTDOCDIR.patch
 %{?with_apidocs:BuildRequires:  doxygen}
@@ -727,6 +729,7 @@ Jogo de cartas Lieutenant Skat para KDE
 
 %prep
 %setup -q
+%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 
@@ -838,72 +841,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	kolf		-p /sbin/ldconfig
 %postun	kolf		-p /sbin/ldconfig
 
-%if %{with highscore}
-%post 	kfouleggs
-cat << EOF
-
- *******************************************************
- *                                                     *
- * NOTE:                                               *
- * You must set sgid "games" for kfouleggs binary      *
- * to use system-wide highscore file.                  *
- *                                                     *
- * See the README.highscore stored in kdegames package *
- * documentation for details.                          *
- *                                                     *
- *******************************************************
-
-EOF
-
-%post 	klickety
-cat << EOF
-
- *******************************************************
- *                                                     *
- * NOTE:                                               *
- * You must set sgid "games" for klickety binary       *
- * to use system-wide highscore file.                  *
- *                                                     *
- * See the README.highscore stored in kdegames package *
- * documentation for details.                          *
- *                                                     *
- *******************************************************
-
-EOF
-
-%post 	kmines
-cat << EOF
-
- *******************************************************
- *                                                     *
- * NOTE:                                               *
- * You must set sgid "games" for kmines binary         *
- * to use system-wide highscore file.                  *
- *                                                     *
- * See the README.highscore stored in kdegames package *
- * documentation for details.                          *
- *                                                     *
- *******************************************************
-
-EOF
-
-%post 	ksirtet
-cat << EOF
-
- *******************************************************
- *                                                     *
- * NOTE:                                               *
- * You must set sgid "games" for ksirtet binary        *
- * to use system-wide highscore file.                  *
- *                                                     *
- * See the README.highscore stored in kdegames package *
- * documentation for details.                          *
- *                                                     *
- *******************************************************
-
-EOF
-%endif
-
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README README.highscore
@@ -1001,8 +938,12 @@ EOF
 
 %files kfouleggs -f kfouleggs.lang
 %defattr(644,root,root,755)
-%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores}
+%if %{with highscore}
+%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores
+%attr(2755,root,games) %{_bindir}/kfouleggs
+%else
 %attr(755,root,root) %{_bindir}/kfouleggs
+%endif
 %{_datadir}/apps/kfouleggs
 %{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
@@ -1025,8 +966,12 @@ EOF
 
 %files klickety -f klickety.lang
 %defattr(644,root,root,755)
-%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores}
+%if %{with highscore}
+%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores
+%attr(2755,root,games) %{_bindir}/klickety
+%else
 %attr(755,root,root) %{_bindir}/klickety
+%endif
 %{_datadir}/apps/klickety
 %{_desktopdir}/kde/klickety.desktop
 
@@ -1048,8 +993,12 @@ EOF
 
 %files kmines -f kmines.lang
 %defattr(644,root,root,755)
-%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores}
+%if %{with highscore}
+%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores
+%attr(2755,root,games) %{_bindir}/kmines
+%else
 %attr(755,root,root) %{_bindir}/kmines
+%endif
 %{_datadir}/apps/kmines
 %{_desktopdir}/kde/kmines.desktop
 %{_iconsdir}/*/*/apps/kmines.png
@@ -1115,8 +1064,12 @@ EOF
 
 %files ksirtet -f ksirtet.lang
 %defattr(644,root,root,755)
-%{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores}
+%if %{with highscore}
+%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores
+%attr(2755,root,games) %{_bindir}/ksirtet
+%else
 %attr(755,root,root) %{_bindir}/ksirtet
+%endif
 %{_datadir}/apps/ksirtet
 %{_datadir}/config.kcfg/ksirtet.kcfg
 %{_desktopdir}/kde/ksirtet.desktop
