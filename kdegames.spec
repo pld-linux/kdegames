@@ -52,8 +52,7 @@ klines, kmahjongg: el popular mahjongg, kmines: desarmar las minas,
 kolf, konquest, kpat: juegos de cartas, incluso solitario, kpoker:
 vídeo póquer, kreversi: Reversi, ksame: un juego de tablero, kshisen:
 Shisen-Sho - relacionado con el mahjongg, ksirtet, ksmiletris, ksnake:
-corrida de las cobras, ksokoban, kspaceduel, ktron, ktetris: el bien
-conocido tetris, kwin4, lskat.
+corrida de las cobras, ksokoban, kspaceduel, ktron, kwin4, lskat.
 
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î¥²¡¼¥à °Ê²¼¤Î¤è¤¦¤Ê¥Ñ¥Ã¥±¡¼¥¸¤¬Æþ¤Ã¤Æ¤¤¤Þ¤¹¡£
@@ -64,8 +63,7 @@ kenolaba, kfouleggs, kenolaba, kgoldrunner, kjumpingcube, klickety,
 klines, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kolf, konquest,
 kpat: °ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame:
 same game, kshisen: »ÍÀî¾Ê, ksirtet, ksmiletris, ksnake:
-¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ, kspaceduel, ktron, ktetris:
-¥Æ¥È¥ê¥¹, kwin4, lskat
+¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ, kspaceduel, ktron, kwin4, lskat
 
 %description -l pl
 Biblioteki dla gier KDE: kasteroids, katomic, kbackgammon,
@@ -83,8 +81,7 @@ klines, kmahjongg: o popular mahjongg, kmines: desarmar as minas,
 kolf, konquest, kpat: jogos de cartas, inclusive paciência, kpoker:
 vídeo-poker, kreversi: Reversi, ksame: um jogo de tabuleiro, kshisen:
 Shisen-Sho - relacionado com o mahjongg, ksirtet, ksmiletris, ksnake:
-corrida das cobras, ksokoban, kspaceduel, ktron, ktetris: o bem
-conhecido tetris, kwin4, lskat.
+corrida das cobras, ksokoban, kspaceduel, ktron, kwin4, lskat.
 
 %package devel
 Summary:	Development files for KDE games
