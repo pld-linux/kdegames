@@ -14,6 +14,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	qt-devel >= 2.2
 BuildRequires:	zlib-devel
+BuildRequires:	arts-devel
 Requires:	qt >= 2.2
 Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
