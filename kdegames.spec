@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.93
-%define		_snap		031105
+%define		_snap		031114
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -23,7 +23,7 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	22dc4ce056e281dd24436e7c340a96a3
+# Source0-md5:	858abe181a420cb2b27bad8c088196fa
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	ed
 BuildRequires:	kdelibs-devel >= 9:%{version}
