@@ -35,7 +35,8 @@ Summary:	KDE game
 Summary(pl):	Gra KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version}
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version}
 
 %description kabalone
 KAbalone is a game like Reversi. You play against the computer on a
@@ -50,7 +51,8 @@ Summary:	KDE Asteroids clone
 Summary(pl):	Klon Asterids dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version}
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version}
 
 %description kasteroids
 Asteroids clone for KDE
@@ -63,7 +65,8 @@ Summary:	A little logical game for KDE
 Summary(pl):	Prosta gra logiczna
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version}
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version}
 
 %description kblackbox
 A little logical game for KDE.
@@ -76,7 +79,8 @@ Summary:	KDE Mahjongg clone
 Summary(pl):	Klon gry Mahjongg dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version}
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version}
 
 %description kmahjongg
 This program is a clone of the well known Mahjongg game.
@@ -89,7 +93,8 @@ Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version}
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version}
 
 %description kmines
 This is a very classical minesweeper written from scratch.
@@ -108,7 +113,8 @@ Summary:	KDE version of Gnu-Lactic Konquest
 Summary(pl):	Podbój galaktyki
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description konquest
 KDE version of Gnu-Lactic Konquest.
@@ -121,7 +127,8 @@ Summary:	KDE solitaire patience game
 Summary(pl):	Pasjanse KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description kpat
 KDE solitaire patience games.
@@ -134,7 +141,8 @@ Summary:	KDE poker
 Summary(pl):	Poker KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description kpoker
 A simple video poker clone for the KDE desktop environment.
@@ -147,7 +155,8 @@ Summary:	KDE Reversi game
 Summary(pl):	Gra Reversi dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description kreversi
 Reversi is a simple strategy game that is played by two players. There
@@ -164,7 +173,8 @@ Summary:	KDE SameGame
 Summary(pl):	"To Samo" dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description ksame
 KSame is a simple game. It's played by one player, so there is only
@@ -179,7 +189,8 @@ Summary:	KDE Shisen-Sho
 Summary(pl):	Shisen-Sho dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description kshisen
 Shisen-Sho is similiar to Mahjongg and uses the same set of tiles as
@@ -193,7 +204,8 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description ksirtet
 This program is a clone of the well-known game Tetris.
@@ -206,7 +218,8 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description ksmiletris
 This program is a clone of the well-known game Tetris.
@@ -219,7 +232,8 @@ Summary:	KDE Snake Race
 Summary(pl):	Wy¶cig Wê¿y dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description ksnake
 Snake Race is a game of speed and agility. You are a hungry snake and
@@ -234,7 +248,8 @@ Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40, kdelibs = %{version} 
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version} 
 
 %description ksokoban
 The japanese warehouse keeper game.
