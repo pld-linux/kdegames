@@ -1,3 +1,7 @@
+#
+# Conditional build:
+# _with_pixmapsubdirs - leave different depth/resolution icons
+#
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
 Summary(ja):	KDEデスクトップ環境 - ゲーム
@@ -7,7 +11,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE嗄老
 Name:		kdegames
 Version:	3.0.4
-Release:	4
+Release:	5
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -17,8 +21,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Source2:	%{name}-extra_icons.tar.bz2
 Patch0:		%{name}-kpatcards.patch
-Patch1:		%{name}-desktop.patch
 BuildRequires:	arts-devel
+BuildRequires:	awk
 BuildRequires:	kdelibs-devel = %{version}
 Requires:	qt >= 3.0.5
 Requires:	kdelibs = %{version}
@@ -604,7 +608,6 @@ Jogo de cartas Lieutenant Skat para KDE
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -626,10 +629,23 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Toys/ktuberling.desktop,Amusements}
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/Games/{TacticStrategy,Strategy}
 
-mv -f $RPM_BUILD_ROOT%{_pixmapsdir}{/hicolor/48x48/apps/*,}
+for i in $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/*
+do
+%if %{?_with_pixmapsubdirs:1}%{!?_with_pixmapsubdirs:0}
+	ln -sf `echo $i | sed "s:^$RPM_BUILD_ROOT%{_pixmapsdir}/::"` $RPM_BUILD_ROOT%{_pixmapsdir}	
+%else
+	cp -af $i $RPM_BUILD_ROOT%{_pixmapsdir}
+%endif
+done
+
 bzip2 -dc %{SOURCE2} | tar xf - -C $RPM_BUILD_ROOT%{_pixmapsdir}
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+
+for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.desktop'` ; do
+	awk -v F=$f '/^Icon=/ && !/\.xpm$/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
+	mv -f $f{.tmp,}
+done
 
 %find_lang kasteroids	--with-kde
 %find_lang katomic	--with-kde
@@ -708,6 +724,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_applnkdir}/Games/Arcade/kasteroids.desktop
 %{_datadir}/apps/kasteroids
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kasteroids.png}
 %{_pixmapsdir}/kasteroids.png
 
 #################################################
@@ -719,7 +736,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/katomic
 %{_applnkdir}/Games/Strategy/katomic.desktop
 %{_datadir}/apps/katomic
-%{_pixmapsdir}/hicolor/*x*/apps/katomic.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/katomic.png}
+%{_pixmapsdir}/katomic.png
 
 #################################################
 #             KBACKGAMMON
@@ -731,7 +749,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kbackgammon.so
 %{_applnkdir}/Games/Board/kbackgammon.desktop
 %{_datadir}/apps/kbackgammon
-%{_pixmapsdir}/hicolor/*x*/apps/kbackgammon*.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kbackgammon*.png}
+%{_pixmapsdir}/kbackgammon*.png
 
 #################################################
 #             KBATTLESHIP
@@ -742,6 +761,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_applnkdir}/Games/Board/kbattleship.desktop
 %{_datadir}/apps/kbattleship
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kbattleship.png}
 %{_pixmapsdir}/kbattleship.png
 
 #################################################
@@ -753,6 +773,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_applnkdir}/Games/Board/kblackbox.desktop
 %{_datadir}/apps/kblackbox
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kblackbox.png}
 %{_pixmapsdir}/kblackbox.png
 
 #################################################
@@ -770,6 +791,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_applnkdir}/Games/Strategy/kjumpingcube.desktop
 %{_datadir}/apps/kjumpingcube
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kjumpingcube.png}
 %{_pixmapsdir}/kjumpingcube.png
 
 #################################################
@@ -781,6 +803,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/klines
 %{_applnkdir}/Games/Strategy/klines.desktop
 %{_datadir}/apps/klines
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/klines.png}
 %{_pixmapsdir}/klines.png
 
 #################################################
@@ -793,6 +816,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_applnkdir}/Games/Board/kmahjongg.desktop
 %{_datadir}/apps/kmahjongg
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kmahjongg.png}
 %{_pixmapsdir}/kmahjongg.png
 
 #################################################
@@ -804,6 +828,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kmines
 %{_applnkdir}/Games/Strategy/kmines.desktop
 %{_datadir}/apps/kmines
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kmines.png}
 %{_pixmapsdir}/kmines.png
 
 #################################################
@@ -815,6 +840,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/konquest
 %{_applnkdir}/Games/Strategy/konquest.desktop
 %{_datadir}/apps/konquest
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/konquest.png}
 %{_pixmapsdir}/konquest.png
 
 #################################################
@@ -826,6 +852,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kpat
 %{_applnkdir}/Games/Card/kpat.desktop
 %{_datadir}/apps/kpat
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kpat.png}
 %{_pixmapsdir}/kpat.png
 
 #################################################
@@ -837,6 +864,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kpoker
 %{_applnkdir}/Games/Card/kpoker.desktop
 %{_datadir}/apps/kpoker
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kpoker.png}
 %{_pixmapsdir}/kpoker.png
 
 #################################################
@@ -848,6 +876,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kreversi
 %{_applnkdir}/Games/Board/kreversi.desktop
 %{_datadir}/apps/kreversi
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kreversi.png}
 %{_pixmapsdir}/kreversi.png
 
 #################################################
@@ -859,6 +888,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ksame
 %{_applnkdir}/Games/Strategy/ksame.desktop
 %{_datadir}/apps/ksame
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/ksame.png}
 %{_pixmapsdir}/ksame.png
 
 #################################################
@@ -871,6 +901,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Games/Arcade/ksirtet.desktop
 %{_libdir}/libksirtet*.so.*.*.*
 %{_datadir}/apps/ksirtet
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/ksirtet.png}
 %{_pixmapsdir}/ksirtet.png
 
 #################################################
@@ -883,6 +914,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_applnkdir}/Games/Arcade/ksmiletris.desktop
 %{_datadir}/apps/ksmiletris
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/ksmiletris.png}
 %{_pixmapsdir}/ksmiletris.png
 
 #################################################
@@ -894,6 +926,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kshisen
 %{_applnkdir}/Games/Board/kshisen.desktop
 %{_datadir}/apps/kshisen
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kshisen.png}
 %{_pixmapsdir}/kshisen.png
 
 #################################################
@@ -905,6 +938,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/ksnake
 %{_applnkdir}/Games/Arcade/ksnake.desktop
 %{_datadir}/apps/ksnake
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/ksnake.png}
 %{_pixmapsdir}/ksnake.png
 
 #################################################
@@ -915,6 +949,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_applnkdir}/Games/Strategy/ksokoban.desktop
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/ksokoban.png}
 %{_pixmapsdir}/ksokoban.png
 
 #################################################
@@ -926,6 +961,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_applnkdir}/Games/Arcade/kspaceduel.desktop
 %{_datadir}/apps/kspaceduel
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*color/*x*/apps/kspaceduel.png}
 %{_pixmapsdir}/kspaceduel.png
 
 #################################################
@@ -937,6 +973,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/ktron
 %{_applnkdir}/Games/Arcade/ktron.desktop
 %{_datadir}/apps/ktron
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/ktron.png}
 %{_pixmapsdir}/ktron.png
 
 #################################################
@@ -948,6 +985,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_applnkdir}/Amusements/ktuberling.desktop
 %{_datadir}/apps/ktuberling
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/ktuberling.png}
 %{_pixmapsdir}/ktuberling.png
 
 #################################################
@@ -959,7 +997,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_applnkdir}/Games/Board/kwin4.desktop
 %{_datadir}/apps/kwin4
-%{_pixmapsdir}/hicolor/*x*/apps/kwin4.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kwin4.png}
+%{_pixmapsdir}/kwin4.png
 
 #################################################
 #             LSKAT
@@ -971,8 +1010,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_applnkdir}/Games/Card/lskat.desktop
 %{_datadir}/apps/lskat
-%{_pixmapsdir}/hicolor/*x*/apps/lskat.png
-%{_pixmapsdir}/locolor/*x*/apps/lskat.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*color/*x*/apps/lskat.png}
+%{_pixmapsdir}/lskat.png
 
 #################################################
 #             KBOUNCE
@@ -983,6 +1022,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kbounce
 %{_applnkdir}/Games/Arcade/kbounce.desktop
 %{_datadir}/apps/kbounce
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*color/*x*/apps/kbounce.png}
 %{_pixmapsdir}/kbounce.png
 
 #################################################
@@ -994,4 +1034,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_applnkdir}/Games/Board/kenolaba.desktop
 %{_datadir}/apps/kenolaba
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/hicolor/*x*/apps/kenolaba.png}
 %{_pixmapsdir}/kenolaba.png
