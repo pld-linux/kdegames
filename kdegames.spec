@@ -3,11 +3,12 @@
 %bcond_without	apidocs		# do not prepare API documentation
 %bcond_without	highscore	# without system-wide score feature
 
-%define		_state		stable
-%define		_ver		3.3.2
+%define		_state		unstable
+%define		_ver		3.3.92
+%define		_snap		050217
 
-%define		_minlibsevr	9:3.3.2
-%define		_minbaseevr	9:3.3.2
+%define		_minlibsevr	9:3.3.92.050217
+%define		_minbaseevr	9:3.3.92.050217
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -17,19 +18,19 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-Version:	%{_ver}
+Version:	%{_ver}.%{_snap}
+#Version:	%{_ver}
 Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Icon:		kde-games.xpm
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	41791396e595b9fc8a84e08ae63b552d
-#Patch100:	%{name}-branch.diff
+Source0:        http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+#%% Source0-md5:	41791396e595b9fc8a84e08ae63b552d
+Patch1:		kde-common-PLD.patch
 Patch0:		%{name}-disable_install-exec-hook.patch
-Patch1:		kde-common-QTDOCDIR.patch
-Patch2:		%{name}-fixatlantikserveraddr.patch
 %{?with_apidocs:BuildRequires:	doxygen}
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -728,11 +729,10 @@ punktów. Po 16 ruchach wszystkie karty s± rozegrane i gra siê koñczy.
 Jogo de cartas Lieutenant Skat para KDE
 
 %prep
-%setup -q
-#%%patch100 -p1
+%setup -q -n %{name}-%{_snap}
+#%setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	klickety/klickety.desktop
@@ -817,6 +817,7 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 %find_lang kjumpingcube	--with-kde
 %find_lang klickety	--with-kde
 %find_lang klines	--with-kde
+%find_lang kmahjongg	--with-kde
 %find_lang kmines	--with-kde
 %find_lang kolf		--with-kde
 %find_lang konquest	--with-kde
@@ -907,7 +908,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
 %{_desktopdir}/kde/katomic.desktop
-%{_iconsdir}/*/*/apps/katomic.png
+%{_iconsdir}/*/*/apps/katomic.*
 
 %files kbackgammon -f kbackgammon.lang
 %defattr(644,root,root,755)
@@ -920,6 +921,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
+%{_datadir}/apps/zeroconf/_kbattleship._tcp
 %{_desktopdir}/kde/kbattleship.desktop
 %{_iconsdir}/*/*/apps/kbattleship.png
 
@@ -982,6 +984,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %{_datadir}/apps/klickety
 %{_desktopdir}/kde/klickety.desktop
+%{_iconsdir}/crystalsvg/*/apps/klickety.*
 
 %files klines -f klines.lang
 %defattr(644,root,root,755)
@@ -991,7 +994,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/klines.desktop
 %{_iconsdir}/*/*/apps/klines.png
 
-%files kmahjongg
+%files kmahjongg -f kmahjongg.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg
@@ -1118,7 +1121,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ktron
 %{_datadir}/config.kcfg/ktron.kcfg
 %{_desktopdir}/kde/ktron.desktop
-%{_iconsdir}/*/*/apps/ktron.png
+%{_iconsdir}/*/*/apps/ktron.*
 
 %files ktuberling -f ktuberling.lang
 %defattr(644,root,root,755)
