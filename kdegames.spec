@@ -707,9 +707,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkdegames.so
 %attr(755,root,root) %{_libdir}/libksirtet*.so
 %attr(755,root,root) %{_libdir}/libkdehighscores.so
-%attr(755,root,root) %{_libdir}/libkdegames.la
-%attr(755,root,root) %{_libdir}/libksirtet*.la
-%attr(755,root,root) %{_libdir}/libkdehighscores.la
+%{_libdir}/libkdegames.la
+%{_libdir}/libksirtet*.la
+%{_libdir}/libkdehighscores.la
 %{_pixmapsdir}/*/*/*/highscore.*
 %{_pixmapsdir}/*/*/*/roll.*
 
