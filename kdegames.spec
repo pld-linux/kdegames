@@ -24,6 +24,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 #Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
 BuildRequires:	kdelibs-devel = %{version}
+BuildRequires:	sed >= 4.0
 Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -286,7 +287,6 @@ Lines for KDE.
 
 %description klines -l pl
 Lines dla KDE.
-
 
 %package kmahjongg
 Summary:	KDE Mahjongg clone
@@ -645,7 +645,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 for plik in `find ./ -name *.desktop` ; do
 	if [ -d $plik ]; then
 	echo $plik
-	sed -ie "s/[nb]/[no]/g" $plik			     
+	sed -ie 's/\[nb\]/\[no\]/g' $plik
 	fi
 done
 
