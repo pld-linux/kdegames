@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	highscore	# without system-wide score feature
-%bcond_without  i18n		# don't build i18n packages per module
+%bcond_without	i18n		# don't build i18n packages per module
 #
 %define		_state		stable
 %define		_ver		3.2.1
@@ -17,7 +17,7 @@ Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 #Version:	%{_ver}.%{_snap}
 Version:	%{_ver}
-Release:        1
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -25,7 +25,7 @@ Group:		X11/Applications/Games
 Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	60b05fa22dfc0ec812ca88dacb0249aa
 %if %{with i18n}
-Source1:        kde-i18n-%{name}-%{version}.tar.bz2
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	251018849e20c8df708f4da263cb72da
 %endif
 Patch0:		%{name}-3.2branch.diff
@@ -1220,7 +1220,7 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 
 %if %{with i18n}
 if [ -f "%{SOURCE1}" ] ; then
-        bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+	bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 	for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
 		if [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] ; then
 		rm -f $f
@@ -1317,7 +1317,7 @@ kwin4 \
 lskat"
 
 for i in $files; do
-        echo "%defattr(644,root,root,755)" > ${i}_en.lang
+	echo "%defattr(644,root,root,755)" > ${i}_en.lang
 	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
 	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
 	mv ${i}.lang.1 ${i}.lang
