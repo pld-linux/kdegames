@@ -5,7 +5,7 @@ diff -dur kdegames-1.0.orig/ksnake/data/Makefile.am kdegames-1.0/ksnake/data/Mak
  
  
 -highscoredir = $(kde_datadir)/ksnake
-+highscoredir = $(prefix)/../../var/state/games/ksnake
++highscoredir = $(prefix)/../../var/lib/games/ksnake
  highscore_DATA = highScores
  
  SUBDIRS = levels pixmaps backgrounds
@@ -17,7 +17,7 @@ diff -dur kdegames-1.0.orig/ksnake/data/Makefile.in kdegames-1.0/ksnake/data/Mak
  x_libraries = @x_libraries@
  
 -highscoredir = $(kde_datadir)/ksnake
-+highscoredir = $(prefix)/../../var/state/games/ksnake
++highscoredir = $(prefix)/../../var/lib/games/ksnake
  highscore_DATA = highScores
  
  SUBDIRS = levels pixmaps backgrounds
@@ -29,7 +29,7 @@ diff -dur kdegames-1.0.orig/ksnake/score.cpp kdegames-1.0/ksnake/score.cpp
  {
      QString libDir;
 -    libDir.setStr(KApplication::kde_datadir().copy());
-+    libDir.setStr("/var/state/games");
++    libDir.setStr("/var/lib/games");
      libDir.append("/ksnake/");
      file.setName( libDir + "highScores");
      playerName = getenv("LOGNAME");
