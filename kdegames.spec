@@ -1,12 +1,13 @@
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ¥²¡¼¥à
+Summary(ko):	K µ¥½ºÅ©Å¾ È¯°æ - ³îÀÌ(°ÔÀÓ)
 Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-Version:	3.0.3
-Release:	6
+Version:	3.0.4
+Release:	1
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -15,14 +16,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.
 # generated from kde-i18n - need update!
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
-Patch1:		%{name}-fix-crash-in-kwin4-fix-network-connect.patch
-Patch2:		%{name}-fix-crash-in-the-king-demo.patch
-Patch3:		%{name}-fix-mem-leak-in-kwin4.patch
-Patch4:		%{name}-fix-score-ok-button.patch
-BuildRequires:	kdelibs-devel = %{version}
-BuildRequires:	qt-devel >= 3.0.5
-BuildRequires:	zlib-devel
 BuildRequires:	arts-devel
+BuildRequires:	kdelibs-devel = %{version}
 Requires:	qt >= 3.0.5
 Requires:	kdelibs = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -591,10 +586,6 @@ Jogo de cartas Lieutenant Skat para KDE
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p2
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
