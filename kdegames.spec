@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	1.91
+Release:	2
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -674,6 +674,16 @@ cd -
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
+%find_lang desktop_kdegames	--with-kde
+%find_lang libkdegames		--with-kde
+%find_lang libkdehighscores	--with-kde
+%find_lang multiplayers		--with-kde
+cat {desktop_kdegames,multiplayers,libkdehighscores}.lang >> libkdegames.lang
+
+%find_lang ksirtet		--with-kde
+%find_lang libksirtet		--with-kde
+cat libksirtet.lang >> ksirtet.lang
+
 %find_lang atlantik		--with-kde
 %find_lang kasteroids		--with-kde
 %find_lang katomic		--with-kde
@@ -695,7 +705,6 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang kreversi		--with-kde
 %find_lang ksame		--with-kde
 %find_lang kshisen		--with-kde
-%find_lang ksirtet		--with-kde
 %find_lang ksmiletris		--with-kde
 %find_lang ksnake		--with-kde
 %find_lang ksokoban		--with-kde
@@ -705,12 +714,6 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang kwin4		--with-kde
 %find_lang lskat		--with-kde
 %find_lang megami		--with-kde
-
-%find_lang desktop_kdegames	--with-kde
-%find_lang libkdegames		--with-kde
-%find_lang libkdehighscores	--with-kde
-%find_lang multiplayers		--with-kde
-cat {desktop_kdegames,multiplayers,libkdehighscores}.lang >> libkdegames.lang
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
