@@ -1,128 +1,524 @@
-diff -urN -x CVS kdegames.orig/kmines/CHANGELOG kdegames/kmines/CHANGELOG
---- kdegames.orig/kmines/CHANGELOG	Fri May 28 05:29:31 2004
-+++ kdegames/kmines/CHANGELOG	Mon May 31 22:21:40 2004
-@@ -1,5 +1,6 @@
--2.1.8c (17 May 2004) [KDE 3.2.3 stable]
-- * fix bug #80721
-+2.1.8c (31 May 2004) [KDE 3.2.3 stable]
-+ * fix bug: hint not displayed [reported by Daniel Schepler]
-+ * fix bug: log restarted on pause [reported by Astharoth]
+diff -urN -x CVS kdegames.orig/atlantik/ChangeLog kdegames/atlantik/ChangeLog
+--- kdegames.orig/atlantik/ChangeLog	Mon Sep  6 21:11:33 2004
++++ kdegames/atlantik/ChangeLog	Thu Oct 14 03:28:30 2004
+@@ -1,3 +1,11 @@
++0.7.2
++-----
++
++- Proper use of host and port in kio_atlantik: fixes problems with
++  invitations sent by newer clients.
++- bugfix: scroll player views when they get too big. (#69043)
++- bugfix: show correct amount of players in trade widget.
++
+ 0.7.1
+ -----
  
- 2.1.8b (26 February 2004) [KDE 3.2.1 stable]
-  * fix solver crash when "magic reveal" on.
-diff -urN -x CVS kdegames.orig/kmines/field.cpp kdegames/kmines/field.cpp
---- kdegames.orig/kmines/field.cpp	Tue Feb 24 04:10:57 2004
-+++ kdegames/kmines/field.cpp	Mon May 31 22:21:40 2004
-@@ -83,8 +83,8 @@
- void Field::setState(GameState state)
+diff -urN -x CVS kdegames.orig/atlantik/client/atlantik.cpp kdegames/atlantik/client/atlantik.cpp
+--- kdegames.orig/atlantik/client/atlantik.cpp	Mon Sep  6 21:11:33 2004
++++ kdegames/atlantik/client/atlantik.cpp	Sun Oct 10 04:32:46 2004
+@@ -19,7 +19,7 @@
+ #include <qcolor.h>
+ #include <qdatetime.h>
+ #include <qlineedit.h>
+-#include <qscrollbar.h>
++#include <qscrollview.h>
+ #include <qpopupmenu.h>
+ 
+ #include <kaboutapplication.h>
+@@ -159,11 +159,18 @@
+ 	setCentralWidget(m_mainWidget);
+ 
+ 	// Vertical view area for portfolios.
+-	m_portfolioWidget = new QWidget(m_mainWidget, "pfwidget");
+-	m_mainLayout->addWidget(m_portfolioWidget, 0, 0);
++	m_portfolioScroll = new QScrollView(m_mainWidget, "pfScroll");
++	m_mainLayout->addWidget( m_portfolioScroll, 0, 0 );
++	m_portfolioScroll->setHScrollBarMode( QScrollView::AlwaysOff );
++	m_portfolioScroll->setResizePolicy( QScrollView::AutoOneFit );
++	m_portfolioScroll->setFixedHeight( 200 );
++	m_portfolioScroll->hide();
++
++	m_portfolioWidget = new QWidget( m_portfolioScroll->viewport(), "pfWidget" );
++	m_portfolioScroll->addChild( m_portfolioWidget );
+ 	m_portfolioWidget->show();
+-	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
+ 
++	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
+ 	m_portfolioViews.setAutoDelete(true);
+ 
+ 	// Nice label
+@@ -433,12 +440,6 @@
+ 
+ void Atlantik::slotNetworkConnected()
  {
-     Q_ASSERT( state!=GameOver );
--    _state = state;
-     emit gameStateChanged(state);
-+    _state = state;
- }
- 
- void Field::reset(bool init)
-diff -urN -x CVS kdegames.orig/kmines/status.cpp kdegames/kmines/status.cpp
---- kdegames.orig/kmines/status.cpp	Tue Feb 24 04:10:58 2004
-+++ kdegames/kmines/status.cpp	Mon May 31 22:21:40 2004
-@@ -230,6 +230,7 @@
- {
-     smiley->setMood(Normal);
-     dg->start();
-+    if ( field->gameState()==Paused ) return; // do not restart log on resume...
- 
-     const Level &level = field->level();
-     _log = QDomDocument("kmineslog");
-diff -urN -x CVS kdegames.orig/kmines/version.h kdegames/kmines/version.h
---- kdegames.orig/kmines/version.h	Fri May 28 05:29:31 2004
-+++ kdegames/kmines/version.h	Mon May 31 22:21:40 2004
-@@ -1,5 +1,5 @@
- #define VERSION	     "2.1.8c"
--#define LONG_VERSION "2.1.8c (17 May 2004)"
-+#define LONG_VERSION "2.1.8c (31 May 2004)"
- #define COPYLEFT     "(c) 1996-2004, Nicolas Hadacek\n(c) 2001, Mikhail Kourinny"
- #define EMAIL        "hadacek@kde.org"
- 
-diff -urN -x CVS kdegames.orig/ktron/ktron.cpp kdegames/ktron/ktron.cpp
---- kdegames.orig/ktron/ktron.cpp	Thu Oct  2 20:01:31 2003
-+++ kdegames/ktron/ktron.cpp	Wed Jun  2 16:24:55 2004
-@@ -55,20 +55,30 @@
-   statusBar()->insertItem("abcdefghijklmnopqrst: 0  ",ID_STATUS_BASE+1);
-   statusBar()->insertItem("abcdefghijklmnopqrst: 0  ",ID_STATUS_BASE+2);
- 
--  actionCollection()->setAutoConnectShortcuts(false);
--  (void)new KAction(i18n("Player 1 Up"), Key_R, 0, 0, actionCollection(), "Pl1Up");
--  (void)new KAction(i18n("Player 1 Down"), Key_F, 0, 0, actionCollection(), "Pl1Down");
--  (void)new KAction(i18n("Player 1 Right"), Key_G, 0, 0, actionCollection(), "Pl1Right");
--  (void)new KAction(i18n("Player 1 Left"), Key_D, 0, 0, actionCollection(), "Pl1Left");
--  (void)new KAction(i18n("Player 1 Accelerator"), Key_A, 0, 0, actionCollection(), "Pl1Ac");
-+  // We match up keyboard events ourselves in Tron::keyPressEvent()
-+  // We must disable the actions, otherwise we don't get the keyPressEvent's
-+  KAction *act;
-+  act = new KAction(i18n("Player 1 Up"), Key_R, 0, 0, actionCollection(), "Pl1Up");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 1 Down"), Key_F, 0, 0, actionCollection(), "Pl1Down");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 1 Right"), Key_G, 0, 0, actionCollection(), "Pl1Right");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 1 Left"), Key_D, 0, 0, actionCollection(), "Pl1Left");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 1 Accelerator"), Key_A, 0, 0, actionCollection(), "Pl1Ac");
-+  act->setEnabled(false);
-  
--  (void)new KAction(i18n("Player 2 Up"), Key_Up, 0, 0, actionCollection(), "Pl2Up");
--  (void)new KAction(i18n("Player 2 Down"), Key_Down, 0, 0, actionCollection(), "Pl2Down");
--  (void)new KAction(i18n("Player 2 Right"), Key_Right, 0, 0, actionCollection(), "Pl2Right");
--  (void)new KAction(i18n("Player 2 Left"), Key_Left, 0, 0, actionCollection(), "Pl2Left");
--  (void)new KAction(i18n("Player 2 Accelerator"), Key_0, 0, 0, actionCollection(), "Pl2Ac");
+-	// Check command-line args to see if we need to auto-join
+-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 -
--  actionCollection()->setAutoConnectShortcuts(true);
-+  act = new KAction(i18n("Player 2 Up"), Key_Up, 0, 0, actionCollection(), "Pl2Up");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 2 Down"), Key_Down, 0, 0, actionCollection(), "Pl2Down");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 2 Right"), Key_Right, 0, 0, actionCollection(), "Pl2Right");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 2 Left"), Key_Left, 0, 0, actionCollection(), "Pl2Left");
-+  act->setEnabled(false);
-+  act = new KAction(i18n("Player 2 Accelerator"), Key_0, 0, 0, actionCollection(), "Pl2Ac");
-+  act->setEnabled(false);
- 
-   tron->setActionCollection(actionCollection());
- 
-diff -urN -x CVS kdegames.orig/libksirtet/lib/wizard.cpp kdegames/libksirtet/lib/wizard.cpp
---- kdegames.orig/libksirtet/lib/wizard.cpp	Tue Aug 13 20:09:43 2002
-+++ kdegames/libksirtet/lib/wizard.cpp	Mon May 31 22:50:59 2004
-@@ -110,8 +110,8 @@
- 
- 	((QVBox *)localPage)->setSpacing(KDialogBase::spacingHint());
- 
--	keys = new QPushButton(i18n("Configure Keys..."), localPage);
--	connect(keys, SIGNAL(clicked()), SLOT(configureKeysSlot()));
-+//	keys = new QPushButton(i18n("Configure Keys..."), localPage);
-+//	connect(keys, SIGNAL(clicked()), SLOT(configureKeysSlot()));
- 
- 	addPage(localPage, i18n("Local Player's Settings"));
- 	setHelpEnabled(localPage, FALSE);
-@@ -153,7 +153,7 @@
- 			b = TRUE;
- 			break;
- 		}
--	keys->setEnabled(b);
-+//	keys->setEnabled(b);
+-	QCString game = args->getOption("game");	
+-	if (!game.isNull())
+-		m_atlantikNetwork->joinGame(game.toInt());
  }
  
- void MPWizard::accept()
-diff -urN -x CVS kdegames.orig/libksirtet/lib/wizard.h kdegames/libksirtet/lib/wizard.h
---- kdegames.orig/libksirtet/lib/wizard.h	Thu Nov 29 22:49:01 2001
-+++ kdegames/libksirtet/lib/wizard.h	Mon May 31 22:50:59 2004
-@@ -47,7 +47,7 @@
- 	QLineEdit              *eserver;
- 	KIntNumInput           *eport;
- 	QVGroupBox             *net;
--	QPushButton            *keys;
-+//	QPushButton            *keys;
+ void Atlantik::slotNetworkError(int errnum)
+@@ -774,6 +775,13 @@
+ void Atlantik::sendHandshake()
+ {
+ 	m_atlantikNetwork->setName(m_config.playerName);
++
++	// Check command-line args to see if we need to auto-join
++	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
++
++	QCString game = args->getOption("game");	
++	if (!game.isNull())
++		m_atlantikNetwork->joinGame(game.toInt());
+ }
  
- 	void setupTypePage();
- 	void setupLocalPage(const MPGameInfo &gi);
+ void Atlantik::statusBarClick(int item)
+@@ -791,6 +799,8 @@
+ {
+ 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
+ 	m_portfolioViews.append(portfolioView);
++	if ( m_portfolioViews.count() > 0 && m_portfolioScroll->isHidden() )
++		m_portfolioScroll->show();
+ 
+ 	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
+ 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
+diff -urN -x CVS kdegames.orig/atlantik/client/atlantik.h kdegames/atlantik/client/atlantik.h
+--- kdegames.orig/atlantik/client/atlantik.h	Mon Sep  6 21:11:33 2004
++++ kdegames/atlantik/client/atlantik.h	Sun Oct 10 04:32:46 2004
+@@ -29,6 +29,8 @@
+ #include "portfolioview.h"
+ #include "board.h"
+ 
++class QScrollView;
++
+ class AtlanticCore;
+ class AtlantikNetwork;
+ 
+@@ -232,6 +234,7 @@
+ 	PortfolioView *addPortfolioView(Player *player);
+ 	PortfolioView *findPortfolioView(Player *player);
+ 
++	QScrollView *m_portfolioScroll;
+ 	QWidget *m_mainWidget, *m_portfolioWidget;
+ 	QGridLayout *m_mainLayout;
+ 	QVBoxLayout *m_portfolioLayout;
+diff -urN -x CVS kdegames.orig/atlantik/client/main.h kdegames/atlantik/client/main.h
+--- kdegames.orig/atlantik/client/main.h	Mon Sep  6 21:11:33 2004
++++ kdegames/atlantik/client/main.h	Thu Oct  7 16:41:53 2004
+@@ -17,12 +17,12 @@
+ #ifndef ATLANTIK_MAIN_H
+ #define ATLANTIK_MAIN_H
+ 
+-#define	ATLANTIK_VERSION 071
+-#define	ATLANTIK_VERSION_STRING "0.7.1"
++#define	ATLANTIK_VERSION 072
++#define	ATLANTIK_VERSION_STRING "0.7.2"
+ 
+ #define ATLANTIK_VERSION_MAJOR 0
+ #define ATLANTIK_VERSION_MINOR 7
+-#define ATLANTIK_VERSION_RELEASE 1
++#define ATLANTIK_VERSION_RELEASE 2
+ 
+ int main(int, char *[]);
+ 
+diff -urN -x CVS kdegames.orig/atlantik/eventsrc kdegames/atlantik/eventsrc
+--- kdegames.orig/atlantik/eventsrc	Tue Aug 31 09:19:59 2004
++++ kdegames/atlantik/eventsrc	Tue Oct  5 15:19:59 2004
+@@ -249,6 +249,7 @@
+ Name=New game
+ Name[bg]=Нова игра
+ Name[bn]=নতুন খেলা
++Name[br]=C'hoari nevez
+ Name[bs]=Nova igra
+ Name[ca]=Nova partida
+ Name[cs]=Nová hra
+diff -urN -x CVS kdegames.orig/atlantik/kio_atlantik/kio_atlantik.cpp kdegames/atlantik/kio_atlantik/kio_atlantik.cpp
+--- kdegames.orig/atlantik/kio_atlantik/kio_atlantik.cpp	Fri May 28 19:39:17 2004
++++ kdegames/atlantik/kio_atlantik/kio_atlantik.cpp	Thu Oct  7 16:41:54 2004
+@@ -15,11 +15,9 @@
+ // Boston, MA 02111-1307, USA.
+ 
+ #include <stdlib.h>
++
+ #include <qtextstream.h>
+ 
+-#include <kio/slavebase.h>
+-#include <kinstance.h>
+-#include <kdebug.h>
+ #include <kdeversion.h>
+ #undef KDE_3_1_FEATURES
+ #ifdef KDE_MAKE_VERSION
+@@ -27,6 +25,8 @@
+ #define KDE_3_1_FEATURES
+ #endif
+ #endif
++#include <kio/slavebase.h>
++#include <kinstance.h>
+ #include <kprocess.h>
+ 
+ #include "kio_atlantik.h"
+@@ -48,20 +48,19 @@
+ 	*proc << "atlantik";
+ 
+ #ifdef KDE_3_1_FEATURES
+-	QString host = KProcess::quote(url.queryItem("host"));
+-	QString port = KProcess::quote(url.queryItem("port"));
+-	QString game = KProcess::quote(url.queryItem("game"));
++	QString host = url.hasHost() ? url.host() : KProcess::quote( url.queryItem("host") );
+ #else
+-	QString host = url.queryItem("host"));
+-	QString port = url.queryItem("port"));
+-	QString game = url.queryItem("game"));
++	QString host = url.hasHost() ? url.host() : url.queryItem("host");
+ #endif
++	QString port = QString::number( url.port() ? url.port() : 1234 );
++	int game = url.queryItem("game").toInt();
++	QString gameString = game ? QString::number( game ) : QString::null;
+ 
+ 	if (!host.isNull() && !port.isNull())
+ 	{
+ 		*proc << "--host" << host << "--port" << port;
+-		if (!game.isNull())
+-			*proc << "--game" << game;
++		if (!gameString.isNull())
++			*proc << "--game" << gameString;
+ 	}
+ 
+ 	proc->start(KProcess::DontCare);
+diff -urN -x CVS kdegames.orig/atlantik/libatlantic/trade.cpp kdegames/atlantik/libatlantic/trade.cpp
+--- kdegames.orig/atlantik/libatlantic/trade.cpp	Tue Feb 10 20:46:35 2004
++++ kdegames/atlantik/libatlantic/trade.cpp	Thu Oct 14 03:28:30 2004
+@@ -38,29 +38,20 @@
+ 
+ void Trade::addPlayer(Player *player)
+ {
+-	mPlayers.append(player);
+ 	m_playerAcceptMap[player] = false;
+ }
+ 
+ void Trade::removePlayer(Player *player)
+ {
+-	mPlayers.remove(player);
+ 	m_playerAcceptMap[player] = false;
+ }
+ 
+-QPtrList<Player> Trade::players() const
+-{
+-	return mPlayers;
+-}
+-
+-unsigned int Trade::acceptCount()
++unsigned int Trade::count( bool acceptOnly )
+ {
+ 	unsigned int count = 0;
+ 	for (QMapIterator<Player *, bool> it = m_playerAcceptMap.begin() ; it != m_playerAcceptMap.end() ; ++it)
+-	{
+-		if (it.data())
++		if ( !acceptOnly || it.data() )
+ 			count++;
+-	}
+ 	return count;
+ }
+ 
+diff -urN -x CVS kdegames.orig/atlantik/libatlantic/trade.h kdegames/atlantik/libatlantic/trade.h
+--- kdegames.orig/atlantik/libatlantic/trade.h	Tue Feb 10 20:46:35 2004
++++ kdegames/atlantik/libatlantic/trade.h	Thu Oct 14 03:28:30 2004
+@@ -107,8 +107,7 @@
+ 	void addPlayer(Player *player);
+ 	void removePlayer(Player *player);
+ 	
+-	QPtrList<Player> players() const;
+-	unsigned int acceptCount();
++	unsigned int count( bool acceptOnly );
+ 
+ 	bool isRejected() { return m_rejected; }
+ 	
+diff -urN -x CVS kdegames.orig/atlantik/libatlantikui/trade_widget.cpp kdegames/atlantik/libatlantikui/trade_widget.cpp
+--- kdegames.orig/atlantik/libatlantikui/trade_widget.cpp	Tue Feb 10 20:46:36 2004
++++ kdegames/atlantik/libatlantikui/trade_widget.cpp	Thu Oct 14 03:28:30 2004
+@@ -143,7 +143,7 @@
+ 
+ 	m_status = new QLabel(this);
+ 	listCompBox->addWidget(m_status);
+-	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(m_trade->acceptCount()).arg(m_trade->players().count()));
++	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal." ).arg( m_trade->count( true ) ).arg( m_trade->count( false ) ) );
+ 
+ //	mPlayerList->header()->hide();
+ //	mPlayerList->setRootIsDecorated(true);
+@@ -216,7 +216,7 @@
+ {
+ 	// TODO: add notification whether playerSelf has accepted or not and
+ 	// enable/disable accept button based on that
+-	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(m_trade->acceptCount()).arg(m_trade->players().count()));
++	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal." ).arg( m_trade->count( true ) ).arg( m_trade->count( false ) ) );
+ }
+ 
+ void TradeDisplay::playerChanged(Player *player)
+diff -urN -x CVS kdegames.orig/kfouleggs/eventsrc kdegames/kfouleggs/eventsrc
+--- kdegames.orig/kfouleggs/eventsrc	Thu Sep 30 16:03:05 2004
++++ kdegames/kfouleggs/eventsrc	Mon Oct  4 15:24:22 2004
+@@ -166,7 +166,7 @@
+ Comment[ru]=Конец игры
+ Comment[sk]=Koniec hry
+ Comment[sr]=Крај игре
+-Comment[sr@Latn]=Крај игре
++Comment[sr@Latn]=Kraj igre
+ Comment[sv]=Spelet slut
+ Comment[ta]=ஆட்டம் முடிந்தது
+ Comment[zh_CN]=游戏结束
+diff -urN -x CVS kdegames.orig/kgoldrunner/gamedata/Makefile.am kdegames/kgoldrunner/gamedata/Makefile.am
+--- kdegames.orig/kgoldrunner/gamedata/Makefile.am	Sat Oct 11 13:21:19 2003
++++ kdegames/kgoldrunner/gamedata/Makefile.am	Tue Oct 12 01:34:26 2004
+@@ -8,6 +8,6 @@
+ 	$(mkinstalldirs) $(DESTDIR)$(gamedatadir)
+ 	pwd=`cd $(srcdir) && pwd` ;\
+ 	cd $(DESTDIR)$(gamedatadir) && tar -xf $$pwd/levels.tar ;\
+-	chown -R root.root levels 2> /dev/null || true ;\
++	chown -R root:root levels 2> /dev/null || true ;\
+ 	chmod 644 levels/* 2> /dev/null || true 
+ 
+diff -urN -x CVS kdegames.orig/kgoldrunner/src/kgoldrunner.cpp kdegames/kgoldrunner/src/kgoldrunner.cpp
+--- kdegames.orig/kgoldrunner/src/kgoldrunner.cpp	Mon Dec 15 09:10:27 2003
++++ kdegames/kgoldrunner/src/kgoldrunner.cpp	Tue Oct 12 01:34:26 2004
+@@ -938,9 +938,12 @@
+             return;                    		// Stay in Mouse Mode.
+     }
+ 
+-    if (! hero->started)			// Start when first movement
+-	game->startPlaying();			// key is pressed ...
+-    game->heroAction (movement);
++    if ( game->getLevel() != 0 )
++    {
++      if (! hero->started)			// Start when first movement
++        game->startPlaying();			// key is pressed ...
++      game->heroAction (movement);
++    }
+ }
+ 
+ /******************************************************************************/
+diff -urN -x CVS kdegames.orig/kgoldrunner/src/kgrdialog.cpp kdegames/kgoldrunner/src/kgrdialog.cpp
+--- kdegames.orig/kgoldrunner/src/kgrdialog.cpp	Sat Jun 26 09:05:37 2004
++++ kdegames/kgoldrunner/src/kgrdialog.cpp	Mon Oct 18 14:25:06 2004
+@@ -880,10 +880,10 @@
+     ans = QMessageBox::warning (parent, caption,
+ 				"<qt>" + text + "</qt>",
+ 				label0, label1, label2,
+-				0, (label2 == "") ? 1 : 2);
++				0, (label2.isEmpty()) ? 1 : 2);
+ #else
+     // KDE does word-wrapping and will observe "\n" line-breaks.
+-    if (label2 == "") {
++    if (label2.isEmpty()) {
+ 	// Display a box with 2 buttons.
+ 	ans = KMessageBox::questionYesNo (parent, text, caption,
+ 			    label0, label1);
+diff -urN -x CVS kdegames.orig/kgoldrunner/src/kgrgame.cpp kdegames/kgoldrunner/src/kgrgame.cpp
+--- kdegames.orig/kgoldrunner/src/kgrgame.cpp	Wed Apr 14 18:27:24 2004
++++ kdegames/kgoldrunner/src/kgrgame.cpp	Tue Oct 12 01:34:26 2004
+@@ -111,6 +111,8 @@
+     int selectedLevel = selectLevel (startingAt, requestedLevel);
+     if (selectedLevel > 0) {	// If OK, start the selected game and level.
+  	newGame (selectedLevel, selectedGame);
++    } else {
++      level = 0;
+     }
+ }
+ 
+diff -urN -x CVS kdegames.orig/klickety/eventsrc kdegames/klickety/eventsrc
+--- kdegames.orig/klickety/eventsrc	Thu Sep 30 16:03:09 2004
++++ kdegames/klickety/eventsrc	Mon Oct  4 15:24:24 2004
+@@ -161,7 +161,7 @@
+ Comment[ru]=Конец игры
+ Comment[sk]=Koniec hry
+ Comment[sr]=Крај игре
+-Comment[sr@Latn]=Крај игре
++Comment[sr@Latn]=Kraj igre
+ Comment[sv]=Spelet slut
+ Comment[ta]=ஆட்டம் முடிந்தது
+ Comment[zh_CN]=游戏结束
+diff -urN -x CVS kdegames.orig/kmines/data/eventsrc kdegames/kmines/data/eventsrc
+--- kdegames.orig/kmines/data/eventsrc	Thu Sep 30 16:03:12 2004
++++ kdegames/kmines/data/eventsrc	Mon Oct  4 15:24:26 2004
+@@ -572,7 +572,7 @@
+ Name[ru]=Поставить знак вопроса
+ Name[sk]=Nastaviť otáznik
+ Name[sr]=Постави знак питања
+-Name[sr@Latn]=Постави знак питања
++Name[sr@Latn]=Postavi znak pitanja
+ Name[sv]=Placerade frågetecken
+ Name[ta]=கேள்விக்குறியை அமை
+ Name[zh_CN]=设置了问号
+@@ -597,7 +597,7 @@
+ Comment[ru]=Поставить знак вопроса
+ Comment[sk]=Nastaviť otáznik
+ Comment[sr]=Постави знак питања
+-Comment[sr@Latn]=Постави знак питања
++Comment[sr@Latn]=Postavi znak pitanja
+ Comment[sv]=Placerade frågetecken
+ Comment[ta]=கேள்விக்குறியை அமை
+ Comment[zh_CN]=设置了问号
+@@ -625,7 +625,7 @@
+ Name[ru]=Снять знак вопроса
+ Name[sk]=Odstrániť otáznik
+ Name[sr]=Скини знак питања
+-Name[sr@Latn]=Скини знак питања
++Name[sr@Latn]=Skini znak pitanja
+ Name[sv]=Tog bort frågetecken
+ Name[ta]=கேள்விக் குறி அமைக்கவில்லை
+ Name[zh_CN]=取消了问号
+@@ -650,7 +650,7 @@
+ Comment[ru]=Снять знак вопроса
+ Comment[sk]=Odstrániť otáznik
+ Comment[sr]=Скини знак питања
+-Comment[sr@Latn]=Скини знак питања
++Comment[sr@Latn]=Skini znak pitanja
+ Comment[sv]=Tog bort frågetecken
+ Comment[ta]=கேள்விக்குறி நீக்கு
+ Comment[zh_CN]=取消了问号
+diff -urN -x CVS kdegames.orig/kmines/solver/bfield.cpp kdegames/kmines/solver/bfield.cpp
+--- kdegames.orig/kmines/solver/bfield.cpp	Thu Feb 26 06:21:59 2004
++++ kdegames/kmines/solver/bfield.cpp	Mon Oct 18 14:15:02 2004
+@@ -62,7 +62,8 @@
+ {
+     if ( s.length()!=w*h ) return false;
+     uint n = 0;
+-    for (uint i=0; i<s.length(); i++)
++	unsigned int strLength(s.length());
++    for (uint i=0; i<strLength; i++)
+         if ( s[i]=="1" ) n++;
+         else if ( s[i]!="0" ) return false;
+     return ( n==nb );
+@@ -76,7 +77,8 @@
+ 
+     Case tmp;
+     tmp.state = Covered;
+-    for (uint i=0; i<s.length(); i++) {
++	unsigned int strLength(s.length());
++    for (uint i=0; i<strLength; i++) {
+         tmp.mine = ( s[i]=="1" );
+         at(i) = tmp;
+     }
+diff -urN -x CVS kdegames.orig/kreversi/sounds/eventsrc kdegames/kreversi/sounds/eventsrc
+--- kdegames.orig/kreversi/sounds/eventsrc	Thu Sep 30 16:03:15 2004
++++ kdegames/kreversi/sounds/eventsrc	Mon Oct  4 15:24:28 2004
+@@ -28,7 +28,7 @@
+ Name[sk]=Kliknutie
+ Name[sl]=Klik
+ Name[sr]=Кликни
+-Name[sr@Latn]=Кликни
++Name[sr@Latn]=Klikni
+ Name[sv]=Klicka
+ Name[ta]=சொடுக்கு
+ Name[tg]=Ангуштзанӣ
+@@ -54,7 +54,7 @@
+ Comment[sk]=Kliknutie
+ Comment[sl]=Klik
+ Comment[sr]=Кликни
+-Comment[sr@Latn]=Кликни
++Comment[sr@Latn]=Klikni
+ Comment[sv]=Klick
+ Comment[ta]=சொடுக்கு
+ Comment[tg]=Ангушт задан
+@@ -249,7 +249,7 @@
+ Name[sk]=Remíza
+ Name[sl]=Poteg
+ Name[sr]=Цртај
+-Name[sr@Latn]=Цртај
++Name[sr@Latn]=Crtaj
+ Name[sv]=Oavgjort
+ Name[ta]=வரை
+ Name[tg]=Кашидан
+@@ -277,7 +277,7 @@
+ Comment[sk]=Remíza
+ Comment[sl]=Poteg
+ Comment[sr]=Цртај
+-Comment[sr@Latn]=Цртај
++Comment[sr@Latn]=Crtaj
+ Comment[sv]=Oavgjort
+ Comment[ta]=வரை
+ Comment[tg]=Кашидан
+@@ -308,7 +308,7 @@
+ Name[sk]=Neplatný ťah
+ Name[sl]=Neveljaven premik
+ Name[sr]=Недозвољен потез
+-Name[sr@Latn]=Недозвољен потез
++Name[sr@Latn]=Nedozvoljen potez
+ Name[sv]=Felaktigt drag
+ Name[ta]=நிகழ்ச்சியை வெளிப்படுத்து
+ Name[tg]=Ҳаракати Нодуруст
+@@ -335,7 +335,7 @@
+ Comment[ru]=Неправильный ход
+ Comment[sk]=Neplatný ťah
+ Comment[sr]=Недозвољен потез
+-Comment[sr@Latn]=Недозвољен потез
++Comment[sr@Latn]=Nedozvoljen potez
+ Comment[sv]=Felaktigt drag
+ Comment[ta]=தவறாண நகர்த்தல்
+ Comment[zh_CN]=无效移动
+diff -urN -x CVS kdegames.orig/ksame/eventsrc kdegames/ksame/eventsrc
+--- kdegames.orig/ksame/eventsrc	Thu Sep 30 16:03:18 2004
++++ kdegames/ksame/eventsrc	Mon Oct  4 15:24:30 2004
+@@ -110,7 +110,7 @@
+ Comment[ru]=Вы щёлкнули по камешкам, и они исчезли.
+ Comment[sk]=Klikli ste na kamene a tie sa odstránili
+ Comment[sr]=Кликнули сте на неке каменчиће и учинили да нестану
+-Comment[sr@Latn]=Кликнули сте на неке каменчиће и учинили да нестану
++Comment[sr@Latn]=Kliknuli ste na neke kamenčiće i učinili da nestanu
+ Comment[sv]=Du klickade på några stenar och fick dem att försvinna
+ Comment[ta]= நீங்கள் சில கற்கள் மீது அழுத்தி அதை மறைய வைத்துவிட்டீர்கள்
+ Comment[zh_CN]=您点击了某些石头并让它们消失
+@@ -192,7 +192,7 @@
+ Comment[ru]=Конец игры - больше нет камешков, которые можно удалять.
+ Comment[sk]=Koniec hry, pretože už nie sú žiadne odstrániteľné kamene
+ Comment[sr]=Игра је завршена јер више нема каменчића које можете уклонити
+-Comment[sr@Latn]=Игра је завршена јер више нема каменчића које можете уклонити
++Comment[sr@Latn]=Igra je završena jer više nema kamenčića koje možete ukloniti
+ Comment[sv]=Spelet är slut för det finns inga flera stenar som kan tas bort
+ Comment[ta]=நீக்குவதற்கு கற்கள் இல்லையென்பதால் ஆட்டம் முடிந்தது
+ Comment[zh_CN]=没有可移动的石头，游戏结束
+@@ -273,7 +273,7 @@
+ Comment[ru]=Конец игры, не осталось ни единого камешка.
+ Comment[sk]=Koniec hry, pretože ste odstránili aj posledný kameň
+ Comment[sr]=Крај игре, уклонили сте све каменчиће
+-Comment[sr@Latn]=Крај игре, уклонили сте све каменчиће
++Comment[sr@Latn]=Kraj igre, uklonili ste sve kamenčiće
+ Comment[sv]=Spelet är slut, du tog bort till och med den sista stenen
+ Comment[ta]=ஆட்டம் முடிந்தது, நீங்கள் இறுதிக்கல்லைக்கூட நீக்கிவிட்டீர்கள்
+ Comment[zh_CN]=游戏结束，您甚至消去了最后一个石头
+diff -urN -x CVS kdegames.orig/ksirtet/ksirtet/eventsrc kdegames/ksirtet/ksirtet/eventsrc
+--- kdegames.orig/ksirtet/ksirtet/eventsrc	Thu Sep 30 16:03:20 2004
++++ kdegames/ksirtet/ksirtet/eventsrc	Mon Oct  4 15:24:32 2004
+@@ -166,7 +166,7 @@
+ Comment[ru]=Конец игры
+ Comment[sk]=Koniec hry
+ Comment[sr]=Крај игре
+-Comment[sr@Latn]=Крај игре
++Comment[sr@Latn]=Kraj igre
+ Comment[sv]=Spelet slut
+ Comment[ta]=ஆட்டம் முடிந்தது
+ Comment[zh_CN]=游戏结束
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-xskat-french/index.desktop kdegames/libkdegames/carddecks/cards-xskat-french/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-xskat-french/index.desktop	Thu Sep 30 16:03:23 2004
++++ kdegames/libkdegames/carddecks/cards-xskat-french/index.desktop	Mon Oct  4 15:24:35 2004
+@@ -22,7 +22,7 @@
+ Name[sk]=XSkat francúzsky
+ Name[sl]=Francoski XSkat
+ Name[sr]=XSkat француски
+-Name[sr@Latn]=XSkat француски
++Name[sr@Latn]=XSkat francuski
+ Name[sv]=Fransk X-skat
+ Name[ta]=XSkat ஃபிரண்ச்
+ Name[tg]=XSkat Фаронсавӣ
+diff -urN -x CVS kdegames.orig/libkdegames/carddecks/cards-xskat-german/index.desktop kdegames/libkdegames/carddecks/cards-xskat-german/index.desktop
+--- kdegames.orig/libkdegames/carddecks/cards-xskat-german/index.desktop	Thu Sep 30 16:03:23 2004
++++ kdegames/libkdegames/carddecks/cards-xskat-german/index.desktop	Mon Oct  4 15:24:35 2004
+@@ -22,7 +22,7 @@
+ Name[sk]=XScat nemecký
+ Name[sl]=Nemški XSkat
+ Name[sr]=XSkat немачки
+-Name[sr@Latn]=XSkat немачки
++Name[sr@Latn]=XSkat nemački
+ Name[sv]=Tysk X-skat
+ Name[ta]=XSkat ஜெர்மன்
+ Name[tg]=XSkat Олмонӣ
