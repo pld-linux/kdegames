@@ -12,6 +12,8 @@ Patch:		kdegames.ksnake-highscore.patch
 Requires:	qt >= 1.40, kdelibs = %{version}
 BuildRoot:	/tmp/%{name}-%{version}-root
 
+%define		_prefix		/usr/X11R6
+
 %description
 KDE games: KAbalone, KAsteroids, KBlackbox, KMahjongg, KMines,
 Konquest, KPat, KPoker, KReversi, KSame, KShisen, KSirtet, KSmiletris,
@@ -239,8 +241,10 @@ Gra japoñskiego magazyniera.
 %patch -p1
 
 %build
-export KDEDIR=/usr/X11R6
-CXXFLAGS="$RPM_OPT_FLAGS -Wall" CFLAGS="$RPM_OPT_FLAGS -Wall" \
+export KDEDIR=%{_prefix}
+CXXFLAGS="$RPM_OPT_FLAGS -Wall" \
+CFLAGS="$RPM_OPT_FLAGS -Wall" \
+LDFLAGS="-s" \
 ./configure %{_target_platform} \
 	--prefix=$KDEDIR \
  	--with-install-root=$RPM_BUILD_ROOT \
@@ -250,24 +254,24 @@ make KDEDIR=$KDEDIR
 %install
 rm -rf $RPM_BUILD_ROOT
 
-export KDEDIR=/usr/X11R6
+export KDEDIR=%{_prefix}
 make RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
 
-%{find_lang} kabalone
-%{find_lang} kasteroids
-%{find_lang} kblackbox
-%{find_lang} kmahjongg
-%{find_lang} kmines
-%{find_lang} konquest
-%{find_lang} kpat
-%{find_lang} kpoker
-%{find_lang} kreversi
-%{find_lang} ksame
-%{find_lang} kshisen
-%{find_lang} ksirtet
-%{find_lang} ksmiletris
-%{find_lang} ksnake
-%{find_lang} ksokoban
+%find_lang kabalone
+%find_lang kasteroids
+%find_lang kblackbox
+%find_lang kmahjongg
+%find_lang kmines
+%find_lang konquest
+%find_lang kpat
+%find_lang kpoker
+%find_lang kreversi
+%find_lang ksame
+%find_lang kshisen
+%find_lang ksirtet
+%find_lang ksmiletris
+%find_lang ksnake
+%find_lang ksokoban
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -276,194 +280,238 @@ rm -rf $RPM_BUILD_ROOT
 #             KABALONE
 #################################################
 
-%files -f kabalone.lang kabalone 
+%files kabalone -f kabalone.lang 
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/kabalone.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kabalone
-%lang(de) /usr/X11R6/share/kde/doc/HTML/de/kabalone/
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kabalone/
-%lang(fr) /usr/X11R6/share/kde/doc/HTML/fr/kabalone/
-/usr/X11R6/share/kde/apps/kabalone/
-/usr/X11R6/share/kde/icons/kabalone.xpm
-/usr/X11R6/share/kde/icons/mini/kabalone.xpm
+%attr(755,root,root) %{_bindir}/kabalone
+
+%{_datadir}/kde/doc/HTML/en/kabalone
+%lang(de) %{_datadir}/kde/doc/HTML/de/kabalone
+%lang(fr) %{_datadir}/kde/doc/HTML/fr/kabalone
+
+%{_datadir}/kde/apps/kabalone
+%{_datadir}/kde/icons/kabalone.xpm
+%{_datadir}/kde/icons/mini/kabalone.xpm
 
 #################################################
 #             KASTEROIDS 
 #################################################
 
-%files -f kasteroids.lang kasteroids 
+%files kasteroids -f kasteroids.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) /usr/X11R6/bin/kasteroids
+
+%attr(755,root,root) %{_bindir}/kasteroids
 %config(missingok) /etc/X11/kde/applnk/Games/kasteroids.kdelnk
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kasteroids/
-/usr/X11R6/share/kde/apps/kasteroids/
-/usr/X11R6/share/kde/icons/mini/kasteroids.xpm
-/usr/X11R6/share/kde/icons/kasteroids.xpm
+
+%{_datadir}/kde/doc/HTML/en/kasteroids
+
+%{_datadir}/kde/apps/kasteroids
+%{_datadir}/kde/icons/mini/kasteroids.xpm
+%{_datadir}/kde/icons/kasteroids.xpm
 
 #################################################
 #             KBLACKBOX 
 #################################################
 
-%files -f kblackbox.lang kblackbox
+%files kblackbox -f kblackbox.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) /usr/X11R6/bin/kblackbox
+
+%attr(755,root,root) %{_bindir}/kblackbox
 %config(missingok) /etc/X11/kde/applnk/Games/kblackbox.kdelnk
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kblackbox/
-/usr/X11R6/share/kde/apps/kblackbox/
-/usr/X11R6/share/kde/icons/mini/kblackbox.xpm
-/usr/X11R6/share/kde/icons/kblackbox.xpm
+
+%{_datadir}/kde/doc/HTML/en/kblackbox
+
+%{_datadir}/kde/apps/kblackbox
+%{_datadir}/kde/icons/mini/kblackbox.xpm
+%{_datadir}/kde/icons/kblackbox.xpm
 
 #################################################
 #             KMAHJONGG
 #################################################
 
-%files -f kmahjongg.lang kmahjongg
+%files kmahjongg -f kmahjongg.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/kmahjongg.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kmahjongg
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/
-/usr/X11R6/share/kde/apps/kmahjongg/
-/usr/X11R6/share/kde/icons/kmahjongg.xpm
-/usr/X11R6/share/kde/icons/mini/kmahjongg.xpm
+%attr(755,root,root) %{_bindir}/kmahjongg
+
+%{_datadir}/kde/doc/HTML/en/kmahjongg
+
+%{_datadir}/kde/apps/kmahjongg
+%{_datadir}/kde/icons/kmahjongg.xpm
+%{_datadir}/kde/icons/mini/kmahjongg.xpm
 
 #################################################
 #             KMINES
 #################################################
 
-%files -f kmines.lang kmines
+%files kmines -f kmines.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/kmines.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kmines
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kmines/
-/usr/X11R6/share/kde/icons/mini/kmines.xpm
-/usr/X11R6/share/kde/icons/kmines.xpm
+%attr(755,root,root) %{_bindir}/kmines
+
+%{_datadir}/kde/doc/HTML/en/kmines
+
+%{_datadir}/kde/icons/mini/kmines.xpm
+%{_datadir}/kde/icons/kmines.xpm
 
 #################################################
 #             KONQUEST
 #################################################
 
-%files -f konquest.lang konquest
+%files konquest -f konquest.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/Konquest.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/konquest
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/konquest/
-/usr/X11R6/share/kde/apps/konquest/
-/usr/X11R6/share/kde/icons/mini/konquest.xpm
-/usr/X11R6/share/kde/icons/konquest.xpm
+%attr(755,root,root) %{_bindir}/konquest
+
+%{_datadir}/kde/doc/HTML/en/konquest
+
+%{_datadir}/kde/apps/konquest
+%{_datadir}/kde/icons/mini/konquest.xpm
+%{_datadir}/kde/icons/konquest.xpm
 
 #################################################
 #             KPAT
 #################################################
 
-%files -f kpat.lang kpat
+%files kpat -f kpat.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/kpat.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kpat
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kpat/
-/usr/X11R6/share/kde/apps/kpat/
-/usr/X11R6/share/kde/icons/mini/kpat.xpm
-/usr/X11R6/share/kde/icons/kpat.xpm
-/usr/X11R6/share/kde/icons/kpat-lq.xpm
+%attr(755,root,root) %{_bindir}/kpat
+
+%{_datadir}/kde/doc/HTML/en/kpat
+
+%{_datadir}/kde/apps/kpat
+%{_datadir}/kde/icons/mini/kpat.xpm
+%{_datadir}/kde/icons/kpat.xpm
+%{_datadir}/kde/icons/kpat-lq.xpm
 
 #################################################
 #             KPOKER
 #################################################
 
-%files -f kpoker.lang kpoker
+%files kpoker -f kpoker.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/kpoker.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kpoker
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kpoker/
-/usr/X11R6/share/kde/apps/kpoker/
-/usr/X11R6/share/kde/icons/mini/kpoker.xpm
-/usr/X11R6/share/kde/icons/kpoker.xpm
+%attr(755,root,root) %{_bindir}/kpoker
+
+%{_datadir}/kde/doc/HTML/en/kpoker
+
+%{_datadir}/kde/apps/kpoker
+%{_datadir}/kde/icons/mini/kpoker.xpm
+%{_datadir}/kde/icons/kpoker.xpm
 
 #################################################
 #             KREVERSI
 #################################################
 
-%files -f kreversi.lang kreversi
+%files kreversi -f kreversi.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/kreversi.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kreversi
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kreversi/
-/usr/X11R6/share/kde/apps/kreversi/
-/usr/X11R6/share/kde/icons/mini/kreversi.xpm
-/usr/X11R6/share/kde/icons/kreversi.xpm
+%attr(755,root,root) %{_bindir}/kreversi
+
+%{_datadir}/kde/doc/HTML/en/kreversi
+
+%{_datadir}/kde/apps/kreversi
+%{_datadir}/kde/icons/mini/kreversi.xpm
+%{_datadir}/kde/icons/kreversi.xpm
 
 #################################################
 #            KSAME 
 #################################################
 
-%files -f ksame.lang ksame
+%files ksame -f ksame.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/ksame.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksame
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/ksame/
-/usr/X11R6/share/kde/apps/ksame/
-/usr/X11R6/share/kde/icons/mini/ksame.xpm
-/usr/X11R6/share/kde/icons/ksame.xpm
+%attr(755,root,root) %{_bindir}/ksame
+
+%{_datadir}/kde/doc/HTML/en/ksame
+%{_datadir}/kde/apps/ksame
+%{_datadir}/kde/icons/mini/ksame.xpm
+%{_datadir}/kde/icons/ksame.xpm
 
 #################################################
 #             KSIRTET
 #################################################
 
-%files -f ksirtet.lang ksirtet
+%files ksirtet -f ksirtet.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/ksirtet.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksirtet
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/ksirtet/
-/usr/X11R6/share/kde/icons/mini/ksirtet.xpm
-/usr/X11R6/share/kde/icons/ksirtet.xpm
+%attr(755,root,root) %{_bindir}/ksirtet
+
+%{_datadir}/kde/doc/HTML/en/ksirtet
+
+%{_datadir}/kde/icons/mini/ksirtet.xpm
+%{_datadir}/kde/icons/ksirtet.xpm
 
 #################################################
 #             KSMILETRIS
 #################################################
 
-%files -f ksmiletris.lang ksmiletris
+%files ksmiletris -f ksmiletris.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/ksmiletris.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksmiletris
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/ksmiletris/
-/usr/X11R6/share/kde/apps/ksmiletris/
-/usr/X11R6/share/kde/icons/mini/ksmiletris.xpm
-/usr/X11R6/share/kde/icons/ksmiletris.xpm
+%attr(755,root,root) %{_bindir}/ksmiletris
+
+%{_datadir}/kde/doc/HTML/en/ksmiletris
+
+%{_datadir}/kde/apps/ksmiletris
+%{_datadir}/kde/icons/mini/ksmiletris.xpm
+%{_datadir}/kde/icons/ksmiletris.xpm
 
 #################################################
 #             KSHISEN
 #################################################
 
-%files -f kshisen.lang kshisen
+%files kshisen -f kshisen.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/kshisen.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kshisen
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kshisen/
-/usr/X11R6/share/kde/apps/kshisen/
-/usr/X11R6/share/kde/icons/mini/kshisen.xpm
-/usr/X11R6/share/kde/icons/kshisen.xpm
+%attr(755,root,root) %{_bindir}/kshisen
+
+%{_datadir}/kde/doc/HTML/en/kshisen
+
+%{_datadir}/kde/apps/kshisen
+%{_datadir}/kde/icons/mini/kshisen.xpm
+%{_datadir}/kde/icons/kshisen.xpm
 
 #################################################
 #             KSNAKE
 #################################################
 
-%files -f ksnake.lang ksnake
+%files ksnake -f ksnake.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/ksnake.kdelnk
-%attr(4755,root,games) /usr/X11R6/bin/ksnake
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/ksnake/
-/usr/X11R6/share/kde/apps/ksnake/
-/usr/X11R6/share/kde/icons/mini/ksnake.xpm
-/usr/X11R6/share/kde/icons/ksnake.xpm
+%attr(4755,root,games) %{_bindir}/ksnake
+
+%{_datadir}/kde/doc/HTML/en/ksnake
+
+%{_datadir}/kde/apps/ksnake
+%{_datadir}/kde/icons/mini/ksnake.xpm
+%{_datadir}/kde/icons/ksnake.xpm
 %attr(664,root,games) %ghost /var/state/games/ksnake/highScores
 
 #################################################
 #             KSOKOBAN
 #################################################
 
-%files -f ksokoban.lang ksokoban
+%files ksokoban -f ksokoban.lang
 %defattr(644,root,root,755)
+
 %config(missingok) /etc/X11/kde/applnk/Games/ksokoban.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksokoban
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/ksokoban/
-/usr/X11R6/share/kde/icons/mini/ksokoban.xpm
-/usr/X11R6/share/kde/icons/ksokoban.xpm
+%attr(755,root,root) %{_bindir}/ksokoban
+
+%{_datadir}/kde/doc/HTML/en/ksokoban
+
+%{_datadir}/kde/icons/mini/ksokoban.xpm
+%{_datadir}/kde/icons/ksokoban.xpm
