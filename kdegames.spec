@@ -682,6 +682,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f libkdegames.lang
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*
 %{_datadir}/apps/kdegames/pics/*
 %{_datadir}/apps/sounds/*/*.wav
