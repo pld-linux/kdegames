@@ -3,7 +3,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2
-%define		_snap		030502
+%define		_snap		030509
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -756,11 +756,20 @@ cd -
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post			-p /sbin/ldconfig
+%postun			-p /sbin/ldconfig
+
+%post	atlantik	-p /sbin/ldconfig
+%postun	atlantik	-p /sbin/ldconfig
+
+%post	kolf		-p /sbin/ldconfig
+%postun	kolf		-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %{_libdir}/libkdegames.la
-%attr(755,root,root) %{_libdir}/libkdegames.so.*
+%attr(755,root,root) %{_libdir}/libkdegames.so.*.*
 %{_datadir}/apps/kdegames
 %{_pixmapsdir}/*/*/actions/endturn.png
 %{_pixmapsdir}/*/*/*/highscore.png
@@ -783,9 +792,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %{_libdir}/libatlantic.la
-%attr(755,root,root) %{_libdir}/libatlantic.so.*
+%attr(755,root,root) %{_libdir}/libatlantic.so.*.*.*
 %{_libdir}/libatlantikclient.la
-%attr(755,root,root) %{_libdir}/libatlantikclient.so.*
+%attr(755,root,root) %{_libdir}/libatlantikclient.so.*.*.*
 %{_libdir}/libatlantikui.la
 %attr(755,root,root) %{_libdir}/libatlantikui.so.*
 %{_libdir}/kde3/kio_atlantik.la
@@ -888,7 +897,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
 %{_libdir}/libkolf.la
-%attr(755,root,root) %{_libdir}/libkolf.so.*
+%attr(755,root,root) %{_libdir}/libkolf.so.*.*.*
 %{_libdir}/kde3/kolf.la
 %attr(755,root,root) %{_libdir}/kde3/kolf.so
 %{_datadir}/config/magic
