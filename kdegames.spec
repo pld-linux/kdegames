@@ -585,8 +585,8 @@ Cztery wygrywa jest gr± dla dwóch graczy. Ka¿dy gracz jest
 reprezentowany przez kolor (¿ó³ty b±d¼ czerwony). Celem gry jest
 ustawienie czterech klocków twojego koloru w rz±d, kolumnê lub po
 przek±tnej. Klocki wype³niaj± kolumny od do³u, tj. spadaj± dopóki nie
-dosiêgn± pod³o¿a b±d¼ innego klocka. Gra trwa do momentu uzyskania
-ww. uk³adu b±d¼ do zape³nienia tablicy.
+dosiêgn± pod³o¿a b±d¼ innego klocka. Gra trwa do momentu uzyskania ww.
+uk³adu b±d¼ do zape³nienia tablicy.
 
 %description kwin4 -l pt_BR
 Jogo de estratégia que lembra um pouco o Otelo.
