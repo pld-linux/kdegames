@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.92
-%define		_snap		031006
+%define		_snap		031014
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -22,7 +22,7 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	5bdc4d6ac2681dbb1e3b0e20a946eb0d
+# Source0-md5:	20e586ea9bff652ffcf3d65b46c982d1
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	kdelibs-devel >= 9:%{version}
 Requires:	kdelibs >= 9:%{version}
@@ -713,12 +713,8 @@ Popularna gra hazardowa.
 
 %build
 
-for plik in `find ./ -name \*.desktop` ; do
-	if [ -d $plik ]; then
-		echo $plik
-		sed -e 's/\[nb\]/[no]/g' $plik > ${plik}.1
-		mv -f ${plik}.1 $plik
-	fi
+for f in `find . -name *.desktop` ; do
+	sed -i 's/\[nb\]/[no]/g' $f
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -888,6 +884,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
+%{_datadir}/config.kcfg/kjumpingcube.kcfg
 %{_desktopdir}/kde/kjumpingcube.desktop
 %{_iconsdir}/*/*/apps/kjumpingcube.png
 
@@ -907,6 +904,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg
+%{_datadir}/config.kcfg/kmahjongg.kcfg
 %{_desktopdir}/kde/kmahjongg.desktop
 %{_iconsdir}/*/*/apps/kmahjongg.png
 
@@ -957,6 +955,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
+%{_datadir}/config.kcfg/kreversi.kcfg
 %{_desktopdir}/kde/kreversi.desktop
 %{_iconsdir}/*/*/apps/kreversi.png
 
