@@ -1,23 +1,23 @@
+%define	_prefix	/usr/X11R6
+
 Summary:	K Desktop Environment - games 
 Summary(pl):	K Desktop Environment - gry
 Name:		kdegames
-Version:	1.1.2
-Release:	2
+Version:	2.0
+Release:	1
 Vendor:		The KDE Team
 Copyright:	GPL
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/source/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/2.0/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
 BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	libstdc++-devel
-BuildRequires:	qt-devel >= 1.40
+BuildRequires:	qt-devel >= 2.0
 BuildRequires:	XFree86-devel
 BuildRequires:	zlib-devel
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define	_prefix	/usr/X11R6
 
 %description
 KDE games: KAbalone, KAsteroids, KBlackbox, KMahjongg, KMines,
@@ -34,7 +34,7 @@ Summary:	KDE game
 Summary(pl):	Gra KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version}
 
 %description kabalone
@@ -50,7 +50,7 @@ Summary:	KDE Asteroids clone
 Summary(pl):	Klon Asterids dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version}
 
 %description kasteroids
@@ -59,12 +59,29 @@ Asteroids clone for KDE
 %description kasteroids -l pl
 Klon znanej gry "Asteroids".
 
+%package katomic
+Summary:	KDE Sokoban clone	
+Summary(pl):	Klon gry Sokoban dla KDE
+Group:		X11/KDE/Games
+Group(pl):	X11/KDE/Gry
+Requires:	qt >= 2.0
+Requires:	kdelibs = %{version}
+
+%description katomic
+Atomic Entertainment is a small game which resembles Sokoban. The
+Object of the game is to build chemical molecules on a Sokoban like
+board.
+
+%description katomic -l pl
+Atomic to ma³a gra podobna do gry Sokoban. Celem gry jest zbudowanie
+chemicznych moleku³ na planszy podobnej do tej z gry Sokoban.
+
 %package kblackbox
 Summary:	A little logical game for KDE	
 Summary(pl):	Prosta gra logiczna
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version}
 
 %description kblackbox
@@ -73,12 +90,47 @@ A little logical game for KDE.
 %description kblackbox -l pl
 Prosta gra logiczna.
 
+%package kfouleggs
+Summary:	KDE kfouleggs	
+Group:		X11/KDE/Games
+Group(pl):	X11/KDE/Gry
+Requires:	qt >= 2.0
+Requires:	kdelibs = %{version}
+
+%description kfouleggs
+KDE kfouleggs
+
+%package kjumpingcube
+Summary:	A little tactical game for KDE
+Summary(pl):	Prosta gra taktyczna
+Group:		X11/KDE/Games
+Group(pl):	X11/KDE/Gry
+Requires:	qt >= 2.0
+Requires:	kdelibs = %{version}
+
+%description kjumpingcube
+KJumpingCube is a simple tactical game. You can play it against the
+computer or against the friend. The playing field consists of squares
+that contains points. By clicking on the squares you can increase the
+points, and if the poinst reach a maximum the points will jump to the
+squares neighbours and take them over. Winer is the one, who owns all
+squares.
+
+%description kjumpingcube -l pl
+KJumpingCube to prosta gra taktyczna. Mo¿esz w ni± graæ przeciwko
+komputerowi lub przeciwko koledze. Plansza do gry zawiera pola które
+z kolei posiadaj± punkty. Przez klikanie na pola zwiekszasz ilo¶æ
+punktow na nich. Gdy ilo¶æ punktów na okre¶lonym polu osi±gnie 
+maksymalna warto¶æ punkty przeskakuj± na s±siednie pola przejmuj±c
+je tym samym na wlasno¶æ. Zwyciesca jest jeden - to ten, kto przejmie
+wszystkie pola na wlasno¶æ.
+
 %package kmahjongg
 Summary:	KDE Mahjongg clone	
 Summary(pl):	Klon gry Mahjongg dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version}
 
 %description kmahjongg
@@ -92,7 +144,7 @@ Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version}
 
 %description kmines
@@ -112,7 +164,7 @@ Summary:	KDE version of Gnu-Lactic Konquest
 Summary(pl):	Podbój galaktyki
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description konquest
@@ -126,7 +178,7 @@ Summary:	KDE solitaire patience game
 Summary(pl):	Pasjanse KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description kpat
@@ -140,7 +192,7 @@ Summary:	KDE poker
 Summary(pl):	Poker KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description kpoker
@@ -154,7 +206,7 @@ Summary:	KDE Reversi game
 Summary(pl):	Gra Reversi dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description kreversi
@@ -172,7 +224,7 @@ Summary:	KDE SameGame
 Summary(pl):	"To Samo" dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description ksame
@@ -188,7 +240,7 @@ Summary:	KDE Shisen-Sho
 Summary(pl):	Shisen-Sho dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description kshisen
@@ -203,7 +255,7 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description ksirtet
@@ -217,7 +269,7 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description ksmiletris
@@ -231,7 +283,7 @@ Summary:	KDE Snake Race
 Summary(pl):	Wy¶cig Wê¿y dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description ksnake
@@ -247,7 +299,7 @@ Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
-Requires:	qt >= 1.40
+Requires:	qt >= 2.0
 Requires:	kdelibs = %{version} 
 
 %description ksokoban
@@ -256,13 +308,85 @@ The japanese warehouse keeper game.
 %description ksokoban -l pl
 Gra japoñskiego magazyniera.
 
+%package kspaceduel
+Summary:	KDE space arcade game for two players
+Group:		X11/KDE/Games
+Group(pl):	X11/KDE/Gry
+Requires:	qt >= 2.0
+Requires:	kdelibs = %{version} 
+
+%description kspaceduel
+Each player control a ship that flies around the sun and tries to
+shoot at the other ship. You can play KSpaceduel with another person,
+against the computer, or you can have the computer control both ships
+and play each other.
+
+%description kspaceduel -l pl
+Ka¿dy z graczy kieruje statkiem, który lata dooko³a s³oñca i próbuje
+zestarzeliæ drugi statek. Mo¿esz graæ w KSpaceduel z inn± osob±,
+z komputerem, lub mo¿esz pozwoliæ aby computer kierowa³ oboma statkami.
+
+%package ktron
+Summary:	Tron clone for KDE
+Summary(pl):	Klon Tron dla KDE
+Group:		X11/KDE/Games
+Group(pl):	X11/KDE/Gry
+Requires:	qt >= 2.0
+Requires:	kdelibs = %{version} 
+
+%description ktron
+KTron is a simple Trone-Clone for the KDE. You can play KTron against
+the computer or a friend.
+
+The aim of the game is to live longer then your opponent. To do That,
+avoid running into a wall, your own tail and that of your opponent.
+
+%description ktron -l pl
+KTron to prosty klon Trone dla KDE. Mo¿esz graæ w KTron przeciwko
+komputerowi lub koledze.
+
+Celem gry jest prze¿yæ d³u¿ej ni¿ przeciwnik. Aby tego dokonaæ unikaj
+uderzenia w ¶cianê, ogon w³asny lub przeciwnika.
+
+%package ktuberling
+Summary:	KDE game for small children
+Summary(pl):	Gra dla ma³ych dzieci
+Group:		X11/KDE/Games
+Group(pl):	X11/KDE/Gry
+Requires:	qt >= 2.0
+Requires:	kdelibs = %{version} 
+
+%description ktuberling
+It is a potato editor. That means that you can drag and drop eyes,
+mouths, moustache, and other parts of face and goodies onto
+a potato-like guy.
+
+There is no winer. The only purpose is to make the funniest faces
+you can.
+
+%description ktuberling -l pl
+KTuberling to edytor ziemniaków. Oznacza to, ¿e mo¿esz uk³adaæ oczy,
+usta, w±sy oraz inne czê¶ci twarzy na postaæ podobn± do ziemniaka.
+
+W grze nie ma zwyciêzcy. Jedynym celem gry jest stworzenie 
+najzabawniejszej twarzy, jak± sie da u³o¿yæ.
+
+%package lskat
+Summary:	KDE lskat
+Summary(pl):	Lskat dla KDE
+Group:		X11/KDE/Games
+Group(pl):	X11/KDE/Gry
+Requires:	qt >= 2.0
+Requires:	kdelibs = %{version} 
+
+%description lskat
+Lieutnant Skat
+
 %prep
 %setup -q
 
 %build
 export KDEDIR=%{_prefix}
-CXXFLAGS="$RPM_OPT_FLAGS -Wall -fno-rtti" \
-CFLAGS="$RPM_OPT_FLAGS -Wall" \
 LDFLAGS="-s" \
 ./configure %{_target_platform} \
 	--prefix=$KDEDIR \
@@ -275,26 +399,34 @@ LDFLAGS="-s" \
 rm -rf $RPM_BUILD_ROOT
 
 export KDEDIR=%{_prefix}
-%{__make} RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
+%{__make} kde_htmldir=$RPM_BUILD_ROOT/%{_datadir}/doc/kde/HTML \
+          RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
 
 install -d $RPM_BUILD_ROOT/var/lib/games/ksnake/
 touch $RPM_BUILD_ROOT/var/lib/games/ksnake/highScores
 
-%find_lang kabalone
-%find_lang kasteroids
-%find_lang kblackbox
-%find_lang kmahjongg
-%find_lang kmines
-%find_lang konquest
-%find_lang kpat
-%find_lang kpoker
-%find_lang kreversi
-%find_lang ksame
-%find_lang kshisen
-%find_lang ksirtet
-%find_lang ksmiletris
-%find_lang ksnake
-%find_lang ksokoban
+%find_lang kabalone --with-kde
+%find_lang kasteroids --with-kde
+%find_lang katomic --with-kde
+%find_lang kblackbox --with-kde
+%find_lang kfouleggs --with-kde
+%find_lang kjumpingcube --with-kde
+%find_lang kmahjongg --with-kde
+%find_lang kmines --with-kde
+%find_lang konquest --with-kde
+%find_lang kpat --with-kde
+%find_lang kpoker --with-kde
+%find_lang kreversi --with-kde
+%find_lang ksame --with-kde
+%find_lang kshisen --with-kde
+%find_lang ksirtet --with-kde
+%find_lang ksmiletris --with-kde
+%find_lang ksnake --with-kde
+%find_lang ksokoban --with-kde
+%find_lang kspaceduel --with-kde
+%find_lang ktron --with-kde
+%find_lang ktuberling --with-kde
+%find_lang lskat --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -305,14 +437,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kabalone.lang kabalone 
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/kabalone.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kabalone
-%lang(de) %{_datadir}/kde/doc/HTML/de/kabalone/
-%lang(en) %{_datadir}/kde/doc/HTML/en/kabalone/
-%lang(fr) %{_datadir}/kde/doc/HTML/fr/kabalone/
-%{_datadir}/kde/apps/kabalone/
-%{_datadir}/kde/icons/kabalone.xpm
-%{_datadir}/kde/icons/mini/kabalone.xpm
+%config(missingok) %{_datadir}/applnk/Games/kabalone.desktop
+%attr(755,root,root) %{_bindir}/kabalone
+%{_datadir}/apps/kabalone/
+%{_datadir}/icons/hicolor/*x*/apps/kabalone.png
+%{_datadir}/icons/locolor/*x*/apps/kabalone.png
 
 #################################################
 #             KASTEROIDS 
@@ -320,12 +449,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kasteroids.lang kasteroids 
 %defattr(644,root,root,755)
-%attr(755,root,root) /usr/X11R6/bin/kasteroids
-%config(missingok) /etc/X11/kde/applnk/Games/kasteroids.kdelnk
-%lang(en) %{_datadir}/kde/doc/HTML/en/kasteroids/
-%{_datadir}/kde/apps/kasteroids/
-%{_datadir}/kde/icons/mini/kasteroids.xpm
-%{_datadir}/kde/icons/kasteroids.xpm
+%attr(755,root,root) %{_bindir}/kasteroids
+%config(missingok) %{_datadir}/applnk/Games/kasteroids.desktop
+%{_datadir}/apps/kasteroids/
+%{_datadir}/icons/hicolor/*x*/apps/kasteroids.png
+%{_datadir}/icons/locolor/*x*/apps/kasteroids.png
+
+#################################################
+#             KATOMIC
+#################################################
+
+%files -f katomic.lang katomic
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/katomic
+%config(missingok) %{_datadir}/applnk/Games/katomic.desktop
+%{_datadir}/apps/katomic/
+%{_datadir}/icons/locolor/*x*/apps/katomic.png
 
 #################################################
 #             KBLACKBOX 
@@ -333,12 +472,31 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kblackbox.lang kblackbox
 %defattr(644,root,root,755)
-%attr(755,root,root) /usr/X11R6/bin/kblackbox
-%config(missingok) /etc/X11/kde/applnk/Games/kblackbox.kdelnk
-%lang(en) %{_datadir}/kde/doc/HTML/en/kblackbox/
-%{_datadir}/kde/apps/kblackbox/
-%{_datadir}/kde/icons/mini/kblackbox.xpm
-%{_datadir}/kde/icons/kblackbox.xpm
+%attr(755,root,root) %{_bindir}/kblackbox
+%config(missingok) %{_datadir}/applnk/Games/kblackbox.desktop
+%{_datadir}/apps/kblackbox/
+%{_datadir}/icons/hicolor/*x*/apps/kblackbox.png
+%{_datadir}/icons/locolor/*x*/apps/kblackbox.png
+
+#################################################
+#             KFOULEGGS
+#################################################
+
+%files -f kfouleggs.lang kfouleggs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfouleggs
+%config(missingok) %{_datadir}/applnk/Games/kfouleggs.desktop
+%{_datadir}/apps/kfouleggs/
+
+#################################################
+#             KJUMPINGCUBE
+#################################################
+
+%files -f kjumpingcube.lang kjumpingcube
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kjumpingcube
+%config(missingok) %{_datadir}/applnk/Games/kjumpingcube.desktop
+%{_datadir}/icons/locolor/*x*/apps/kjumpingcube.png
 
 #################################################
 #             KMAHJONGG
@@ -346,12 +504,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kmahjongg.lang kmahjongg
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/kmahjongg.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kmahjongg
-%lang(en) %{_datadir}/kde/doc/HTML/en/
-%{_datadir}/kde/apps/kmahjongg/
-%{_datadir}/kde/icons/kmahjongg.xpm
-%{_datadir}/kde/icons/mini/kmahjongg.xpm
+%config(missingok) %{_datadir}/applnk/Games/kmahjongg.desktop
+%attr(755,root,root) %{_bindir}/kmahjongg
+%{_datadir}/apps/kmahjongg/
+%{_datadir}/icons/hicolor/*x*/apps/kmahjongg.png
+%{_datadir}/icons/locolor/*x*/apps/kmahjongg.png
 
 #################################################
 #             KMINES
@@ -359,11 +516,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kmines.lang kmines
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/kmines.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kmines
-%lang(en) %{_datadir}/kde/doc/HTML/en/kmines/
-%{_datadir}/kde/icons/mini/kmines.xpm
-%{_datadir}/kde/icons/kmines.xpm
+%config(missingok) %{_datadir}/applnk/Games/kmines.desktop
+%attr(755,root,root) %{_bindir}/kmines
+%{_datadir}/icons/hicolor/*x*/apps/kmines.png
+%{_datadir}/icons/locolor/*x*/apps/kmines.png
 
 #################################################
 #             KONQUEST
@@ -371,12 +527,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f konquest.lang konquest
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/Konquest.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/konquest
-%lang(en) %{_datadir}/kde/doc/HTML/en/konquest/
-%{_datadir}/kde/apps/konquest/
-%{_datadir}/kde/icons/mini/konquest.xpm
-%{_datadir}/kde/icons/konquest.xpm
+%config(missingok) %{_datadir}/applnk/Games/konquest.desktop
+%attr(755,root,root) %{_bindir}/konquest
+%{_datadir}/apps/konquest/
+%{_datadir}/icons/hicolor/*x*/apps/konquest.png
+%{_datadir}/icons/locolor/*x*/apps/konquest.png
 
 #################################################
 #             KPAT
@@ -384,13 +539,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kpat.lang kpat
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/kpat.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kpat
-%lang(en) %{_datadir}/kde/doc/HTML/en/kpat/
-%{_datadir}/kde/apps/kpat/
-%{_datadir}/kde/icons/mini/kpat.xpm
-%{_datadir}/kde/icons/kpat.xpm
-%{_datadir}/kde/icons/kpat-lq.xpm
+%config(missingok) %{_datadir}/applnk/Games/kpat.desktop
+%attr(755,root,root) %{_bindir}/kpat
+%{_datadir}/apps/kpat/
+%{_datadir}/icons/hicolor/*x*/apps/kpat.png
+%{_datadir}/icons/locolor/*x*/apps/kpat.png
 
 #################################################
 #             KPOKER
@@ -398,12 +551,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kpoker.lang kpoker
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/kpoker.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kpoker
-%lang(en) %{_datadir}/kde/doc/HTML/en/kpoker/
-%{_datadir}/kde/apps/kpoker/
-%{_datadir}/kde/icons/mini/kpoker.xpm
-%{_datadir}/kde/icons/kpoker.xpm
+%config(missingok) %{_datadir}/applnk/Games/kpoker.desktop
+%attr(755,root,root) %{_bindir}/kpoker
+%{_datadir}/apps/kpoker/
+%{_datadir}/icons/hicolor/*x*/apps/kpoker.png
+%{_datadir}/icons/locolor/*x*/apps/kpoker.png
 
 #################################################
 #             KREVERSI
@@ -411,12 +563,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kreversi.lang kreversi
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/kreversi.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kreversi
-%lang(en) %{_datadir}/kde/doc/HTML/en/kreversi/
-%{_datadir}/kde/apps/kreversi/
-%{_datadir}/kde/icons/mini/kreversi.xpm
-%{_datadir}/kde/icons/kreversi.xpm
+%config(missingok) %{_datadir}/applnk/Games/kreversi.desktop
+%attr(755,root,root) %{_bindir}/kreversi
+%{_datadir}/apps/kreversi/
+%{_datadir}/icons/hicolor/*x*/apps/kpoker.png
+%{_datadir}/icons/locolor/*x*/apps/kpoker.png
 
 #################################################
 #            KSAME 
@@ -424,12 +575,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksame.lang ksame
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/ksame.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksame
-%lang(en) %{_datadir}/kde/doc/HTML/en/ksame/
-%{_datadir}/kde/apps/ksame/
-%{_datadir}/kde/icons/mini/ksame.xpm
-%{_datadir}/kde/icons/ksame.xpm
+%config(missingok) %{_datadir}/applnk/Games/ksame.desktop
+%attr(755,root,root) %{_bindir}/ksame
+%{_datadir}/apps/ksame/
+%{_datadir}/icons/hicolor/*x*/apps/ksame.png
+%{_datadir}/icons/locolor/*x*/apps/ksame.png
 
 #################################################
 #             KSIRTET
@@ -437,11 +587,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksirtet.lang ksirtet
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/ksirtet.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksirtet
-%lang(en) %{_datadir}/kde/doc/HTML/en/ksirtet/
-%{_datadir}/kde/icons/mini/ksirtet.xpm
-%{_datadir}/kde/icons/ksirtet.xpm
+%config(missingok) %{_datadir}/applnk/Games/ksirtet.desktop
+%attr(755,root,root) %{_bindir}/ksirtet
+%{_datadir}/apps/ksirtet/
+%{_datadir}/icons/hicolor/*x*/apps/ksirtet.png
+%{_datadir}/icons/locolor/*x*/apps/ksirtet.png
 
 #################################################
 #             KSMILETRIS
@@ -449,12 +599,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksmiletris.lang ksmiletris
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/ksmiletris.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksmiletris
-%lang(en) %{_datadir}/kde/doc/HTML/en/ksmiletris/
-%{_datadir}/kde/apps/ksmiletris/
-%{_datadir}/kde/icons/mini/ksmiletris.xpm
-%{_datadir}/kde/icons/ksmiletris.xpm
+%config(missingok) %{_datadir}/applnk/Games/ksmiletris.desktop
+%attr(755,root,root) %{_bindir}/ksmiletris
+%{_datadir}/apps/ksmiletris/
+%{_datadir}/icons/hicolor/*x*/apps/ksmiletris.png
+%{_datadir}/icons/locolor/*x*/apps/ksmiletris.png
 
 #################################################
 #             KSHISEN
@@ -462,12 +611,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f kshisen.lang kshisen
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/kshisen.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/kshisen
-%lang(en) %{_datadir}/kde/doc/HTML/en/kshisen/
-%{_datadir}/kde/apps/kshisen/
-%{_datadir}/kde/icons/mini/kshisen.xpm
-%{_datadir}/kde/icons/kshisen.xpm
+%config(missingok) %{_datadir}/applnk/Games/kshisen.desktop
+%attr(755,root,root) %{_bindir}/kshisen
+%{_datadir}/apps/kshisen/
+%{_datadir}/icons/hicolor/*x*/apps/kshisen.png
+%{_datadir}/icons/locolor/*x*/apps/kshisen.png
 
 #################################################
 #             KSNAKE
@@ -475,12 +623,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksnake.lang ksnake
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/ksnake.kdelnk
-%attr(4755,root,games) /usr/X11R6/bin/ksnake
-%lang(en) %{_datadir}/kde/doc/HTML/en/ksnake/
-%{_datadir}/kde/apps/ksnake/
-%{_datadir}/kde/icons/mini/ksnake.xpm
-%{_datadir}/kde/icons/ksnake.xpm
+%config(missingok) %{_datadir}/applnk/Games/ksnake.desktop
+%attr(4755,root,games) %{_bindir}/ksnake
+%{_datadir}/apps/ksnake/
+%{_datadir}/icons/hicolor/*x*/apps/ksnake.png
+%{_datadir}/icons/locolor/*x*/apps/ksnake.png
 %attr(664,root,games) %ghost /var/lib/games/ksnake/highScores
 
 #################################################
@@ -489,8 +636,52 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ksokoban.lang ksokoban
 %defattr(644,root,root,755)
-%config(missingok) /etc/X11/kde/applnk/Games/ksokoban.kdelnk
-%attr(755,root,root) /usr/X11R6/bin/ksokoban
-%lang(en) %{_datadir}/kde/doc/HTML/en/ksokoban/
-%{_datadir}/kde/icons/mini/ksokoban.xpm
-%{_datadir}/kde/icons/ksokoban.xpm
+%config(missingok) %{_datadir}/applnk/Games/ksokoban.desktop
+%attr(755,root,root) %{_bindir}/ksokoban
+%{_datadir}/icons/hicolor/*x*/apps/ksokoban.png
+%{_datadir}/icons/locolor/*x*/apps/ksokoban.png
+
+#################################################
+#             KSPACEDUEL
+#################################################
+
+%files -f kspaceduel.lang kspaceduel
+%defattr(644,root,root,755)
+%config(missingok) %{_datadir}/applnk/Games/kspaceduel.desktop
+%attr(4755,root,games) %{_bindir}/kspaceduel
+%{_datadir}/apps/kspaceduel/
+%{_datadir}/icons/locolor/*x*/apps/kspaceduel.png
+
+#################################################
+#             KTRON
+#################################################
+
+%files -f ktron.lang ktron
+%defattr(644,root,root,755)
+%config(missingok) %{_datadir}/applnk/Games/ktron.desktop
+%attr(4755,root,games) %{_bindir}/ktron
+%{_datadir}/apps/ktron/
+%{_datadir}/icons/locolor/*x*/apps/ktron.png
+
+#################################################
+#             KTUBERLING
+#################################################
+
+%files -f ktuberling.lang ktuberling
+%defattr(644,root,root,755)
+%config(missingok) %{_datadir}/applnk/Games/ktuberling.desktop
+%attr(4755,root,games) %{_bindir}/ktuberling
+%{_datadir}/apps/ktuberling/
+%{_datadir}/icons/locolor/*x*/apps/ktuberling.png
+
+#################################################
+#             LSKAT
+#################################################
+
+%files -f lskat.lang lskat
+%defattr(644,root,root,755)
+%config(missingok) %{_datadir}/applnk/Games/lskat.desktop
+%attr(4755,root,games) %{_bindir}/lskat
+%{_datadir}/apps/lskat/
+%{_datadir}/icons/hicolor/*x*/apps/lskat.png
+%{_datadir}/icons/locolor/*x*/apps/lskat.png
