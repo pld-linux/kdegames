@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.94
-%define		_snap		031204
+%define		_snap		040110
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -16,14 +16,14 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	badf91a84b89c46af702e4232a036cb2
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	15958834a355d5bd576aab277e43e6df	
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	ed
 BuildRequires:	kdelibs-devel >= 9:%{version}
@@ -719,7 +719,7 @@ Popularna gra hazardowa.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-%patch0 -p1
+#%%patch0 -p1
 
 %build
 cp /usr/share/automake/config.sub admin
@@ -994,6 +994,7 @@ EOF
 %{_datadir}/apps/klines
 %{_datadir}/config.kcfg/klines.kcfg
 %{_desktopdir}/kde/klines.desktop
+%{_iconsdir}/*/*/apps/klines.png
 
 %files kmahjongg
 %defattr(644,root,root,755)
