@@ -79,7 +79,10 @@ Summary(pl):	Pliki developerskie dla KDE games
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
 Requires:	kdelibs >= %{version}
-Requires:	kdegames = %{version}
+Requires:	%{name} = %{version}
+Requires:	%{name}-atlantik = %{version}
+Requires:	%{name}-kolf = %{version}
+Requires:	%{name}-ksirtet = %{version}
 
 %description devel
 Development files for KDE games.
