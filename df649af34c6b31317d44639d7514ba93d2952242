@@ -1,0 +1,16 @@
+
+- added using CVS keywords in %changelog (for automating them).
+
+* Wed Dec  8 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.0-7]
+- recompiled against libstdc++.so.2.9.
+
+* Thu Oct 13 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.0-5]
+- added Group(pl) fields,
+- fixes in %files.
+
+* Sun Oct 11 1998 Jacek Konieczny <jajcus@zeus.polsl.gliwice.pl>
+  [1.0-4]
+- hiscore file for ksnake moved to /var/lib/games,
+- created new spec based on kdebase.spec.
