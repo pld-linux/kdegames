@@ -711,7 +711,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*
 %{_datadir}/apps/kdegames/pics/*
-%{_datadir}/apps/kdegames/sounds/*/*.wav
+%{_datadir}/apps/sounds/*/*.wav
 %{_libdir}/libkdegames.la
 %{_libdir}/libkdehighscores.la
 %{_libdir}/libkdehighscores.so.*.*.*
