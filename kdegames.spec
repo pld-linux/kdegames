@@ -4,8 +4,8 @@
 %bcond_without highscore	# without system-wide score feature
 
 %define		_state		snapshots
-%define		_ver		3.1.92
-%define		_snap		031024
+%define		_ver		3.1.93
+%define		_snap		031105
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -23,17 +23,17 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	3c47d56c2bf96c9fa09bca1b598ed1a6
+# Source0-md5:	22dc4ce056e281dd24436e7c340a96a3
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	kdelibs-devel >= 9:%{version}
+BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	sed >= 4.0
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdegames-kabalone
 Obsoletes:     	kdegames-megami
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		no_install_post_chrpath		1
 
 %description
 Libraries for kdegames. Included with this package are: kasteroids,
@@ -721,6 +721,7 @@ done
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
+	--disable-rpath \
 	--enable-final \
 	%{?with_highscore:--enable-highscore-dir=/var/games}
 
@@ -731,11 +732,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_docdir}/kde/HTML
+	kde_htmldir=%{_kdedocdir}
 
-cd $RPM_BUILD_ROOT%{_iconsdir}
-mv {locolor,crystalsvg}/16x16/apps/lskat.png
-cd -
+mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/lskat.png
 
 cp libkdegames/highscore/INSTALL ./README.highscore
 
@@ -772,7 +771,13 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 %find_lang ktuberling	--with-kde
 %find_lang kwin4	--with-kde
 %find_lang lskat	--with-kde
-#%find_lang megami	--with-kde
+
+for f in *.lang; do
+	if grep -q %{name}-%{_snap}-apidocs $f; then
+		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
+		mv $f.tmp $f
+	fi	
+done	
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -865,6 +870,7 @@ EOF
 
 %files devel
 %defattr(644,root,root,755)
+%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
 %{_includedir}/*
 %{_libdir}/libatlantic.so
 %{_libdir}/libatlantikclient.so
