@@ -693,6 +693,9 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 cat libkdehighscores.lang	>> libkdegames.lang
 cat multiplayers.lang		>> libkdegames.lang	
 
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
