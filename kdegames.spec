@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Name:		kdegames
 Version:	2.2.1
-Release:	1
+Release:	2
 Epoch:		6
 License:	GPL
 Vendor:		The KDE Team
@@ -657,11 +657,14 @@ export LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{/var/lib/games/ksnake,%{_applnkdir}/Amusements}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-install -d $RPM_BUILD_ROOT/var/lib/games/ksnake/
 touch $RPM_BUILD_ROOT/var/lib/games/ksnake/highScores
+
+mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
+	RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
 %find_lang kabalone --with-kde
 %find_lang kasteroids --with-kde
@@ -978,7 +981,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f ktuberling.lang ktuberling
 %defattr(644,root,root,755)
-%{_applnkdir}/Toys/ktuberling.desktop
+%{_applnkdir}/Amusements/ktuberling.desktop
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling/*
 %{_pixmapsdir}/hicolor/*x*/apps/ktuberling.png
