@@ -1,10 +1,9 @@
 #
 # Conditional build:
 %bcond_without	highscore	# without system-wide score feature
-%bcond_without	i18n		# don't build i18n packages per module
 #
 %define		_state		stable
-%define		_ver		3.2.2
+%define		_ver		3.2.3
 #define		_snap		040110
 
 Summary:	K Desktop Environment - games
@@ -17,20 +16,19 @@ Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 #Version:	%{_ver}.%{_snap}
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	714f8a591964c11af5bdb228cee750e6
-%if %{with i18n}
-Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	ab912a34187fb9a7a39b294c06a3bd9f
-%endif
-Patch0:		%{name}-3.2branch.diff
-Patch1:		%{name}-disable_install-exec-hook.patch
+Patch100:	%{name}-branch.diff
+Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	ed
+BuildRequires:	autoconf
+BuildRequires:	unsermake >= 040511
+BuildRequires:	automake
 BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	rpmbuild(macros) >= 1.129
 Requires:	kdelibs >= 9:%{version}
@@ -41,52 +39,10 @@ Obsoletes:	kdegames-kpm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Libraries for kdegames. Included with this package are: kasteroids,
-katomic, kbackgammon, kbattleship, kblackbox, kbounce, kenolaba,
-kfouleggs, kgoldrunner, kjumpingcube, klickety, klines, kmahjongg,
-kmines, kolf, konquest, kpat, kpoker, kreversi, ksame, kshisen,
-ksirtet, ksmiletris, ksnake, ksokoban, kspaceduel, ktron, ktuberling,
-kwin4, lskat.
-
-%description -l es
-Juegos para KDE. Incluidos en este paquete:
-
-kasteroids: arcade, katomic, kbackgammon, kbattleship, kblackbox,
-kbounce, kenolaba, kfouleggs, kgoldrunner, kjumpingcube, klickety,
-klines, kmahjongg: el popular mahjongg, kmines: desarmar las minas,
-kolf, konquest, kpat: juegos de cartas, incluso solitario, kpoker:
-vídeo póquer, kreversi: Reversi, ksame: un juego de tablero, kshisen:
-Shisen-Sho - relacionado con el mahjongg, ksirtet, ksmiletris, ksnake:
-corrida de las cobras, ksokoban, kspaceduel, ktron, kwin4, lskat.
-
-%description -l ja
-KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î¥²¡¼¥à °Ê²¼¤Î¤è¤¦¤Ê¥Ñ¥Ã¥±¡¼¥¸¤¬Æþ¤Ã¤Æ¤¤¤Þ¤¹¡£
-
-kasteroids: ¥¢¡¼¥±¡¼¥É¥²¡¼¥à, katomic, kbackgammon, kbattleship,
-kblackbox: a strategy game with hidden boxes and rays, kbounce,
-kenolaba, kfouleggs, kenolaba, kgoldrunner, kjumpingcube, klickety,
-klines, kmahjongg: ¾å³¤ kmines: ¥Þ¥¤¥ó¥¹¥¤¡¼¥Ñ¡¼, kolf, konquest,
-kpat: °ì¿ÍÍÑ¥È¥é¥ó¥×¥²¡¼¥à, kpoker: ¥Ý¡¼¥«, kreversi: ¥ê¥Ð¡¼¥·, ksame:
-same game, kshisen: »ÍÀî¾Ê, ksirtet, ksmiletris, ksnake:
-¥¹¥Í¡¼¥¯¥ì¡¼¥¹, ksokoban: ÁÒ¸ËÈÖ, kspaceduel, ktron, kwin4, lskat
+Libraries for kdegames which contain highscore support functions.
 
 %description -l pl
-Biblioteki dla gier KDE: kasteroids, katomic, kbackgammon,
-kbattleship, kblackbox, kbounce, kenolaba, kfouleggs, kgoldrunner,
-kjumpingcube, klickety, klines, kmahjongg, kmines, kolf, konquest,
-kpat, kpoker, kreversi, ksame, kshisen, ksirtet, ksmiletris, ksnake,
-ksokoban, kspaceduel, ktron, ktuberling, kwin4, lskat.
-
-%description -l pt_BR
-Jogos para o KDE. Incluídos neste pacote:
-
-kasteroids: arcade, katomic, kblackbox, kbackgammon, kbattleship,
-kbounce, kenolaba, kfouleggs, kgoldrunner, kjumpingcube, klickety,
-klines, kmahjongg: o popular mahjongg, kmines: desarmar as minas,
-kolf, konquest, kpat: jogos de cartas, inclusive paciência, kpoker:
-vídeo-poker, kreversi: Reversi, ksame: um jogo de tabuleiro, kshisen:
-Shisen-Sho - relacionado com o mahjongg, ksirtet, ksmiletris, ksnake:
-corrida das cobras, ksokoban, kspaceduel, ktron, kwin4, lskat.
+Biblioteki dla gier KDE zawieraj±ce wsparcie dla tabel wyników.
 
 %package devel
 Summary:	Development files for KDE games
@@ -131,10 +87,10 @@ Group:		X11/Applications/Games
 Requires:	kdelibs >= 9:%{version}
 
 %description carddecks
-KDE carddecks.
+Backgrounds for carddecks in KDE card games.
 
 %description carddecks -l pl
-Karcianki dla KDE.
+T³a dla talii kart w karcianki pod KDE.
 
 %description carddecks -l pt_BR
 Biblioteca de baralhos para jogos do KDE que usem cartas.
@@ -224,7 +180,12 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description kblackbox
-A little logical game for KDE.
+KBlackbox is a game of hide and seek played on an grid of boxes. Your
+opponent (the Random number generator, in this case) has hidden
+several balls within this box. By shooting rays into the box and
+observing where they emerge it is possible to deduce the positions of
+the hidden balls. The fewer rays you use to find the balls, the better
+(the lower) your score.
 
 %description kblackbox -l pl
 Prosta gra logiczna.
@@ -253,7 +214,11 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description kenolaba
-Abalone-like board game against the computer.
+Abalone-like board game against the computer. Kenolaba is a simple
+board strategy game that is played by two players. There are red and
+yellow pieces for each player. Beginning from a position where each
+player has 14 pieces, moves are drawn until one player has pushed 6 of
+his opponent's pieces out of the board.
 
 %description kenolaba -l pl
 Gra planszowa podobna do Abalone przeciwko komputerowi.
@@ -267,7 +232,7 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description kfouleggs
-KDE kfouleggs.
+KDE kfouleggs (a tetris clone).
 
 %description kfouleggs -l pl
 Gra kfouleggs dla KDE.
@@ -341,7 +306,11 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description klines
-Lines for KDE.
+Lines for KDE. The main rules of game is as simple as possible: you
+move (using mouse) marbles from cell to cell and build lines
+(horizontal, vertical or diagonal). When a line contains 5 or more
+marbles - they are removed from the field and your score grows. After
+each of your turns computer drops three more marbles onto the field.
 
 %description klines -l pl
 Gra Lines dla KDE.
@@ -396,7 +365,9 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description kolf
-Kolf - miniature golf for KDE.
+Kolf is a miniature golf game with block graphics and a 2d top-down
+view. Courses are dynamic, and up to 10 people can play at once in
+competition.
 
 %description kolf -l pl
 Kolf - mini golf dla KDE.
@@ -410,7 +381,9 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description konquest
-KDE version of Gnu-Lactic Konquest.
+This the KDE version of Gnu-Lactic Konquest, a multi-player strategy
+game. The goal of the game is to expand your interstellar empire
+across the galaxy and of course, crush your rivals in the process.
 
 %description konquest -l pl
 Podbój galaktyki dla KDE.
@@ -511,7 +484,8 @@ Requires:	kdebase-core >= 9:%{version}
 
 %description kshisen
 Shisen-Sho is similar to Mahjongg and uses the same set of tiles as
-Mahjongg.
+KMahjongg. The object of the game is to remove all tiles from the
+field.
 
 %description kshisen -l pl
 Shisen-Sho to gra podobna do Mahjongg i wykorzystuj±ca ten sam zestaw
@@ -702,7 +676,12 @@ Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= 9:%{version}
 
 %description lskat
-Lieutnant Skat.
+Lieutenant skat (from German Offiziersskat) is a card game for two
+players. It is roughly played according to the rules of Skat but with
+only two players and simplified rules. Every player has a set of cards
+in front of him/her, half of them covered and half of them open. Both
+players try to win more than 60 of the 120 possible points. After 16
+moves all cards are played and the game ends.
 
 %description lskat -l pl
 Lskat dla KDE.
@@ -724,474 +703,17 @@ Popular Gambling Game.
 %description megami -l pl
 Popularna gra hazardowa.
 
-%package i18n
-Summary:	Common internationalization and localization files for kdegames
-Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdegames
-Group:		X11/Applications
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description i18n
-Common internationalization and localization files for kdegames.
-
-%description i18n -l pl
-Pliki umiêdzynarodawiaj±ce wspólne dla kdegames.
-
-%package kmahjongg-i18n
-Summary:	Internationalization and localization files for kmahjongg
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kmahjongga
-Group:		X11/Applications
-Requires:	%{name}-kmahjongg = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kmahjongg-i18n
-Internationalization and localization files for kmahjongg.
-
-%description kmahjongg-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kmahjongga.
-
-%package ksmiletris-i18n
-Summary:	Internationalization and localization files for ksmiletris
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksmiletrisa
-Group:		X11/Applications
-Requires:	%{name}-ksmiletris = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description ksmiletris-i18n
-Internationalization and localization files for ksmiletris.
-
-%description ksmiletris-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ksmiletrisa.
-
-%package atlantik-i18n
-Summary:	Internationalization and localization files for atlantik
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla atlantika
-Group:		X11/Applications
-Requires:	%{name}-atlantik = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description atlantik-i18n
-Internationalization and localization files for atlantik.
-
-%description atlantik-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla atlantika.
-
-%package kasteroids-i18n
-Summary:	Internationalization and localization files for kasteroids
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kasteroids
-Group:		X11/Applications
-Requires:	%{name}-kasteroids = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kasteroids-i18n
-Internationalization and localization files for kasteroids.
-
-%description kasteroids-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kasteroids.
-
-%package katomic-i18n
-Summary:	Internationalization and localization files for katomic
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla katomic
-Group:		X11/Applications
-Requires:	%{name}-katomic = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description katomic-i18n
-Internationalization and localization files for katomic.
-
-%description katomic-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla katomic.
-
-%package kbackgammon-i18n
-Summary:	Internationalization and localization files for kbackgammon
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbackgammona
-Group:		X11/Applications
-Requires:	%{name}-kbackgammon = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kbackgammon-i18n
-Internationalization and localization files for kbackgammon.
-
-%description kbackgammon-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kbackgammona.
-
-%package kbattleship-i18n
-Summary:	Internationalization and localization files for kbattleship
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbattleship
-Group:		X11/Applications
-Requires:	%{name}-kbattleship = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kbattleship-i18n
-Internationalization and localization files for kbattleship.
-
-%description kbattleship-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kbattleship.
-
-%package kblackbox-i18n
-Summary:	Internationalization and localization files for kblackbox
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kblackboksa
-Group:		X11/Applications
-Requires:	%{name}-kblackbox = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kblackbox-i18n
-Internationalization and localization files for kblackbox.
-
-%description kblackbox-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kblackboksa.
-
-%package kbounce-i18n
-Summary:	Internationalization and localization files for kbounce
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kbounce
-Group:		X11/Applications
-Requires:	%{name}-kbounce = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kbounce-i18n
-Internationalization and localization files for kbounce.
-
-%description kbounce-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kbounce.
-
-%package kenolaba-i18n
-Summary:	Internationalization and localization files for kenolaba
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kenolaby
-Group:		X11/Applications
-Requires:	%{name}-kenolaba = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kenolaba-i18n
-Internationalization and localization files for kenolaba.
-
-%description kenolaba-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kenolaby.
-
-%package kfouleggs-i18n
-Summary:	Internationalization and localization files for kfouleggs
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfouleggs
-Group:		X11/Applications
-Requires:	%{name}-kfouleggs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kfouleggs-i18n
-Internationalization and localization files for kfouleggs.
-
-%description kfouleggs-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kfouleggs.
-
-%package kgoldrunner-i18n
-Summary:	Internationalization and localization files for kgoldrunner
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kgoldrunnera
-Group:		X11/Applications
-Requires:	%{name}-kgoldrunner = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kgoldrunner-i18n
-Internationalization and localization files for kgoldrunner.
-
-%description kgoldrunner-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kgoldrunnera.
-
-%package kjumpingcube-i18n
-Summary:	Internationalization and localization files for kjumpingcube
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kjumpingcube
-Group:		X11/Applications
-Requires:	%{name}-kjumpingcube = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kjumpingcube-i18n
-Internationalization and localization files for kjumpingcube.
-
-%description kjumpingcube-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kjumpingcube.
-
-%package klickety-i18n
-Summary:	Internationalization and localization files for klickety
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla klickety
-Group:		X11/Applications
-Requires:	%{name}-klickety = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description klickety-i18n
-Internationalization and localization files for klickety.
-
-%description klickety-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla klickety.
-
-%package klines-i18n
-Summary:	Internationalization and localization files for klines
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla klines
-Group:		X11/Applications
-Requires:	%{name}-klines = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description klines-i18n
-Internationalization and localization files for klines.
-
-%description klines-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla klines.
-
-%package kmines-i18n
-Summary:	Internationalization and localization files for kmines
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kmines
-Group:		X11/Applications
-Requires:	%{name}-kmines = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kmines-i18n
-Internationalization and localization files for kmines.
-
-%description kmines-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kmines.
-
-%package kolf-i18n
-Summary:	Internationalization and localization files for kolf
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kolfa
-Group:		X11/Applications
-Requires:	%{name}-kolf = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kolf-i18n
-Internationalization and localization files for kolf.
-
-%description kolf-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kolfa.
-
-%package konquest-i18n
-Summary:	Internationalization and localization files for konquest
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konquesta
-Group:		X11/Applications
-Requires:	%{name}-konquest = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description konquest-i18n
-Internationalization and localization files for konquest.
-
-%description konquest-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla konquesta.
-
-%package kpat-i18n
-Summary:	Internationalization and localization files for kpat
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kpata
-Group:		X11/Applications
-Requires:	%{name}-kpat = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kpat-i18n
-Internationalization and localization files for kpat.
-
-%description kpat-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kpata.
-
-%package kpoker-i18n
-Summary:	Internationalization and localization files for kpoker
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kpokera
-Group:		X11/Applications
-Requires:	%{name}-kpoker = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kpoker-i18n
-Internationalization and localization files for kpoker.
-
-%description kpoker-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kpokera.
-
-%package kreversi-i18n
-Summary:	Internationalization and localization files for kreversi
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kreversi
-Group:		X11/Applications
-Requires:	%{name}-kreversi = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kreversi-i18n
-Internationalization and localization files for kreversi.
-
-%description kreversi-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kreversi.
-
-%package ksame-i18n
-Summary:	Internationalization and localization files for ksame
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksame
-Group:		X11/Applications
-Requires:	%{name}-ksame = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description ksame-i18n
-Internationalization and localization files for ksame.
-
-%description ksame-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ksame.
-
-%package kshisen-i18n
-Summary:	Internationalization and localization files for kshisen
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kshisen
-Group:		X11/Applications
-Requires:	%{name}-kshisen = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kshisen-i18n
-Internationalization and localization files for kshisen.
-
-%description kshisen-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kshisen.
-
-%package ksirtet-i18n
-Summary:	Internationalization and localization files for ksirtet
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksirteta
-Group:		X11/Applications
-Requires:	%{name}-ksirtet = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description ksirtet-i18n
-Internationalization and localization files for ksirtet.
-
-%description ksirtet-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ksirteta.
-
-%package ksnake-i18n
-Summary:	Internationalization and localization files for ksnake
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksnake'a
-Group:		X11/Applications
-Requires:	%{name}-ksnake = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description ksnake-i18n
-Internationalization and localization files for ksnake.
-
-%description ksnake-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ksnake'a.
-
-%package ksokoban-i18n
-Summary:	Internationalization and localization files for ksokoban
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksokobana
-Group:		X11/Applications
-Requires:	%{name}-ksokoban = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description ksokoban-i18n
-Internationalization and localization files for ksokoban.
-
-%description ksokoban-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ksokobana.
-
-%package kspaceduel-i18n
-Summary:	Internationalization and localization files for kspaceduel
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kspaceduel
-Group:		X11/Applications
-Requires:	%{name}-kspaceduel = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kspaceduel-i18n
-Internationalization and localization files for kspaceduel.
-
-%description kspaceduel-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kspaceduel.
-
-%package ktron-i18n
-Summary:	Internationalization and localization files for ktron
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ktrona
-Group:		X11/Applications
-Requires:	%{name}-ktron = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description ktron-i18n
-Internationalization and localization files for ktron.
-
-%description ktron-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ktrona.
-
-%package ktuberling-i18n
-Summary:	Internationalization and localization files for ktuberling
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ktuberlinga
-Group:		X11/Applications
-Requires:	%{name}-ktuberling = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description ktuberling-i18n
-Internationalization and localization files for ktuberling.
-
-%description ktuberling-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ktuberlinga.
-
-%package kwin4-i18n
-Summary:	Internationalization and localization files for kwin4
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kwin4
-Group:		X11/Applications
-Requires:	%{name}-kwin4 = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description kwin4-i18n
-Internationalization and localization files for kwin4.
-
-%description kwin4-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kwin4.
-
-%package lskat-i18n
-Summary:	Internationalization and localization files for lskat
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla lskata
-Group:		X11/Applications
-Requires:	%{name}-lskat = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description lskat-i18n
-Internationalization and localization files for lskat.
-
-%description lskat-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla lskata.
-
-%package megami-i18n
-Summary:	Internationalization and localization files for megami
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla megami
-Group:		X11/Applications
-Requires:	%{name}-megami = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core-i18n >= 9:%{version}
-
-%description megami-i18n
-Internationalization and localization files for megami.
-
-%description megami-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla megami.
-
 %prep
 #%setup -q -n %{name}-%{_snap}
 %setup -q
-#%patch0 -p1
-%patch1 -p1
+%patch100 -p1
+%patch0 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
+export kde_htmldir=%{_kdedocdir}
+export kde_libs_htmldir=%{_kdedocdir}
+export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -1207,7 +729,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	kde_htmldir=%{_kdedocdir} \
+	kde_libs_htmldir=%{_kdedocdir}
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/lskat.png
 
@@ -1217,120 +740,6 @@ cp libkdegames/highscore/INSTALL ./README.highscore
 install -d $RPM_BUILD_ROOT/var/games
 touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 %endif
-
-%if %{with i18n}
-if [ -f "%{SOURCE1}" ] ; then
-	bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
-	for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
-		if [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] ; then
-		rm -f $f
-		fi
-	done
-else
-	echo "No i18n sources found and building --with i18n. FIXIT!"
-	exit 1
-fi
-%endif
-
-%find_lang atlantik	--with-kde
-%find_lang kasteroids	--with-kde
-%find_lang katomic	--with-kde
-%find_lang kbackgammon	--with-kde
-%find_lang kbattleship	--with-kde
-%find_lang kblackbox	--with-kde
-%find_lang kbounce	--with-kde
-%find_lang kenolaba	--with-kde
-%find_lang kfouleggs	--with-kde
-%find_lang kgoldrunner	--with-kde
-%find_lang kjumpingcube	--with-kde
-%find_lang klickety	--with-kde
-%find_lang klines	--with-kde
-%find_lang kmines	--with-kde
-%find_lang kolf		--with-kde
-%find_lang konquest	--with-kde
-%find_lang kpat		--with-kde
-%find_lang kpoker	--with-kde
-%find_lang kreversi	--with-kde
-%find_lang ksame	--with-kde
-%find_lang kshisen	--with-kde
-%find_lang ksirtet	--with-kde
-%find_lang ksnake	--with-kde
-%find_lang ksokoban	--with-kde
-%find_lang kspaceduel	--with-kde
-%find_lang ktron	--with-kde
-%find_lang ktuberling	--with-kde
-%find_lang kwin4	--with-kde
-%find_lang lskat	--with-kde
-
-%if %{with i18n}
-%find_lang libksirtet	--with-kde
-cat libksirtet.lang >> ksirtet.lang
-%find_lang kmahjongg	--with-kde
-%find_lang ksmiletris	--with-kde
-
-> i18n.lang
-%find_lang libkdegames	--with-kde
-cat libkdegames.lang >> i18n.lang
-%find_lang libkdehighscores	--with-kde
-cat libkdehighscores.lang >> i18n.lang
-
-for i in $RPM_BUILD_ROOT%{_datadir}/apps/sounds/* ;
-do
-	echo $i
-	if [ -d $i ] ; then
-	z=`echo $i|sed -e s,${RPM_BUILD_ROOT}%{_datadir}/apps/sounds/,,`
-	echo %lang\($z\) %{_datadir}/apps/sounds/$z >> ktuberling.lang
-	fi
-done
-%endif
-
-files="atlantik \
-kasteroids \
-katomic \
-kbackgammon \
-kbattleship \
-kblackbox \
-kbounce \
-kenolaba \
-kfouleggs \
-kgoldrunner \
-kjumpingcube \
-klickety \
-klines \
-kmines \
-kolf	 \
-konquest \
-kpat	 \
-kpoker \
-kreversi \
-ksame \
-kshisen \
-ksirtet \
-ksnake \
-ksokoban \
-kspaceduel \
-ktron \
-ktuberling \
-kwin4 \
-lskat"
-
-for i in $files; do
-	echo "%defattr(644,root,root,755)" > ${i}_en.lang
-	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
-	mv ${i}.lang.1 ${i}.lang
-done
-
-durne=`ls -1 *.lang|grep -v _en`
-
-for i in $durne; 
-do
-	echo $i >> control
-	grep -v en\/ $i|grep -v apidocs >> ${i}.1
-	if [ -f ${i}.1 ] ; then
-		mv ${i}.1 ${i}
-	fi
-done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1411,40 +820,7 @@ EOF
 %endif
 
 %if %{with i18n}
-%files ksmiletris-i18n -f ksmiletris.lang
-%files kmahjongg-i18n -f kmahjongg.lang
-%files i18n -f i18n.lang
 
-%files atlantik-i18n -f atlantik.lang
-%files kasteroids-i18n -f kasteroids.lang
-%files katomic-i18n -f katomic.lang
-%files kbackgammon-i18n -f kbackgammon.lang
-%files kbattleship-i18n -f kbattleship.lang
-%files kblackbox-i18n -f kblackbox.lang
-%files kbounce-i18n -f kbounce.lang
-%files kenolaba-i18n -f kenolaba.lang
-%files kfouleggs-i18n -f kfouleggs.lang
-%files kgoldrunner-i18n -f kgoldrunner.lang
-%files kjumpingcube-i18n -f kjumpingcube.lang
-%files klickety-i18n -f klickety.lang
-%files klines-i18n -f klines.lang
-%files kmines-i18n -f kmines.lang
-%files kolf-i18n -f kolf.lang
-%files konquest-i18n -f konquest.lang
-%files kpat-i18n -f kpat.lang
-%files kpoker-i18n -f kpoker.lang
-%files kreversi-i18n -f kreversi.lang
-%files ksame-i18n -f ksame.lang
-%files kshisen-i18n -f kshisen.lang
-%files ksirtet-i18n -f ksirtet.lang
-%files ksnake-i18n -f ksnake.lang
-%files ksokoban-i18n -f ksokoban.lang
-%files kspaceduel-i18n -f kspaceduel.lang
-%files ktron-i18n -f ktron.lang
-%files ktuberling-i18n -f ktuberling.lang
-%files kwin4-i18n -f kwin4.lang
-%files lskat-i18n -f lskat.lang
-#%files megami-i18n -f megami.lang
 %endif
 
 %files
@@ -1471,7 +847,7 @@ EOF
 %defattr(644,root,root,755)
 %{_datadir}/apps/carddecks
 
-%files atlantik -f atlantik_en.lang
+%files atlantik
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %{_libdir}/libatlantic.la
@@ -1486,94 +862,107 @@ EOF
 %{_datadir}/services/atlantik.protocol
 %{_desktopdir}/kde/atlantik.desktop
 %{_iconsdir}/*/*/apps/atlantik.png
+%{_kdedocdir}/en/atlantik
 
-%files kasteroids -f kasteroids_en.lang
+%files kasteroids
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
 %{_datadir}/config.kcfg/kasteroids.kcfg
 %{_desktopdir}/kde/kasteroids.desktop
 %{_iconsdir}/*/*/apps/kasteroids.png
+%{_kdedocdir}/en/kasteroids
 
-%files katomic -f katomic_en.lang
+%files katomic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
 %{_desktopdir}/kde/katomic.desktop
 %{_iconsdir}/*/*/apps/katomic.png
+%{_kdedocdir}/en/katomic
 
-%files kbackgammon -f kbackgammon_en.lang
+%files kbackgammon
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %{_datadir}/apps/kbackgammon
 %{_desktopdir}/kde/kbackgammon.desktop
 %{_iconsdir}/*/*/apps/kbackgammon*.png
+%{_kdedocdir}/en/kbackgammon
 
-%files kbattleship -f kbattleship_en.lang
+%files kbattleship
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
 %{_desktopdir}/kde/kbattleship.desktop
 %{_iconsdir}/*/*/apps/kbattleship.png
+%{_kdedocdir}/en/kbattleship
 
-%files kblackbox -f kblackbox_en.lang
+%files kblackbox
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_datadir}/apps/kblackbox
 %{_desktopdir}/kde/kblackbox.desktop
 %{_iconsdir}/*/*/apps/kblackbox.png
+%{_kdedocdir}/en/kblackbox
 
-%files kbounce -f kbounce_en.lang
+%files kbounce
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
 %{_desktopdir}/kde/kbounce.desktop
 %{_iconsdir}/[!l]*/*/*/kbounce*
+%{_kdedocdir}/en/kbounce
 
-%files kenolaba -f kenolaba_en.lang
+%files kenolaba
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_datadir}/apps/kenolaba
 %{_desktopdir}/kde/kenolaba.desktop
 %{_iconsdir}/*/*/*/kenolaba*
+%{_kdedocdir}/en/kenolaba
 
-%files kfouleggs -f kfouleggs_en.lang
+%files kfouleggs
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores}
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_datadir}/apps/kfouleggs
 %{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
+%{_kdedocdir}/en/kfouleggs
 
-%files kgoldrunner -f kgoldrunner_en.lang
+%files kgoldrunner
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kgoldrunner
 %{_datadir}/apps/kgoldrunner
 %{_desktopdir}/kde/KGoldrunner.desktop
 %{_iconsdir}/hicolor/*/apps/kgoldrunner.png
+%{_kdedocdir}/en/kgoldrunner
 
-%files kjumpingcube -f kjumpingcube_en.lang
+%files kjumpingcube
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
 %{_datadir}/config.kcfg/kjumpingcube.kcfg
 %{_desktopdir}/kde/kjumpingcube.desktop
 %{_iconsdir}/*/*/apps/kjumpingcube.png
+%{_kdedocdir}/en/kjumpingcube
 
-%files klickety -f klickety_en.lang
+%files klickety
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores}
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
 %{_desktopdir}/kde/klickety.desktop
+%{_kdedocdir}/en/klickety
 
-%files klines -f klines_en.lang
+%files klines
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
 %{_datadir}/config.kcfg/klines.kcfg
 %{_desktopdir}/kde/klines.desktop
 %{_iconsdir}/*/*/apps/klines.png
+%{_kdedocdir}/en/klines
 
 %files kmahjongg
 %defattr(644,root,root,755)
@@ -1583,15 +972,16 @@ EOF
 %{_desktopdir}/kde/kmahjongg.desktop
 %{_iconsdir}/*/*/apps/kmahjongg.png
 
-%files kmines -f kmines_en.lang
+%files kmines
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores}
 %attr(755,root,root) %{_bindir}/kmines
 %{_datadir}/apps/kmines
 %{_desktopdir}/kde/kmines.desktop
 %{_iconsdir}/*/*/apps/kmines.png
+%{_kdedocdir}/en/kmines
 
-%files kolf -f kolf_en.lang
+%files kolf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
 %{_libdir}/libkdeinit_kolf.la
@@ -1605,51 +995,58 @@ EOF
 %{_datadir}/mimelnk/application/*
 %{_desktopdir}/kde/kolf.desktop
 %{_iconsdir}/*/*/apps/kolf.png
+%{_kdedocdir}/en/kolf
 
-%files konquest -f konquest_en.lang
+%files konquest
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest
 %{_desktopdir}/kde/konquest.desktop
 %{_iconsdir}/*/*/apps/konquest.png
+%{_kdedocdir}/en/konquest
 
-%files kpat -f kpat_en.lang
+%files kpat
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat
 %{_desktopdir}/kde/kpat.desktop
 %{_iconsdir}/*/*/apps/kpat.png
+%{_kdedocdir}/en/kpat
 
-%files kpoker -f kpoker_en.lang
+%files kpoker
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker
 %{_desktopdir}/kde/kpoker.desktop
 %{_iconsdir}/*/*/apps/kpoker.png
+%{_kdedocdir}/en/kpoker
 
-%files kreversi -f kreversi_en.lang
+%files kreversi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
 %{_datadir}/config.kcfg/kreversi.kcfg
 %{_desktopdir}/kde/kreversi.desktop
 %{_iconsdir}/*/*/apps/kreversi.png
+%{_kdedocdir}/en/kreversi
 
-%files ksame -f ksame_en.lang
+%files ksame
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame
 %{_desktopdir}/kde/ksame.desktop
 %{_iconsdir}/*/*/apps/ksame.png
+%{_kdedocdir}/en/ksame
 
-%files kshisen -f kshisen_en.lang
+%files kshisen
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen
 %{_desktopdir}/kde/kshisen.desktop
 %{_iconsdir}/*/*/apps/kshisen.png
+%{_kdedocdir}/en/kshisen
 
-%files ksirtet -f ksirtet_en.lang
+%files ksirtet
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores}
 %attr(755,root,root) %{_bindir}/ksirtet
@@ -1657,6 +1054,7 @@ EOF
 %{_datadir}/config.kcfg/ksirtet.kcfg
 %{_desktopdir}/kde/ksirtet.desktop
 %{_iconsdir}/*/*/apps/ksirtet.png
+%{_kdedocdir}/en/ksirtet
 
 %files ksmiletris
 %defattr(644,root,root,755)
@@ -1665,56 +1063,63 @@ EOF
 %{_desktopdir}/kde/ksmiletris.desktop
 %{_iconsdir}/*/*/apps/ksmiletris.png
 
-%files ksnake -f ksnake_en.lang
+%files ksnake
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake
 %{_desktopdir}/kde/ksnake.desktop
 %{_iconsdir}/*/*/apps/ksnake.png
+%{_kdedocdir}/en/ksnake
 
-%files ksokoban -f ksokoban_en.lang
+%files ksokoban
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_desktopdir}/kde/ksokoban.desktop
 %{_iconsdir}/*/*/apps/ksokoban.png
+%{_kdedocdir}/en/ksokoban
 
-%files kspaceduel -f kspaceduel_en.lang
+%files kspaceduel
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
 %{_datadir}/config.kcfg/kspaceduel.kcfg
 %{_desktopdir}/kde/kspaceduel.desktop
 %{_iconsdir}/[!l]*/*/apps/kspaceduel.png
+%{_kdedocdir}/en/kspaceduel
 
-%files ktron -f ktron_en.lang
+%files ktron
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
 %{_datadir}/config.kcfg/ktron.kcfg
 %{_desktopdir}/kde/ktron.desktop
 %{_iconsdir}/*/*/apps/ktron.png
+%{_kdedocdir}/en/ktron
 
-%files ktuberling -f ktuberling_en.lang
+%files ktuberling
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling
 %{_desktopdir}/kde/ktuberling.desktop
 %{_iconsdir}/*/*/apps/ktuberling.png
+%{_kdedocdir}/en/ktuberling
 
-%files kwin4 -f kwin4_en.lang
+%files kwin4
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_datadir}/apps/kwin4
 %{_desktopdir}/kde/kwin4.desktop
 %{_iconsdir}/*/*/apps/kwin4.png
+%{_kdedocdir}/en/kwin4
 
-%files lskat -f lskat_en.lang
+%files lskat
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/lskat
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
 %{_desktopdir}/kde/lskat.desktop
 %{_iconsdir}/[!l]*/*/apps/lskat.png
+%{_kdedocdir}/en/lskat
 
 #%files megami -f megami_en.lang
 #%defattr(644,root,root,755)
