@@ -1,11 +1,11 @@
 #
 # Conditional build:
 %bcond_without	highscore	# without system-wide score feature
-%bcond_without  i18n		# don't build i18n packages per module
+%bcond_with	i18n		# don't build i18n packages per module
 #
 %define		_state		snapshots
-%define		_ver		3.2.0
-#define		_snap		040110
+%define		_ver		3.2.90
+%define		_snap		040213
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -15,25 +15,22 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-#Version:	%{_ver}.%{_snap}
-Version:	%{_ver}
-Release:	2
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	30af752fbe3547a30963bf0df0380c24
-%if %{with i18n}
-Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	dab4d56eef3c480584b3df46085b33bb
-%endif
-Patch0:		%{name}-3.2branch.diff
-Patch1:		%{name}-disable_install-exec-hook.patch
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
+##%% Source0-md5:	30af752fbe3547a30963bf0df0380c24
+#Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
+##%% Source1-md5:	dab4d56eef3c480584b3df46085b33bb
+Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	ed
 BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	unsermake
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-megami
@@ -1186,20 +1183,21 @@ Internationalization and localization files for megami.
 Pliki umiêdzynarodawiaj±ce dla megami.
 
 %prep
-#%setup -q -n %{name}-%{_snap}
-%setup -q
+%setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
+
+export UNSERMAKE=/usr/share/unsermake/unsermake
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--disable-rpath \
-	--with-qt-libraries=%{_libdir} \
 	--enable-final \
-	%{?with_highscore:--enable-highscore-dir=/var/games}
+	%{?with_highscore:--enable-highscore-dir=/var/games} \
+	--with-qt-libraries=%{_libdir}
 
 %{__make}
 
@@ -1224,7 +1222,7 @@ if [ -f "%{SOURCE1}" ] ; then
         bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 	for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
 		if [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] ; then
-		rm -f $f
+			rm -f $f
 		fi
 	done
 else
@@ -1277,45 +1275,45 @@ cat libkdegames.lang >> i18n.lang
 %find_lang libkdehighscores	--with-kde
 cat libkdehighscores.lang >> i18n.lang
 
-for i in $RPM_BUILD_ROOT%{_datadir}/apps/sounds/* ;
-do
+for i in $RPM_BUILD_ROOT%{_datadir}/apps/sounds/*; do
 	echo $i
 	if [ -d $i ] ; then
-	z=`echo $i|sed -e s,${RPM_BUILD_ROOT}%{_datadir}/apps/sounds/,,`
-	echo %lang\($z\) %{_datadir}/apps/sounds/$z >> ktuberling.lang
+		z=`echo $i|sed -e s,${RPM_BUILD_ROOT}%{_datadir}/apps/sounds/,,`
+		echo %lang\($z\) %{_datadir}/apps/sounds/$z >> ktuberling.lang
 	fi
 done
 %endif
 
-files="atlantik \
-kasteroids \
-katomic \
-kbackgammon \
-kbattleship \
-kblackbox \
-kbounce \
-kenolaba \
-kfouleggs \
-kgoldrunner \
-kjumpingcube \
-klickety \
-klines \
-kmines \
-kolf	 \
-konquest \
-kpat	 \
-kpoker \
-kreversi \
-ksame \
-kshisen \
-ksirtet \
-ksnake \
-ksokoban \
-kspaceduel \
-ktron \
-ktuberling \
-kwin4 \
-lskat"
+files="\
+	atlantik \
+	kasteroids \
+	katomic \
+	kbackgammon \
+	kbattleship \
+	kblackbox \
+	kbounce \
+	kenolaba \
+	kfouleggs \
+	kgoldrunner \
+	kjumpingcube \
+	klickety \
+	klines \
+	kmines \
+	kolf \
+	konquest \
+	kpat \
+	kpoker \
+	kreversi \
+	ksame \
+	kshisen \
+	ksirtet \
+	ksnake \
+	ksokoban \
+	kspaceduel \
+	ktron \
+	ktuberling \
+	kwin4 \
+	lskat"
 
 for i in $files; do
         echo "%defattr(644,root,root,755)" > ${i}_en.lang
@@ -1326,8 +1324,7 @@ done
 
 durne=`ls -1 *.lang|grep -v _en`
 
-for i in $durne; 
-do
+for i in $durne; do
 	echo $i >> control
 	grep -v en\/ $i|grep -v apidocs >> ${i}.1
 	if [ -f ${i}.1 ] ; then
@@ -1462,7 +1459,7 @@ EOF
 
 %files devel
 %defattr(644,root,root,755)
-##%lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 %attr(755,root,root) %{_libdir}/libatlantic.so
 %attr(755,root,root) %{_libdir}/libatlantikclient.so
 %attr(755,root,root) %{_libdir}/libatlantikui.so
