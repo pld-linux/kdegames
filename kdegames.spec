@@ -1,6 +1,6 @@
-%define		_ver		3.0.2
+%define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		2
+%define		_rel		0.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -26,10 +26,10 @@ Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	kdelibs-devel >= %{version}
-BuildRequires:	qt-devel >= 2.2
+BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
 BuildRequires:	arts-devel
-Requires:	qt >= 3.0.3
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
