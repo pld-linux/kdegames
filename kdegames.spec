@@ -5,11 +5,11 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040510
+%define		_snap		040516
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.040508
-%define		_minbaseevr	9:3.2.90.040508
+%define		_minlibsevr	9:3.2.90.040515
+%define		_minbaseevr	9:3.2.90.040515
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -20,7 +20,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -724,20 +724,6 @@ Lskat dla KDE.
 %description lskat -l pt_BR
 Jogo de cartas Lieutenant Skat para KDE
 
-%package megami
-Summary:	Popular Gambling Game
-Summary(pl):	Popularna gra hazardowa
-Group:		X11/Applications/Games
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	%{name}-carddecks = %{epoch}:%{version}-%{release}
-Requires:	kdebase-core >= %{_minbaseevr}
-
-%description megami
-Popular Gambling Game.
-
-%description megami -l pl
-Popularna gra hazardowa.
-
 %prep
 %setup -q -n %{name}-%{_snap}
 %patch0 -p1
@@ -766,13 +752,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
-
-# Workaround for doc caches (unsermake bug?)
-cd doc
-for i in `find . -name index.cache.bz2`; do
-	install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
-done
-cd -	 
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/lskat.png
 
@@ -813,53 +792,8 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 %find_lang kwin4	--with-kde
 %find_lang lskat	--with-kde
 
-files="\
-	atlantik \
-	kasteroids \
-	katomic \
-	kbackgammon \
-	kbattleship \
-	kblackbox \
-	kbounce \
-	kenolaba \
-	kfouleggs \
-	kgoldrunner \
-	kjumpingcube \
-	klickety \
-	klines \
-	kmines \
-	kolf \
-	konquest \
-	kpat \
-	kpoker \
-	kreversi \
-	ksame \
-	kshisen \
-	ksirtet \
-	ksnake \
-	ksokoban \
-	kspaceduel \
-	ktron \
-	ktuberling \
-	kwin4 \
-	lskat"
-
-for i in $files; do
-        echo "%defattr(644,root,root,755)" > ${i}_en.lang
-	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
-	mv ${i}.lang.1 ${i}.lang
-done
-
-durne=`ls -1 *.lang|grep -v _en`
-
-for i in $durne; do
-	echo $i >> control
-	grep -v en\/ $i|grep -v apidocs >> ${i}.1
-	if [ -f ${i}.1 ] ; then
-		mv ${i}.1 ${i}
-	fi
-done
+# Omit apidocs entries
+sed -i 's/.*apidocs.*//' *.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -968,7 +902,7 @@ EOF
 %defattr(644,root,root,755)
 %{_datadir}/apps/carddecks
 
-%files atlantik -f atlantik_en.lang
+%files atlantik -f atlantik.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %{_libdir}/libatlantic.la
@@ -984,7 +918,7 @@ EOF
 %{_desktopdir}/kde/atlantik.desktop
 %{_iconsdir}/*/*/apps/atlantik.png
 
-%files kasteroids -f kasteroids_en.lang
+%files kasteroids -f kasteroids.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
 %{_datadir}/apps/kasteroids
@@ -992,49 +926,49 @@ EOF
 %{_desktopdir}/kde/kasteroids.desktop
 %{_iconsdir}/*/*/apps/kasteroids.png
 
-%files katomic -f katomic_en.lang
+%files katomic -f katomic.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
 %{_datadir}/apps/katomic
 %{_desktopdir}/kde/katomic.desktop
 %{_iconsdir}/*/*/apps/katomic.png
 
-%files kbackgammon -f kbackgammon_en.lang
+%files kbackgammon -f kbackgammon.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %{_datadir}/apps/kbackgammon
 %{_desktopdir}/kde/kbackgammon.desktop
 %{_iconsdir}/*/*/apps/kbackgammon*.png
 
-%files kbattleship -f kbattleship_en.lang
+%files kbattleship -f kbattleship.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
 %{_datadir}/apps/kbattleship
 %{_desktopdir}/kde/kbattleship.desktop
 %{_iconsdir}/*/*/apps/kbattleship.png
 
-%files kblackbox -f kblackbox_en.lang
+%files kblackbox -f kblackbox.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
 %{_datadir}/apps/kblackbox
 %{_desktopdir}/kde/kblackbox.desktop
 %{_iconsdir}/*/*/apps/kblackbox.png
 
-%files kbounce -f kbounce_en.lang
+%files kbounce -f kbounce.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
 %{_desktopdir}/kde/kbounce.desktop
 %{_iconsdir}/[!l]*/*/*/kbounce*
 
-%files kenolaba -f kenolaba_en.lang
+%files kenolaba -f kenolaba.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kenolaba
 %{_datadir}/apps/kenolaba
 %{_desktopdir}/kde/kenolaba.desktop
 %{_iconsdir}/*/*/*/kenolaba*
 
-%files kfouleggs -f kfouleggs_en.lang
+%files kfouleggs -f kfouleggs.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores}
 %attr(755,root,root) %{_bindir}/kfouleggs
@@ -1043,14 +977,14 @@ EOF
 %{_desktopdir}/kde/kfouleggs.desktop
 %{_iconsdir}/crystalsvg/*/*/kfouleggs*
 
-%files kgoldrunner -f kgoldrunner_en.lang
+%files kgoldrunner -f kgoldrunner.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kgoldrunner
 %{_datadir}/apps/kgoldrunner
 %{_desktopdir}/kde/KGoldrunner.desktop
 %{_iconsdir}/hicolor/*/apps/kgoldrunner.png
 
-%files kjumpingcube -f kjumpingcube_en.lang
+%files kjumpingcube -f kjumpingcube.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_datadir}/apps/kjumpingcube
@@ -1058,14 +992,14 @@ EOF
 %{_desktopdir}/kde/kjumpingcube.desktop
 %{_iconsdir}/*/*/apps/kjumpingcube.png
 
-%files klickety -f klickety_en.lang
+%files klickety -f klickety.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores}
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
 %{_desktopdir}/kde/klickety.desktop
 
-%files klines -f klines_en.lang
+%files klines -f klines.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
@@ -1081,7 +1015,7 @@ EOF
 %{_desktopdir}/kde/kmahjongg.desktop
 %{_iconsdir}/*/*/apps/kmahjongg.png
 
-%files kmines -f kmines_en.lang
+%files kmines -f kmines.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores}
 %attr(755,root,root) %{_bindir}/kmines
@@ -1089,7 +1023,7 @@ EOF
 %{_desktopdir}/kde/kmines.desktop
 %{_iconsdir}/*/*/apps/kmines.png
 
-%files kolf -f kolf_en.lang
+%files kolf -f kolf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
 %{_libdir}/libkdeinit_kolf.la
@@ -1104,28 +1038,28 @@ EOF
 %{_desktopdir}/kde/kolf.desktop
 %{_iconsdir}/*/*/apps/kolf.png
 
-%files konquest -f konquest_en.lang
+%files konquest -f konquest.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/konquest
 %{_datadir}/apps/konquest
 %{_desktopdir}/kde/konquest.desktop
 %{_iconsdir}/*/*/apps/konquest.png
 
-%files kpat -f kpat_en.lang
+%files kpat -f kpat.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpat
 %{_datadir}/apps/kpat
 %{_desktopdir}/kde/kpat.desktop
 %{_iconsdir}/*/*/apps/kpat.png
 
-%files kpoker -f kpoker_en.lang
+%files kpoker -f kpoker.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpoker
 %{_datadir}/apps/kpoker
 %{_desktopdir}/kde/kpoker.desktop
 %{_iconsdir}/*/*/apps/kpoker.png
 
-%files kreversi -f kreversi_en.lang
+%files kreversi -f kreversi.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
@@ -1133,21 +1067,22 @@ EOF
 %{_desktopdir}/kde/kreversi.desktop
 %{_iconsdir}/*/*/apps/kreversi.png
 
-%files ksame -f ksame_en.lang
+%files ksame -f ksame.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksame
 %{_datadir}/apps/ksame
 %{_desktopdir}/kde/ksame.desktop
 %{_iconsdir}/*/*/apps/ksame.png
 
-%files kshisen -f kshisen_en.lang
+%files kshisen -f kshisen.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kshisen
 %{_datadir}/apps/kshisen
+%{_datadir}/config.kcfg/kshisen.kcfg
 %{_desktopdir}/kde/kshisen.desktop
 %{_iconsdir}/*/*/apps/kshisen.png
 
-%files ksirtet -f ksirtet_en.lang
+%files ksirtet -f ksirtet.lang
 %defattr(644,root,root,755)
 %{?with_highscore:%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores}
 %attr(755,root,root) %{_bindir}/ksirtet
@@ -1163,20 +1098,21 @@ EOF
 %{_desktopdir}/kde/ksmiletris.desktop
 %{_iconsdir}/*/*/apps/ksmiletris.png
 
-%files ksnake -f ksnake_en.lang
+%files ksnake -f ksnake.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ksnake
 %{_datadir}/apps/ksnake
+%{_datadir}/config.kcfg/ksnake.kcfg
 %{_desktopdir}/kde/ksnake.desktop
 %{_iconsdir}/*/*/apps/ksnake.png
 
-%files ksokoban -f ksokoban_en.lang
+%files ksokoban -f ksokoban.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_desktopdir}/kde/ksokoban.desktop
 %{_iconsdir}/*/*/apps/ksokoban.png
 
-%files kspaceduel -f kspaceduel_en.lang
+%files kspaceduel -f kspaceduel.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
@@ -1184,7 +1120,7 @@ EOF
 %{_desktopdir}/kde/kspaceduel.desktop
 %{_iconsdir}/[!l]*/*/apps/kspaceduel.png
 
-%files ktron -f ktron_en.lang
+%files ktron -f ktron.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktron
 %{_datadir}/apps/ktron
@@ -1192,31 +1128,25 @@ EOF
 %{_desktopdir}/kde/ktron.desktop
 %{_iconsdir}/*/*/apps/ktron.png
 
-%files ktuberling -f ktuberling_en.lang
+%files ktuberling -f ktuberling.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/ktuberling
 %{_datadir}/apps/ktuberling
 %{_desktopdir}/kde/ktuberling.desktop
 %{_iconsdir}/*/*/apps/ktuberling.png
 
-%files kwin4 -f kwin4_en.lang
+%files kwin4 -f kwin4.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin4*
 %{_datadir}/apps/kwin4
+%{_datadir}/config.kcfg/kwin4.kcfg
 %{_desktopdir}/kde/kwin4.desktop
 %{_iconsdir}/*/*/apps/kwin4.png
 
-%files lskat -f lskat_en.lang
+%files lskat -f lskat.lang
 %defattr(644,root,root,755)
 %attr(755,root,games) %{_bindir}/lskat
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
 %{_desktopdir}/kde/lskat.desktop
 %{_iconsdir}/[!l]*/*/apps/lskat.png
-
-#%files megami -f megami_en.lang
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/megami
-#%{_datadir}/apps/megami
-#%{_desktopdir}/kde/megami.desktop
-#%{_iconsdir}/*/*/apps/megami.png
