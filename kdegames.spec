@@ -664,7 +664,7 @@ install -d $RPM_BUILD_ROOT{/var/lib/games/ksnake,%{_applnkdir}/Amusements}
 touch $RPM_BUILD_ROOT/var/lib/games/ksnake/highScores
 
 mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
-	RPM_BUILD_ROOT%{_applnkdir}/Amusements
+	$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
 %find_lang kabalone --with-kde
 %find_lang kasteroids --with-kde
