@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		1.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -672,6 +672,7 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
+%find_lang libkde --with-kde --all-name
 #%find_lang kabalone --with-kde
 %find_lang kasteroids --with-kde
 %find_lang katomic --with-kde
@@ -705,7 +706,7 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f libkde.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*
 %{_datadir}/apps/kdegames/pics/*
@@ -843,8 +844,8 @@ rm -rf $RPM_BUILD_ROOT
 #             KMAHJONGG
 #################################################
 
-#%files -f kmahjongg.lang kmahjongg
-%files kmahjongg
+#%files kmahjongg
+%files -f kmahjongg.lang kmahjongg
 %defattr(644,root,root,755)
 %{_applnkdir}/Games/Board/kmahjongg.desktop
 %attr(755,root,root) %{_bindir}/kmahjongg
@@ -934,8 +935,8 @@ rm -rf $RPM_BUILD_ROOT
 #             KSMILETRIS
 #################################################
 
-#%files -f ksmiletris.lang ksmiletris
-%files ksmiletris
+#%files ksmiletris
+%files -f ksmiletris.lang ksmiletris
 %defattr(644,root,root,755)
 %{_applnkdir}/Games/Arcade/ksmiletris.desktop
 %attr(755,root,root) %{_bindir}/ksmiletris
