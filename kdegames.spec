@@ -17,7 +17,7 @@ Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 #Version:	%{_ver}.%{_snap}
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -1322,6 +1322,17 @@ for i in $files; do
 	mv ${i}.lang.1 ${i}.lang
 done
 
+durne=`ls -1 *.lang|grep -v _en`
+
+for i in $durne; 
+do
+	echo $i >> control
+	grep -v en\/ $i|grep -v apidocs >> ${i}.1
+	if [ -f ${i}.1 ] ; then
+		mv ${i}.1 ${i}
+	fi
+done
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -1449,7 +1460,7 @@ EOF
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-apidocs
+##%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 %attr(755,root,root) %{_libdir}/libatlantic.so
 %attr(755,root,root) %{_libdir}/libatlantikclient.so
 %attr(755,root,root) %{_libdir}/libatlantikui.so
