@@ -21,8 +21,9 @@ Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://download.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	714f8a591964c11af5bdb228cee750e6
+Icon:		kde-games.xpm
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	ed
