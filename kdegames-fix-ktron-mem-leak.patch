@@ -1,0 +1,31 @@
+cvs server: Diffing .
+Index: ktron.cpp
+===================================================================
+RCS file: /home/kde/kdegames/ktron/ktron.cpp,v
+retrieving revision 1.24
+diff -u -u -p -r1.24 ktron.cpp
+--- kdegames/ktron/ktron.cpp	2001/04/25 13:35:24	1.24
++++ kdegames/ktron/ktron.cpp	2002/03/07 15:15:17
+@@ -265,6 +265,7 @@ KTron::KTron(const char *name)
+ KTron::~KTron()
+ {
+ 	saveSettings();
++	delete tron;
+ }
+ 
+ 
+Index: tron.cpp
+===================================================================
+RCS file: /home/kde/kdegames/ktron/tron.cpp,v
+retrieving revision 1.9
+diff -u -u -p -r1.9 tron.cpp
+--- kdegames/ktron/tron.cpp	2001/04/25 13:35:24	1.9
++++ kdegames/ktron/tron.cpp	2002/03/07 15:15:17
+@@ -75,6 +75,7 @@ Tron::~Tron()
+     }
+   if(pixmap)
+     delete pixmap;
++  delete timer;
+ }
+ 
+ void Tron::createNewPlayfield()

@@ -1,0 +1,20 @@
+cvs server: Diffing .
+Index: ballpainter.cpp
+===================================================================
+RCS file: /home/kde/kdegames/klines/ballpainter.cpp,v
+retrieving revision 1.2
+diff -u -u -p -r1.2 ballpainter.cpp
+--- kdegames/klines/ballpainter.cpp	2001/05/21 20:45:54	1.2
++++ kdegames/klines/ballpainter.cpp	2002/03/07 14:18:11
+@@ -43,6 +43,9 @@ BallPainter::BallPainter()
+ 
+ BallPainter::~BallPainter()
+ {
++  delete backgroundPix;
++  delete imgCash;
++  delete firePix;
+ }
+ void BallPainter::createPixmap()
+ {
+cvs server: Diffing povray
+cvs server: Diffing templates
