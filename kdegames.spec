@@ -4,8 +4,8 @@
 %bcond_without highscore	# without system-wide score feature
 
 %define		_state		snapshots
-%define		_ver		3.1.93
-%define		_snap		031114
+%define		_ver		3.1.94
+%define		_snap		031204
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -990,6 +990,7 @@ EOF
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klines
 %{_datadir}/apps/klines
+%{_datadir}/config.kcfg/klines.kcfg
 %{_desktopdir}/kde/klines.desktop
 
 %files kmahjongg
