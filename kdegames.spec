@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		1.2
+%define		_rel		1.3
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -204,6 +204,30 @@ Prosta gra logiczna.
 
 %description kblackbox -l pt_BR
 Versão do jogo Blackbox do Emacs para KDE.
+
+%package kbounce
+Summary:	Claim areas and don't get disturbed
+#Summary(pl):	
+Group:		X11/Applications/Games
+Requires:	qt >= 3.0.3
+Requires:	kdelibs >= %{version}
+
+%description kbounce
+Claim areas and don't get disturbed.
+
+#%description kbounce -l pl
+
+%package kenolaba
+Summary:	-
+#Summary(pl):	-
+Group:		X11/Applications/Games
+Requires:	qt >= 3.0.3
+Requires:	kdelibs >= %{version}
+
+%description kenolaba
+-
+
+#%description kenolaba -l pl
 
 %package kfouleggs
 Summary:	KDE kfouleggs
@@ -619,31 +643,6 @@ Lskat dla KDE.
 %description lskat -l pt_BR
 Jogo de cartas Lieutenant Skat para KDE
 
-%package kbounce
-Summary:	Claim areas and don't get disturbed
-#Summary(pl):	
-Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
-Requires:	kdelibs >= %{version}
-
-%description kbounce
-Claim areas and don't get disturbed.
-
-#%description kbounce -l pl
-
-%package kenolaba
-Summary:	-
-Summary(pl):	-
-Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
-Requires:	kdelibs >= %{version}
-
-%description kenolaba
--
-
-%description kenolaba -l pl
--
-
 %prep
 %setup -q
 %patch0 -p1
@@ -672,7 +671,6 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%find_lang libkdegames	--with-kde 
 #%find_lang kabalone	--with-kde
 %find_lang kasteroids	--with-kde
 %find_lang katomic	--with-kde
@@ -685,7 +683,7 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 #%find_lang kjezz	--with-kde
 %find_lang kjumpingcube	--with-kde
 %find_lang klines	--with-kde
-#%find_lang kmahjongg	--with-kde
+%find_lang kmahjongg	--with-kde
 %find_lang kmines	--with-kde
 %find_lang konquest	--with-kde
 %find_lang kpat		--with-kde
@@ -694,19 +692,21 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang ksame	--with-kde
 %find_lang kshisen	--with-kde
 %find_lang ksirtet	--with-kde
-#%find_lang ksmiletris	--with-kde
+%find_lang ksmiletris	--with-kde
 %find_lang ksnake	--with-kde
 %find_lang ksokoban	--with-kde
 %find_lang kspaceduel	--with-kde
 %find_lang ktron	--with-kde
 %find_lang ktuberling	--with-kde
 %find_lang kwin4	--with-kde
+%find_lang libkdegames	--with-kde 
 %find_lang lskat	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f libkde.lang
+#%files
+%files -f libkdegames.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*
 %{_datadir}/apps/kdegames/pics/*
