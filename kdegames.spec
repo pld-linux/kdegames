@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	3.1
-Release:	2
+Release:	3
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -656,6 +656,10 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Games/Kidsgames/*,Amusements}
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/Games/{TacticStrategy,Strategy}
 
+cd $RPM_BUILD_ROOT%{_pixmapsdir}
+mv {locolor,crystalsvg}/16x16/apps/lskat.png
+cd -
+
 #bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang atlantik	--with-kde
@@ -816,7 +820,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kbounce
 %{_datadir}/apps/kbounce
 %{_applnkdir}/Games/Arcade/kbounce.desktop
-%{_pixmapsdir}/*/*/*/kbounce*
+%{_pixmapsdir}/[!l]*/*/*/kbounce*
 
 #################################################
 #             KENOLABA
@@ -1031,7 +1035,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/kspaceduel
 %{_datadir}/apps/kspaceduel
 %{_applnkdir}/Games/Arcade/kspaceduel.desktop
-%{_pixmapsdir}/*/*/apps/kspaceduel.png
+%{_pixmapsdir}/[!l]*/*/apps/kspaceduel.png
 
 #################################################
 #             KTRON
@@ -1077,7 +1081,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
 %{_applnkdir}/Games/Card/lskat.desktop
-%{_pixmapsdir}/*/*/apps/lskat.png
+%{_pixmapsdir}/[!l]*/*/apps/lskat.png
 
 #################################################
 #             MEGAMI
