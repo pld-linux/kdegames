@@ -477,7 +477,7 @@ Lieutnant Skat
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-; export LDFLAGS
+export LDFLAGS
 %configure \
 	--with-qt-dir=%{_prefix} \
  	--with-pam="yes" \
