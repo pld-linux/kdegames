@@ -1,3 +1,9 @@
+#
+# TODO: Adding new games desc.
+
+%define		_state		unstable
+%define		_kdever		kde-3.1-rc2
+
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ¥²¡¼¥à
@@ -6,16 +12,16 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-Version:	3.0.4
-Release:	2
+Version:	3.0.98
+Release:	1
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n - need update!
-Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-Patch0:		%{name}-kpatcards.patch
+#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+#Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
 BuildRequires:	kdelibs-devel = %{version}
 Requires:	qt >= 3.0.5
@@ -27,6 +33,8 @@ Obsoletes:	kdegames-kpm
 
 %define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
+
+%define		no_install_post_chrpath		1
 
 %description
 Libraries for kdegames. Included with this package are: kasteroids,
@@ -97,6 +105,16 @@ Karcianki dla KDE.
 
 %description carddecks -l pt_BR
 Biblioteca de baralhos para jogos do KDE que usem cartas.
+
+%package atlantik
+Summary:	-
+Summary(pl):	-
+Group:		X11/Applications/Games
+Requires:	kdelibs >= %{version}
+
+%description atlantik
+
+%description atlantik -l pl
 
 %package kasteroids
 Summary:	KDE Asteroids clone
@@ -201,8 +219,7 @@ Requires:	kdelibs >= %{version}
 
 %description kenolaba
 - -
-
-#%description kenolaba -l pl
+%description kenolaba -l pl
 
 %package kfouleggs
 Summary:	KDE kfouleggs
@@ -247,6 +264,16 @@ wszystkie pola na wlasno¶æ.
 %description kjumpingcube -l pt_BR
 Jogo de estratégia para 2 contendores.
 
+%package klickety
+Summary:	-
+Summary(pl):	-
+Group:		X11/Applications/Games
+Requires:	kdelibs >= %{version}
+
+%description klickety
+
+%description klickety -l pl
+
 %package klines
 Summary:	Lines for KDE
 Summary(pl):	Lines dla KDE
@@ -258,6 +285,7 @@ Lines for KDE.
 
 %description klines -l pl
 Lines dla KDE.
+
 
 %package kmahjongg
 Summary:	KDE Mahjongg clone
@@ -294,6 +322,16 @@ Wersja znanej gry "saper" dla KDE.
 
 %description kmines -l pt_BR
 Versão do jogo 'caça-minas' para o KDE.
+
+%package kolf
+Summary:	-
+Summary(pl):	-
+Group:		X11/Applications/Games
+Requires:	kdelibs >= %{version}
+
+%description kolf
+
+%description kolf -l pl
 
 %package konquest
 Summary:	KDE version of Gnu-Lactic Konquest
@@ -583,9 +621,20 @@ Lskat dla KDE.
 %description lskat -l pt_BR
 Jogo de cartas Lieutenant Skat para KDE
 
+%package megami
+Summary:	-
+Summary(pl):	-
+Group:		X11/Applications/Games
+Requires:	kdelibs >= %{version}
+
+%description megami
+
+%description megami -l pl
+
+
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -604,11 +653,12 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Toys/ktuberling.desktop,Amusements}
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Games/Kidsgames/*,Amusements}
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/Games/{TacticStrategy,Strategy}
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
+%find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
 %find_lang katomic	--with-kde
 %find_lang kbackgammon	--with-kde
@@ -618,9 +668,11 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang kenolaba	--with-kde
 %find_lang kfouleggs	--with-kde
 %find_lang kjumpingcube	--with-kde
+%find_lang klickety	--with-kde
 %find_lang klines	--with-kde
-%find_lang kmahjongg	--with-kde
+#%find_lang kmahjongg	--with-kde
 %find_lang kmines	--with-kde
+%find_lang kolf		--with-kde
 %find_lang konquest	--with-kde
 %find_lang kpat		--with-kde
 %find_lang kpoker	--with-kde
@@ -628,20 +680,22 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang ksame	--with-kde
 %find_lang kshisen	--with-kde
 %find_lang ksirtet	--with-kde
-%find_lang ksmiletris	--with-kde
+#%find_lang ksmiletris	--with-kde
 %find_lang ksnake	--with-kde
 %find_lang ksokoban	--with-kde
 %find_lang kspaceduel	--with-kde
 %find_lang ktron	--with-kde
 %find_lang ktuberling	--with-kde
 %find_lang kwin4	--with-kde
-%find_lang libkdegames	--with-kde
-%find_lang libkdehighscores	--with-kde
-%find_lang multiplayers	--with-kde
+#%find_lang libkdegames	--with-kde
+#%find_lang libkdehighscores	--with-kde
+#%find_lang multiplayers	--with-kde
 %find_lang lskat	--with-kde
+%find_lang megami	--with-kde
 
-cat libkdehighscores.lang	>> libkdegames.lang
-cat multiplayers.lang		>> libkdegames.lang
+
+#cat libkdehighscores.lang	>> libkdegames.lang
+#cat multiplayers.lang		>> libkdegames.lang
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -649,29 +703,52 @@ cat multiplayers.lang		>> libkdegames.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f libkdegames.lang
+#%files -f libkdegames.lang
+%files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
-%attr(755,root,root) %{_libdir}/libkdegames.so.*.*
-%{_datadir}/apps/kdegames/pics/*
-%{_datadir}/apps/sounds/*/*.wav
-%{_libdir}/libkdegames.la
-%{_libdir}/libkdehighscores.la
-%{_libdir}/libkdehighscores.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkdegames.la
+%attr(755,root,root) %{_libdir}/libkdegames.so.*
+%attr(755,root,root) %{_libdir}/libkdehighscores.la
+%attr(755,root,root) %{_libdir}/libkdehighscores.so.*
+%{_datadir}/apps/kdegames
+%{_pixmapsdir}/*/*/actions/endturn.png
+%{_pixmapsdir}/*/*/*/highscore.png
+%{_pixmapsdir}/*/*/*/roll.png
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/*.h
-%{_includedir}/kgame
+%{_includedir}/*
+%{_libdir}/libatlantic.so
+%{_libdir}/libatlantikclient.so
+%{_libdir}/libatlantikui.so
 %{_libdir}/libkdegames.so
-%{_libdir}/libksirtet*.so
 %{_libdir}/libkdehighscores.so
-%{_pixmapsdir}/*/*/*/highscore.*
-%{_pixmapsdir}/*/*/*/roll.*
+%{_libdir}/libkolf.so
+%{_libdir}/libksirtet*.so
 
 %files carddecks
 %defattr(644,root,root,755)
-%{_datadir}/apps/carddecks/*
+%{_datadir}/apps/carddecks
+
+#################################################
+#             ATLANTIK
+#################################################
+
+%files -f atlantik.lang atlantik
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/atlantik
+%attr(755,root,root) %{_libdir}/libatlantic.la
+%attr(755,root,root) %{_libdir}/libatlantic.so.*
+%attr(755,root,root) %{_libdir}/libatlantikclient.la
+%attr(755,root,root) %{_libdir}/libatlantikclient.so.*
+%attr(755,root,root) %{_libdir}/libatlantikui.la
+%attr(755,root,root) %{_libdir}/libatlantikui.so.*
+%attr(755,root,root) %{_libdir}/kde3/kio_atlantik.??
+%{_datadir}/apps/atlantik
+%{_datadir}/services/atlantik.protocol
+%{_applnkdir}/Games/Board/atlantik.desktop
+%{_pixmapsdir}/*/*/apps/atlantik.png
 
 #################################################
 #             KASTEROIDS
@@ -680,9 +757,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kasteroids.lang kasteroids
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
+%{_datadir}/apps/kasteroids
 %{_applnkdir}/Games/Arcade/kasteroids.desktop
-%{_datadir}/apps/kasteroids/*
-%{_pixmapsdir}/hicolor/*x*/apps/kasteroids.png
+%{_pixmapsdir}/*/*/apps/kasteroids.png
 
 #################################################
 #             KATOMIC
@@ -691,9 +768,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -f katomic.lang katomic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/katomic
+%{_datadir}/apps/katomic
 %{_applnkdir}/Games/Strategy/katomic.desktop
-%{_datadir}/apps/katomic/*
-%{_pixmapsdir}/hicolor/*x*/apps/katomic.png
+%{_pixmapsdir}/*/*/apps/katomic.png
 
 #################################################
 #             KBACKGAMMON
@@ -703,9 +780,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbackgammon
 %attr(755,root,root) %{_libdir}/kbackgammon.??
+%{_datadir}/apps/kbackgammon
 %{_applnkdir}/Games/Board/kbackgammon.desktop
-%{_datadir}/apps/kbackgammon/*
-%{_pixmapsdir}/hicolor/*x*/apps/kbackgammon*.png
+%{_pixmapsdir}/*/*/apps/kbackgammon*.png
 
 #################################################
 #             KBATTLESHIP
@@ -714,9 +791,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kbattleship.lang kbattleship
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kbattleship
+%{_datadir}/apps/kbattleship
 %{_applnkdir}/Games/Board/kbattleship.desktop
-%{_datadir}/apps/kbattleship/*
-%{_pixmapsdir}/hicolor/*x*/apps/kbattleship.png
+%{_pixmapsdir}/*/*/apps/kbattleship.png
 
 
 #################################################
@@ -726,230 +803,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -f kblackbox.lang kblackbox
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kblackbox
+%{_datadir}/apps/kblackbox
 %{_applnkdir}/Games/Board/kblackbox.desktop
-%{_datadir}/apps/kblackbox/*
-%{_pixmapsdir}/hicolor/*x*/apps/kblackbox.png
-
-#################################################
-#             KFOULEGGS
-#################################################
-
-%files -f kfouleggs.lang kfouleggs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kfouleggs
-%{_applnkdir}/Games/Arcade/kfouleggs.desktop
-%{_datadir}/apps/kfouleggs/*
-
-%files -f kjumpingcube.lang kjumpingcube
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kjumpingcube
-%{_applnkdir}/Games/Strategy/kjumpingcube.desktop
-%{_pixmapsdir}/hicolor/*x*/apps/kjumpingcube.png
-%{_datadir}/apps/kjumpingcube/*
-
-#################################################
-#             KLINES
-#################################################
-
-%files -f klines.lang klines
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Strategy/klines.desktop
-%attr(755,root,root) %{_bindir}/klines
-%{_datadir}/apps/klines/*
-%{_pixmapsdir}/hicolor/*x*/apps/klines.png
-
-#################################################
-#             KMAHJONGG
-#################################################
-
-#%files kmahjongg
-%files -f kmahjongg.lang kmahjongg
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Board/kmahjongg.desktop
-%attr(755,root,root) %{_bindir}/kmahjongg
-%{_datadir}/apps/kmahjongg/*
-%{_pixmapsdir}/hicolor/*x*/apps/kmahjongg.png
-
-#################################################
-#             KMINES
-#################################################
-
-%files -f kmines.lang kmines
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Strategy/kmines.desktop
-%attr(755,root,root) %{_bindir}/kmines
-%{_pixmapsdir}/hicolor/*x*/apps/kmines.png
-%{_datadir}/apps/kmines/*
-
-#################################################
-#             KONQUEST
-#################################################
-
-%files -f konquest.lang konquest
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Strategy/konquest.desktop
-%attr(755,root,root) %{_bindir}/konquest
-%{_datadir}/apps/konquest/*
-%{_pixmapsdir}/hicolor/*x*/apps/konquest.png
-
-#################################################
-#             KPAT
-#################################################
-
-%files -f kpat.lang kpat
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Card/kpat.desktop
-%attr(755,root,root) %{_bindir}/kpat
-%{_datadir}/apps/kpat/*
-%{_pixmapsdir}/hicolor/*x*/apps/kpat.png
-
-#################################################
-#             KPOKER
-#################################################
-
-%files -f kpoker.lang kpoker
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Card/kpoker.desktop
-%attr(755,root,root) %{_bindir}/kpoker
-%{_datadir}/apps/kpoker/*
-%{_pixmapsdir}/hicolor/*x*/apps/kpoker.png
-
-#################################################
-#             KREVERSI
-#################################################
-
-%files -f kreversi.lang kreversi
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Board/kreversi.desktop
-%attr(755,root,root) %{_bindir}/kreversi
-%{_datadir}/apps/kreversi/*
-%{_pixmapsdir}/hicolor/*x*/apps/kreversi.png
-
-#################################################
-#            KSAME
-#################################################
-
-%files -f ksame.lang ksame
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Strategy/ksame.desktop
-%attr(755,root,root) %{_bindir}/ksame
-%{_datadir}/apps/ksame/*
-%{_pixmapsdir}/hicolor/*x*/apps/ksame.png
-
-#################################################
-#             KSIRTET
-#################################################
-
-%files -f ksirtet.lang ksirtet
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Arcade/ksirtet.desktop
-%attr(755,root,root) %{_bindir}/ksirtet
-%{_libdir}/libksirtet*.la
-%{_libdir}/libksirtet*.so.*.*.*
-%{_datadir}/apps/ksirtet/*
-%{_pixmapsdir}/hicolor/*x*/apps/ksirtet.png
-
-#################################################
-#             KSMILETRIS
-#################################################
-
-#%files ksmiletris
-%files -f ksmiletris.lang ksmiletris
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Arcade/ksmiletris.desktop
-%attr(755,root,root) %{_bindir}/ksmiletris
-%{_datadir}/apps/ksmiletris/*
-%{_pixmapsdir}/hicolor/*x*/apps/ksmiletris.png
-
-#################################################
-#             KSHISEN
-#################################################
-
-%files -f kshisen.lang kshisen
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Board/kshisen.desktop
-%attr(755,root,root) %{_bindir}/kshisen
-%{_datadir}/apps/kshisen/*
-%{_pixmapsdir}/hicolor/*x*/apps/kshisen.png
-
-#################################################
-#             KSNAKE
-#################################################
-
-%files -f ksnake.lang ksnake
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Arcade/ksnake.desktop
-%attr(755,root,games) %{_bindir}/ksnake
-%{_datadir}/apps/ksnake/*
-%{_pixmapsdir}/hicolor/*x*/apps/ksnake.png
-
-#################################################
-#             KSOKOBAN
-#################################################
-
-%files -f ksokoban.lang ksokoban
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Strategy/ksokoban.desktop
-%attr(755,root,root) %{_bindir}/ksokoban
-%{_pixmapsdir}/hicolor/*x*/apps/ksokoban.png
-
-#################################################
-#             KSPACEDUEL
-#################################################
-
-%files -f kspaceduel.lang kspaceduel
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Arcade/kspaceduel.desktop
-%attr(755,root,games) %{_bindir}/kspaceduel
-%{_datadir}/apps/kspaceduel/*
-%{_pixmapsdir}/hicolor/*x*/apps/kspaceduel.png
-%{_pixmapsdir}/locolor/*x*/apps/kspaceduel.png
-
-#################################################
-#             KTRON
-#################################################
-
-%files -f ktron.lang ktron
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Arcade/ktron.desktop
-%attr(755,root,games) %{_bindir}/ktron
-%{_datadir}/apps/ktron/*
-%{_pixmapsdir}/hicolor/*x*/apps/ktron.png
-
-#################################################
-#             KTUBERLING
-#################################################
-
-%files -f ktuberling.lang ktuberling
-%defattr(644,root,root,755)
-%{_applnkdir}/Amusements/ktuberling.desktop
-%attr(755,root,games) %{_bindir}/ktuberling
-%{_datadir}/apps/ktuberling/*
-%{_pixmapsdir}/hicolor/*x*/apps/ktuberling.png
-
-#################################################
-#             KWIN4
-#################################################
-
-%files -f kwin4.lang kwin4
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kwin4*
-%{_applnkdir}/Games/Board/kwin4.desktop
-%{_datadir}/apps/kwin4/*
-%{_pixmapsdir}/hicolor/*x*/apps/kwin4.png
-
-#################################################
-#             LSKAT
-#################################################
-
-%files -f lskat.lang lskat
-%defattr(644,root,root,755)
-%{_applnkdir}/Games/Card/lskat.desktop
-%attr(755,root,games) %{_bindir}/lskat
-%attr(755,root,games) %{_bindir}/lskatproc
-%{_datadir}/apps/lskat/*
-%{_pixmapsdir}/hicolor/*x*/apps/lskat.png
-%{_pixmapsdir}/locolor/*x*/apps/lskat.png
+%{_pixmapsdir}/*/*/apps/kblackbox.png
 
 #################################################
 #             KBOUNCE
@@ -972,3 +828,264 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kenolaba
 %{_applnkdir}/Games/Board/kenolaba.desktop
 %{_pixmapsdir}/*/*/*/kenolaba*
+
+#################################################
+#             KFOULEGGS
+#################################################
+
+%files -f kfouleggs.lang kfouleggs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfouleggs
+%{_datadir}/apps/kfouleggs
+%{_applnkdir}/Games/Arcade/kfouleggs.desktop
+
+#################################################
+#             KJUMPINGCUBE
+#################################################
+
+%files -f kjumpingcube.lang kjumpingcube
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kjumpingcube
+%{_datadir}/apps/kjumpingcube
+%{_applnkdir}/Games/Strategy/kjumpingcube.desktop
+%{_pixmapsdir}/*/*/apps/kjumpingcube.png
+
+#################################################
+#             KLICKETY
+#################################################
+
+%files -f klickety.lang klickety
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/klickety
+%{_datadir}/apps/klickety
+%{_applnkdir}/Games/Arcade/klickety.desktop
+
+#################################################
+#             KLINES
+#################################################
+
+%files -f klines.lang klines
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/klines
+%{_datadir}/apps/klines
+%{_applnkdir}/Games/Strategy/klines.desktop
+%{_pixmapsdir}/*/*/apps/klines.png
+
+#################################################
+#             KMAHJONGG
+#################################################
+
+#%files -f kmahjongg.lang kmahjongg
+%files kmahjongg
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kmahjongg
+%{_datadir}/apps/kmahjongg
+%{_applnkdir}/Games/Board/kmahjongg.desktop
+%{_pixmapsdir}/*/*/apps/kmahjongg.png
+
+#################################################
+#             KMINES
+#################################################
+
+%files -f kmines.lang kmines
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kmines
+%{_datadir}/apps/kmines
+%{_applnkdir}/Games/Strategy/kmines.desktop
+%{_pixmapsdir}/*/*/apps/kmines.png
+
+#################################################
+#             KOLF
+#################################################
+
+%files -f kolf.lang kolf
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kolf
+%attr(755,root,root) %{_libdir}/libkolf.la
+%attr(755,root,root) %{_libdir}/libkolf.so.*
+%attr(755,root,root) %{_libdir}/kde3/kolf.??
+%{_datadir}/config/magic
+%{_datadir}/apps/kolf
+%{_datadir}/mimelnk/application/*
+%{_applnkdir}/Games/Arcade/kolf.desktop
+%{_pixmapsdir}/*/*/apps/kolf.png
+
+#################################################
+#             KONQUEST
+#################################################
+
+%files -f konquest.lang konquest
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/konquest
+%{_datadir}/apps/konquest
+%{_applnkdir}/Games/Strategy/konquest.desktop
+%{_pixmapsdir}/*/*/apps/konquest.png
+
+#################################################
+#             KPAT
+#################################################
+
+%files -f kpat.lang kpat
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kpat
+%{_datadir}/apps/kpat
+%{_applnkdir}/Games/Card/kpat.desktop
+%{_pixmapsdir}/*/*/apps/kpat.png
+
+#################################################
+#             KPOKER
+#################################################
+
+%files -f kpoker.lang kpoker
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kpoker
+%{_datadir}/apps/kpoker
+%{_applnkdir}/Games/Card/kpoker.desktop
+%{_pixmapsdir}/*/*/apps/kpoker.png
+
+#################################################
+#             KREVERSI
+#################################################
+
+%files -f kreversi.lang kreversi
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kreversi
+%{_datadir}/apps/kreversi
+%{_applnkdir}/Games/Board/kreversi.desktop
+%{_pixmapsdir}/*/*/apps/kreversi.png
+
+#################################################
+#            KSAME
+#################################################
+
+%files -f ksame.lang ksame
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ksame
+%{_datadir}/apps/ksame
+%{_applnkdir}/Games/Strategy/ksame.desktop
+%{_pixmapsdir}/*/*/apps/ksame.png
+
+#################################################
+#             KSHISEN
+#################################################
+
+%files -f kshisen.lang kshisen
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kshisen
+%{_datadir}/apps/kshisen
+%{_applnkdir}/Games/Board/kshisen.desktop
+%{_pixmapsdir}/*/*/apps/kshisen.png
+
+#################################################
+#             KSIRTET
+#################################################
+
+%files -f ksirtet.lang ksirtet
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ksirtet
+%attr(755,root,root) %{_libdir}/libksirtet*.la
+%attr(755,root,root) %{_libdir}/libksirtet*.so.*
+%{_datadir}/apps/ksirtet
+%{_applnkdir}/Games/Arcade/ksirtet.desktop
+%{_pixmapsdir}/*/*/apps/ksirtet.png
+
+#################################################
+#             KSMILETRIS
+#################################################
+
+#%files -f ksmiletris.lang ksmiletris
+%files ksmiletris
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ksmiletris
+%{_datadir}/apps/ksmiletris
+%{_applnkdir}/Games/Arcade/ksmiletris.desktop
+%{_pixmapsdir}/*/*/apps/ksmiletris.png
+
+#################################################
+#             KSNAKE
+#################################################
+
+%files -f ksnake.lang ksnake
+%defattr(644,root,root,755)
+%attr(755,root,games) %{_bindir}/ksnake
+%{_datadir}/apps/ksnake
+%{_applnkdir}/Games/Arcade/ksnake.desktop
+%{_pixmapsdir}/*/*/apps/ksnake.png
+
+#################################################
+#             KSOKOBAN
+#################################################
+
+%files -f ksokoban.lang ksokoban
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ksokoban
+%{_applnkdir}/Games/Strategy/ksokoban.desktop
+%{_pixmapsdir}/*/*/apps/ksokoban.png
+
+#################################################
+#             KSPACEDUEL
+#################################################
+
+%files -f kspaceduel.lang kspaceduel
+%defattr(644,root,root,755)
+%attr(755,root,games) %{_bindir}/kspaceduel
+%{_datadir}/apps/kspaceduel
+%{_applnkdir}/Games/Arcade/kspaceduel.desktop
+%{_pixmapsdir}/*/*/apps/kspaceduel.png
+
+#################################################
+#             KTRON
+#################################################
+
+%files -f ktron.lang ktron
+%defattr(644,root,root,755)
+%attr(755,root,games) %{_bindir}/ktron
+%{_datadir}/apps/ktron
+%{_applnkdir}/Games/Arcade/ktron.desktop
+%{_pixmapsdir}/*/*/apps/ktron.png
+
+#################################################
+#             KTUBERLING
+#################################################
+
+%files -f ktuberling.lang ktuberling
+%defattr(644,root,root,755)
+%attr(755,root,games) %{_bindir}/ktuberling
+%{_datadir}/apps/ktuberling
+%{_applnkdir}/Amusements/ktuberling.desktop
+%{_pixmapsdir}/*/*/apps/ktuberling.png
+
+#################################################
+#             KWIN4
+#################################################
+
+%files -f kwin4.lang kwin4
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kwin4*
+%{_datadir}/apps/kwin4
+%{_applnkdir}/Games/Board/kwin4.desktop
+%{_pixmapsdir}/*/*/apps/kwin4.png
+
+
+#################################################
+#             LSKAT
+#################################################
+
+%files -f lskat.lang lskat
+%defattr(644,root,root,755)
+%attr(755,root,games) %{_bindir}/lskat
+%attr(755,root,games) %{_bindir}/lskatproc
+%{_datadir}/apps/lskat
+%{_applnkdir}/Games/Card/lskat.desktop
+%{_pixmapsdir}/*/*/apps/lskat.png
+
+#################################################
+#             MEGAMI
+#################################################
+
+%files -f megami.lang megami
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/megami
+%{_datadir}/apps/megami
+%{_applnkdir}/Games/Card/megami.desktop
+%{_pixmapsdir}/*/*/apps/megami.png
