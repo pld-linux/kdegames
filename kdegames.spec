@@ -35,7 +35,7 @@ Patch0:		%{name}-disable_install-exec-hook.patch
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	unsermake
+#BuildRequires:	unsermake
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-megami
