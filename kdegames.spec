@@ -4,7 +4,7 @@
 %bcond_without	i18n		# don't build i18n packages per module
 #
 %define		_state		stable
-%define		_ver		3.2.1
+%define		_ver		3.2.2
 #define		_snap		040110
 
 Summary:	K Desktop Environment - games
@@ -23,10 +23,10 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	60b05fa22dfc0ec812ca88dacb0249aa
+# Source0-md5:	714f8a591964c11af5bdb228cee750e6
 %if %{with i18n}
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	251018849e20c8df708f4da263cb72da
+# Source1-md5:	ab912a34187fb9a7a39b294c06a3bd9f
 %endif
 Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-disable_install-exec-hook.patch
