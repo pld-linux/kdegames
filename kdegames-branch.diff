@@ -1,0 +1,128 @@
+diff -urN -x CVS kdegames.orig/kmines/CHANGELOG kdegames/kmines/CHANGELOG
+--- kdegames.orig/kmines/CHANGELOG	Fri May 28 05:29:31 2004
++++ kdegames/kmines/CHANGELOG	Mon May 31 22:21:40 2004
+@@ -1,5 +1,6 @@
+-2.1.8c (17 May 2004) [KDE 3.2.3 stable]
+- * fix bug #80721
++2.1.8c (31 May 2004) [KDE 3.2.3 stable]
++ * fix bug: hint not displayed [reported by Daniel Schepler]
++ * fix bug: log restarted on pause [reported by Astharoth]
+ 
+ 2.1.8b (26 February 2004) [KDE 3.2.1 stable]
+  * fix solver crash when "magic reveal" on.
+diff -urN -x CVS kdegames.orig/kmines/field.cpp kdegames/kmines/field.cpp
+--- kdegames.orig/kmines/field.cpp	Tue Feb 24 04:10:57 2004
++++ kdegames/kmines/field.cpp	Mon May 31 22:21:40 2004
+@@ -83,8 +83,8 @@
+ void Field::setState(GameState state)
+ {
+     Q_ASSERT( state!=GameOver );
+-    _state = state;
+     emit gameStateChanged(state);
++    _state = state;
+ }
+ 
+ void Field::reset(bool init)
+diff -urN -x CVS kdegames.orig/kmines/status.cpp kdegames/kmines/status.cpp
+--- kdegames.orig/kmines/status.cpp	Tue Feb 24 04:10:58 2004
++++ kdegames/kmines/status.cpp	Mon May 31 22:21:40 2004
+@@ -230,6 +230,7 @@
+ {
+     smiley->setMood(Normal);
+     dg->start();
++    if ( field->gameState()==Paused ) return; // do not restart log on resume...
+ 
+     const Level &level = field->level();
+     _log = QDomDocument("kmineslog");
+diff -urN -x CVS kdegames.orig/kmines/version.h kdegames/kmines/version.h
+--- kdegames.orig/kmines/version.h	Fri May 28 05:29:31 2004
++++ kdegames/kmines/version.h	Mon May 31 22:21:40 2004
+@@ -1,5 +1,5 @@
+ #define VERSION	     "2.1.8c"
+-#define LONG_VERSION "2.1.8c (17 May 2004)"
++#define LONG_VERSION "2.1.8c (31 May 2004)"
+ #define COPYLEFT     "(c) 1996-2004, Nicolas Hadacek\n(c) 2001, Mikhail Kourinny"
+ #define EMAIL        "hadacek@kde.org"
+ 
+diff -urN -x CVS kdegames.orig/ktron/ktron.cpp kdegames/ktron/ktron.cpp
+--- kdegames.orig/ktron/ktron.cpp	Thu Oct  2 20:01:31 2003
++++ kdegames/ktron/ktron.cpp	Wed Jun  2 16:24:55 2004
+@@ -55,20 +55,30 @@
+   statusBar()->insertItem("abcdefghijklmnopqrst: 0  ",ID_STATUS_BASE+1);
+   statusBar()->insertItem("abcdefghijklmnopqrst: 0  ",ID_STATUS_BASE+2);
+ 
+-  actionCollection()->setAutoConnectShortcuts(false);
+-  (void)new KAction(i18n("Player 1 Up"), Key_R, 0, 0, actionCollection(), "Pl1Up");
+-  (void)new KAction(i18n("Player 1 Down"), Key_F, 0, 0, actionCollection(), "Pl1Down");
+-  (void)new KAction(i18n("Player 1 Right"), Key_G, 0, 0, actionCollection(), "Pl1Right");
+-  (void)new KAction(i18n("Player 1 Left"), Key_D, 0, 0, actionCollection(), "Pl1Left");
+-  (void)new KAction(i18n("Player 1 Accelerator"), Key_A, 0, 0, actionCollection(), "Pl1Ac");
++  // We match up keyboard events ourselves in Tron::keyPressEvent()
++  // We must disable the actions, otherwise we don't get the keyPressEvent's
++  KAction *act;
++  act = new KAction(i18n("Player 1 Up"), Key_R, 0, 0, actionCollection(), "Pl1Up");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 1 Down"), Key_F, 0, 0, actionCollection(), "Pl1Down");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 1 Right"), Key_G, 0, 0, actionCollection(), "Pl1Right");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 1 Left"), Key_D, 0, 0, actionCollection(), "Pl1Left");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 1 Accelerator"), Key_A, 0, 0, actionCollection(), "Pl1Ac");
++  act->setEnabled(false);
+  
+-  (void)new KAction(i18n("Player 2 Up"), Key_Up, 0, 0, actionCollection(), "Pl2Up");
+-  (void)new KAction(i18n("Player 2 Down"), Key_Down, 0, 0, actionCollection(), "Pl2Down");
+-  (void)new KAction(i18n("Player 2 Right"), Key_Right, 0, 0, actionCollection(), "Pl2Right");
+-  (void)new KAction(i18n("Player 2 Left"), Key_Left, 0, 0, actionCollection(), "Pl2Left");
+-  (void)new KAction(i18n("Player 2 Accelerator"), Key_0, 0, 0, actionCollection(), "Pl2Ac");
+-
+-  actionCollection()->setAutoConnectShortcuts(true);
++  act = new KAction(i18n("Player 2 Up"), Key_Up, 0, 0, actionCollection(), "Pl2Up");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 2 Down"), Key_Down, 0, 0, actionCollection(), "Pl2Down");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 2 Right"), Key_Right, 0, 0, actionCollection(), "Pl2Right");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 2 Left"), Key_Left, 0, 0, actionCollection(), "Pl2Left");
++  act->setEnabled(false);
++  act = new KAction(i18n("Player 2 Accelerator"), Key_0, 0, 0, actionCollection(), "Pl2Ac");
++  act->setEnabled(false);
+ 
+   tron->setActionCollection(actionCollection());
+ 
+diff -urN -x CVS kdegames.orig/libksirtet/lib/wizard.cpp kdegames/libksirtet/lib/wizard.cpp
+--- kdegames.orig/libksirtet/lib/wizard.cpp	Tue Aug 13 20:09:43 2002
++++ kdegames/libksirtet/lib/wizard.cpp	Mon May 31 22:50:59 2004
+@@ -110,8 +110,8 @@
+ 
+ 	((QVBox *)localPage)->setSpacing(KDialogBase::spacingHint());
+ 
+-	keys = new QPushButton(i18n("Configure Keys..."), localPage);
+-	connect(keys, SIGNAL(clicked()), SLOT(configureKeysSlot()));
++//	keys = new QPushButton(i18n("Configure Keys..."), localPage);
++//	connect(keys, SIGNAL(clicked()), SLOT(configureKeysSlot()));
+ 
+ 	addPage(localPage, i18n("Local Player's Settings"));
+ 	setHelpEnabled(localPage, FALSE);
+@@ -153,7 +153,7 @@
+ 			b = TRUE;
+ 			break;
+ 		}
+-	keys->setEnabled(b);
++//	keys->setEnabled(b);
+ }
+ 
+ void MPWizard::accept()
+diff -urN -x CVS kdegames.orig/libksirtet/lib/wizard.h kdegames/libksirtet/lib/wizard.h
+--- kdegames.orig/libksirtet/lib/wizard.h	Thu Nov 29 22:49:01 2001
++++ kdegames/libksirtet/lib/wizard.h	Mon May 31 22:50:59 2004
+@@ -47,7 +47,7 @@
+ 	QLineEdit              *eserver;
+ 	KIntNumInput           *eport;
+ 	QVGroupBox             *net;
+-	QPushButton            *keys;
++//	QPushButton            *keys;
+ 
+ 	void setupTypePage();
+ 	void setupLocalPage(const MPGameInfo &gi);
