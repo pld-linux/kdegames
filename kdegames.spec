@@ -18,7 +18,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -730,6 +730,30 @@ Jogo de cartas Lieutenant Skat para KDE
 %setup -q
 %patch0 -p1
 %patch1 -p1
+
+%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
+	klickety/klickety.desktop
+%{__sed} -i -e 's/Terminal=0/Terminal=false/' \
+	atlantik/atlantik.desktop \
+	kasteroids/kasteroids.desktop \
+	kbackgammon/kbackgammon.desktop \
+	kblackbox/kblackbox.desktop \
+	kbattleship/kbattleship/kbattleship.desktop \
+	kgoldrunner/src/KGoldrunner.desktop \
+	kjumpingcube/kjumpingcube.desktop \
+	klines/klines.desktop \
+	kmahjongg/kmahjongg.desktop \
+	konquest/konquest.desktop \
+	kpoker/kpoker.desktop \
+	kreversi/kreversi.desktop \
+	ksmiletris/ksmiletris.desktop \
+	kdegames-3.3.0/ksnake/ksnake.desktop \
+	kdegames-3.3.0/kspaceduel/kspaceduel.desktop \
+	ksokoban/data/ksokoban.desktop \
+	ktron/ktron.desktop \
+	kdegames-3.3.0/ktuberling/ktuberling.desktop \
+	kwin4/kwin4.desktop \
+	lskat/lskat.desktop
 
 %build
 cp %{_datadir}/automake/config.sub admin
