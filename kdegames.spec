@@ -670,7 +670,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
 mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 	$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 #%find_lang kabalone --with-kde
 %find_lang kasteroids --with-kde
