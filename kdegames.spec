@@ -1,6 +1,6 @@
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		0.1
+%define		_rel		1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -651,9 +651,6 @@ Jogo de cartas Lieutenant Skat para KDE
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
-        CPPFLAGS="`pkg-config libpng12 --cflags`"
-fi
 %configure \
 	--with-qt-dir=%{_prefix} \
 	--with-pam="yes" \
@@ -710,11 +707,11 @@ cat multiplayers.lang		>> libkdegames.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%files
 %files -f libkdegames.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*
 %{_datadir}/apps/kdegames/pics/*
+%{_datadir}/apps/kdegames/sounds/*/*.wav
 %{_libdir}/libkdegames.la
 %{_libdir}/libkdehighscores.la
 %{_libdir}/libkdehighscores.so.*.*.*
