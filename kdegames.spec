@@ -1,6 +1,6 @@
-%define		_ver		3.0.1
+%define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		0.9
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -21,8 +21,8 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
-# generated from kde-i18n
-Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+# generated from kde-i18n - need update!
+#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	kdelibs-devel >= %{version}
