@@ -17,7 +17,7 @@ Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 #Version:	%{_ver}.%{_snap}
 Version:	%{_ver}
-Release:	0.1
+Release:        1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
