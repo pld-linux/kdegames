@@ -3,7 +3,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2
-%define		_snap		030509
+%define		_snap		030511
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
