@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		1.3
+%define		_rel		2
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -680,7 +680,7 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 %find_lang kbounce	--with-kde
 %find_lang kenolaba	--with-kde
 %find_lang kfouleggs	--with-kde
-#%find_lang kjezz	--with-kde
+%find_lang kjezz	--with-kde
 %find_lang kjumpingcube	--with-kde
 %find_lang klines	--with-kde
 %find_lang kmahjongg	--with-kde
