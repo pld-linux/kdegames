@@ -10,7 +10,7 @@ Group(pl):   X11/KDE/Gry
 Source:      ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/source/%{name}-%{version}.tar.gz
 Patch:       kdegames.ksnake-highscore.patch
 Requires:    qt >= 1.40, kdelibs = %{version}
-BuildRoot:   /tmp/%{name}-%{version}-root
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
 KDE games: KAbalone, KAsteroids, KMahjongg, KMines, KPat, KPoker, KReversi,
