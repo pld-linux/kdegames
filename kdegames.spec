@@ -719,7 +719,7 @@ Popularna gra hazardowa.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-#%%patch0 -p1
+%patch0 -p1
 
 %build
 cp /usr/share/automake/config.sub admin
