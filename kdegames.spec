@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	0.2
+Release:	0.3
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -26,6 +26,7 @@ Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{n
 #Patch0:		%{name}-kpatcards.patch
 BuildRequires:	arts-devel
 BuildRequires:	arts-kde-devel >= 8:%{version}
+BuildRequires:	ed
 BuildRequires:	kdelibs-devel >= 8:%{version}
 Requires:	kdelibs >= 8:%{version}
 Requires:	qt >= 3.1.2
@@ -35,6 +36,7 @@ Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
 
 %define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 %define		_htmldir	/usr/share/doc/kde/HTML
 
 %define		no_install_post_chrpath		1
@@ -689,7 +691,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Amusements
+install -d $RPM_BUILD_ROOT{%{_applnkdir}/Amusements,%{_mandir}/man6}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -703,44 +705,55 @@ cd -
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%find_lang atlantik	--with-kde
-%find_lang kasteroids	--with-kde
-%find_lang katomic	--with-kde
-%find_lang kbackgammon	--with-kde
-%find_lang kbattleship	--with-kde
-%find_lang kblackbox	--with-kde
-%find_lang kbounce	--with-kde
-%find_lang kenolaba	--with-kde
-%find_lang kfouleggs	--with-kde
-%find_lang kjumpingcube	--with-kde
-%find_lang klickety	--with-kde
-%find_lang klines	--with-kde
-#%find_lang kmahjongg	--with-kde
-%find_lang kmines	--with-kde
-%find_lang kolf		--with-kde
-%find_lang konquest	--with-kde
-%find_lang kpat		--with-kde
-%find_lang kpoker	--with-kde
-%find_lang kreversi	--with-kde
-%find_lang ksame	--with-kde
-%find_lang kshisen	--with-kde
-%find_lang ksirtet	--with-kde
-#%find_lang ksmiletris	--with-kde
-%find_lang ksnake	--with-kde
-%find_lang ksokoban	--with-kde
-%find_lang kspaceduel	--with-kde
-%find_lang ktron	--with-kde
-%find_lang ktuberling	--with-kde
-%find_lang kwin4	--with-kde
-#%find_lang libkdegames	--with-kde
-#%find_lang libkdehighscores	--with-kde
-#%find_lang multiplayers	--with-kde
-%find_lang lskat	--with-kde
-%find_lang megami	--with-kde
+%find_lang	atlantik		--with-kde
+#%find_lang	kio_atlantik		--with-kde
+%find_lang	kasteroids		--with-kde
+%find_lang	katomic			--with-kde
+%find_lang	kbackgammon		--with-kde
+%find_lang	kbattleship		--with-kde
+%find_lang	kblackbox		--with-kde
+%find_lang	kbounce			--with-kde
+%find_lang	kenolaba		--with-kde
+%find_lang	kfouleggs		--with-kde
+%find_lang	kjumpingcube		--with-kde
+%find_lang	klickety		--with-kde
+%find_lang	klines			--with-kde
+%find_lang	kmahjongg		--with-kde
+%find_lang	kmines			--with-kde
+%find_lang	kolf			--with-kde
+%find_lang	konquest		--with-kde
+%find_lang	kpat			--with-kde
+%find_lang	kpoker			--with-kde
+%find_lang	kreversi		--with-kde
+%find_lang	ksame			--with-kde
+%find_lang	kshisen			--with-kde
+%find_lang	ksirtet			--with-kde
+%find_lang	ksmiletris		--with-kde
+%find_lang	ksnake			--with-kde
+%find_lang	ksokoban		--with-kde
+%find_lang	kspaceduel		--with-kde
+%find_lang	ktron			--with-kde
+%find_lang	ktuberling		--with-kde
+%find_lang	kwin4			--with-kde
+%find_lang	libkdegames		--with-kde
+%find_lang	libksirtet		--with-kde
+%find_lang	libkdehighscores	--with-kde
+%find_lang	lskat			--with-kde
+%find_lang	megami			--with-kde
 
+cat libkdehighscores.lang >> kmines.lang
 
-#cat libkdehighscores.lang	>> libkdegames.lang
-#cat multiplayers.lang		>> libkdegames.lang
+# seems required by klickety, kfouleggs and ksirtet (statically linked code) 
+cat libksirtet.lang >> libkdegames.lang
+
+# obsolete ?
+#%find_lang	multiplayers		--with-kde
+#cat multiplayers.lang >> libkdegames.lang
+
+for i in debian/*.man; do
+	echo -e ',s:kdeopt\.man:kdeopt.6:\n,w' | ed $i || :
+	install $i $RPM_BUILD_ROOT%{_mandir}/man6/`basename $i | sed 's/man$/6/'`
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -748,8 +761,7 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-#%files -f libkdegames.lang
-%files
+%files -f libkdegames.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %{_libdir}/libkdegames.la
@@ -758,6 +770,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/actions/endturn.png
 %{_pixmapsdir}/*/*/*/highscore.png
 %{_pixmapsdir}/*/*/*/roll.png
+%{_mandir}/man6/kdeopt.*
 
 %files devel
 %defattr(644,root,root,755)
@@ -791,6 +804,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/atlantik.protocol
 %{_applnkdir}/Games/Board/atlantik.desktop
 %{_pixmapsdir}/*/*/apps/atlantik.png
+%{_mandir}/man6/atlantik.*
 
 #################################################
 #             KASTEROIDS
@@ -802,6 +816,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kasteroids
 %{_applnkdir}/Games/Arcade/kasteroids.desktop
 %{_pixmapsdir}/*/*/apps/kasteroids.png
+%{_mandir}/man6/kasteroids.*
 
 #################################################
 #             KATOMIC
@@ -813,6 +828,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/katomic
 %{_applnkdir}/Games/Strategy/katomic.desktop
 %{_pixmapsdir}/*/*/apps/katomic.png
+%{_mandir}/man6/katomic.*
 
 #################################################
 #             KBACKGAMMON
@@ -824,6 +840,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbackgammon
 %{_applnkdir}/Games/Board/kbackgammon.desktop
 %{_pixmapsdir}/*/*/apps/kbackgammon*.png
+%{_mandir}/man6/kbackgammon.*
 
 #################################################
 #             KBATTLESHIP
@@ -835,7 +852,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbattleship
 %{_applnkdir}/Games/Board/kbattleship.desktop
 %{_pixmapsdir}/*/*/apps/kbattleship.png
-
+%{_mandir}/man6/kbattleship.*
 
 #################################################
 #             KBLACKBOX
@@ -847,6 +864,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kblackbox
 %{_applnkdir}/Games/Board/kblackbox.desktop
 %{_pixmapsdir}/*/*/apps/kblackbox.png
+%{_mandir}/man6/kblackbox.*
 
 #################################################
 #             KBOUNCE
@@ -858,6 +876,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kbounce
 %{_applnkdir}/Games/Arcade/kbounce.desktop
 %{_pixmapsdir}/[!l]*/*/*/kbounce*
+%{_mandir}/man6/kbounce.*
 
 #################################################
 #             KENOLABA
@@ -869,6 +888,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kenolaba
 %{_applnkdir}/Games/Board/kenolaba.desktop
 %{_pixmapsdir}/*/*/*/kenolaba*
+%{_mandir}/man6/kenolaba.*
 
 #################################################
 #             KFOULEGGS
@@ -879,6 +899,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kfouleggs
 %{_datadir}/apps/kfouleggs
 %{_applnkdir}/Games/Arcade/kfouleggs.desktop
+%{_mandir}/man6/kfouleggs.*
 
 #################################################
 #             KJUMPINGCUBE
@@ -890,6 +911,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kjumpingcube
 %{_applnkdir}/Games/Strategy/kjumpingcube.desktop
 %{_pixmapsdir}/*/*/apps/kjumpingcube.png
+%{_mandir}/man6/kjumpingcube.*
 
 #################################################
 #             KLICKETY
@@ -900,6 +922,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/klickety
 %{_datadir}/apps/klickety
 %{_applnkdir}/Games/Arcade/klickety.desktop
+%{_mandir}/man6/klickety.*
 
 #################################################
 #             KLINES
@@ -911,18 +934,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/klines
 %{_applnkdir}/Games/Strategy/klines.desktop
 %{_pixmapsdir}/*/*/apps/klines.png
+%{_mandir}/man6/klines.*
 
 #################################################
 #             KMAHJONGG
 #################################################
 
-#%files kmahjongg -f kmahjongg.lang
-%files kmahjongg
+%files kmahjongg -f kmahjongg.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmahjongg
 %{_datadir}/apps/kmahjongg
 %{_applnkdir}/Games/Board/kmahjongg.desktop
 %{_pixmapsdir}/*/*/apps/kmahjongg.png
+%{_mandir}/man6/kmahjongg.*
 
 #################################################
 #             KMINES
@@ -934,6 +958,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kmines
 %{_applnkdir}/Games/Strategy/kmines.desktop
 %{_pixmapsdir}/*/*/apps/kmines.png
+%{_mandir}/man6/kmines.*
 
 #################################################
 #             KOLF
@@ -951,6 +976,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/*
 %{_applnkdir}/Games/Arcade/kolf.desktop
 %{_pixmapsdir}/*/*/apps/kolf.png
+%{_mandir}/man6/kolf.*
 
 #################################################
 #             KONQUEST
@@ -962,6 +988,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konquest
 %{_applnkdir}/Games/Strategy/konquest.desktop
 %{_pixmapsdir}/*/*/apps/konquest.png
+%{_mandir}/man6/konquest.*
 
 #################################################
 #             KPAT
@@ -973,6 +1000,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kpat
 %{_applnkdir}/Games/Card/kpat.desktop
 %{_pixmapsdir}/*/*/apps/kpat.png
+%{_mandir}/man6/kpat.*
 
 #################################################
 #             KPOKER
@@ -984,6 +1012,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kpoker
 %{_applnkdir}/Games/Card/kpoker.desktop
 %{_pixmapsdir}/*/*/apps/kpoker.png
+%{_mandir}/man6/kpoker.*
 
 #################################################
 #             KREVERSI
@@ -995,6 +1024,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kreversi
 %{_applnkdir}/Games/Board/kreversi.desktop
 %{_pixmapsdir}/*/*/apps/kreversi.png
+%{_mandir}/man6/kreversi.*
 
 #################################################
 #            KSAME
@@ -1006,6 +1036,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksame
 %{_applnkdir}/Games/Strategy/ksame.desktop
 %{_pixmapsdir}/*/*/apps/ksame.png
+%{_mandir}/man6/ksame.*
 
 #################################################
 #             KSHISEN
@@ -1017,6 +1048,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kshisen
 %{_applnkdir}/Games/Board/kshisen.desktop
 %{_pixmapsdir}/*/*/apps/kshisen.png
+%{_mandir}/man6/kshisen.*
 
 #################################################
 #             KSIRTET
@@ -1028,18 +1060,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksirtet
 %{_applnkdir}/Games/Arcade/ksirtet.desktop
 %{_pixmapsdir}/*/*/apps/ksirtet.png
+%{_mandir}/man6/ksirtet.*
 
 #################################################
 #             KSMILETRIS
 #################################################
 
-#%files ksmiletris -f ksmiletris.lang
-%files ksmiletris
+%files ksmiletris -f ksmiletris.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_datadir}/apps/ksmiletris
 %{_applnkdir}/Games/Arcade/ksmiletris.desktop
 %{_pixmapsdir}/*/*/apps/ksmiletris.png
+%{_mandir}/man6/ksmiletris.*
 
 #################################################
 #             KSNAKE
@@ -1051,6 +1084,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksnake
 %{_applnkdir}/Games/Arcade/ksnake.desktop
 %{_pixmapsdir}/*/*/apps/ksnake.png
+%{_mandir}/man6/ksnake.*
 
 #################################################
 #             KSOKOBAN
@@ -1061,6 +1095,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ksokoban
 %{_applnkdir}/Games/Strategy/ksokoban.desktop
 %{_pixmapsdir}/*/*/apps/ksokoban.png
+%{_mandir}/man6/ksokoban.*
 
 #################################################
 #             KSPACEDUEL
@@ -1072,6 +1107,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kspaceduel
 %{_applnkdir}/Games/Arcade/kspaceduel.desktop
 %{_pixmapsdir}/[!l]*/*/apps/kspaceduel.png
+%{_mandir}/man6/kspaceduel.*
 
 #################################################
 #             KTRON
@@ -1083,6 +1119,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ktron
 %{_applnkdir}/Games/Arcade/ktron.desktop
 %{_pixmapsdir}/*/*/apps/ktron.png
+%{_mandir}/man6/ktron.*
 
 #################################################
 #             KTUBERLING
@@ -1094,6 +1131,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ktuberling
 %{_applnkdir}/Amusements/ktuberling.desktop
 %{_pixmapsdir}/*/*/apps/ktuberling.png
+%{_mandir}/man6/ktuberling.*
 
 #################################################
 #             KWIN4
@@ -1105,6 +1143,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kwin4
 %{_applnkdir}/Games/Board/kwin4.desktop
 %{_pixmapsdir}/*/*/apps/kwin4.png
+%{_mandir}/man6/kwin4.*
 
 
 #################################################
@@ -1118,6 +1157,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/lskat
 %{_applnkdir}/Games/Card/lskat.desktop
 %{_pixmapsdir}/[!l]*/*/apps/lskat.png
+%{_mandir}/man6/lskat*
 
 #################################################
 #             MEGAMI
@@ -1129,3 +1169,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/megami
 %{_applnkdir}/Games/Card/megami.desktop
 %{_pixmapsdir}/*/*/apps/megami.png
+%{_mandir}/man6/megami.*
