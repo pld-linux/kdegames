@@ -24,10 +24,9 @@ Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	60b05fa22dfc0ec812ca88dacb0249aa
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 %if %{with i18n}
-Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	dab4d56eef3c480584b3df46085b33bb
+Source1:        kde-i18n-%{name}-%{version}.tar.bz2
+# Source1-md5:	251018849e20c8df708f4da263cb72da
 %endif
 Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-disable_install-exec-hook.patch
