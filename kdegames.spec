@@ -9,7 +9,13 @@ Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
 Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/source/%{name}-%{version}.tar.bz2
 Patch:		kdegames.ksnake-highscore.patch
-Requires:	qt >= 1.40, kdelibs = %{version}
+BuildRequires:	kdelibs-devel = %{version}
+BuildRequires:	libstdc++-devel
+BuildRequires:	qt-devel >= 1.40
+BuildRequires:	XFree86-devel
+BuildRequires:	zlib-devel
+Requires:	qt >= 1.40
+Requires:	kdelibs = %{version}
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %define		_prefix		/usr/X11R6
