@@ -7,7 +7,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	3.0.4
-Release:	2
+Release:	3
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -67,17 +67,17 @@ conhecido tetris
 
 %package devel
 Summary:	Development files for KDE games
-Summary(pl):	Pliki developerskie dla KDE games
+Summary(pl):	Pliki dla programistów KDE games
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	kdelibs = %{version}
+Requires:	kdelibs-devel >= %{version}
 Requires:	kdegames = %{version}
 
 %description devel
 Development files for KDE games.
 
 %description devel -l pl
-Pliki developerskie dla KDE games.
+Pliki dla programistów KDE games.
 
 %description devel -l pt_BR
 Este pacote detém os arquivos de inclusão necessários para compilar
@@ -128,7 +128,7 @@ board.
 
 %description katomic -l pl
 Atomic to ma³a gra podobna do gry Sokoban. Celem gry jest zbudowanie
-chemicznych moleku³ na planszy podobnej do tej z gry Sokoban.
+cz±steczek chemicznych na planszy podobnej do tej z gry Sokoban.
 
 %description katomic -l pt_BR
 Jogo semelhante ao Sokoban mas o objetivo é formar moléculas.
@@ -147,9 +147,9 @@ like GNU bg and even on-line games on the First Internet Backgammon
 Server.
 
 %description kbackgammon -l pl
-KBackgammon to graficzna wersja gry backgammon dla KDE. Mo¿esz graæ z
+KBackgammon to graficzna wersja gry backgammon dla KDE. Mo¿na graæ z
 innymi graczami, przeciwko komputerowi lub nawet rozegraæ partiê przez
-sieæ korzystaj±c z Pierwszego Internetowego Serwera Backgammon.
+sieæ korzystaj±c z Pierwszego Internetowego Serwera Backgammona.
 
 %description kbackgammon -l pt_BR
 Jogo de gamão para KDE.
@@ -188,21 +188,27 @@ Versão do jogo Blackbox do Emacs para KDE.
 
 %package kbounce
 Summary:	Claim areas and don't get disturbed
+Summary(pl):	Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom
 Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
 
 %description kbounce
 Claim areas and don't get disturbed.
 
+%description kbounce -l pl
+Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom.
+
 %package kenolaba
-Summary:	-
+Summary:	Kenolaba - game for KDE
+Summary(pl):	Kenolaba - gra dla KDE
 Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
 
 %description kenolaba
-- -
+Kenolaba - game for KDE.
 
-#%description kenolaba -l pl
+%description kenolaba -l pl
+Kenolaba - gra dla KDE.
 
 %package kfouleggs
 Summary:	KDE kfouleggs
@@ -222,7 +228,7 @@ Mais um jogo que lembra o estilo Tetris.
 
 %package kjumpingcube
 Summary:	A little tactical game for KDE
-Summary(pl):	Prosta gra taktyczna
+Summary(pl):	Prosta gra taktyczna dla KDE
 Summary(pt_BR):	Jogo de estratégia para 2 contendores
 Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
@@ -236,20 +242,20 @@ squares neighbours and take them over. Winer is the one, who owns all
 squares.
 
 %description kjumpingcube -l pl
-KJumpingCube to prosta gra taktyczna. Mo¿esz w ni± graæ przeciwko
-komputerowi lub przeciwko koledze. Plansza do gry zawiera pola które z
-kolei posiadaj± punkty. Przez klikanie na pola zwiekszasz ilo¶æ
-punktow na nich. Gdy ilo¶æ punktów na okre¶lonym polu osi±gnie
-maksymalna warto¶æ punkty przeskakuj± na s±siednie pola przejmuj±c je
-tym samym na wlasno¶æ. Zwyciesca jest jeden - to ten, kto przejmie
-wszystkie pola na wlasno¶æ.
+KJumpingCube to prosta gra taktyczna. Mo¿na w ni± graæ przeciwko
+komputerowi lub przeciwko koledze. Plansza do gry zawiera pola, które
+zawieraj± punkty. Przez klikanie na pola zwiêksza siê liczbê punktów
+na nich. Gdy liczba punktów na okre¶lonym polu osi±gnie maksymaln±
+warto¶æ, punkty przeskakuj± na s±siednie pola przejmuj±c je tym samym
+na w³asno¶æ. Zwyciêzca jest jeden - to ten, kto przejmie wszystkie
+pola na w³asno¶æ.
 
 %description kjumpingcube -l pt_BR
 Jogo de estratégia para 2 contendores.
 
 %package klines
 Summary:	Lines for KDE
-Summary(pl):	Lines dla KDE
+Summary(pl):	Gra Lines dla KDE
 Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
 
@@ -257,7 +263,7 @@ Requires:	kdelibs >= %{version}
 Lines for KDE.
 
 %description klines -l pl
-Lines dla KDE.
+Gra Lines dla KDE.
 
 %package kmahjongg
 Summary:	KDE Mahjongg clone
@@ -290,7 +296,11 @@ This is a very classical minesweeper written from scratch.
 - High Scores.
 
 %description kmines -l pl
-Wersja znanej gry "saper" dla KDE.
+Klasyczna wersja znanej gry "saper" dla KDE, napisana od zera. Cechy:
+- 3 predefiniowane poziomy (³atwy - 8x8 z 10 minami; normalny - 16x16
+  z 40 minami; ekspert - 30x16 z 99 minami),
+- definiowalne poziomy
+- lista najlepszych wyników.
 
 %description kmines -l pt_BR
 Versão do jogo 'caça-minas' para o KDE.
@@ -313,7 +323,7 @@ Jogo espacial de estratégia.
 
 %package kpat
 Summary:	KDE solitaire patience game
-Summary(pl):	Pasjanse KDE
+Summary(pl):	Pasjanse dla KDE
 Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
 Requires:	kdegames-carddecks = %{version}
@@ -340,7 +350,7 @@ Requires:	kdelibs >= %{version}
 A simple video poker clone for the KDE desktop environment.
 
 %description kpoker -l pl
-Prosy poker dla KDE.
+Prosty poker dla KDE.
 
 %description kpoker -l pt_BR
 Jogo de vídeo-pôquer para o KDE.
@@ -360,7 +370,11 @@ belongs to that player. The winner is the person that has more pieces
 of his own color on the board and if there are no more moves possible.
 
 %description kreversi -l pl
-Reversi to prosta gra strategiczna dla dwóch graczy.
+Reversi to prosta gra strategiczna dla dwóch graczy. Jest tylko jeden
+rodzaj pionu - z jednej strony czarny, z drugiej bia³y. Je¶li gracz
+schwyta pion na planszy, jest on obracany i nale¿y do tego gracza.
+Zwyciêzc± jest osoba, która ma na planszy wiêcej pionów w swoim
+kolorze w chwili, gdy nie mo¿na ju¿ wykonaæ ¿adnego ruchu.
 
 %description kreversi -l pt_BR
 Jogo no estilo Otelo para KDE.
@@ -375,14 +389,16 @@ Requires:	kdelibs >= %{version}
 %description ksame
 KSame is a simple game. It's played by one player, so there is only
 one winner :-) You play for fun and against the highscore. It has been
-inspired by SameGame, that is only famous on the Macintosh plattform.
+inspired by SameGame, that is only famous on the Macintosh platform.
 
 %description ksame -l pl
-KSame to prosta gra dla jednego gracza.
+KSame to prosta gra dla jednego gracza. Mo¿na graæ dla zabawy i dla
+wyniku. Gra jest zainspirowana gr± SameGame, s³ynn± tylko na
+Macintoshach.
 
 %description ksame -l pt_BR
 Jogo relaxante onde você deve remover o maior número possível de
-bolinhas
+bolinhas.
 
 %package kshisen
 Summary:	KDE Shisen-Sho
@@ -392,7 +408,7 @@ Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
 
 %description kshisen
-Shisen-Sho is similiar to Mahjongg and uses the same set of tiles as
+Shisen-Sho is similar to Mahjongg and uses the same set of tiles as
 Mahjongg.
 
 %description kshisen -l pl
@@ -446,8 +462,8 @@ Snake Race is a game of speed and agility. You are a hungry snake and
 are trying to eat all the apples in the room before getting out!
 
 %description ksnake -l pl
-Snake Race to gra szybko¶ciowo-zrêczno¶ciowa. Wcielasz sie w g³odnego
-wê¿a próbuj±cego zje¶æ wszystkie jab³ka w pomieszczeniu.
+Snake Race to gra szybko¶ciowo-zrêczno¶ciowa. Gracz wciela siê w
+g³odnego wê¿a próbuj±cego zje¶æ wszystkie jab³ka w pomieszczeniu.
 
 %description ksnake -l pt_BR
 Jogo da cobra sempre crescente para o KDE.
@@ -460,17 +476,17 @@ Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
 
 %description ksokoban
-The japanese warehouse keeper game.
+The Japanese warehouse keeper game.
 
 %description ksokoban -l pl
-Gra japoñskiego magazyniera.
+Gra w japoñskiego magazyniera.
 
 %description ksokoban -l pt_BR
 Jogo Sokoban ou 'Fiscal de Estoque' para o KDE.
 
 %package kspaceduel
 Summary:	KDE space arcade game for two players
-Summary(pl):	Gra arcade pod KDE dla dwóch graczy
+Summary(pl):	Gra zrêczno¶ciowa pod KDE dla dwóch graczy
 Summary(pt_BR):	Versão do jogo Duelo Espacial para o KDE
 Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
@@ -483,15 +499,15 @@ and play each other.
 
 %description kspaceduel -l pl
 Ka¿dy z graczy kieruje statkiem, który lata dooko³a s³oñca i próbuje
-zestarzeliæ drugi statek. Mo¿esz graæ w KSpaceduel z inn± osob±, z
-komputerem, lub mo¿esz pozwoliæ aby computer kierowa³ oboma statkami.
+zestrzeliæ drugi statek. Mo¿na graæ w KSpaceduel z inn± osob±, z
+komputerem, lub pozwoliæ, aby komputer kierowa³ obydwoma statkami.
 
 %description kspaceduel -l pt_BR
 Versão do jogo Duelo Espacial para o KDE.
 
 %package ktron
-Summary:	Tron clone for KDE
-Summary(pl):	Klon Tron dla KDE
+Summary:	Trone clone for KDE
+Summary(pl):	Klon Trone dla KDE
 Summary(pt_BR):	Versão do jogo Tron / Motos de Luz para o KDE
 Group:		X11/Applications/Games
 Requires:	kdelibs >= %{version}
@@ -504,11 +520,11 @@ The aim of the game is to live longer then your opponent. To do That,
 avoid running into a wall, your own tail and that of your opponent.
 
 %description ktron -l pl
-KTron to prosty klon Trone dla KDE. Mo¿esz graæ w KTron przeciwko
+KTron to prosty klon Trone dla KDE. Mo¿ena graæ w KTron przeciwko
 komputerowi lub koledze.
 
-Celem gry jest prze¿yæ d³u¿ej ni¿ przeciwnik. Aby tego dokonaæ unikaj
-uderzenia w ¶cianê, ogon w³asny lub przeciwnika.
+Celem gry jest prze¿yæ d³u¿ej ni¿ przeciwnik. Aby tego dokonaæ trzeba
+unikaæ uderzenia w ¶cianê, ogon w³asny lub przeciwnika.
 
 %description ktron -l pt_BR
 Versão do jogo Tron / Motos de Luz para o KDE.
@@ -529,11 +545,11 @@ There is no winer. The only purpose is to make the funniest faces you
 can.
 
 %description ktuberling -l pl
-KTuberling to edytor ziemniaków. Oznacza to, ¿e mo¿esz uk³adaæ oczy,
+KTuberling to edytor ziemniaków. Oznacza to, ¿e mo¿na uk³adaæ oczy,
 usta, w±sy oraz inne czê¶ci twarzy na postaæ podobn± do ziemniaka.
 
 W grze nie ma zwyciêzcy. Jedynym celem gry jest stworzenie
-najzabawniejszej twarzy, jak± sie da u³o¿yæ.
+najzabawniejszej twarzy, jak± siê da u³o¿yæ.
 
 %description ktuberling -l pt_BR
 Jogo de desenho do 'Homem-batata' para crianças.
