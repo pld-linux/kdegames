@@ -633,15 +633,15 @@ for i in debian/*.man
 do
 	cp -f $i `echo $i | sed 's:\\.man\$:.6:'`
 done
+rm -f debian/kdeopt.6
 for i in debian/*.6
 do
-	echo '/\.so kdeopt\.man/r debian/kdeopt.6
+	echo '/\.so kdeopt\.man/r debian/kdeopt.man
 ,s/\.so kdeopt\.man//
 ,w
 q' | ed $i
 	install $i $RPM_BUILD_ROOT%{_mandir}/man6
 done
-rm -f debian/kdeopt.6
 
 for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.desktop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.xpm$/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
