@@ -685,6 +685,7 @@ Summary:	Popular Gambling Game
 Summary(pl):	Popularna gra hazardowa
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-carddecks = %{version}-%{release}
 Requires:	kdebase-core >= %{version}
 
 %description megami
