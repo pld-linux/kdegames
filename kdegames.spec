@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Name:		kdegames
 Version:	3.0.3
-Release:	1
+Release:	2
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -13,12 +13,12 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.
 # generated from kde-i18n - need update!
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kpatcards.patch
-BuildRequires:	kdelibs-devel >= %{version}
+BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
 BuildRequires:	arts-devel
 Requires:	qt >= 3.0.5
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -55,8 +55,9 @@ Summary:	Development files for KDE games
 Summary(pl):	Pliki developerskie dla KDE games
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	qt >= 3.0.3
-Requires:	kdelibs >= %{version}
+Requires:	qt >= 3.0.5
+Requires:	kdelibs = %{version}
+Requires:	kdegames = %{version}
 
 %description devel
 Development files for KDE games.
