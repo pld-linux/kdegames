@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - games
 Summary(pl):	K Desktop Environment - gry
 Name:		kdegames
 Version:	2.1.1
-Release:	1
+Release:	2
 Epoch:		6
 License:	GPL
 Vendor:		The KDE Team
@@ -15,7 +15,7 @@ BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	qt-devel >= 2.2
 BuildRequires:	zlib-devel
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -33,7 +33,7 @@ Group:		X11/KDE/Development
 Group(de):	X11/KDE/Entwicklung
 Group(pl):	X11/KDE/Programowanie
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description devel
 Development files for KDE games.
@@ -54,7 +54,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kabalone
 KAbalone is a game like Reversi. You play against the computer on a
@@ -70,7 +70,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kasteroids
 Asteroids clone for KDE.
@@ -85,7 +85,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description katomic
 Atomic Entertainment is a small game which resembles Sokoban. The
@@ -103,7 +103,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kbackgammon
 KBackgammon is a graphical backgammon program for KDE. It supports
@@ -123,7 +123,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kblackbox
 A little logical game for KDE.
@@ -137,7 +137,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kfouleggs
 KDE kfouleggs
@@ -148,7 +148,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kjezz
 KDE jezz
@@ -160,7 +160,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kjumpingcube
 KJumpingCube is a simple tactical game. You can play it against the
@@ -186,7 +186,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kmahjongg
 This program is a clone of the well known Mahjongg game.
@@ -201,7 +201,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kmines
 This is a very classical minesweeper written from scratch.
@@ -220,7 +220,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description konquest
 KDE version of Gnu-Lactic Konquest.
@@ -235,7 +235,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description kpat
 KDE solitaire patience games.
@@ -250,7 +250,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description kpoker
 A simple video poker clone for the KDE desktop environment.
@@ -265,7 +265,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description kreversi
 Reversi is a simple strategy game that is played by two players. There
@@ -284,7 +284,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description ksame
 KSame is a simple game. It's played by one player, so there is only
@@ -301,7 +301,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description kshisen
 Shisen-Sho is similiar to Mahjongg and uses the same set of tiles as
@@ -318,7 +318,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description ksirtet
 This program is a clone of the well-known game Tetris.
@@ -333,7 +333,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description ksmiletris
 This program is a clone of the well-known game Tetris.
@@ -348,7 +348,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description ksnake
 Snake Race is a game of speed and agility. You are a hungry snake and
@@ -365,7 +365,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description ksokoban
 The japanese warehouse keeper game.
@@ -379,7 +379,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description kspaceduel
 Each player control a ship that flies around the sun and tries to
@@ -399,7 +399,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description ktron
 KTron is a simple Trone-Clone for the KDE. You can play KTron against
@@ -422,7 +422,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description ktuberling
 It is a potato editor. That means that you can drag and drop eyes,
@@ -445,7 +445,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 
 %description kwin4
 Four wins is a game for two players. Each player is represented by a
@@ -465,7 +465,7 @@ Group:		X11/KDE/Games
 Group(de):	X11/KDE/Spiele
 Group(pl):	X11/KDE/Gry
 Requires:	qt >= 2.2
-Requires:	kdelibs = %{version} 
+Requires:	kdelibs >= %{version} 
 
 %description lskat
 Lieutnant Skat
@@ -478,7 +478,7 @@ kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 export LDFLAGS
-%configure \
+%configure2_13 \
 	--with-qt-dir=%{_prefix} \
  	--with-pam="yes" \
 	--enable-final
