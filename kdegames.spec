@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		stable
-%define		_ver		3.1.4
+%define		_ver		3.1.5
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -13,16 +13,16 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	be604fb91e24f990659f5cab2ac8decf
+# Source0-md5:	6611d73c37dbd648f556e1370ba00031
 # generated from kde-i18n - need update!
-Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	510dc744a3918fc932d9f7497638eeba
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+# Source1-md5:	56e8f8134c902b9dea3944412a4e5f80
 Source2:	%{name}-extra_icons.tar.bz2
 # Source2-md5:	daf7940c0369bfaa7d4216a5fdecb6d7
 #Patch0:	%{name}-kpatcards.patch
