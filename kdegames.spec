@@ -15,7 +15,6 @@ Version:	3.0.4
 Release:	6
 Epoch:		7
 License:	GPL
-Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n - need update!
