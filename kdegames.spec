@@ -269,13 +269,13 @@ LDFLAGS="-s" \
  	--with-install-root=$RPM_BUILD_ROOT \
 	--with-qt-dir=%{_prefix} \
  	--with-pam="yes"
-make KDEDIR=$KDEDIR
+%{__make} KDEDIR=$KDEDIR
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 export KDEDIR=%{_prefix}
-make RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
+%{__make} RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
 
 install -d $RPM_BUILD_ROOT/var/lib/games/ksnake/
 touch $RPM_BUILD_ROOT/var/lib/games/ksnake/highScores
