@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		stable
-%define		_kdever		3.1
+%define		_ver		3.1
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -12,13 +12,13 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
-Version:	3.1
+Version:	%{_ver}
 Release:	5
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n - need update!
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 #Patch0:		%{name}-kpatcards.patch
