@@ -3,8 +3,8 @@
 %bcond_without	highscore	# without system-wide score feature
 %bcond_without  i18n		# don't build i18n packages per module
 #
-%define		_state		snapshots
-%define		_ver		3.2.0
+%define		_state		stable
+%define		_ver		3.2.1
 #define		_snap		040110
 
 Summary:	K Desktop Environment - games
@@ -17,14 +17,14 @@ Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 #Version:	%{_ver}.%{_snap}
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	60b05fa22dfc0ec812ca88dacb0249aa
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	30af752fbe3547a30963bf0df0380c24
 %if %{with i18n}
 Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	dab4d56eef3c480584b3df46085b33bb
@@ -1188,7 +1188,7 @@ Pliki umiêdzynarodawiaj±ce dla megami.
 %prep
 #%setup -q -n %{name}-%{_snap}
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 %patch1 -p1
 
 %build
