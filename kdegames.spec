@@ -3220,35 +3220,35 @@ cp %{_datadir}/automake/config.sub admin
 %{__make}
 
 %install
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
-##%{__make} install \
-#	DESTDIR=$RPM_BUILD_ROOT \
-#	kde_htmldir=%{_kdedocdir}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir}
 
-#mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/lskat.png
+mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/lskat.png
 
-#cp libkdegames/highscore/INSTALL ./README.highscore
+cp libkdegames/highscore/INSTALL ./README.highscore
 
-##%if %{with highscore}
-#install -d $RPM_BUILD_ROOT/var/games
-#touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
-##%endif
-#
-#
-##%if %{with i18n}
-#if [ -f "%{SOURCE1}" ] ; then
-#        bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
-#	for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
-#		if [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] ; then
-#		rm -f $f
-#		fi
-#	done
-#else
-#	echo "No i18n sources found and building --with i18n. FIXIT!"
-#	exit 1
-#fi
-##%endif
+%if %{with highscore}
+install -d $RPM_BUILD_ROOT/var/games
+touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
+%endif
+
+
+%if %{with i18n}
+if [ -f "%{SOURCE1}" ] ; then
+        bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+	for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
+		if [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] ; then
+		rm -f $f
+		fi
+	done
+else
+	echo "No i18n sources found and building --with i18n. FIXIT!"
+	exit 1
+fi
+%endif
 												
 
 %find_lang atlantik	--with-kde
@@ -3458,6 +3458,7 @@ EOF
 #%files megami-i18n -f megami.lang
 %endif
 
+%files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README README.highscore
 %{_libdir}/libkdegames.la
