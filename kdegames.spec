@@ -18,6 +18,7 @@ Patch0:		%{name}-kpatcards.patch
 Patch1:		%{name}-fix-crash-in-kwin4-fix-network-connect.patch
 Patch2:		%{name}-fix-crash-in-the-king-demo.patch
 Patch3:		%{name}-fix-mem-leak-in-kwin4.patch
+Patch4:		%{name}-fix-score-ok-button.patch
 BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
@@ -592,6 +593,7 @@ Jogo de cartas Lieutenant Skat para KDE
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
