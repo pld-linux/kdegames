@@ -1,14 +1,13 @@
 Summary:	K Desktop Environment - games 
 Summary(pl):	K Desktop Environment - gry
 Name:		kdegames
-Version:	1.1.1
-Release:	3
+Version:	1.1.2
+Release:	1
 Vendor:		The KDE Team
 Copyright:	GPL
 Group:		X11/KDE/Games
 Group(pl):	X11/KDE/Gry
 Source:		ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/source/%{name}-%{version}.tar.bz2
-Patch:		kdegames.ksnake-highscore.patch
 BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	libstdc++-devel
 BuildRequires:	qt-devel >= 1.40
@@ -18,7 +17,7 @@ Requires:	qt >= 1.40
 Requires:	kdelibs = %{version}
 BuildRoot:	/tmp/%{name}-%{version}-root
 
-%define		_prefix		/usr/X11R6
+%define	_prefix	/usr/X11R6
 
 %description
 KDE games: KAbalone, KAsteroids, KBlackbox, KMahjongg, KMines,
@@ -259,16 +258,16 @@ Gra japoñskiego magazyniera.
 
 %prep
 %setup -q
-%patch -p1
 
 %build
 export KDEDIR=%{_prefix}
-CXXFLAGS="$RPM_OPT_FLAGS -Wall" \
+CXXFLAGS="$RPM_OPT_FLAGS -Wall -fno-rtti" \
 CFLAGS="$RPM_OPT_FLAGS -Wall" \
 LDFLAGS="-s" \
 ./configure %{_target_platform} \
 	--prefix=$KDEDIR \
  	--with-install-root=$RPM_BUILD_ROOT \
+	--with-qt-dir=%{_prefix} \
  	--with-pam="yes"
 make KDEDIR=$KDEDIR
 
@@ -277,6 +276,9 @@ rm -rf $RPM_BUILD_ROOT
 
 export KDEDIR=%{_prefix}
 make RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
+
+install -d $RPM_BUILD_ROOT/var/state/games/ksnake/
+touch $RPM_BUILD_ROOT/var/state/games/ksnake/highScores
 
 %find_lang kabalone
 %find_lang kasteroids
@@ -301,17 +303,14 @@ rm -rf $RPM_BUILD_ROOT
 #             KABALONE
 #################################################
 
-%files kabalone -f kabalone.lang 
+%files -f kabalone.lang kabalone 
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/kabalone.kdelnk
-%attr(755,root,root) %{_bindir}/kabalone
-
-%{_datadir}/kde/doc/HTML/en/kabalone
-%lang(de) %{_datadir}/kde/doc/HTML/de/kabalone
-%lang(fr) %{_datadir}/kde/doc/HTML/fr/kabalone
-
-%{_datadir}/kde/apps/kabalone
+%attr(755,root,root) /usr/X11R6/bin/kabalone
+%lang(de) %{_datadir}/kde/doc/HTML/de/kabalone/
+%lang(en) %{_datadir}/kde/doc/HTML/en/kabalone/
+%lang(fr) %{_datadir}/kde/doc/HTML/fr/kabalone/
+%{_datadir}/kde/apps/kabalone/
 %{_datadir}/kde/icons/kabalone.xpm
 %{_datadir}/kde/icons/mini/kabalone.xpm
 
@@ -319,15 +318,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KASTEROIDS 
 #################################################
 
-%files kasteroids -f kasteroids.lang
+%files -f kasteroids.lang kasteroids 
 %defattr(644,root,root,755)
-
-%attr(755,root,root) %{_bindir}/kasteroids
+%attr(755,root,root) /usr/X11R6/bin/kasteroids
 %config(missingok) /etc/X11/kde/applnk/Games/kasteroids.kdelnk
-
-%{_datadir}/kde/doc/HTML/en/kasteroids
-
-%{_datadir}/kde/apps/kasteroids
+%lang(en) %{_datadir}/kde/doc/HTML/en/kasteroids/
+%{_datadir}/kde/apps/kasteroids/
 %{_datadir}/kde/icons/mini/kasteroids.xpm
 %{_datadir}/kde/icons/kasteroids.xpm
 
@@ -335,15 +331,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KBLACKBOX 
 #################################################
 
-%files kblackbox -f kblackbox.lang
+%files -f kblackbox.lang kblackbox
 %defattr(644,root,root,755)
-
-%attr(755,root,root) %{_bindir}/kblackbox
+%attr(755,root,root) /usr/X11R6/bin/kblackbox
 %config(missingok) /etc/X11/kde/applnk/Games/kblackbox.kdelnk
-
-%{_datadir}/kde/doc/HTML/en/kblackbox
-
-%{_datadir}/kde/apps/kblackbox
+%lang(en) %{_datadir}/kde/doc/HTML/en/kblackbox/
+%{_datadir}/kde/apps/kblackbox/
 %{_datadir}/kde/icons/mini/kblackbox.xpm
 %{_datadir}/kde/icons/kblackbox.xpm
 
@@ -351,15 +344,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KMAHJONGG
 #################################################
 
-%files kmahjongg -f kmahjongg.lang
+%files -f kmahjongg.lang kmahjongg
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/kmahjongg.kdelnk
-%attr(755,root,root) %{_bindir}/kmahjongg
-
-%{_datadir}/kde/doc/HTML/en/kmahjongg
-
-%{_datadir}/kde/apps/kmahjongg
+%attr(755,root,root) /usr/X11R6/bin/kmahjongg
+%lang(en) %{_datadir}/kde/doc/HTML/en/
+%{_datadir}/kde/apps/kmahjongg/
 %{_datadir}/kde/icons/kmahjongg.xpm
 %{_datadir}/kde/icons/mini/kmahjongg.xpm
 
@@ -367,14 +357,11 @@ rm -rf $RPM_BUILD_ROOT
 #             KMINES
 #################################################
 
-%files kmines -f kmines.lang
+%files -f kmines.lang kmines
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/kmines.kdelnk
-%attr(755,root,root) %{_bindir}/kmines
-
-%{_datadir}/kde/doc/HTML/en/kmines
-
+%attr(755,root,root) /usr/X11R6/bin/kmines
+%lang(en) %{_datadir}/kde/doc/HTML/en/kmines/
 %{_datadir}/kde/icons/mini/kmines.xpm
 %{_datadir}/kde/icons/kmines.xpm
 
@@ -382,15 +369,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KONQUEST
 #################################################
 
-%files konquest -f konquest.lang
+%files -f konquest.lang konquest
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/Konquest.kdelnk
-%attr(755,root,root) %{_bindir}/konquest
-
-%{_datadir}/kde/doc/HTML/en/konquest
-
-%{_datadir}/kde/apps/konquest
+%attr(755,root,root) /usr/X11R6/bin/konquest
+%lang(en) %{_datadir}/kde/doc/HTML/en/konquest/
+%{_datadir}/kde/apps/konquest/
 %{_datadir}/kde/icons/mini/konquest.xpm
 %{_datadir}/kde/icons/konquest.xpm
 
@@ -398,15 +382,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KPAT
 #################################################
 
-%files kpat -f kpat.lang
+%files -f kpat.lang kpat
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/kpat.kdelnk
-%attr(755,root,root) %{_bindir}/kpat
-
-%{_datadir}/kde/doc/HTML/en/kpat
-
-%{_datadir}/kde/apps/kpat
+%attr(755,root,root) /usr/X11R6/bin/kpat
+%lang(en) %{_datadir}/kde/doc/HTML/en/kpat/
+%{_datadir}/kde/apps/kpat/
 %{_datadir}/kde/icons/mini/kpat.xpm
 %{_datadir}/kde/icons/kpat.xpm
 %{_datadir}/kde/icons/kpat-lq.xpm
@@ -415,15 +396,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KPOKER
 #################################################
 
-%files kpoker -f kpoker.lang
+%files -f kpoker.lang kpoker
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/kpoker.kdelnk
-%attr(755,root,root) %{_bindir}/kpoker
-
-%{_datadir}/kde/doc/HTML/en/kpoker
-
-%{_datadir}/kde/apps/kpoker
+%attr(755,root,root) /usr/X11R6/bin/kpoker
+%lang(en) %{_datadir}/kde/doc/HTML/en/kpoker/
+%{_datadir}/kde/apps/kpoker/
 %{_datadir}/kde/icons/mini/kpoker.xpm
 %{_datadir}/kde/icons/kpoker.xpm
 
@@ -431,15 +409,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KREVERSI
 #################################################
 
-%files kreversi -f kreversi.lang
+%files -f kreversi.lang kreversi
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/kreversi.kdelnk
-%attr(755,root,root) %{_bindir}/kreversi
-
-%{_datadir}/kde/doc/HTML/en/kreversi
-
-%{_datadir}/kde/apps/kreversi
+%attr(755,root,root) /usr/X11R6/bin/kreversi
+%lang(en) %{_datadir}/kde/doc/HTML/en/kreversi/
+%{_datadir}/kde/apps/kreversi/
 %{_datadir}/kde/icons/mini/kreversi.xpm
 %{_datadir}/kde/icons/kreversi.xpm
 
@@ -447,14 +422,12 @@ rm -rf $RPM_BUILD_ROOT
 #            KSAME 
 #################################################
 
-%files ksame -f ksame.lang
+%files -f ksame.lang ksame
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/ksame.kdelnk
-%attr(755,root,root) %{_bindir}/ksame
-
-%{_datadir}/kde/doc/HTML/en/ksame
-%{_datadir}/kde/apps/ksame
+%attr(755,root,root) /usr/X11R6/bin/ksame
+%lang(en) %{_datadir}/kde/doc/HTML/en/ksame/
+%{_datadir}/kde/apps/ksame/
 %{_datadir}/kde/icons/mini/ksame.xpm
 %{_datadir}/kde/icons/ksame.xpm
 
@@ -462,14 +435,11 @@ rm -rf $RPM_BUILD_ROOT
 #             KSIRTET
 #################################################
 
-%files ksirtet -f ksirtet.lang
+%files -f ksirtet.lang ksirtet
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/ksirtet.kdelnk
-%attr(755,root,root) %{_bindir}/ksirtet
-
-%{_datadir}/kde/doc/HTML/en/ksirtet
-
+%attr(755,root,root) /usr/X11R6/bin/ksirtet
+%lang(en) %{_datadir}/kde/doc/HTML/en/ksirtet/
 %{_datadir}/kde/icons/mini/ksirtet.xpm
 %{_datadir}/kde/icons/ksirtet.xpm
 
@@ -477,15 +447,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KSMILETRIS
 #################################################
 
-%files ksmiletris -f ksmiletris.lang
+%files -f ksmiletris.lang ksmiletris
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/ksmiletris.kdelnk
-%attr(755,root,root) %{_bindir}/ksmiletris
-
-%{_datadir}/kde/doc/HTML/en/ksmiletris
-
-%{_datadir}/kde/apps/ksmiletris
+%attr(755,root,root) /usr/X11R6/bin/ksmiletris
+%lang(en) %{_datadir}/kde/doc/HTML/en/ksmiletris/
+%{_datadir}/kde/apps/ksmiletris/
 %{_datadir}/kde/icons/mini/ksmiletris.xpm
 %{_datadir}/kde/icons/ksmiletris.xpm
 
@@ -493,15 +460,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KSHISEN
 #################################################
 
-%files kshisen -f kshisen.lang
+%files -f kshisen.lang kshisen
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/kshisen.kdelnk
-%attr(755,root,root) %{_bindir}/kshisen
-
-%{_datadir}/kde/doc/HTML/en/kshisen
-
-%{_datadir}/kde/apps/kshisen
+%attr(755,root,root) /usr/X11R6/bin/kshisen
+%lang(en) %{_datadir}/kde/doc/HTML/en/kshisen/
+%{_datadir}/kde/apps/kshisen/
 %{_datadir}/kde/icons/mini/kshisen.xpm
 %{_datadir}/kde/icons/kshisen.xpm
 
@@ -509,15 +473,12 @@ rm -rf $RPM_BUILD_ROOT
 #             KSNAKE
 #################################################
 
-%files ksnake -f ksnake.lang
+%files -f ksnake.lang ksnake
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/ksnake.kdelnk
-%attr(4755,root,games) %{_bindir}/ksnake
-
-%{_datadir}/kde/doc/HTML/en/ksnake
-
-%{_datadir}/kde/apps/ksnake
+%attr(4755,root,games) /usr/X11R6/bin/ksnake
+%lang(en) %{_datadir}/kde/doc/HTML/en/ksnake/
+%{_datadir}/kde/apps/ksnake/
 %{_datadir}/kde/icons/mini/ksnake.xpm
 %{_datadir}/kde/icons/ksnake.xpm
 %attr(664,root,games) %ghost /var/state/games/ksnake/highScores
@@ -526,13 +487,10 @@ rm -rf $RPM_BUILD_ROOT
 #             KSOKOBAN
 #################################################
 
-%files ksokoban -f ksokoban.lang
+%files -f ksokoban.lang ksokoban
 %defattr(644,root,root,755)
-
 %config(missingok) /etc/X11/kde/applnk/Games/ksokoban.kdelnk
-%attr(755,root,root) %{_bindir}/ksokoban
-
-%{_datadir}/kde/doc/HTML/en/ksokoban
-
+%attr(755,root,root) /usr/X11R6/bin/ksokoban
+%lang(en) %{_datadir}/kde/doc/HTML/en/ksokoban/
 %{_datadir}/kde/icons/mini/ksokoban.xpm
 %{_datadir}/kde/icons/ksokoban.xpm
