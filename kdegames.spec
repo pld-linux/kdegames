@@ -2,7 +2,7 @@
 # TODO: Adding new games desc.
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc4
+%define		_kdever		kde-3.1-rc5
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -13,7 +13,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	3.1
-Release:	1
+Release:	2
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
