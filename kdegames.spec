@@ -6,7 +6,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	3.0.3
-Release:	4
+Release:	5
 Epoch:		7
 License:	GPL
 Vendor:		The KDE Team
@@ -73,7 +73,6 @@ Summary:	Development files for KDE games
 Summary(pl):	Pliki developerskie dla KDE games
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	qt >= 3.0.5
 Requires:	kdelibs = %{version}
 Requires:	kdegames = %{version}
 
@@ -107,7 +106,6 @@ Summary:	KDE Asteroids clone
 Summary(pl):	Klon Asterids dla KDE
 Summary(pt_BR):	Destrua os asteróides para não ser destruído
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kasteroids
@@ -124,7 +122,6 @@ Summary:	KDE Sokoban clone
 Summary(pl):	Klon gry Sokoban dla KDE
 Summary(pt_BR):	Jogo semelhante ao Sokoban mas o objetivo é formar moléculas
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description katomic
@@ -144,7 +141,6 @@ Summary:	Backgammon program for KDE
 Summary(pl):	Backgammon dla KDE
 Summary(pt_BR):	Jogo de gamão para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kbackgammon
@@ -166,7 +162,6 @@ Summary:	Battleship for KDE
 Summary(pl):	Statki dla KDE
 Summary(pt_BR):	Jogo de batalha naval com servidor embutido
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kbattleship
@@ -183,7 +178,6 @@ Summary:	A little logical game for KDE
 Summary(pl):	Prosta gra logiczna
 Summary(pt_BR):	Versão do jogo Blackbox do Emacs para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kblackbox
@@ -198,7 +192,6 @@ Versão do jogo Blackbox do Emacs para KDE.
 %package kbounce
 Summary:	Claim areas and don't get disturbed
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kbounce
@@ -207,7 +200,6 @@ Claim areas and don't get disturbed.
 %package kenolaba
 Summary:	-
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kenolaba
@@ -220,7 +212,6 @@ Summary:	KDE kfouleggs
 Summary(pl):	kfouleggs dla KDE
 Summary(pt_BR):	Mais um jogo que lembra o estilo Tetris
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kfouleggs
@@ -237,7 +228,6 @@ Summary:	A little tactical game for KDE
 Summary(pl):	Prosta gra taktyczna
 Summary(pt_BR):	Jogo de estratégia para 2 contendores
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kjumpingcube
@@ -264,7 +254,6 @@ Jogo de estratégia para 2 contendores.
 Summary:	Lines for KDE
 Summary(pl):	Lines dla KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description klines
@@ -278,7 +267,6 @@ Summary:	KDE Mahjongg clone
 Summary(pl):	Klon gry Mahjongg dla KDE
 Summary(pt_BR):	Versão do jogo Mahjongg para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kmahjongg
@@ -295,7 +283,6 @@ Summary:	KDE minesweeper game
 Summary(pl):	Saper dla KDE
 Summary(pt_BR):	Versão do jogo 'caça-minas' para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kmines
@@ -316,7 +303,6 @@ Summary:	KDE version of Gnu-Lactic Konquest
 Summary(pl):	Podbój galaktyki
 Summary(pt_BR):	Jogo espacial de estratégia
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description konquest
@@ -333,7 +319,7 @@ Summary:	KDE solitaire patience game
 Summary(pl):	Pasjanse KDE
 Summary(pt_BR):	Versão do jogo 'Paciência' para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
+Requires:	kdegames-carddecks = %{version}
 Requires:	kdelibs >= %{version}
 
 %description kpat
@@ -350,7 +336,7 @@ Summary:	KDE poker
 Summary(pl):	Poker KDE
 Summary(pt_BR):	Jogo de vídeo-pôquer para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
+Requires:	kdegames-carddecks = %{version}
 Requires:	kdelibs >= %{version}
 
 %description kpoker
@@ -367,7 +353,6 @@ Summary:	KDE Reversi game
 Summary(pl):	Gra Reversi dla KDE
 Summary(pt_BR):	Jogo no estilo Otelo para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kreversi
@@ -388,7 +373,6 @@ Summary:	KDE SameGame
 Summary(pl):	"To Samo" dla KDE
 Summary(pt_BR):	Jogo relaxante onde você deve remover o maior número possível de bolas
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksame
@@ -408,7 +392,6 @@ Summary:	KDE Shisen-Sho
 Summary(pl):	Shisen-Sho dla KDE
 Summary(pt_BR):	Jogo Shisen para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kshisen
@@ -427,7 +410,6 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksirtet
@@ -444,7 +426,6 @@ Summary:	KDE Tetris
 Summary(pl):	Tetris dla KDE
 Summary(pt_BR):	Jogo no estilo Tetris para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksmiletris
@@ -461,7 +442,6 @@ Summary:	KDE Snake Race
 Summary(pl):	Wy¶cig Wê¿y dla KDE
 Summary(pt_BR):	Jogo da cobra sempre crescente para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksnake
@@ -480,7 +460,6 @@ Summary:	KDE Sokoban
 Summary(pl):	Sokoban dla KDE
 Summary(pt_BR):	Jogo Sokoban ou 'Fiscal de Estoque' para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ksokoban
@@ -497,7 +476,6 @@ Summary:	KDE space arcade game for two players
 Summary(pl):	Gra arcade pod KDE dla dwóch graczy
 Summary(pt_BR):	Versão do jogo Duelo Espacial para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kspaceduel
@@ -519,7 +497,6 @@ Summary:	Tron clone for KDE
 Summary(pl):	Klon Tron dla KDE
 Summary(pt_BR):	Versão do jogo Tron / Motos de Luz para o KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ktron
@@ -544,7 +521,6 @@ Summary:	KDE game for small children
 Summary(pl):	Gra dla ma³ych dzieci
 Summary(pt_BR):	Jogo de desenho do 'Homem-batata' para crianças
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description ktuberling
@@ -570,7 +546,6 @@ Summary:	Four wins for KDE
 Summary(pl):	Gra "cztery wygrywa" dla KDE
 Summary(pt_BR):	Jogo de estratégia que lembra um pouco o Otelo
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description kwin4
@@ -600,7 +575,6 @@ Summary:	KDE lskat
 Summary(pl):	Lskat dla KDE
 Summary(pt_BR):	Jogo de cartas Lieutenant Skat para KDE
 Group:		X11/Applications/Games
-Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 
 %description lskat
