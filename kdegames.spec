@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Name:		kdegames
 Version:	2.2.2
-Release:	0.1
+Release:	1
 Epoch:		6
 License:	GPL
 Vendor:		The KDE Team
@@ -23,7 +23,7 @@ Requires:	kdelibs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
-%define         _htmldir        %{_datadir}/doc/kde/HTML
+%define		_htmldir	/usr/share/doc/kde/HTML
 
 %description
 Libraries for kdegames. Included with this package are: kabalone,
@@ -696,11 +696,14 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktuberling.desktop \
 rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkdegames.*
+%attr(755,root,root) %{_libdir}/libkdegames.so.*.*
+%{_datadir}/apps/kdegames/pics/*
+%{_libdir}/libkdegames.la
 
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/*.h
+%{_libdir}/libkdegames.so
 
 %files carddecks
 %defattr(644,root,root,755)
@@ -749,7 +752,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kbackgammon.??
 %{_applnkdir}/Games/Board/kbackgammon.desktop
 %{_datadir}/apps/kbackgammon/*
-%{_pixmapsdir}/hicolor/*x*/apps/kbackgammon.png
+%{_pixmapsdir}/hicolor/*x*/apps/kbackgammon*.png
 
 #################################################
 #             KBATTLESHIP
@@ -805,6 +808,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kjumpingcube
 %{_applnkdir}/Games/TacticStrategy/kjumpingcube.desktop
 %{_pixmapsdir}/hicolor/*x*/apps/kjumpingcube.png
+%{_datadir}/apps/kjumpingcube/*
 
 #################################################
 #             KLINES
@@ -838,6 +842,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Games/TacticStrategy/kmines.desktop
 %attr(755,root,root) %{_bindir}/kmines
 %{_pixmapsdir}/hicolor/*x*/apps/kmines.png
+%{_datadir}/apps/kmines/*
 
 #################################################
 #             KONQUEST
@@ -881,7 +886,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Games/Board/kreversi.desktop
 %attr(755,root,root) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi/*
-%{_pixmapsdir}/hicolor/*x*/apps/kpoker.png
+%{_pixmapsdir}/hicolor/*x*/apps/kreversi.png
 
 #################################################
 #            KSAME 
