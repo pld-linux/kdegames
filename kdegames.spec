@@ -20,7 +20,7 @@ License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	d37f7048edf1fe41a95f10adab505d72
 Patch0:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	arts-devel
