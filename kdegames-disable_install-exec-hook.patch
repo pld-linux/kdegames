@@ -70,9 +70,9 @@
 -	&& chmod 0660 $(DESTSCORES)) \
 -	|| echo "Error: Could not create system-wide highscore file with correct permissions !!" \
 -	)) || true
---- kdegames-030908/kmines/Makefile.am~	2003-06-08 03:40:52.000000000 +0200
-+++ kdegames-030908/kmines/Makefile.am	2003-09-09 21:59:00.000000000 +0200
-@@ -13,33 +13,3 @@
+--- kdegames-031014/kmines/Makefile.am.orig	2003-10-13 18:48:17.000000000 +0200
++++ kdegames-031014/kmines/Makefile.am	2003-10-16 18:10:23.000000000 +0200
+@@ -13,34 +13,3 @@
  
  messages: rc.cpp
  	$(XGETTEXT) rc.cpp *.cpp solver/*.cpp -o $(podir)/kmines.pot
@@ -106,6 +106,7 @@
 -	&& chmod 0660 $(DESTSCORES)) \
 -	|| echo "Error: Could not create system-wide highscore file with correct permissions !!" \
 -	)) || true
+-
 --- kdegames-030908/ksirtet/ksirtet/Makefile.am~	2003-08-30 18:17:16.000000000 +0200
 +++ kdegames-030908/ksirtet/ksirtet/Makefile.am	2003-09-09 21:59:41.000000000 +0200
 @@ -23,33 +23,3 @@
