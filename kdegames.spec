@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - games
 Summary(pl):	K Desktop Environment - gry
 Name:		kdegames
 Version:	1.1.2
-Release:	1
+Release:	2
 Vendor:		The KDE Team
 Copyright:	GPL
 Group:		X11/KDE/Games
@@ -277,8 +277,8 @@ rm -rf $RPM_BUILD_ROOT
 export KDEDIR=%{_prefix}
 make RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
 
-install -d $RPM_BUILD_ROOT/var/state/games/ksnake/
-touch $RPM_BUILD_ROOT/var/state/games/ksnake/highScores
+install -d $RPM_BUILD_ROOT/var/lib/games/ksnake/
+touch $RPM_BUILD_ROOT/var/lib/games/ksnake/highScores
 
 %find_lang kabalone
 %find_lang kasteroids
@@ -481,7 +481,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kde/apps/ksnake/
 %{_datadir}/kde/icons/mini/ksnake.xpm
 %{_datadir}/kde/icons/ksnake.xpm
-%attr(664,root,games) %ghost /var/state/games/ksnake/highScores
+%attr(664,root,games) %ghost /var/lib/games/ksnake/highScores
 
 #################################################
 #             KSOKOBAN
