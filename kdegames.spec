@@ -3,9 +3,8 @@
 %bcond_without	apidocs		# do not prepare API documentation
 %bcond_without	highscore	# without system-wide score feature
 
-%define		_state		unstable
+%define		_state		stable
 %define		_ver		3.3.0
-%define		_snap		rc2
 
 %define		_minlibsevr	9:3.3.0
 %define		_minbaseevr	9:3.3.0
@@ -19,15 +18,15 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Icon:		kde-games.xpm
-# Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
-# Source0-md5:	fc3cba390d748ee02858ef260563e174
+Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	bac48b11e98f7722954ec7327d36b74f
+#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
 Patch0:		%{name}-disable_install-exec-hook.patch
 Patch1:		kde-common-QTDOCDIR.patch
 %{?with_apidocs:BuildRequires:  doxygen}
