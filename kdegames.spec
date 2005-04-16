@@ -29,9 +29,12 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 # Source0-md5:	ab144b71caeda34579817b01855ec287
 Patch1:		kde-common-PLD.patch
 Patch0:		%{name}-disable_install-exec-hook.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
+BuildRequires:	mDNSResponder-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake
