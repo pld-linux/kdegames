@@ -34,7 +34,6 @@ BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
-BuildRequires:	mDNSResponder-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake
