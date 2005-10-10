@@ -4,11 +4,11 @@
 %bcond_without	highscore	# without system-wide score feature
 
 %define		_state		stable
-%define		_kdever		3.4.2
-%define		_ver		3.4.2
+%define		_kdever		3.4.3
+%define		_ver		3.4.3
 
-%define		_minlibsevr	9:3.4.2
-%define		_minbaseevr	9:3.4.2
+%define		_minlibsevr	9:3.4.3
+%define		_minbaseevr	9:3.4.3
 
 Summary:	K Desktop Environment - games
 Summary(es):	K Desktop Environment - Juegos
@@ -19,14 +19,14 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Icon:		kde-games.xpm
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	0213806b5cf7956f12d8d3a830ea2208
+# Source0-md5:	40ae2b318b94ab1832b484d2a4d3ab83
 Patch1:		kde-common-PLD.patch
 Patch2:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	autoconf
