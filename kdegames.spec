@@ -1,3 +1,5 @@
+# TODO:
+# - TONS OF NEW GAMES / UNPACKAGED FILES
 #
 # Conditional build:
 %bcond_without	apidocs		# do not prepare API documentation
@@ -795,8 +797,6 @@ rm -rf $RPM_BUILD_ROOT *.lang
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
 
-mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/lskat.png
-
 cp libkdegames/highscore/INSTALL ./README.highscore
 
 %if %{with highscore}
@@ -953,11 +953,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(2755,root,games) %{_bindir}/kfouleggs
 %else
 %attr(755,root,root) %{_bindir}/kfouleggs
-%endif
+%end#if
 %{_datadir}/apps/kfouleggs
 %{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
-%{_iconsdir}/crystalsvg/*/*/kfouleggs*
+#%{_iconsdir}/crystalsvg/*/*/kfouleggs*
 
 %files kgoldrunner -f kgoldrunner.lang
 %defattr(644,root,root,755)
@@ -984,7 +984,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %{_datadir}/apps/klickety
 %{_desktopdir}/kde/klickety.desktop
-%{_iconsdir}/crystalsvg/*/apps/klickety.*
+#%{_iconsdir}/crystalsvg/*/apps/klickety.*
 
 %files klines -f klines.lang
 %defattr(644,root,root,755)
