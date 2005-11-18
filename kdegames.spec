@@ -21,7 +21,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -953,7 +953,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(2755,root,games) %{_bindir}/kfouleggs
 %else
 %attr(755,root,root) %{_bindir}/kfouleggs
-%end#if
+%endif
 %{_datadir}/apps/kfouleggs
 %{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
