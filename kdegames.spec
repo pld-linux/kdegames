@@ -1,6 +1,3 @@
-# TODO:
-# - TONS OF NEW GAMES / UNPACKAGED FILES
-#
 # Conditional build:
 %bcond_without	apidocs		# do not prepare API documentation
 %bcond_without	highscore	# without system-wide score feature
@@ -21,14 +18,14 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
 Version:	%{_ver}
-Release:	0.2
+Release:	0.3
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Icon:		kde-games.xpm
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	268c321a6b76206ecbca866d391569e9
+# Source0-md5:	ba86fe9280ca57698ce3be0e0242b140
 Patch1:		kde-common-PLD.patch
 Patch2:		%{name}-disable_install-exec-hook.patch
 BuildRequires:	autoconf
@@ -389,6 +386,16 @@ Wersja klasycznej gry "saper" dla KDE, napisana od zera. Cechy:
 
 %description kmines -l pt_BR
 Versão do jogo 'caça-minas' para o KDE.
+
+%package knetwalk
+Summary:	KDE knetwalk
+Group:		X11/Applications/Games
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= %{_minbaseevr}
+
+%description knetwalk
+The aim of this game is to connect the network with a minimum amount
+of clicks.
 
 %package kolf
 Summary:	Miniature golf for KDE
@@ -768,6 +775,8 @@ for f in `find . -name \*.desktop`; do
 	fi
 done
 
+cp -p libkdegames/highscore/INSTALL README.highscore
+
 %build
 cp /usr/share/automake/config.sub admin
 
@@ -790,14 +799,13 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT *.lang
+rm -rf $RPM_BUILD_ROOT
+rm -f *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
-
-cp libkdegames/highscore/INSTALL ./README.highscore
 
 %if %{with highscore}
 install -d $RPM_BUILD_ROOT/var/games
@@ -827,6 +835,7 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
 %find_lang ksame	--with-kde
 %find_lang kshisen	--with-kde
 %find_lang ksirtet	--with-kde
+%find_lang ksmiletris	--with-kde
 %find_lang ksnake	--with-kde
 %find_lang ksokoban	--with-kde
 %find_lang kspaceduel	--with-kde
@@ -955,6 +964,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kfouleggs
 %endif
 %{_datadir}/apps/kfouleggs
+%{_iconsdir}/*/*/apps/kfouleggs.png
 %{_datadir}/config.kcfg/kfouleggs.kcfg
 %{_desktopdir}/kde/kfouleggs.desktop
 #%{_iconsdir}/crystalsvg/*/*/kfouleggs*
@@ -983,6 +993,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/klickety
 %endif
 %{_datadir}/apps/klickety
+%{_iconsdir}/*/*/apps/klickety.png
 %{_desktopdir}/kde/klickety.desktop
 #%{_iconsdir}/crystalsvg/*/apps/klickety.*
 
@@ -1013,6 +1024,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kmines
 %{_desktopdir}/kde/kmines.desktop
 %{_iconsdir}/*/*/apps/kmines.png
+
+%files knetwalk
+%defattr(644,root,root,755)
+%doc knetwalk/{AUTHORS,TODO}
+%attr(755,root,games) %{_bindir}/knetwalk
+%{_datadir}/apps/knetwalk
+%{_desktopdir}/kde/lskat.desktop
+%{_iconsdir}/[!l]*/*/apps/knetwalk.png
 
 %files kolf -f kolf.lang
 %defattr(644,root,root,755)
@@ -1057,6 +1076,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config.kcfg/kreversi.kcfg
 %{_desktopdir}/kde/kreversi.desktop
 %{_iconsdir}/*/*/apps/kreversi.png
+%{_iconsdir}/crystalsvg/*/*/lastmoves.*
+%{_iconsdir}/crystalsvg/*/*/legalmoves.*
 
 %files ksame -f ksame.lang
 %defattr(644,root,root,755)
@@ -1086,7 +1107,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/ksirtet.desktop
 %{_iconsdir}/*/*/apps/ksirtet.png
 
-%files ksmiletris
+%files ksmiletris -f ksmiletris.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksmiletris
 %{_datadir}/apps/ksmiletris
