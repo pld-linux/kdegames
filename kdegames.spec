@@ -389,6 +389,7 @@ Versão do jogo 'caça-minas' para o KDE.
 
 %package knetwalk
 Summary:	KDE knetwalk
+Summary(pl):	knetwalk dla KDE
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= %{_minbaseevr}
@@ -396,6 +397,9 @@ Requires:	kdebase-core >= %{_minbaseevr}
 %description knetwalk
 The aim of this game is to connect the network with a minimum amount
 of clicks.
+
+%description knetwalk -l pl
+Celem tej gry jest po³±czenie sieci minimaln± liczb± klikniêæ.
 
 %package kolf
 Summary:	Miniature golf for KDE
