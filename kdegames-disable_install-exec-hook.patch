@@ -1,7 +1,153 @@
 diff -urbB kdegames-3.5.0.org/kbounce/Makefile.am kdegames-3.5.0/kbounce/Makefile.am
---- kdegames-3.5.0.org/kbounce/Makefile.am	2005-11-08 22:24:52.000000000 +0000
-+++ kdegames-3.5.0/kbounce/Makefile.am	2005-11-24 17:13:07.068864952 +0000
-@@ -31,45 +31,3 @@
+--- kdegames-3.5.0.org/kbounce/Makefile.am	2005-11-19 10:08:13.000000000 +0000
++++ kdegames-3.5.0/kbounce/Makefile.am	2005-11-24 17:38:07.438774056 +0000
+@@ -31,46 +31,4 @@
+ DESTHIGHSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)
+ DESTSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)/$(bin_PROGRAMS).scores
+ 
+-install-data-local:
+-	@if test x$(HIGHSCORE_DIRECTORY) != x; then \
+-	  echo "********************************************************" ;\
+-	  echo "" ;\
+-	  echo "This game is installed sgid \"games\" to use the" ;\
+-	  echo "system-wide highscore file (in "$(HIGHSCORE_DIRECTORY)")." ;\
+-	  echo "" ;\
+-	  echo "If the system-wide highscore file does not exist, it is" ;\
+-          echo "created with the correct ownership and permissions. See the" ;\
+-          echo "INSTALL file in \"kdegames/libkdegames/highscore\" for details." ;\
+-	  echo "" ;\
+-	  echo "********************************************************" ;\
+-	fi 
+-
+-install-exec-hook:
+-	@if test x$(HIGHSCORE_DIRECTORY) != x; then \
+-	  chown $(highscore_user):$(highscore_group) $(DESTBIN) \
+-	  || echo "Error: Could not install the game with correct permissions !!" ;\
+-	fi
+-
+-	@if test x$(HIGHSCORE_DIRECTORY) != x; then \
+-		mkdir -p $(DESTHIGHSCORES) && \
+-		chown $(highscore_user):$(highscore_group) $(DESTHIGHSCORES) \
+-		&& chmod 750 $(DESTHIGHSCORES) \
+-	        || echo "Error: Could not create the highscore directory with correct permissions !!" ;\
+-	fi
+-
+-	@if test x$(HIGHSCORE_DIRECTORY) != x; then \
+-	   chown $(highscore_user):$(highscore_group) $(DESTBIN) \
+-	   || echo "Error: Could not install the game with correct permissions !!" ;\
+-	fi
+-
+-	@if test ${setgid} = true; then \
+-	   chmod 2755  $(DESTBIN) \
+-	   || echo "Error: Could not install the game with correct permissions !!" ;\
+-	fi
+-
+-	@if test x$(HIGHSCORE_DIRECTORY) != x; then \
+-	   touch $(DESTSCORES) && chown $(highscore_user):$(highscore_group) $(DESTSCORES) \
+-	   && chmod 0660 $(DESTSCORES) \
+-	   || echo "Error: Could not create system-wide highscore file with correct permissions !!" ;\
+-	fi
+ 
+diff -urbB kdegames-3.5.0.org/kfouleggs/Makefile.am kdegames-3.5.0/kfouleggs/Makefile.am
+--- kdegames-3.5.0.org/kfouleggs/Makefile.am	2005-09-10 08:18:28.000000000 +0000
++++ kdegames-3.5.0/kfouleggs/Makefile.am	2005-11-24 17:37:53.602877432 +0000
+@@ -27,44 +27,3 @@
+ DESTHIGHSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)
+ DESTSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)/$(bin_PROGRAMS).scores
+ 
+-install-data-local:
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-	&& echo "********************************************************" \
+-	&& echo "" \
+-	&& echo "This game is installed sgid \"games\" to use the" \
+-	&& echo "system-wide highscore file (in "$(HIGHSCORE_DIRECTORY)")." \
+-	&& echo "" \
+-	&& echo "If the system-wide highscore file does not exist, it is" \
+-        && echo "created with the correct ownership and permissions. See the" \
+-        && echo "INSTALL file in \"kdegames/libkdegames/highscore\" for details." \
+-	&& echo "" \
+-	&& echo "********************************************************" \
+-	) || true
+-
+-install-exec-hook:
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((chown $(highscore_user):$(highscore_group) $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-		&& ((mkdir -p $(DESTHIGHSCORES) && chown $(highscore_user):$(highscore_group) $(DESTHIGHSCORES) \
+-		&& chmod 750 $(DESTHIGHSCORES)) \
+-	|| echo "Error: Could not create the highscore directory with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((chown $(highscore_user):$(highscore_group) $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test ${setgid} = true \
+-        && ((chmod 2755  $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((touch $(DESTSCORES) && chown $(highscore_user):$(highscore_group) $(DESTSCORES) \
+-	&& chmod 0660 $(DESTSCORES)) \
+-	|| echo "Error: Could not create system-wide highscore file with correct permissions !!" \
+-	)) || true
+diff -urbB kdegames-3.5.0.org/klickety/Makefile.am kdegames-3.5.0/klickety/Makefile.am
+--- kdegames-3.5.0.org/klickety/Makefile.am	2005-09-10 08:18:05.000000000 +0000
++++ kdegames-3.5.0/klickety/Makefile.am	2005-11-24 17:36:54.023934808 +0000
+@@ -27,44 +27,4 @@
+ DESTHIGHSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)
+ DESTSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)/$(bin_PROGRAMS).scores
+ 
+-install-data-local:
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-	&& echo "********************************************************" \
+-	&& echo "" \
+-	&& echo "This game is installed sgid \"games\" to use the" \
+-	&& echo "system-wide highscore file (in "$(HIGHSCORE_DIRECTORY)")." \
+-	&& echo "" \
+-	&& echo "If the system-wide highscore file does not exist, it is" \
+-        && echo "created with the correct ownership and permissions. See the" \
+-        && echo "INSTALL file in \"kdegames/libkdegames/highscore\" for details." \
+-	&& echo "" \
+-	&& echo "********************************************************" \
+-	) || true
+ 
+-install-exec-hook:
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((chown $(highscore_user):$(highscore_group) $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-		&& ((mkdir -p $(DESTHIGHSCORES) && chown $(highscore_user):$(highscore_group) $(DESTHIGHSCORES) \
+-		&& chmod 750 $(DESTHIGHSCORES)) \
+-	|| echo "Error: Could not create the highscore directory with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((chown $(highscore_user):$(highscore_group) $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test ${setgid} = true \
+-        && ((chmod 2755  $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((touch $(DESTSCORES) && chown $(highscore_user):$(highscore_group) $(DESTSCORES) \
+-	&& chmod 0660 $(DESTSCORES)) \
+-	|| echo "Error: Could not create system-wide highscore file with correct permissions !!" \
+-	)) || true
+diff -urbB kdegames-3.5.0.org/kmines/Makefile.am kdegames-3.5.0/kmines/Makefile.am
+--- kdegames-3.5.0.org/kmines/Makefile.am	2005-09-10 08:18:28.000000000 +0000
++++ kdegames-3.5.0/kmines/Makefile.am	2005-11-24 17:37:35.735593672 +0000
+@@ -22,45 +22,3 @@
  DESTHIGHSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)
  DESTSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)/$(bin_PROGRAMS).scores
  
@@ -47,3 +193,51 @@ diff -urbB kdegames-3.5.0.org/kbounce/Makefile.am kdegames-3.5.0/kbounce/Makefil
 -	|| echo "Error: Could not create system-wide highscore file with correct permissions !!" \
 -	)) || true
 -
+diff -urbB kdegames-3.5.0.org/ksirtet/ksirtet/Makefile.am kdegames-3.5.0/ksirtet/ksirtet/Makefile.am
+--- kdegames-3.5.0.org/ksirtet/ksirtet/Makefile.am	2005-09-10 08:18:08.000000000 +0000
++++ kdegames-3.5.0/ksirtet/ksirtet/Makefile.am	2005-11-24 17:37:19.912999072 +0000
+@@ -33,44 +33,3 @@
+ DESTHIGHSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)
+ DESTSCORES = $(DESTDIR)$(HIGHSCORE_DIRECTORY)/$(bin_PROGRAMS).scores
+ 
+-install-data-local:
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-	&& echo "********************************************************" \
+-	&& echo "" \
+-	&& echo "This game is installed sgid \"games\" to use the" \
+-	&& echo "system-wide highscore file (in "$(HIGHSCORE_DIRECTORY)")." \
+-	&& echo "" \
+-	&& echo "If the system-wide highscore file does not exist, it is" \
+-        && echo "created with the correct ownership and permissions. See the" \
+-        && echo "INSTALL file in \"kdegames/libkdegames/highscore\" for details." \
+-	&& echo "" \
+-	&& echo "********************************************************" \
+-	) || true
+-
+-install-exec-hook:
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((chown $(highscore_user):$(highscore_group) $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-		&& ((mkdir -p $(DESTHIGHSCORES) && chown $(highscore_user):$(highscore_group) $(DESTHIGHSCORES) \
+-		&& chmod 750 $(DESTHIGHSCORES)) \
+-	|| echo "Error: Could not create the highscore directory with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((chown $(highscore_user):$(highscore_group) $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test ${setgid} = true \
+-        && ((chmod 2755  $(DESTBIN)) \
+-	|| echo "Error: Could not install the game with correct permissions !!" \
+-	)) || true
+-
+-	@(test x$(HIGHSCORE_DIRECTORY) != x \
+-        && ((touch $(DESTSCORES) && chown $(highscore_user):$(highscore_group) $(DESTSCORES) \
+-	&& chmod 0660 $(DESTSCORES)) \
+-	|| echo "Error: Could not create system-wide highscore file with correct permissions !!" \
+-	)) || true
