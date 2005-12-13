@@ -28,6 +28,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 # Source0-md5:	ba86fe9280ca57698ce3be0e0242b140
 Patch1:		kde-common-PLD.patch
 Patch2:		%{name}-disable_install-exec-hook.patch
+#BuildRequires:	unsermake
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -35,7 +36,6 @@ BuildRequires:	automake
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-#BuildRequires:	unsermake
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-megami
@@ -54,10 +54,10 @@ Summary:	Development files for KDE games
 Summary(pl):	Pliki przydatne twórcom gier dla KDE
 Summary(pt_BR):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= %{_minlibsevr}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-atlantik = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kolf = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description devel
 Development files for KDE games.
@@ -72,7 +72,7 @@ aplicativos que usam bibliotecas do kdegames.
 %package apidocs
 Summary:	API documentation
 Summary(pl):	Dokumentacja API
-Group:		Development/Docs
+Group:		Documentation
 Requires:	kdelibs >= %{_minlibsevr}
 
 %description apidocs
@@ -962,7 +962,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kfouleggs -f kfouleggs.lang
 %defattr(644,root,root,755)
 %if %{with highscore}
-%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kfouleggs.scores
+%attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/kfouleggs.scores
 %attr(2755,root,games) %{_bindir}/kfouleggs
 %else
 %attr(755,root,root) %{_bindir}/kfouleggs
@@ -991,7 +991,7 @@ rm -rf $RPM_BUILD_ROOT
 %files klickety -f klickety.lang
 %defattr(644,root,root,755)
 %if %{with highscore}
-%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/klickety.scores
+%attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/klickety.scores
 %attr(2755,root,games) %{_bindir}/klickety
 %else
 %attr(755,root,root) %{_bindir}/klickety
@@ -1020,7 +1020,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kmines -f kmines.lang
 %defattr(644,root,root,755)
 %if %{with highscore}
-%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/kmines.scores
+%attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/kmines.scores
 %attr(2755,root,games) %{_bindir}/kmines
 %else
 %attr(755,root,root) %{_bindir}/kmines
@@ -1101,7 +1101,7 @@ rm -rf $RPM_BUILD_ROOT
 %files ksirtet -f ksirtet.lang
 %defattr(644,root,root,755)
 %if %{with highscore}
-%attr(660,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/ksirtet.scores
+%attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/ksirtet.scores
 %attr(2755,root,games) %{_bindir}/ksirtet
 %else
 %attr(755,root,root) %{_bindir}/ksirtet
