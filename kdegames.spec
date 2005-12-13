@@ -813,7 +813,7 @@ rm -f *.lang
 
 %if %{with highscore}
 install -d $RPM_BUILD_ROOT/var/games
-touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
+touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet,bounce}.scores
 %endif
 
 %find_lang atlantik	--with-kde
@@ -947,7 +947,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kbounce -f kbounce.lang
 %defattr(644,root,root,755)
+%if %{with highscore}
+%attr(2755,root,games) %{_bindir}/kbounce
+%else
 %attr(755,root,root) %{_bindir}/kbounce
+%endif
+%attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/kbounce.scores
 %{_datadir}/apps/kbounce
 %{_desktopdir}/kde/kbounce.desktop
 %{_iconsdir}/[!l]*/*/*/kbounce*
