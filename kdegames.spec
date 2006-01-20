@@ -815,7 +815,7 @@ install -d $RPM_BUILD_ROOT/var/games
 touch $RPM_BUILD_ROOT/var/games/k{bounce}.scores
 
 %if %{with highscore}
-touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,reversi,sirtet}.scores
+touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}.scores
 %endif
 
 %find_lang atlantik	--with-kde
@@ -1039,7 +1039,12 @@ rm -rf $RPM_BUILD_ROOT
 %files knetwalk
 %defattr(644,root,root,755)
 %doc knetwalk/{AUTHORS,TODO}
-%attr(755,root,games) %{_bindir}/knetwalk
+%if %{with highscore}
+%attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/knetwalk.scores
+%attr(2755,root,games) %{_bindir}/knetwalk
+%else
+%attr(755,root,root) %{_bindir}/knetwalk
+%endif
 %{_datadir}/apps/knetwalk
 %{_desktopdir}/kde/lskat.desktop
 %{_iconsdir}/[!l]*/*/apps/knetwalk.png
