@@ -815,9 +815,8 @@ install -d $RPM_BUILD_ROOT/var/games
 touch $RPM_BUILD_ROOT/var/games/k{bounce}.scores
 
 %if %{with highscore}
-touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,sirtet}.scores
+touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,reversi,sirtet}.scores
 %endif
-
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
@@ -1083,7 +1082,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kreversi -f kreversi.lang
 %defattr(644,root,root,755)
+%if %{with highscore}
+%attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/kreversi.scores
 %attr(2755,root,games) %{_bindir}/kreversi
+%else
+%attr(755,root,root) %{_bindir}/kreversi
+%endif
 %{_datadir}/apps/kreversi
 %{_datadir}/config.kcfg/kreversi.kcfg
 %{_desktopdir}/kde/kreversi.desktop
