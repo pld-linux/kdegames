@@ -18,7 +18,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
@@ -1083,7 +1083,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kreversi -f kreversi.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kreversi
+%attr(2755,root,games) %{_bindir}/kreversi
 %{_datadir}/apps/kreversi
 %{_datadir}/config.kcfg/kreversi.kcfg
 %{_desktopdir}/kde/kreversi.desktop
