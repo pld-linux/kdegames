@@ -23,7 +23,6 @@ Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
-Icon:		kde-games.xpm
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	ba86fe9280ca57698ce3be0e0242b140
 Patch1:		kde-common-PLD.patch
