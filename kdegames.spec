@@ -811,7 +811,7 @@ rm -f *.lang
 	kde_libs_htmldir=%{_kdedocdir}
 
 install -d $RPM_BUILD_ROOT/var/games
-touch $RPM_BUILD_ROOT/var/games/k{bounce}.scores
+touch $RPM_BUILD_ROOT/var/games/kbounce.scores
 
 %if %{with highscore}
 touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}.scores
