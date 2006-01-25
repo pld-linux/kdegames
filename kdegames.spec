@@ -789,7 +789,7 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %configure \
 	--disable-rpath \
-	--enable-final \
+	--disable-final \
 	%{?with_highscore:--enable-highscore-dir=/var/games} \
 	--with-qt-libraries=%{_libdir} \
 %if "%{_lib}" == "lib64"
