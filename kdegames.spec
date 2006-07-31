@@ -18,13 +18,11 @@ Version:	3.5.4
 Release:	1
 Epoch:		8
 License:	GPL
-Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	60bb42c51c2e86a826188da457ed21d0
 Patch1:		kde-common-PLD.patch
 Patch2:		%{name}-disable_install-exec-hook.patch
-#BuildRequires:	unsermake
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -32,11 +30,12 @@ BuildRequires:	automake
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
+#BuildRequires:	unsermake
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdegames-kabalone
-Obsoletes:	kdegames-megami
 Obsoletes:	kdegames-kjezz
 Obsoletes:	kdegames-kpm
+Obsoletes:	kdegames-megami
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
