@@ -14,14 +14,14 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
-Version:	3.5.3
+Version:	3.5.4
 Release:	1
 Epoch:		8
 License:	GPL
 Vendor:		The KDE Team
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	17e8a2e28a0cb320486e3dc8ee45665f
+# Source0-md5:	60bb42c51c2e86a826188da457ed21d0
 Patch1:		kde-common-PLD.patch
 Patch2:		%{name}-disable_install-exec-hook.patch
 #BuildRequires:	unsermake
