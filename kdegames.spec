@@ -225,7 +225,7 @@ Gra polegaj±ca na pozyskiwaniu terenu wbrew przeciwnikom.
 
 %package kenolaba
 Summary:	Abalone-like board game against the computer
-Summary(pl):	Gra planszowa podobna do Abalone przeciwko komputerowi
+Summary(pl):	Gra planszowa podobna do Abalona przeciwko komputerowi
 Group:		X11/Applications/Games
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= %{_minbaseevr}
@@ -238,7 +238,7 @@ player has 14 pieces, moves are drawn until one player has pushed 6 of
 his opponent's pieces out of the board.
 
 %description kenolaba -l pl
-Gra planszowa podobna do Abalone przeciwko komputerowi. Kenolaba to
+Gra planszowa podobna do Abalona przeciwko komputerowi. Kenolaba to
 prosta planszowa gra strategiczna dla dwóch graczy. S± pionki czerwone
 i ¿ó³te dla obu graczy. Zaczyna siê z miejsca, gdzie ka¿dy gracz ma 14
 pionów i toczy siê dopóki który¶ z graczy wypchnie 6 pionów
