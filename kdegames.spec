@@ -14,15 +14,14 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDEÓÎÏ·
 Name:		kdegames
-Version:	3.5.4
-Release:	1
+Version:	3.5.5
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	60bb42c51c2e86a826188da457ed21d0
-Patch1:		kde-common-PLD.patch
-Patch2:		%{name}-disable_install-exec-hook.patch
+# Source0-md5:	1db8e3960ffb6af0a8d683756b89efa7
+Patch0:		kde-common-PLD.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -30,7 +29,6 @@ BuildRequires:	automake
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-#BuildRequires:	unsermake
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdegames-kabalone
 Obsoletes:	kdegames-kjezz
@@ -740,35 +738,8 @@ Jogo de cartas Lieutenant Skat para KDE
 %prep
 %setup -q
 %patch1 -p1
-%patch2 -p1
 
-%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
-	klickety/klickety.desktop
-%{__sed} -i -e 's/Terminal=0/Terminal=false/' \
-	atlantik/atlantik.desktop \
-	kasteroids/kasteroids.desktop \
-	kbackgammon/kbackgammon.desktop \
-	kblackbox/kblackbox.desktop \
-	kbattleship/kbattleship/kbattleship.desktop \
-	kgoldrunner/src/KGoldrunner.desktop \
-	kjumpingcube/kjumpingcube.desktop \
-	klines/klines.desktop \
-	kmahjongg/kmahjongg.desktop \
-	konquest/konquest.desktop \
-	kpoker/kpoker.desktop \
-	kreversi/kreversi.desktop \
-	ksmiletris/ksmiletris.desktop \
-	ksnake/ksnake.desktop \
-	kspaceduel/kspaceduel.desktop \
-	ksokoban/data/ksokoban.desktop \
-	ktron/ktron.desktop \
-	ktuberling/ktuberling.desktop \
-	kwin4/kwin4.desktop \
-	lskat/lskat.desktop
 for f in `find . -name \*.desktop`; do
-	if grep -q '^Categories=.*[^;]$' $f; then
-		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
-	fi
 	if grep -q '\[ven\]' $f; then
 		sed -i -e 's/\[ven\]/[ve]/' $f
 	fi
@@ -778,18 +749,17 @@ cp -p libkdegames/highscore/INSTALL README.highscore
 
 %build
 cp /usr/share/automake/config.sub admin
-export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
-	--disable-rpath \
+	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
+	%{!?debug:--disable-rpath} \
 	--disable-final \
 	%{?with_highscore:--enable-highscore-dir=/var/games} \
-	--with-qt-libraries=%{_libdir} \
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
-	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full}
+	--with-qt-libraries=%{_libdir}
 
 %{__make}
 %{?with_apidocs:%{__make} apidox}
@@ -800,8 +770,7 @@ rm -f *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	kde_htmldir=%{_kdedocdir}
 
 install -d $RPM_BUILD_ROOT/var/games
 touch $RPM_BUILD_ROOT/var/games/kbounce.scores
