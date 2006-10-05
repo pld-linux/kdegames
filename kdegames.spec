@@ -22,6 +22,7 @@ Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	1db8e3960ffb6af0a8d683756b89efa7
 Patch0:		kde-common-PLD.patch
+Patch1:		kde-ac260-lt.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -737,6 +738,7 @@ Jogo de cartas Lieutenant Skat para KDE
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 
 for f in `find . -name \*.desktop`; do
