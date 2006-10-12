@@ -23,6 +23,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 # Source0-md5:	1db8e3960ffb6af0a8d683756b89efa7
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
+Patch2:		%{name}-bashism.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -740,8 +741,9 @@ Jogo de cartas Lieutenant Skat para KDE
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
-for f in `find . -name \*.desktop`; do
+for f in $(find -name '*.desktop'); do
 	if grep -q '\[ven\]' $f; then
 		sed -i -e 's/\[ven\]/[ve]/' $f
 	fi
