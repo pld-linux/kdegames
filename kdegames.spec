@@ -1,3 +1,4 @@
+#
 # Conditional build:
 %bcond_without	apidocs		# do not prepare API documentation
 %bcond_without	highscore	# without system-wide score feature
