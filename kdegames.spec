@@ -39,6 +39,8 @@ Obsoletes:	kdegames-kpm
 Obsoletes:	kdegames-megami
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define         _noautoreq      libtool(.*)
+
 %description
 Libraries for kdegames which contain highscore support functions.
 
