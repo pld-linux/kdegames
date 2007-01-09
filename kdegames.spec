@@ -16,7 +16,7 @@ Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
 Version:	3.5.5
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
@@ -25,6 +25,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-bashism.patch
+Patch3:		kde-am.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -745,6 +746,7 @@ Jogo de cartas Lieutenant Skat para KDE
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 for f in $(find -name '*.desktop'); do
 	if grep -q '\[ven\]' $f; then
@@ -821,6 +823,8 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}
 # Omit apidocs entries
 sed -i 's/.*apidocs.*//' *.lang
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -836,7 +840,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README README.highscore
-%{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*.*
 %{_datadir}/apps/kdegames
 %{_iconsdir}/*/*/actions/endturn.png
@@ -845,10 +848,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%{_libdir}/libatlantic.la
 %attr(755,root,root) %{_libdir}/libatlantic.so
+%{_libdir}/libatlantikclient.la
 %attr(755,root,root) %{_libdir}/libatlantikclient.so
+%{_libdir}/libatlantikui.la
 %attr(755,root,root) %{_libdir}/libatlantikui.so
+%{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so
+%{_libdir}/libkolf.la
 %attr(755,root,root) %{_libdir}/libkolf.so
 %{_includedir}/*
 
@@ -865,13 +873,9 @@ rm -rf $RPM_BUILD_ROOT
 %files atlantik -f atlantik.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
-%{_libdir}/libatlantic.la
 %attr(755,root,root) %{_libdir}/libatlantic.so.*.*.*
-%{_libdir}/libatlantikclient.la
 %attr(755,root,root) %{_libdir}/libatlantikclient.so.*.*.*
-%{_libdir}/libatlantikui.la
 %attr(755,root,root) %{_libdir}/libatlantikui.so.*
-%{_libdir}/kde3/kio_atlantik.la
 %attr(755,root,root) %{_libdir}/kde3/kio_atlantik.so
 %{_datadir}/apps/atlantik
 %{_datadir}/services/atlantik.protocol
@@ -1020,11 +1024,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kolf -f kolf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
-%{_libdir}/libkdeinit_kolf.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kolf.so
-%{_libdir}/libkolf.la
 %attr(755,root,root) %{_libdir}/libkolf.so.*.*.*
-%{_libdir}/kde3/kolf.la
 %attr(755,root,root) %{_libdir}/kde3/kolf.so
 %{_datadir}/config/magic
 %{_datadir}/apps/kolf
