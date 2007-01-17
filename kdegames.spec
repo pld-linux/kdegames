@@ -15,17 +15,16 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
-Version:	3.5.5
-Release:	2
+Version:	3.5.6
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	1db8e3960ffb6af0a8d683756b89efa7
+# Source0-md5:	d6cdf7d9235896670d5299e9e91665e2
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-bashism.patch
-Patch3:		kde-am.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -746,7 +745,6 @@ Jogo de cartas Lieutenant Skat para KDE
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 for f in $(find -name '*.desktop'); do
 	if grep -q '\[ven\]' $f; then
@@ -1019,6 +1017,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %{_datadir}/apps/knetwalk
 %{_desktopdir}/kde/lskat.desktop
+%{_desktopdir}/kde/knetwalk.desktop
 %{_iconsdir}/[!l]*/*/apps/knetwalk.png
 
 %files kolf -f kolf.lang
