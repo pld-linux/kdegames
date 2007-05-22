@@ -15,13 +15,13 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
-Version:	3.5.6
-Release:	1
+Version:	3.5.7
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d6cdf7d9235896670d5299e9e91665e2
+# Source0-md5:	49ada123885195673d8bcbada4e9c82c
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-bashism.patch
