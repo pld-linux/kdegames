@@ -15,13 +15,13 @@ Summary(pl):	K Desktop Environment - gry
 Summary(pt_BR):	K Desktop Environment - Jogos
 Summary(zh_CN):	KDE”Œœ∑
 Name:		kdegames
-Version:	3.5.7
+Version:	3.5.8
 Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	49ada123885195673d8bcbada4e9c82c
+# Source0-md5:	786ee4e47820d92aef7db73424b9604c
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-bashism.patch
@@ -1007,10 +1007,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc knetwalk/{AUTHORS,TODO}
 %if %{with highscore}
 %attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/knetwalk.scores
-%attr(2755,root,games) %{_bindir}/knetwalk
-%else
-%attr(755,root,root) %{_bindir}/knetwalk
 %endif
+%attr(755,root,root) %{_bindir}/knetwalk
 %{_datadir}/apps/knetwalk
 %{_desktopdir}/kde/lskat.desktop
 %{_desktopdir}/kde/knetwalk.desktop
