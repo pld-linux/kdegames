@@ -15,13 +15,13 @@ Summary(pl.UTF-8):	K Desktop Environment - gry
 Summary(pt_BR.UTF-8):	K Desktop Environment - Jogos
 Summary(zh_CN.UTF-8):	KDE游戏
 Name:		kdegames
-Version:	3.5.8
-Release:	1
+Version:	3.5.9
+Release:	2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	786ee4e47820d92aef7db73424b9604c
+# Source0-md5:	472385f21a692270fb5643d7617c7ff3
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-bashism.patch
@@ -772,19 +772,30 @@ cp /usr/share/automake/config.sub admin
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-rm -f *.lang
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_htmldir=%{_kdedocdir}
 
-install -d $RPM_BUILD_ROOT/var/games
-touch $RPM_BUILD_ROOT/var/games/kbounce.scores
+	touch makeinstall.stamp
+fi
 
-%if %{with highscore}
-touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}.scores
-%endif
+if [ ! -f installed.stamp ]; then
+	install -d $RPM_BUILD_ROOT/var/games
+	touch $RPM_BUILD_ROOT/var/games/kbounce.scores
+
+	%if %{with highscore}
+	touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}.scores
+	%endif
+
+	# unsupported
+	rm -rf $RPM_BUILD_ROOT%{_iconsdir}/locolor
+
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	rm -f $RPM_BUILD_ROOT%{_libdir}/libkdeinit_kolf.la
+fi
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
@@ -819,9 +830,7 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}
 %find_lang lskat	--with-kde
 
 # Omit apidocs entries
-sed -i 's/.*apidocs.*//' *.lang
-
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+%{__sed} -i -e '/apidocs/d' *.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -839,6 +848,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README README.highscore
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkdegames.so.1
 %{_datadir}/apps/kdegames
 %{_iconsdir}/*/*/actions/endturn.png
 %{_iconsdir}/*/*/*/highscore.png
@@ -872,7 +882,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %attr(755,root,root) %{_libdir}/libatlantic.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libatlantic.so.1
 %attr(755,root,root) %{_libdir}/libatlantikclient.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libatlantikclient.so.1
 %attr(755,root,root) %{_libdir}/libatlantikui.so.*
 %attr(755,root,root) %{_libdir}/kde3/kio_atlantik.so
 %{_datadir}/apps/atlantik
@@ -927,7 +939,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/kbounce.scores
 %{_datadir}/apps/kbounce
 %{_desktopdir}/kde/kbounce.desktop
-%{_iconsdir}/[!l]*/*/*/kbounce*
+%{_iconsdir}/hicolor/*/*/kbounce*
 
 %files kenolaba -f kenolaba.lang
 %defattr(644,root,root,755)
@@ -1016,13 +1028,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/knetwalk
 %{_desktopdir}/kde/lskat.desktop
 %{_desktopdir}/kde/knetwalk.desktop
-%{_iconsdir}/[!l]*/*/apps/knetwalk.png
+%{_iconsdir}/hicolor/*/apps/knetwalk.png
 
 %files kolf -f kolf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
 %attr(755,root,root) %{_libdir}/libkdeinit_kolf.so
 %attr(755,root,root) %{_libdir}/libkolf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkolf.so.1
 %attr(755,root,root) %{_libdir}/kde3/kolf.so
 %{_datadir}/config/magic
 %{_datadir}/apps/kolf
@@ -1121,7 +1134,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kspaceduel
 %{_datadir}/config.kcfg/kspaceduel.kcfg
 %{_desktopdir}/kde/kspaceduel.desktop
-%{_iconsdir}/[!l]*/*/apps/kspaceduel.png
+%{_iconsdir}/hicolor/*/apps/kspaceduel.png
 
 %files ktron -f ktron.lang
 %defattr(644,root,root,755)
@@ -1152,4 +1165,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
 %{_desktopdir}/kde/lskat.desktop
-%{_iconsdir}/[!l]*/*/apps/lskat.png
+%{_iconsdir}/hicolor/*/apps/lskat.png
