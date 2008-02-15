@@ -940,7 +940,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/kbounce.scores
 %{_datadir}/apps/kbounce
 %{_desktopdir}/kde/kbounce.desktop
-%{_iconsdir}/[!l]*/*/*/kbounce*
+%{_iconsdir}/hicolor/*/*/kbounce*
 
 %files kenolaba -f kenolaba.lang
 %defattr(644,root,root,755)
@@ -1029,7 +1029,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/knetwalk
 %{_desktopdir}/kde/lskat.desktop
 %{_desktopdir}/kde/knetwalk.desktop
-%{_iconsdir}/[!l]*/*/apps/knetwalk.png
+%{_iconsdir}/hicolor/*/apps/knetwalk.png
 
 %files kolf -f kolf.lang
 %defattr(644,root,root,755)
@@ -1134,7 +1134,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kspaceduel
 %{_datadir}/config.kcfg/kspaceduel.kcfg
 %{_desktopdir}/kde/kspaceduel.desktop
-%{_iconsdir}/[!l]*/*/apps/kspaceduel.png
+%{_iconsdir}/hicolor/*/apps/kspaceduel.png
 
 %files ktron -f ktron.lang
 %defattr(644,root,root,755)
@@ -1165,4 +1165,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,games) %{_bindir}/lskatproc
 %{_datadir}/apps/lskat
 %{_desktopdir}/kde/lskat.desktop
-%{_iconsdir}/[!l]*/*/apps/lskat.png
+%{_iconsdir}/hicolor/*/apps/lskat.png
