@@ -777,19 +777,29 @@ cp /usr/share/automake/config.sub admin
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-rm -f *.lang
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_htmldir=%{_kdedocdir}
 
-install -d $RPM_BUILD_ROOT/var/games
-touch $RPM_BUILD_ROOT/var/games/kbounce.scores
+	touch makeinstall.stamp
+fi
 
-%if %{with highscore}
-touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}.scores
-%endif
+if [ ! -f installed.stamp ]; then
+	install -d $RPM_BUILD_ROOT/var/games
+	touch $RPM_BUILD_ROOT/var/games/kbounce.scores
+
+	%if %{with highscore}
+	touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}.scores
+	%endif
+
+	# unsupported
+	rm -rf $RPM_BUILD_ROOT%{_iconsdir}/locolor
+
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+fi
 
 %find_lang atlantik	--with-kde
 %find_lang kasteroids	--with-kde
@@ -824,9 +834,7 @@ touch $RPM_BUILD_ROOT/var/games/k{fouleggs,lickety,mines,netwalk,reversi,sirtet}
 %find_lang lskat	--with-kde
 
 # Omit apidocs entries
-sed -i 's/.*apidocs.*//' *.lang
-
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+%{__sed} -i -e '/apidocs/d' *.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
