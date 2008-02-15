@@ -1,3 +1,10 @@
+# TODO
+# - unpackaged
+#   /usr/lib/libatlantic.so.1
+#   /usr/lib/libatlantikclient.so.1
+#   /usr/lib/libkdegames.so.1
+#   /usr/lib/libkdeinit_kolf.la
+#   /usr/lib/libkolf.so.1
 #
 # Conditional build:
 %bcond_without	apidocs		# do not prepare API documentation
@@ -15,13 +22,13 @@ Summary(pl.UTF-8):	K Desktop Environment - gry
 Summary(pt_BR.UTF-8):	K Desktop Environment - Jogos
 Summary(zh_CN.UTF-8):	KDE游戏
 Name:		kdegames
-Version:	3.5.8
-Release:	1
+Version:	3.5.9
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	786ee4e47820d92aef7db73424b9604c
+# Source0-md5:	472385f21a692270fb5643d7617c7ff3
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-bashism.patch
