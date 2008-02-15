@@ -1,10 +1,3 @@
-# TODO
-# - unpackaged
-#   /usr/lib/libatlantic.so.1
-#   /usr/lib/libatlantikclient.so.1
-#   /usr/lib/libkdegames.so.1
-#   /usr/lib/libkdeinit_kolf.la
-#   /usr/lib/libkolf.so.1
 #
 # Conditional build:
 %bcond_without	apidocs		# do not prepare API documentation
@@ -23,7 +16,7 @@ Summary(pt_BR.UTF-8):	K Desktop Environment - Jogos
 Summary(zh_CN.UTF-8):	KDE游戏
 Name:		kdegames
 Version:	3.5.9
-Release:	0.1
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
@@ -799,6 +792,7 @@ if [ ! -f installed.stamp ]; then
 	rm -rf $RPM_BUILD_ROOT%{_iconsdir}/locolor
 
 	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	rm -f $RPM_BUILD_ROOT%{_libdir}/libkdeinit_kolf.la
 fi
 
 %find_lang atlantik	--with-kde
@@ -852,6 +846,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README README.highscore
 %attr(755,root,root) %{_libdir}/libkdegames.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkdegames.so.1
 %{_datadir}/apps/kdegames
 %{_iconsdir}/*/*/actions/endturn.png
 %{_iconsdir}/*/*/*/highscore.png
@@ -885,7 +880,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantik
 %attr(755,root,root) %{_libdir}/libatlantic.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libatlantic.so.1
 %attr(755,root,root) %{_libdir}/libatlantikclient.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libatlantikclient.so.1
 %attr(755,root,root) %{_libdir}/libatlantikui.so.*
 %attr(755,root,root) %{_libdir}/kde3/kio_atlantik.so
 %{_datadir}/apps/atlantik
@@ -1036,6 +1033,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kolf
 %attr(755,root,root) %{_libdir}/libkdeinit_kolf.so
 %attr(755,root,root) %{_libdir}/libkolf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkolf.so.1
 %attr(755,root,root) %{_libdir}/kde3/kolf.so
 %{_datadir}/config/magic
 %{_datadir}/apps/kolf
