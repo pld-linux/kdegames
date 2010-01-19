@@ -16,7 +16,7 @@ Summary(pt_BR.UTF-8):	K Desktop Environment - Jogos
 Summary(zh_CN.UTF-8):	KDE游戏
 Name:		kdegames
 Version:	3.5.10
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
@@ -25,6 +25,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-bashism.patch
+Patch3:		kde-am.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -745,6 +746,7 @@ Jogo de cartas Lieutenant Skat para KDE
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 for f in $(find -name '*.desktop'); do
 	if grep -q '\[ven\]' $f; then
