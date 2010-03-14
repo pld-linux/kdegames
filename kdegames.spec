@@ -772,6 +772,7 @@ cp /usr/share/automake/config.sub admin
 
 %{__make}
 %{?with_apidocs:%{__make} apidox}
+rm -f makeinstall.stamp
 
 %install
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
