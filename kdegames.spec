@@ -1,3 +1,6 @@
+# TODO
+# - unpackaged:
+#   /usr/share/mimelnk/application/x-tuberling.desktop
 #
 # Conditional build:
 %bcond_without	apidocs		# do not prepare API documentation
@@ -17,7 +20,7 @@ Summary(pt_BR.UTF-8):	K Desktop Environment - Jogos
 Summary(zh_CN.UTF-8):	KDE游戏
 Name:		kdegames
 Version:	3.5.10
-Release:	3
+Release:	4
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
@@ -803,10 +806,19 @@ if [ ! -f installed.stamp ]; then
 
 	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
 	rm -f $RPM_BUILD_ROOT%{_libdir}/libkdeinit_kolf.la
+
+	%if %{without arts}
+	rm -rf $RPM_BUILD_ROOT%{_docdir}/kde/HTML/en/kasteroids
+	rm -rf $RPM_BUILD_ROOT%{_docdir}/kde/HTML/en/kolf
+	%endif
 fi
 
-%find_lang atlantik	--with-kde
+%if %{with arts}
+%find_lang kolf		--with-kde
 %find_lang kasteroids	--with-kde
+%endif
+
+%find_lang atlantik	--with-kde
 %find_lang katomic	--with-kde
 %find_lang kbackgammon	--with-kde
 %find_lang kbattleship	--with-kde
@@ -820,7 +832,6 @@ fi
 %find_lang klines	--with-kde
 %find_lang kmahjongg	--with-kde
 %find_lang kmines	--with-kde
-%find_lang kolf		--with-kde
 %find_lang konquest	--with-kde
 %find_lang kpat		--with-kde
 %find_lang kpoker	--with-kde
@@ -872,7 +883,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libatlantikui.so
 %{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so
-%if %{with arts
+%if %{with arts}
 %{_libdir}/libkolf.la
 %attr(755,root,root) %{_libdir}/libkolf.so
 %endif
