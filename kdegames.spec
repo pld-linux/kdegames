@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	apidocs		# do not prepare API documentation
 %bcond_without	highscore	# without system-wide score feature
+%bcond_with	arts			# build with aRts support
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -41,6 +42,9 @@ Obsoletes:	kdegames-megami
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define         _noautoreq      libtool(.*)
+
+# build broken with spaces in CC
+%undefine	with_ccache
 
 %description
 Libraries for kdegames which contain highscore support functions.
@@ -768,6 +772,7 @@ cp /usr/share/automake/config.sub admin
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
+	--with%{!?with_arts:out}-arts \
 	--with-qt-libraries=%{_libdir}
 
 %{__make}
