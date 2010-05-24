@@ -17,7 +17,7 @@ Summary(pt_BR.UTF-8):	K Desktop Environment - Jogos
 Summary(zh_CN.UTF-8):	KDE游戏
 Name:		kdegames
 Version:	3.5.10
-Release:	2
+Release:	3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications/Games
@@ -59,7 +59,7 @@ Summary(pt_BR.UTF-8):	Arquivos de inclusão do kdegames
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-atlantik = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kolf = %{epoch}:%{version}-%{release}
+%{?with_arts:Requires:	%{name}-kolf = %{epoch}:%{version}-%{release}}
 Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description devel
@@ -872,8 +872,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libatlantikui.so
 %{_libdir}/libkdegames.la
 %attr(755,root,root) %{_libdir}/libkdegames.so
+%if %{with arts
 %{_libdir}/libkolf.la
 %attr(755,root,root) %{_libdir}/libkolf.so
+%endif
 %{_includedir}/*
 
 %if %{with apidocs}
@@ -900,6 +902,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/atlantik.desktop
 %{_iconsdir}/*/*/apps/atlantik.png
 
+%if %{with arts}
 %files kasteroids -f kasteroids.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kasteroids
@@ -907,6 +910,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config.kcfg/kasteroids.kcfg
 %{_desktopdir}/kde/kasteroids.desktop
 %{_iconsdir}/*/*/apps/kasteroids.png
+%endif
 
 %files katomic -f katomic.lang
 %defattr(644,root,root,755)
@@ -1038,6 +1042,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/knetwalk.desktop
 %{_iconsdir}/hicolor/*/apps/knetwalk.png
 
+%if %{with arts}
 %files kolf -f kolf.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolf
@@ -1050,6 +1055,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/*
 %{_desktopdir}/kde/kolf.desktop
 %{_iconsdir}/*/*/apps/kolf.png
+%endif
 
 %files konquest -f konquest.lang
 %defattr(644,root,root,755)
